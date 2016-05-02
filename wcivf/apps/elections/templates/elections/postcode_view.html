@@ -80,7 +80,9 @@
         <h3 class="card_subheader">{{ post.election.name }}</h3>
         {% if post.election.ballot_colour %}</div>{% endif %}
 
+        {% if post.election.description %}
         {{ post.election.description|markdown }}
+        {% endif %}
 
         {% if post.election.voting_system %}
         <details>
@@ -107,7 +109,6 @@
         {% if post.people %}
         <div class="clearfix row">
           <div class="columns large-12">
-            <p></p>
           {% if post.election.uses_lists %}
           <p>You will vote for your preferred party rather than a candidate on this ballot paper</p>
           {% include "elections/includes/_people_list_with_lists.html" with people=post.people %}

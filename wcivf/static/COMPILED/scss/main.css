@@ -7729,16 +7729,15 @@ body {
       max-width: 180px; } }
 
 .candidate_card {
-  background-color: #FEFEFE;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  background-color: #F6F6F6;
   -webkit-transition: all 250ms;
   -moz-transition: all 250ms;
-  margin: 0.4em;
-  padding: 0;
-  width: 350px;
-  height: 197px;
+  margin: 10px;
+  padding: 10px;
+  height: 13rem;
+  position: relative;
   float: left;
-  position: relative; }
+  width: 40%; }
   .candidate_card:hover {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     -webkit-transform: translateY(-5px);
@@ -7747,48 +7746,34 @@ body {
     z-index: 10; }
   @media screen and (max-width: 63.9375em) {
     .candidate_card {
-      width: 95%;
-      height: 260px; }
-      .candidate_card.candidate_card_list_candidate {
-        width: 110px; } }
-  .candidate_card header .candidate_info {
-    position: absolute;
-    top: 1.5em;
-    left: 1.5em;
-    font-size: 1em;
-    width: 205px; }
-    @media screen and (max-width: 63.9375em) {
-      .candidate_card header .candidate_info {
-        top: 110px;
-        left: 0;
-        width: 100%;
-        margin: 0.5em;
-        text-align: center; } }
+      float: none;
+      width: initial;
+      margin: 0 -10px 10px -10px; } }
+  @media screen and (max-width: 39.9375em) {
+    .candidate_card {
+      padding: 20px;
+      height: 17rem; } }
+  .candidate_card.candidate_card_list_candidate {
+    height: 13rem; }
+  .candidate_card header div.candidate_info {
+    padding: 20px 20px 0 20px; }
     @media screen and (max-width: 39.9375em) {
-      .candidate_card header .candidate_info {
-        width: 90%; } }
-    .candidate_card header .candidate_info h4.candidate_name {
-      font-size: 1.3em; }
-  .candidate_card header .candidate_list_position {
-    position: absolute;
-    top: 1.5em;
-    left: 0.5em;
+      .candidate_card header div.candidate_info {
+        text-align: center;
+        float: none; } }
+    .candidate_card header div.candidate_info h4.candidate_name {
+      font-size: 1.3rem; }
+  .candidate_card header a.person_photo {
+    float: right;
     display: block;
-    background-color: #FFF;
-    font-size: 2em; }
-  .candidate_card header .person_photo {
-    position: absolute;
-    top: 1.5em;
-    right: 1.5em;
-    display: block;
-    width: 100px; }
-    @media screen and (max-width: 63.9375em) {
-      .candidate_card header .person_photo {
-        top: 10px;
-        left: 0;
-        width: 100%;
-        text-align: center; }
-        .candidate_card header .person_photo img {
+    width: 100px;
+    margin: 20px; }
+    @media screen and (max-width: 39.9375em) {
+      .candidate_card header a.person_photo {
+        text-align: center;
+        float: none;
+        margin: auto; }
+        .candidate_card header a.person_photo img {
           width: 100px; } }
   .candidate_card footer {
     background-color: #E2E2E2;

@@ -72,8 +72,9 @@ body {
 
 
 
-.candidate_card,  {
-  background-color:#FEFEFE;
+.candidate_card {
+  background-color:#F6F6F6;
+
   &:hover {
     @include box_shadow(2);
     -webkit-transform: translateY(-5px);
@@ -81,75 +82,61 @@ body {
     transform: translateY(-5px);
     z-index:10;
   }
-  @include box_shadow(1);
   -webkit-transition: all 250ms;
   -moz-transition: all 250ms;
 
-  margin:0.4em;
-  padding:0;
-  width:350px;
-  height:197px;
-  float:left;
-  position:relative;
+  margin: 10px;
+  padding: 10px;
+  height: 13rem;
+  position: relative;
+  float: left;
+  width: 40%;
 
 //  &.candidate_card_list_candidate {
 //    width:255px;
 //  }
   @include breakpoint(medium down) {
-    width:95%;
-    height:260px;
-    &.candidate_card_list_candidate {
-      width:110px;
-    }
+    float: none;
+    width: initial;
+    margin: 0 -10px 10px -10px;
+  }
+  
+  @include breakpoint(small down) {
+    padding: 20px;
+    height: 17rem;
+  }
+
+  &.candidate_card_list_candidate {
+    height: 13rem;
   }
 
   header {
-    .candidate_info {
-      position:absolute;
-      top:1.5em;
-      left:1.5em;
-      font-size: 1em;
-      width: 205px;
+    div.candidate_info {
+      padding: 20px 20px 0 20px;
 
       @include breakpoint(medium down) {
-        top:110px;
-        left:0;
-        width:100%;
-        margin:0.5em;
-        text-align:center;
       }
       @include breakpoint(small down) {
-        width:90%;
+        text-align:center;
+        float: none;
       }
-
-
 
       h4.candidate_name {
-        font-size: 1.3em;
+        font-size: 1.3rem;
       }
-
     }
 
-    .candidate_list_position {
-      position:absolute;
-      top:1.5em;
-      left:0.5em;
-      display:block;
-      background-color:#FFF;
-      font-size:2em;
-    }
+    a.person_photo {
+      float: right;
+      display: block;
+      width: 100px;
+      margin: 20px;
 
-    .person_photo {
-      position:absolute;
-      top:1.5em;
-      right:1.5em;
-      display:block;
-      width:100px;
-      @include breakpoint(medium down) {
-        top:10px;
-        left:0;
-        width:100%;
+      @include breakpoint(small down) {
         text-align:center;
+        float: none;
+        margin: auto;
+
         img {
           width:100px;
         }
@@ -158,13 +145,13 @@ body {
   }
 
     footer {
-//      background-color:#263238;
       background-color:#E2E2E2;
       height:50px;
       position:absolute;
       bottom:0;
       left:0;
       right:0;
+
       .candidate_extra_info {
         position:absolute;
         bottom:15px;
