@@ -49,21 +49,26 @@ class Election(models.Model):
         delta = self.election_date - datetime.date.today()
 
         if delta.days == 0:
-            return "today"
+            return_str = "today"
         elif delta.days < 0:
             if delta.days == -1:
-                return "yesterday"
+                return_str = "yesterday"
             elif delta.days > -5:
-                return "{} days ago".format(delta.days)
+                return_str = "{} days ago".format(delta.days)
             else:
-                return "on {}".format(self.election_date.strftime("%A %-d %B %Y"))
+                return_str = "on {}".format(self.election_date.strftime("%A %-d %B %Y"))
         else:
             if delta.days == 1:
-                return "tomorrow"
+                return_str = "tomorrow"
             elif delta.days < 7:
-                return "in {} days".format(delta.days)
+                return_str = "in {} days".format(delta.days)
             else:
-                return "on {}".format(self.election_date.strftime("%A %-d %B %Y"))
+                return_str = "on {}".format(self.election_date.strftime("%A %-d %B %Y"))
+
+        if not return_str.startswith("on "):
+            return_str += " ({})".format(self.election_date.strftime("%A %-d %B %Y"))
+
+        return return_str
 
 
     @property
