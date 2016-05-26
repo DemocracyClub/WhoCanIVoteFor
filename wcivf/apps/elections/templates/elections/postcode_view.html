@@ -34,8 +34,7 @@ On {{ posts.0.election.election_date|date:"l" }} {{ posts.0.election.election_da
       {% else %}
         Your next election is
       {% endif %}
-      {{ header_elections_by_date.0.list.0.election.friendly_day }}
-      ({{ header_elections_by_date.0.list.0.election.election_date|date:"l j F Y" }}).
+      {{ header_elections_by_date.0.list.0.election.friendly_day }}.
       </p>
       <table>
         {% for election_group in header_elections_by_date %}
@@ -76,7 +75,7 @@ On {{ posts.0.election.election_date|date:"l" }} {{ posts.0.election.election_da
     {% for election_group in elections_by_date %}
     <div class="row">
       <div class="columns large-12">
-        <h2 style="margin: 2rem 0 0 0">{{ election_group.grouper }}</h2>
+        <h2 style="margin: 2rem 0 0 0">{{ election_group.grouper|date:"j F Y" }}</h2>
       </div>
     </div>
       {% for post in election_group.list %}
