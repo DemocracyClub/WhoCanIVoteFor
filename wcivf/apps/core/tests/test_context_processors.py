@@ -11,4 +11,4 @@ class SettingsTestCase(TestCase):
         context = context_processors.all_settings(None)
 
         for s in dir(settings):
-            self.assertEqual(getattr(settings, s), context[s])
+            self.assertEqual(getattr(settings, s), context['settings'][s])
