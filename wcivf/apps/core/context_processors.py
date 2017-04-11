@@ -8,7 +8,7 @@ def canonical_url(request):
 
 
 def all_settings(request):
-    return {x: getattr(s, x) for x in dir(s)}
+    return {x: getattr(settings, x) for x in dir(settings)}
 
 
 def use_compress_css(request):
