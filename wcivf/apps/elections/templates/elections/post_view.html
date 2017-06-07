@@ -12,7 +12,7 @@
 
   <h1>{{ object.post.label }}</h1>
 
-  <p>{{ object.post.label }} {% if object.election.in_past %}was{% else %}is{% endif %} a {% if object.election.name == '2017 General Election' %}constituency{% else %}post{% endif %} in the <a href="{{ object.election.get_absolute_url }}">{{ object.election.name }}{% if 'election' not in object.election.name %} election{% endif %}</a>, on {{ object.election.election_date }}.</p>
+  <p>{{ object.post.label }} {% if object.election.in_past %}was{% else %}is{% endif %} a {% if object.election.name == '2017 General Election' %}constituency{% else %}post{% endif %} in the <a href="{{ object.election.get_absolute_url }}">{{ object.election.name }}{% if 'election' not in object.election.name|lower %} Election{% endif %}</a>, on {{ object.election.election_date }}.</p>
 
   <div class="clearfix">
     {% if person_posts.all.count %}

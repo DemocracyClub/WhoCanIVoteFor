@@ -11,7 +11,7 @@
 <div class="card">
     <h1>{{ object.name }}</h1>
 
-    <p>The {{ object.name }}{% if 'election' not in object.name %} election{% endif %} {% if object.in_past %}was{% else %}will be{% endif %} held on <strong>{{ object.election_date }}</strong>.</p>
+    <p>The {{ object.name }}{% if 'election' not in object.name|lower %} Election{% endif %} {% if object.in_past %}was{% else %}will be{% endif %} held on <strong>{{ object.election_date }}</strong>.</p>
 
     {% if object.election_type != "ref" %}
         {% if election.person_set.count %}
