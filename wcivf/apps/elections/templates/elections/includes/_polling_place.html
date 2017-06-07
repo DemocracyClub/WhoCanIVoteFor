@@ -16,19 +16,23 @@
         <a href="{{ polling_station.custom_finder }}">
         following this link</a>.
     {% else %}
-      <p>You should get a "poll card" through the post telling you where to vote.</p>
-      <p>If you haven't got one, or aren't sure where to vote, you should call
-      {% if postcode|ni_postcode %}
-        the Electoral Office
-        {% if polling_station.council%}
-          on <a href="tel:{{ polling_station.council.phone }}">
-        {{ polling_station.council.phone }}</a>.</p>
-        {% endif %}
-      {% elif polling_station.council %}
-        {{ polling_station.council.name }} on <a href="tel:{{ polling_station.council.phone }}">
-        {{ polling_station.council.phone }}</a>.</p>
+      {% if polling_station.addresses %}
+        <p>Your polling station in {{ postcode }} depends on your address. <a href="https://wheredoivote.co.uk/postcode/{{ postcode }}/">Check the correct polling station for your address &raquo;</a></p>
       {% else %}
-        your local council.</p>
+        <p>You should get a "poll card" through the post telling you where to vote.</p>
+        <p>If you haven't got one, or aren't sure where to vote, you should call
+        {% if postcode|ni_postcode %}
+          the Electoral Office
+          {% if polling_station.council%}
+            on <a href="tel:{{ polling_station.council.phone }}">
+          {{ polling_station.council.phone }}</a>.</p>
+          {% endif %}
+        {% elif polling_station.council %}
+          {{ polling_station.council.name }} on <a href="tel:{{ polling_station.council.phone }}">
+          {{ polling_station.council.phone }}</a>.</p>
+        {% else %}
+          your local council.</p>
+        {% endif %}
       {% endif %}
     {% endif %}
     {% if postcode|ni_postcode %}
