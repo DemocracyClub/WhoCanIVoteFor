@@ -5,10 +5,7 @@
   <h2 id='where'>Where to vote</h2>
   {% if polling_station.polling_station_known %}
     <p>
-      Your polling station is <strong>{{ polling_station.polling_station.properties.address }}</strong>. It will be open from <strong>7am to 10pm</strong> on
-      <strong>
-      {% for election in elections_by_date %}{{ election.grouper|date:"l j F Y" }}{% if not forloop.last %}{% ifequal forloop.revcounter 2 %} and {% else %}, {% endifequal %}{% endif %}{% endfor %}</strong>.
-      You don't need to take your poll card with you{% if not postcode|ni_postcode %}, or any identification{% endif %}.
+      Your polling station is <strong>{{ polling_station.polling_station.properties.address }}</strong>.
     </p>
   {% else %}
     {% if polling_station.custom_finder %}
@@ -35,10 +32,13 @@
         {% endif %}
       {% endif %}
     {% endif %}
-    {% if postcode|ni_postcode %}
-        <p>You will need photographic identification.</p>
-    {% endif %}
   {% endif %}
+
+  <p>Your polling station will be open from <strong>7am to 10pm</strong> on
+  <strong>
+  {% for election in elections_by_date %}{{ election.grouper|date:"l j F Y" }}{% if not forloop.last %}{% ifequal forloop.revcounter 2 %} and {% else %}, {% endifequal %}{% endif %}{% endfor %}</strong>.
+  You don't need to take your poll card with you{% if postcode|ni_postcode %}. However, <strong>you will need photographic identification</strong>{% else %}, or any identification{% endif %}.</p>
+
   <p>
   {% if postcode|ni_postcode %}
       <a href="http://www.eoni.org.uk/Vote/Voting-at-a-polling-place" target="_top">
