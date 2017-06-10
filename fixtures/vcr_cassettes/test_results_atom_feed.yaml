@@ -1,0 +1,75 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Basic c3RhZ2U6aWxvdmVkZW1vY3JhY3k=]
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.9.1]
+    method: GET
+    uri: https://candidates.democracyclub.org.uk/results/all.atom
+  response:
+    body: {string: '<?xml version="1.0" encoding="utf-8"?>
+
+        <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-gb"><title>Election
+        results from Democracy Club Candidates (with extra data)</title><link href="https://candidates.democracyclub.org.uk/"
+        rel="alternate"></link><link href="https://candidates.democracyclub.org.uk/results/all.atom"
+        rel="self"></link><id>https://candidates.democracyclub.org.uk/</id><updated>2017-06-07T11:25:39+00:00</updated><entry><title>Tony
+        Hill (Liberal Democrats) won in Maidenhead</title><link href="https://candidates.democracyclub.org.uk/#4163"
+        rel="alternate"></link><published>2017-06-06T14:01:16+00:00</published><updated>2017-06-06T14:01:16+00:00</updated><author><name>mark</name></author><id>https://candidates.democracyclub.org.uk/#4163</id><summary
+        type="html">A Democracy Club Candidates volunteer recorded at 2017-06-06 14:01:16
+        that Tony Hill (Liberal Democrats) won the ballot in Maidenhead, quoting the
+        source ''[Quick update from the constituency page]''.</summary><retraction>0</retraction><election_slug>parl.2017-06-08</election_slug><election_name>2017
+        General Election</election_name><election_date>2017-06-06</election_date><post_id>WMC:E14000803</post_id><winner_person_id>2809</winner_person_id><winner_person_name>Tony
+        Hill</winner_person_name><winner_party_id>party:90</winner_party_id><winner_party_name>Liberal
+        Democrats</winner_party_name><user_id>1</user_id><post_name>Maidenhead</post_name><information_source>[Quick
+        update from the constituency page]</information_source><image_url>https://candidates.democracyclub.org.uk/media/images/5481e923b150e238702c0637.png</image_url></entry><entry><title>John
+        Bercow (Speaker seeking re-election) won in Buckingham</title><link href="https://candidates.democracyclub.org.uk/#4164"
+        rel="alternate"></link><published>2017-06-06T14:03:01+00:00</published><updated>2017-06-06T14:03:01+00:00</updated><author><name>mark</name></author><id>https://candidates.democracyclub.org.uk/#4164</id><summary
+        type="html">A Democracy Club Candidates volunteer recorded at 2017-06-06 14:03:01
+        that John Bercow (Speaker seeking re-election) won the ballot in Buckingham,
+        quoting the source ''[Quick update from the constituency page]''.</summary><retraction>0</retraction><election_slug>parl.2017-06-08</election_slug><election_name>2017
+        General Election</election_name><election_date>2017-06-06</election_date><post_id>WMC:E14000608</post_id><winner_person_id>357</winner_person_id><winner_person_name>John
+        Bercow</winner_person_name><winner_party_id>ynmp-party:12522</winner_party_id><winner_party_name>Speaker
+        seeking re-election</winner_party_name><user_id>1</user_id><post_name>Buckingham</post_name><information_source>[Quick
+        update from the constituency page]</information_source><image_url>https://candidates.democracyclub.org.uk/media/images/54bb1a51cb19ebca71e2af82.png</image_url><parlparse_id>uk.org.publicwhip/person/10040</parlparse_id></entry><entry><title>Correction:
+        retracting the statement that Tony Hill (Liberal Democrats) won in Maidenhead</title><link
+        href="https://candidates.democracyclub.org.uk/#4165" rel="alternate"></link><published>2017-06-06T18:35:00+00:00</published><updated>2017-06-06T18:35:00+00:00</updated><author><name>mark</name></author><id>https://candidates.democracyclub.org.uk/#4165</id><summary
+        type="html">At 2017-06-06 18:35:00, a Democracy Club Candidates volunteer
+        retracted the previous assertion that Tony Hill (Liberal Democrats) won the
+        ballot in Maidenhead, quoting the source ''Result recorded in error, retracting''.</summary><retraction>1</retraction><election_slug>parl.2017-06-08</election_slug><election_name>2017
+        General Election</election_name><election_date>2017-06-06</election_date><post_id>WMC:E14000803</post_id><winner_person_id>2809</winner_person_id><winner_person_name>Tony
+        Hill</winner_person_name><winner_party_id>party:90</winner_party_id><winner_party_name>Liberal
+        Democrats</winner_party_name><user_id>1</user_id><post_name>Maidenhead</post_name><information_source>Result
+        recorded in error, retracting</information_source><image_url>https://candidates.democracyclub.org.uk/media/images/5481e923b150e238702c0637.png</image_url></entry><entry><title>Theresa
+        May (Conservative and Unionist Party) won in Maidenhead</title><link href="https://candidates.democracyclub.org.uk/#4166"
+        rel="alternate"></link><published>2017-06-06T18:35:17+00:00</published><updated>2017-06-06T18:35:17+00:00</updated><author><name>mark</name></author><id>https://candidates.democracyclub.org.uk/#4166</id><summary
+        type="html">A Democracy Club Candidates volunteer recorded at 2017-06-06 18:35:17
+        that Theresa May (Conservative and Unionist Party) won the ballot in Maidenhead,
+        quoting the source ''[Quick update from the constituency page]''.</summary><retraction>0</retraction><election_slug>parl.2017-06-08</election_slug><election_name>2017
+        General Election</election_name><election_date>2017-06-06</election_date><post_id>WMC:E14000803</post_id><winner_person_id>2811</winner_person_id><winner_person_name>Theresa
+        May</winner_person_name><winner_party_id>party:52</winner_party_id><winner_party_name>Conservative
+        and Unionist Party</winner_party_name><user_id>1</user_id><post_name>Maidenhead</post_name><information_source>[Quick
+        update from the constituency page]</information_source><image_url>https://candidates.democracyclub.org.uk/media/images/553243d729c5d53959d9e46d.png</image_url><parlparse_id>uk.org.publicwhip/person/10426</parlparse_id></entry><entry><title>Gail
+        Kent (Liberal Democrats) won in Dulwich and West Norwood</title><link href="https://candidates.democracyclub.org.uk/#4167"
+        rel="alternate"></link><published>2017-06-07T11:25:39+00:00</published><updated>2017-06-07T11:25:39+00:00</updated><author><name>mark</name></author><id>https://candidates.democracyclub.org.uk/#4167</id><summary
+        type="html">A Democracy Club Candidates volunteer recorded at 2017-06-07 11:25:39
+        that Gail Kent (Liberal Democrats) won the ballot in Dulwich and West Norwood,
+        quoting the source ''[Quick update from the constituency page]''.</summary><retraction>0</retraction><election_slug>parl.2017-06-08</election_slug><election_name>2017
+        General Election</election_name><election_date>2017-06-06</election_date><post_id>WMC:E14000673</post_id><winner_person_id>34291</winner_person_id><winner_person_name>Gail
+        Kent</winner_person_name><winner_party_id>party:90</winner_party_id><winner_party_name>Liberal
+        Democrats</winner_party_name><user_id>1</user_id><post_name>Dulwich and West
+        Norwood</post_name><information_source>[Quick update from the constituency
+        page]</information_source><image_url>https://candidates.democracyclub.org.uk/media/images/images/34291.png</image_url></entry></feed>'}
+    headers:
+      Connection: [keep-alive]
+      Content-Language: [en]
+      Content-Type: [application/atom+xml; charset=utf-8]
+      Date: ['Wed, 07 Jun 2017 13:29:41 GMT']
+      Last-Modified: ['Wed, 07 Jun 2017 11:25:39 GMT']
+      Server: [nginx]
+      Vary: ['Accept-Language, Cookie']
+      X-Frame-Options: [SAMEORIGIN]
+    status: {code: 200, message: OK}
+version: 1

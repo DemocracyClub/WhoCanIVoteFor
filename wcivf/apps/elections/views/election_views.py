@@ -58,7 +58,9 @@ class PostView(DetailView):
         post_id = self.kwargs.get('post_id')
         election_id = self.kwargs.get('election_id')
         queryset = queryset.filter(
-            post__ynr_id=post_id, election__slug=election_id)
+            post__ynr_id=post_id, election__slug=election_id).select_related(
+                'post', 'election'
+            )
 
         try:
             # Get the single item from the filtered queryset
@@ -75,5 +77,13 @@ class PostView(DetailView):
         context['person_posts'] = peopleposts_for_election_post(
             election=context['election'],
             post=self.object.post
-        )
+        ).select_related(
+            'post',
+            'person',
+            'person__cv',
+            'party',
+        ).prefetch_related(
+            'person__leaflet_set'
+        ).order_by('elected')
+
         return context

@@ -115,6 +115,22 @@
   &.candidate_card_list_candidate {
     height: 13rem;
   }
+  &.person_elected {
+    width: 70%;
+    margin:0 auto 40px auto;
+    display:block;
+    @include media(desktop) {
+//      width: calc(100% - 25px);
+    }
+    @include media(mobile) {
+      width:100%;
+      padding: 0 0 0 15px;
+    }
+    .elected_text {
+      color:$dc-bright-pink;
+    }
+
+  }
 
   span.candidate_info {
     display: block;

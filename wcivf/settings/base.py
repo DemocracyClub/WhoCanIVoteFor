@@ -55,6 +55,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'robots',
     'api',
+    'results',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -193,6 +194,11 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'api.permissions.ReadOnly'
     ],
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        'rest_framework_jsonp.renderers.JSONPRenderer',
+    ),
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
 

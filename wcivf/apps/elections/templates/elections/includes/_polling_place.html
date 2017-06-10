@@ -1,21 +1,28 @@
 {# TODO this is a mess! Clean it up somehow #}
 {% load postcode_tags %}
+{% load humanize %}
+
 <div class="card" id="polling_place">
 
   <h2 id='where'>Where to vote</h2>
   {% if polling_station.polling_station_known %}
     <p>
-      Your polling station is <strong>{{ polling_station.polling_station.properties.address }}</strong>. It will be open from <strong>7am to 10pm</strong> on
+      Your polling station is <strong>{{ polling_station.polling_station.properties.address }}</strong>.
+      It will be open from <strong>7am to 10pm</strong>
       <strong>
-      {% for election in elections_by_date %}{{ election.grouper|date:"l j F Y" }}{% if not forloop.last %}{% ifequal forloop.revcounter 2 %} and {% else %}, {% endifequal %}{% endif %}{% endfor %}</strong>.
+      {% for election in elections_by_date %}{{ election.grouper|naturalday:"\o\n l j F Y" }}{% if not forloop.last %}{% ifequal forloop.revcounter 2 %} and {% else %}, {% endifequal %}{% endif %}{% endfor %}</strong>.
       You don't need to take your poll card with you{% if not postcode|ni_postcode %}, or any identification{% endif %}.
     </p>
   {% else %}
     {% if polling_station.custom_finder %}
         <p>You can find your polling station by
         <a href="{{ polling_station.custom_finder }}">
-        following this link</a>.
+        following this link</a>.</p>
     {% else %}
+      {% now "j F Y" as current_day %}
+      {% if elections_by_date and elections_by_date.0.grouper|date:"j F Y" == current_day %}
+      <strong>Polling stations are open from 7am till 10pm today.</strong>
+      {% endif %}
       {% if polling_station.addresses %}
         <p>Your polling station in {{ postcode }} depends on your address. <a href="https://wheredoivote.co.uk/postcode/{{ postcode }}/">Check the correct polling station for your address &raquo;</a></p>
       {% else %}

@@ -16,6 +16,7 @@ class PersonPost(models.Model):
     party = models.ForeignKey(Party, null=True)
     election = models.ForeignKey(Election, null=False)
     list_position = models.IntegerField(blank=True, null=True)
+    elected = models.NullBooleanField()
     objects = PersonPostManager()
 
     def __str__(self):

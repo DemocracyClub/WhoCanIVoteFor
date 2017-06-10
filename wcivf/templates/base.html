@@ -42,6 +42,17 @@
 {# </div> #}
 {# {% endblock bottom_banner %} #}
 
+{% block top_banner %}
+<main>
+  <div class="container">
+    <div class="card postcode_card">
+      <h2><a href="{% url "results_list_view" %}">Latest results</a></h2>
+    </div>
+  </div>
+</main>
+{% endblock top_banner %}
+
+
 {% block site_footer %}
 <footer class="hide_for_print">
   <div class="container">

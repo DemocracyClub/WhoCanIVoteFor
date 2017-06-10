@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block page_title %}Election results{% endblock page_title %}
+
+{% block page_meta %}
+ <meta http-equiv="refresh" content="60">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.dataTables.min.css" />
+{% endblock page_meta %}
+
+{% block content %}
+<section class="card">
+  <h1>Latest election results</h1>
+  <p>
+    <a href="http://odileeds.org/projects/ge2017/">
+      See these results on a map, thanks to our friends at ODI Leeds
+    </a>
+  </p>
+  <style>
+    .display td {
+      padding-bottom:2em;
+    }
+
+    .display td+td {
+      width:60%;
+    }
+  </style>
+  {% for election_dict in elections %}
+    <h2>{{ election_dict.election }}</h2>
+    <table id="{{ election_dict.election.name.split|join:"_" }}" class="display" width="100%">
+        <thead>
+            <tr>
+                <th>Constituency</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Constituency</th>
+                <th>Result</th>
+            </tr>
+        </tfoot>
+        <tbody>
+        {% for result in election_dict.results %}
+          <tr>
+          {% for person_post in result.person_posts.all %}
+            <td data-order="{{ result.rank_order }}">
+            {{ result.declaration_time|time:"H:i" }}:
+            <a href="{{ result.post_election.get_absolute_url }}">{{ person_post.post.area_name }}</a>
+            </td>
+            <td>
+                {% if person_post.person.photo_url %}
+                <img src="{{ person_post.person.photo_url }}" height="50px" width="50px" alt="{{ person_post.person.name }}" style="float: left; margin-right: 10px;" />
+                {% endif %}
+                {{ person_post.party.party_name }}: <a href="{{ person_post.person.get_absolute_url }}">{{ person_post.person.name }}</a>
+            </td>
+          {% empty %}
+            <td data-order="{{ result.rank_order }}">
+            Expected {{ result.expected_declaration_time|time:"H:i" }}:
+            <a href="{{ result.post_election.get_absolute_url }}">{{ result.post_election.post.area_name }}</a>
+            </td>
+            <td>
+            </td>
+          {% endfor %}
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% empty %}
+    <p>No results yet</p>
+    {% endfor %}
+
+</section>
+
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
+<script>
+$(document).ready(function() {
+    var tableId, table;
+    {% for election_dict in elections %}
+    {% if election_dict.results %}
+    tableId = '#' + '{{ election_dict.election.name.split|join:"_" }}';
+    table = $(tableId).DataTable({
+        bInfo : false,
+        pageLength: 50,
+        lengthChange: false
+    });
+    new $.fn.dataTable.Responsive(table, {
+        details: {
+            display: $.fn.dataTable.Responsive.display.childRowImmediate
+        }
+    });
+    {% endif %}
+    {% endfor %}
+});
+</script>
+{% endblock content %}

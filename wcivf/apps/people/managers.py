@@ -11,6 +11,9 @@ class PersonPostQuerySet(models.QuerySet):
     def by_party(self):
         return self.order_by('party__party_name', 'list_position')
 
+    def elected(self):
+        return self.filter(elected=True)
+
     def counts_by_post(self):
         return self.values(
             'post__label', 'post_id', 'election__slug', 'election__name')\
@@ -24,6 +27,9 @@ class PersonPostManager(models.Manager):
 
     def by_party(self):
         return self.get_queryset().by_party()
+
+    def elected(self):
+        return self.get_queryset().elected()
 
     def counts_by_post(self):
         return self.get_queryset().counts_by_post()

@@ -2,6 +2,7 @@
 {% load static %}
 {% load markdown_deux_tags %}
 {% load breadcrumb_tags %}
+{% load humanize %}
 
 {% block page_title %}{% include "people/includes/_person_meta_title.html" %}{% endblock page_title %}
 {% block page_description %}{% include "people/includes/_person_meta_description.html" %}{% endblock page_description %}
@@ -28,7 +29,7 @@
     {% if party.emblem %}
       <a href="{{ object.manifestos_2017.0.web_url }}"><img src="{{ party.ynr_emblem_url }}" class="manifesto_image"></a>
     {% endif %}
-    {{ object.name }} is the {{ party.party_name }} candidate. Find out more about their policies from the {{ party.party_name }} {{ object.personpost.election.name }}
+    {{ object.name }} {{ object.personpost.election.in_past|yesno:"was,is" }} the {{ party.party_name }} candidate. Find out more about their policies from the {{ party.party_name }} {{ object.personpost.election.name }}
     {% for manifesto in object.manifestos_2017 %}
     {{ manifesto|safe }}{% if not forloop.last %}{% ifequal forloop.revcounter 2 %} or {% else %}, {% endifequal %}{% else %}.{% endif %}
     {% endfor %}
@@ -87,7 +88,7 @@
       </a>
       {% endif %}
       <p>
-      Uploaded {{ leaflet.date_uploaded_to_electionleaflets|date:"j M Y" }}<br/>
+      Uploaded {{ leaflet.date_uploaded_to_electionleaflets|naturalday:"j M Y" }}<br/>
       <a href="https://electionleaflets.org/leaflets/{{ leaflet.leaflet_id }}">See leaflet</a>
       </p>
     </div>

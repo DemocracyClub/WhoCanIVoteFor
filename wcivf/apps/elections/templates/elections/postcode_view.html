@@ -20,7 +20,7 @@
     <h2>Elections in your area</h2>
 
     {% for election_group in header_elections_by_date %}
-        <h3>{{ election_group.grouper|date:"l j F Y" }}</h3>
+        <h3>{{ election_group.grouper|naturalday:"l j F Y" }}</h3>
 
         <p>
           You will have {{ election_group.list|length|apnumber }}
@@ -46,7 +46,24 @@
   <div id="election_{{ postelection.election.slug }}" class="card">
     <h2>Your candidates in the {{ postelection.election.name }}</h2>
 
-    <p>The {{ postelection.election.name }} will be held on <strong>{{ postelection.election.election_date|date:"l j F Y" }}</strong>. You can choose from <strong>{{ postelection.people|length }} candidates</strong> in the {{ postelection.post.label }} constituency. <a href='#where'>Where do I vote?</a></p>
+    <p>
+      The {{ postelection.election.name }}
+      {% now "j F Y" as current_day %}
+      {% if postelection.election.election_date|date:"j F Y" == current_day %}
+      <strong>is being held today</strong>. Polls are open till 10pm.
+      {% else %}
+      {{ postelection.election.is_past|yesno:"will be,was" }} held
+      <strong>{{ postelection.election.election_date|naturalday:"\o\n l j F Y" }}</strong>.
+      {% endif %}
+
+      {% if postelection.election.is_past %}
+      You can choose from <strong>{{ postelection.people|length }} candidates</strong>
+      in the {{ postelection.post.label }} constituency. <a href='#where'>Where do I vote?</a>
+      {% else %}
+      <strong>{{ postelection.people|length }} candidates</strong> stood in
+      {{ postelection.post.label }}&nbsp;constituency.
+      {% endif %}
+    </p>
 
     {% if not postelection.contested %}
     <div class="panel callout radius" style="background-color:#ffff99">

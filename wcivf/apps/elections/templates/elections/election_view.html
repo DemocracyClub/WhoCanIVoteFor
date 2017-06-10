@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load breadcrumb_tags %}
+{% load humanize %}
 
 {% block page_title %}{{ object.name }}{% endblock page_title %}
 {% block og_title %}{{ object.name }}{% endblock og_title %}
@@ -11,7 +12,14 @@
 <div class="card">
     <h1>{{ object.name }}</h1>
 
-    <p>The {{ object.name }}{% if 'election' not in object.name|lower %} Election{% endif %} {% if object.in_past %}was{% else %}will be{% endif %} held on <strong>{{ object.election_date }}</strong>.</p>
+    <p>The {{ object.name }}
+      {% now "j F Y" as current_day %}
+      {% if object.election_date|date:"j F Y" == current_day %}
+      <strong>is being held today</strong>. Polls are open till 10pm.
+      {% else %}
+      {% if object.in_past %}was{% else %}will be{% endif %} held <strong>{{ object.election_date|naturalday:"\o\n l j F Y" }}</strong>.
+      {% endif %}
+    </p>
 
     {% if object.election_type != "ref" %}
         {% if election.person_set.count %}

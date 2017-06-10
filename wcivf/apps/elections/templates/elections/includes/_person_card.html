@@ -1,7 +1,5 @@
 {% load static %}
-
-  <section class="candidate_card {% if person_post.post.election.uses_lists %}candidate_card_list_candidate{% endif %}">
-
+  <section class="candidate_card {% if person_post.post.election.uses_lists %}candidate_card_list_candidate{% endif %} {% if person_post.elected %}person_elected{% endif %}">
     <a href="{{ person_post.person.get_absolute_url }}">
     <span class="person_photo">
       {% if person_post.person.photo_url %}
@@ -21,7 +19,9 @@
           {% if person_post.list_position %}
             {{ person_post.list_position }}.
           {% endif %}
+          {% if person_post.elected %}🌟 <span class="elected_text">Elected:</span> {% endif %}
           {{ person_post.person.name }}
+          {% if person_post.elected %}🌟{% endif %}
         </span>
       </h4>
 

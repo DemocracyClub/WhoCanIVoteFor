@@ -17,5 +17,7 @@ django-robots
 django-debug-toolbar
 gocardless==0.5.3
 
-git+git://github.com/DemocracyClub/dc_base_theme.git@e8e3820328c38b64c7b00146c29be6360db49ec4
+git+git://github.com/DemocracyClub/dc_base_theme.git@7c2bc0b01024cb9115953b6e8b6752eaf7412f07
 libsass
+djangorestframework-jsonp
+feedparser

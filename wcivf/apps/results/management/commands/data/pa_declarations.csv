@@ -1,0 +1,651 @@
+id,constituency,time
+320,Houghton & Sunderland South,23:00
+551,Sunderland Central,23:30
+603,Washington & Sunderland West,00:01
+341,Kettering,00:30
+560,Swindon North,00:30
+14,Antrim North,01:00
+38,Battersea,01:00
+255,Foyle,01:00
+414,Newcastle upon Tyne Central,01:00
+415,Newcastle upon Tyne East,01:00
+435,Nuneaton,01:00
+462,Putney,01:00
+106,Broxbourne,01:30
+176,Darlington,01:30
+347,Lagan Valley,01:30
+561,Swindon South,01:30
+562,Tamworth,01:30
+574,Tooting,01:30
+584,Tyrone West,01:30
+641,Wrexham,01:30
+12,Angus,02:00
+13,Antrim East,02:00
+45,Belfast East,02:00
+71,Blaenau Gwent,02:00
+111,Bury North,02:00
+112,Bury South,02:00
+121,Cambridgeshire North West,02:00
+131,Carmarthen East & Dinefwr,02:00
+135,Ceredigion,02:00
+154,Clwyd South,02:00
+202,Down North,02:00
+223,"East Kilbride, Strathaven & Lesmahagow",02:00
+239,Epping Forest,02:00
+245,Falkirk,02:00
+246,Fareham,02:00
+250,Fife North East,02:00
+269,Glenrothes,02:00
+285,Halton,02:00
+298,Hastings & Rye,02:00
+339,Kenilworth & Southam,02:00
+342,Kilmarnock & Loudoun,02:00
+345,Kirkcaldy & Cowdenbeath,02:00
+375,Llanelli,02:00
+407,Na h-Eileanan an Iar,02:00
+416,Newcastle upon Tyne North,02:00
+443,Oxford East,02:00
+451,Peterborough,02:00
+471,Ribble Valley,02:00
+487,Rutherglen & Hamilton West,02:00
+542,Strangford,02:00
+552,Surrey East,02:00
+571,Thurrock,02:00
+586,Upper Bann,02:00
+15,Antrim South,02:30
+16,Arfon,02:30
+109,Burnley,02:30
+114,Caerphilly,02:30
+134,Castle Point,02:30
+211,Dundee East,02:30
+212,Dundee West,02:30
+296,Hartlepool,02:30
+330,Inverclyde,02:30
+334,Islington North,02:30
+335,Islington South & Finsbury,02:30
+361,Leigh,02:30
+379,Ludlow,02:30
+399,Mitcham & Morden,02:30
+402,Montgomeryshire,02:30
+406,Motherwell & Wishaw,02:30
+446,Paisley & Renfrewshire South,02:30
+522,South Shields,02:30
+533,Stirling,02:30
+564,Taunton Deane,02:30
+576,Torfaen,02:30
+577,Totnes,02:30
+588,Vale of Clwyd,02:30
+602,Warwickshire North,02:30
+621,Wimbledon,02:30
+647,Ynys Mon,02:30
+1,Aberavon,03:00
+2,Aberconwy,03:00
+6,Airdrie & Shotts,03:00
+10,Alyn & Deeside,03:00
+11,Amber Valley,03:00
+25,Ayrshire North & Arran,03:00
+28,Barking,03:00
+29,Barnsley Central,03:00
+30,Barnsley East,03:00
+32,Basildon & Billericay,03:00
+33,Basildon South & Thurrock East,03:00
+46,Belfast North,03:00
+47,Belfast South,03:00
+48,Belfast West,03:00
+55,Bexleyheath & Crayford,03:00
+66,Bishop Auckland,03:00
+67,Blackburn,03:00
+76,Bolton North East,03:00
+77,Bolton South East,03:00
+79,Bootle,03:00
+82,Bournemouth East,03:00
+83,Bournemouth West,03:00
+89,Brecon & Radnorshire,03:00
+90,Brent Central,03:00
+91,Brent North,03:00
+100,Bristol North West,03:00
+110,Burton,03:00
+125,Canterbury,03:00
+130,Carlisle,03:00
+149,Chorley,03:00
+150,Christchurch,03:00
+153,Cleethorpes,03:00
+155,Clwyd West,03:00
+156,"Coatbridge, Chryston & Bellshill",03:00
+165,Coventry North East,03:00
+166,Coventry North West,03:00
+167,Coventry South,03:00
+168,Crawley,03:00
+174,Cynon Valley,03:00
+175,Dagenham & Rainham,03:00
+179,Delyn,03:00
+182,Derby South,03:00
+186,Derbyshire South,03:00
+209,Dunbartonshire East,03:00
+210,Dunbartonshire West,03:00
+213,Dunfermline & Fife West,03:00
+217,Dwyfor Meirionnydd,03:00
+218,Ealing Central & Acton,03:00
+219,Ealing North,03:00
+220,Ealing Southall,03:00
+221,Easington,03:00
+224,East Lothian,03:00
+226,Eastleigh,03:00
+238,Enfield Southgate,03:00
+241,Erewash,03:00
+244,Exeter,03:00
+262,Glasgow Central,03:00
+263,Glasgow East,03:00
+264,Glasgow North,03:00
+265,Glasgow North East,03:00
+266,Glasgow North West,03:00
+267,Glasgow South,03:00
+268,Glasgow South West,03:00
+272,Gosport,03:00
+286,Hammersmith,03:00
+290,Hampstead & Kilburn,03:00
+293,Harrogate & Knaresborough,03:00
+299,Havant,03:00
+309,Hertfordshire North East,03:00
+316,Holborn & St Pancras,03:00
+318,Hornsey & Wood Green,03:00
+323,Hull East,03:00
+324,Hull North,03:00
+325,Hull West & Hessle,03:00
+326,Huntingdon,03:00
+327,Hyndburn,03:00
+333,Isle of Wight,03:00
+336,Islwyn,03:00
+337,Jarrow,03:00
+346,Knowsley,03:00
+348,Lanark & Hamilton East,03:00
+385,Makerfield,03:00
+393,Merthyr Tydfil & Rhymney,03:00
+394,Middlesbrough,03:00
+396,Midlothian,03:00
+403,Moray,03:00
+408,Neath,03:00
+417,Newport East,03:00
+418,Newport West,03:00
+427,Northampton North,03:00
+428,Northampton South,03:00
+436,Ochil & Perthshire South,03:00
+445,Paisley & Renfrewshire North,03:00
+450,Perth & Perthshire North,03:00
+469,Renfrewshire East,03:00
+470,Rhondda,03:00
+476,Rochford & Southend East,03:00
+481,Rother Valley,03:00
+482,Rotherham,03:00
+519,Somerton & Frome,03:00
+525,Southend West,03:00
+528,Stafford,03:00
+535,Stockton North,03:00
+540,Stone,03:00
+544,Streatham,03:00
+558,Swansea East,03:00
+559,Swansea West,03:00
+565,Telford,03:00
+575,Torbay,03:00
+601,Warwick & Leamington,03:00
+604,Watford,03:00
+608,Wellingborough,03:00
+611,Wentworth & Dearne,03:00
+616,Westmorland & Lonsdale,03:00
+633,Worcester,03:00
+7,Aldershot,03:30
+72,Blaydon,03:30
+122,Cambridgeshire South,03:30
+151,Cities of London & Westminster,03:30
+152,Clacton,03:30
+201,Dover,03:30
+206,Dulwich & West Norwood,03:30
+207,Dumfries & Galloway,03:30
+208,"Dumfriesshire, Clydesdale & Tweeddale",03:30
+214,"Durham, City of",03:30
+215,Durham North,03:30
+216,Durham North West,03:30
+233,Edmonton,03:30
+237,Enfield North,03:30
+276,Great Grimsby,03:30
+292,Harlow,03:30
+313,Heywood & Middleton,03:30
+328,Ilford North,03:30
+329,Ilford South,03:30
+368,Lincoln,03:30
+369,Linlithgow & Falkirk East,03:30
+374,Livingston,03:30
+386,Maldon,03:30
+390,Mansfield,03:30
+412,Newbury,03:30
+449,Penrith & The Border,03:30
+460,Preston,03:30
+466,Redcar,03:30
+468,Reigate,03:30
+474,Rochdale,03:30
+499,Sedgefield,03:30
+510,Shrewsbury & Atcham,03:30
+515,Slough,03:30
+536,Stockton South,03:30
+570,Thornbury & Yate,03:30
+580,Tunbridge Wells,03:30
+585,Ulster Mid,03:30
+590,Vauxhall,03:30
+592,Wallasey,03:30
+598,Warley,03:30
+610,Welwyn Hatfield,03:30
+612,West Bromwich East,03:30
+613,West Bromwich West,03:30
+615,Westminster North,03:30
+618,Wigan,03:30
+636,Workington,03:30
+640,"Wrekin, The",03:30
+642,Wycombe,03:30
+643,Wyre & Preston North,03:30
+3,Aberdeen North,04:00
+4,Aberdeen South,04:00
+5,Aberdeenshire West & Kincardine,04:00
+8,Aldridge-Brownhills,04:00
+23,"Ayr, Carrick & Cumnock",04:00
+24,Ayrshire Central,04:00
+27,Banff & Buchan,04:00
+31,Barrow & Furness,04:00
+35,Bassetlaw,04:00
+36,Bath,04:00
+40,Beckenham,04:00
+49,Bermondsey & Old Southwark,04:00
+52,Bethnal Green & Bow,04:00
+53,Beverley & Holderness,04:00
+56,Birkenhead,04:00
+62,Birmingham Northfield,04:00
+68,Blackley & Broughton,04:00
+78,Bolton West,04:00
+81,Bosworth,04:00
+84,Bracknell,04:00
+93,Brentwood & Ongar,04:00
+104,Bromley & Chislehurst,04:00
+107,Broxtowe,04:00
+117,Camberwell & Peckham,04:00
+124,Cannock Chase,04:00
+126,Cardiff Central,04:00
+127,Cardiff North,04:00
+128,Cardiff South & Penarth,04:00
+129,Cardiff West,04:00
+132,Carmarthen West & Pembrokeshire South,04:00
+133,Carshalton & Wallington,04:00
+139,Chelmsford,04:00
+140,Chelsea & Fulham,04:00
+141,Cheltenham,04:00
+142,Chesham & Amersham,04:00
+144,Chesterfield,04:00
+146,Chingford & Woodford Green,04:00
+157,Colchester,04:00
+160,Copeland,04:00
+170,Croydon Central,04:00
+171,Croydon North,04:00
+172,Croydon South,04:00
+173,"Cumbernauld, Kilsyth & Kirkintilloch East",04:00
+184,Derbyshire Mid,04:00
+194,Don Valley,04:00
+204,Dudley North,04:00
+205,Dudley South,04:00
+222,East Ham,04:00
+228,Edinburgh East,04:00
+229,Edinburgh North & Leith,04:00
+230,Edinburgh South,04:00
+231,Edinburgh South West,04:00
+232,Edinburgh West,04:00
+236,Eltham,04:00
+242,Erith & Thamesmead,04:00
+243,Esher & Walton,04:00
+248,Feltham & Heston,04:00
+253,Folkestone & Hythe,04:00
+256,Fylde,04:00
+258,Garston & Halewood,04:00
+259,Gateshead,04:00
+260,Gedling,04:00
+270,Gloucester,04:00
+271,Gordon,04:00
+273,Gower,04:00
+278,Greenwich & Woolwich,04:00
+280,Hackney North & Stoke Newington,04:00
+282,Halesowen & Rowley Regis,04:00
+284,Haltemprice & Howden,04:00
+289,Hampshire North West,04:00
+297,Harwich & Essex North,04:00
+300,Hayes & Harlington,04:00
+304,Hendon,04:00
+307,Herefordshire North,04:00
+308,Hertford & Stortford,04:00
+310,Hertfordshire South West,04:00
+311,Hertsmere,04:00
+314,High Peak,04:00
+317,Hornchurch & Upminster,04:00
+332,Ipswich,04:00
+340,Kensington,04:00
+349,Lancashire West,04:00
+359,Leicestershire North West,04:00
+364,Lewisham East,04:00
+365,Lewisham West & Penge,04:00
+366,Leyton & Wanstead,04:00
+367,Lichfield,04:00
+370,Liverpool Riverside,04:00
+372,Liverpool Wavertree,04:00
+373,Liverpool West Derby,04:00
+376,Londonderry East,04:00
+392,Meriden,04:00
+401,Monmouth,04:00
+413,Newcastle-under-Lyme,04:00
+421,Norfolk Mid,04:00
+424,Norfolk South,04:00
+431,Norwich South,04:00
+437,Ogmore,04:00
+438,Old Bexley & Sidcup,04:00
+442,Orpington,04:00
+447,Pendle,04:00
+452,Plymouth Moor View,04:00
+453,Plymouth Sutton & Devonport,04:00
+454,Pontypridd,04:00
+456,Poplar & Limehouse,04:00
+459,Preseli Pembrokeshire,04:00
+463,Rayleigh & Wickford,04:00
+473,Richmond Park,04:00
+477,Romford,04:00
+480,Rossendale & Darwen,04:00
+484,"Ruislip, Northwood & Pinner",04:00
+485,Runnymede & Weybridge,04:00
+489,Saffron Walden,04:00
+492,St Helens North,04:00
+493,St Helens South & Whiston,04:00
+496,Salisbury,04:00
+498,Scunthorpe,04:00
+502,Sevenoaks,04:00
+511,Shropshire North,04:00
+513,Skipton & Ripon,04:00
+516,Solihull,04:00
+526,Southport,04:00
+530,Staffordshire South,04:00
+532,Stevenage,04:00
+537,Stoke-on-Trent Central,04:00
+538,Stoke-on-Trent North,04:00
+539,Stoke-on-Trent South,04:00
+543,Stratford-on-Avon,04:00
+546,Stroud,04:00
+550,Suffolk West,04:00
+556,Sutton & Cheam,04:00
+557,Sutton Coldfield,04:00
+573,Tonbridge & Malling,04:00
+578,Tottenham,04:00
+581,Twickenham,04:00
+587,Uxbridge & Ruislip South,04:00
+589,Vale of Glamorgan,04:00
+593,Walsall North,04:00
+594,Walsall South,04:00
+595,Walthamstow,04:00
+606,Wealden,04:00
+614,West Ham,04:00
+617,Weston-Super-Mare,04:00
+620,Wiltshire South West,04:00
+624,Wirral South,04:00
+626,Witham,04:00
+628,Woking,04:00
+634,Worcestershire Mid,04:00
+635,Worcestershire West,04:00
+645,Wythenshawe & Sale East,04:00
+646,Yeovil,04:00
+17,Argyll & Bute,04:30
+58,Birmingham Erdington,04:30
+69,Blackpool North & Cleveleys,04:30
+70,Blackpool South,04:30
+75,Bolsover,04:30
+113,Bury St Edmunds,04:30
+148,Chipping Barnet,04:30
+161,Corby,04:30
+225,Eastbourne,04:30
+227,Eddisbury,04:30
+251,Filton & Bradley Stoke,04:30
+287,Hampshire East,04:30
+351,Leeds Central,04:30
+352,Leeds East,04:30
+363,Lewisham Deptford,04:30
+383,Maidenhead,04:30
+400,Mole Valley,04:30
+419,Newry & Armagh,04:30
+420,Newton Abbot,04:30
+467,Redditch,04:30
+478,Romsey & Southampton North,04:30
+497,Scarborough & Whitby,04:30
+501,Selby & Ainsty,04:30
+503,Sheffield Brightside & Hillsborough,04:30
+504,Sheffield Central,04:30
+505,Sheffield Hallam,04:30
+506,Sheffield Heeley,04:30
+507,Sheffield South East,04:30
+517,Somerset North,04:30
+520,South Holland & The Deepings,04:30
+521,South Ribble,04:30
+529,Staffordshire Moorlands,04:30
+547,Suffolk Central & Ipswich North,04:30
+548,Suffolk Coastal,04:30
+553,Surrey Heath,04:30
+554,Surrey South West,04:30
+569,Thirsk & Malton,04:30
+582,Tynemouth,04:30
+583,Tyneside North,04:30
+607,Weaver Vale,04:30
+623,Windsor,04:30
+627,Witney,04:30
+630,Wolverhampton North East,04:30
+631,Wolverhampton South East,04:30
+632,Wolverhampton South West,04:30
+9,Altrincham & Sale West,05:00
+19,Ashfield,05:00
+20,Ashford,05:00
+26,Banbury,05:00
+34,Basingstoke,05:00
+37,Batley & Spen,05:00
+39,Beaconsfield,05:00
+41,Bedford,05:00
+42,Bedfordshire Mid,05:00
+54,Bexhill & Battle,05:00
+60,Birmingham Hodge Hill,05:00
+61,Birmingham Ladywood,05:00
+64,Birmingham Selly Oak,05:00
+65,Birmingham Yardley,05:00
+80,Boston & Skegness,05:00
+85,Bradford East,05:00
+87,Bradford West,05:00
+88,Braintree,05:00
+92,Brentford & Isleworth,05:00
+94,Bridgend,05:00
+96,Brigg & Goole,05:00
+99,Bristol East,05:00
+101,Bristol South,05:00
+102,Bristol West,05:00
+115,"Caithness, Sutherland & Easter Ross",05:00
+116,Calder Valley,05:00
+119,Cambridge,05:00
+136,Charnwood,05:00
+138,Cheadle,05:00
+143,"Chester, City of",05:00
+145,Chichester,05:00
+158,Colne Valley,05:00
+177,Dartford,05:00
+178,Daventry,05:00
+183,Derbyshire Dales,05:00
+190,Devon North,05:00
+193,Dewsbury,05:00
+195,Doncaster Central,05:00
+196,Doncaster North,05:00
+199,Dorset South,05:00
+200,Dorset West,05:00
+203,Down South,05:00
+234,Ellesmere Port & Neston,05:00
+240,Epsom & Ewell,05:00
+247,Faversham & Kent Mid,05:00
+249,Fermanagh & South Tyrone,05:00
+252,Finchley & Golders Green,05:00
+274,Grantham & Stamford,05:00
+279,Guildford,05:00
+283,Halifax,05:00
+288,Hampshire North East,05:00
+294,Harrow East,05:00
+295,Harrow West,05:00
+301,Hazel Grove,05:00
+303,Hemsworth,05:00
+306,Hereford & Herefordshire South,05:00
+312,Hexham,05:00
+315,Hitchin & Harpenden,05:00
+331,"Inverness, Nairn, Badenoch & Strathspey",05:00
+343,Kingston & Surbiton,05:00
+344,Kingswood,05:00
+355,Leeds West,05:00
+362,Lewes,05:00
+371,Liverpool Walton,05:00
+377,Loughborough,05:00
+378,Louth & Horncastle,05:00
+384,Maidstone & The Weald,05:00
+387,Manchester Central,05:00
+388,Manchester Gorton,05:00
+389,Manchester Withington,05:00
+395,Middlesbrough South & Cleveland East,05:00
+409,New Forest East,05:00
+410,New Forest West,05:00
+411,Newark,05:00
+422,Norfolk North,05:00
+426,"Normanton, Pontefract & Castleford",05:00
+429,Northamptonshire South,05:00
+432,Nottingham East,05:00
+433,Nottingham North,05:00
+434,Nottingham South,05:00
+440,Oldham West & Royton,05:00
+441,Orkney & Shetland,05:00
+448,Penistone & Stocksbridge,05:00
+455,Poole,05:00
+461,Pudsey,05:00
+472,Richmond (Yorks),05:00
+479,"Ross, Skye & Lochaber",05:00
+483,Rugby,05:00
+486,Rushcliffe,05:00
+488,Rutland & Melton,05:00
+490,St Albans,05:00
+495,Salford & Eccles,05:00
+500,Sefton Central,05:00
+508,Sherwood,05:00
+514,Sleaford & North Hykeham,05:00
+518,Somerset North East,05:00
+527,Spelthorne,05:00
+534,Stockport,05:00
+541,Stourbridge,05:00
+545,Stretford & Urmston,05:00
+549,Suffolk South,05:00
+555,Sussex Mid,05:00
+591,Wakefield,05:00
+599,Warrington North,05:00
+609,Wells,05:00
+625,Wirral West,05:00
+629,Wokingham,05:00
+637,Worsley & Eccles South,05:00
+644,Wyre Forest,05:00
+650,Yorkshire East,05:00
+22,Aylesbury,05:30
+51,"Berwickshire, Roxburgh & Selkirk",05:30
+57,Birmingham Edgbaston,05:30
+108,Buckingham,05:30
+123,Cambridgeshire South East,05:30
+235,Elmet & Rothwell,05:30
+275,Gravesham,05:30
+277,Great Yarmouth,05:30
+302,Hemel Hempstead,05:30
+319,Horsham,05:30
+321,Hove,05:30
+353,Leeds North East,05:30
+354,Leeds North West,05:30
+430,Norwich North,05:30
+509,Shipley,05:30
+512,Sittingbourne & Sheppey,05:30
+523,Southampton Itchen,05:30
+524,Southampton Test,05:30
+600,Warrington South,05:30
+622,Winchester,05:30
+18,Arundel & South Downs,06:00
+43,Bedfordshire North East,06:00
+44,Bedfordshire South West,06:00
+59,Birmingham Hall Green,06:00
+63,Birmingham Perry Barr,06:00
+74,Bognor Regis & Littlehampton,06:00
+86,Bradford South,06:00
+95,Bridgwater & Somerset West,06:00
+97,Brighton Kemptown,06:00
+98,Brighton Pavilion,06:00
+105,Bromsgrove,06:00
+118,Camborne & Redruth,06:00
+120,Cambridgeshire North East,06:00
+137,Chatham & Aylesford,06:00
+181,Derby North,06:00
+185,Derbyshire North East,06:00
+189,Devon East,06:00
+191,Devon South West,06:00
+197,Dorset Mid & Poole North,06:00
+198,Dorset North,06:00
+254,Forest of Dean,06:00
+257,Gainsborough,06:00
+261,Gillingham & Rainham,06:00
+281,Hackney South & Shoreditch,06:00
+305,Henley,06:00
+338,Keighley,06:00
+350,Lancaster & Fleetwood,06:00
+357,Leicester South,06:00
+360,Leicestershire South,06:00
+404,Morecambe & Lunesdale,06:00
+423,Norfolk North West,06:00
+425,Norfolk South West,06:00
+439,Oldham East & Saddleworth,06:00
+444,Oxford West & Abingdon,06:00
+457,Portsmouth North,06:00
+458,Portsmouth South,06:00
+464,Reading East,06:00
+465,Reading West,06:00
+475,Rochester & Strood,06:00
+563,Tatton,06:00
+566,Tewkesbury,06:00
+572,Tiverton & Honiton,06:00
+579,Truro & Falmouth,06:00
+597,Wantage,06:00
+638,Worthing East & Shoreham,06:00
+639,Worthing West,06:00
+648,York Central,06:00
+649,York Outer,06:00
+103,Broadland,06:30
+162,Cornwall North,06:30
+180,Denton & Reddish,06:30
+187,Devizes,06:30
+398,Milton Keynes South,06:30
+491,St Austell & Newquay,06:30
+531,Stalybridge & Hyde,06:30
+605,Waveney,06:30
+619,Wiltshire North,06:30
+21,Ashton Under Lyne,07:00
+147,Chippenham,07:00
+159,Congleton,07:00
+164,"Cotswolds, The",07:00
+169,Crewe & Nantwich,07:00
+291,Harborough,07:00
+322,Huddersfield,07:00
+356,Leicester East,07:00
+358,Leicester West,07:00
+380,Luton North,07:00
+381,Luton South,07:00
+382,Macclesfield,07:00
+391,Meon Valley,07:00
+397,Milton Keynes North,07:00
+405,Morley & Outwood,07:00
+494,St Ives,07:00
+567,Thanet North,07:00
+568,Thanet South,07:00
+188,Devon Central,07:30
+192,Devon West & Torridge,08:00
+163,Cornwall South East,09:00
+50,Berwick-upon-Tweed,12:00
+73,Blyth Valley,12:00
+596,Wansbeck,12:00
