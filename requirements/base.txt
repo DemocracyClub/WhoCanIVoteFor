@@ -11,7 +11,7 @@ djangorestframework==3.9.2
 django-redis==4.10.0
 hiredis==0.3.1
 redis==3.2.1
-Pillow==5.4.1
+Pillow==6.1.0
 icalendar==4.0.3
 dealer==2.1.0
 django-robots==3.1.0
