@@ -16,7 +16,7 @@ Pillow==6.2.0
 icalendar==4.0.3
 dealer==2.1.0
 django-robots==3.1.0
-django-debug-toolbar==1.11
+django-debug-toolbar==2.0
 gocardless_pro==1.9.0
 
 git+git://github.com/DemocracyClub/dc_base_theme.git@0.3.9
