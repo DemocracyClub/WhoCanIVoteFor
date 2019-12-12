@@ -16,7 +16,7 @@ class PersonSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Person
-        fields = ("ynr_id", "name", "absolute_url")
+        fields = ("ynr_id", "name", "absolute_url", "email", "photo_url")
 
 
 class PartySerializer(serializers.HyperlinkedModelSerializer):
@@ -32,3 +32,15 @@ class PersonPostSerializer(serializers.HyperlinkedModelSerializer):
 
     person = PersonSerializer(many=False, read_only=True)
     party = PartySerializer(many=False, read_only=True)
+    list_position = serializers.SerializerMethodField(allow_null=True)
+
+    def get_list_position(self, obj):
+        """
+        Needed because YNR's data model allows adding party list positions
+        to ballots that don't use them. Should fix there, but this is for quick
+        wins
+
+        """
+        if obj.post_election.display_as_party_list:
+            return obj.list_position
+        return None

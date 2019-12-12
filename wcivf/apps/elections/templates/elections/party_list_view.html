@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="card">
+    <header style="clear:both;overflow: auto">
+    {% if party.emblem %}
+      <img src="{{ party.emblem.url }}" class="manifesto_image" alt="{{ party_name }} emblem">
+    {% endif %}
+
+    <h2>{{ party_name }}</h2>
+    <h3>{{ ballot.election.nice_election_name }}: {{ ballot.friendly_name }}</h3>
+    </header>
+    <dl>
+        {% if local_party.facebook_page %}
+        <dt>Facebook</dt>
+        <dd>
+          {% if local_party.facebook_page %}
+          <a href="{{ local_party.facebook_page }}" title="{{ local_party.name }}'s Facebook profile">
+            {{ local_party.facebook_page }}
+          </a>
+          {% endif %}
+        </dd>
+        {% endif %}
+
+        {% if local_party.homepage %}
+        <dt>Home page</dt>
+        <dd>
+          <a href="{{ local_party.homepage }}" title="{{ local_party.name }}'s home page">
+            {{ local_party.homepage }}
+          </a>
+        </dd>
+        {% endif %}
+
+        {% if local_party.email %}
+        <dt>Email</dt>
+        <dd><a href="mailto:{{ local_party.email }}">{{ local_party.email }}</a></dd>
+        {% endif %}
+    </dl>
+
+  </div>
+
+  {% if manifesto %}
+  <div class="card info_card">
+    <h3>Party manifesto</h3>
+    <p>
+
+    Find out more about the {{ party.party_name }} in their {{ manifesto|safe }}.
+    </p>
+  </div>
+  {% endif %}
+
+  {% if local_party.twitter %}
+  <div class="card info_card">
+    <h3>Latest tweets</h3>
+    <div class="twitter_container">
+    <a data-width="100%" data-height="500" class="twitter-timeline" href="https://twitter.com/{{ object.twitter_username }}">
+      Loading Tweets...</a>
+      <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    </div>
+  </div>
+  {% endif %}
+
+
+  <div class="card">
+    <h3>Candidates</h3>
+
+    {% for person in person_posts %}
+      {% include "elections/includes/_person_card.html" with person_post=person lists=True %}
+    {% endfor %}
+  </div>
+
+{% endblock %}

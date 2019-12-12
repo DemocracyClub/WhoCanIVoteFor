@@ -1,7 +1,5 @@
 [![CircleCI](https://circleci.com/gh/DemocracyClub/WhoCanIVoteFor.svg?style=svg)](https://circleci.com/gh/DemocracyClub/WhoCanIVoteFor) [![Coverage Status](https://coveralls.io/repos/github/DemocracyClub/WhoCanIVoteFor/badge.svg?branch=master)](https://coveralls.io/github/DemocracyClub/WhoCanIVoteFor?branch=master) ![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
 
-[![Stories in Ready](https://badge.waffle.io/DemocracyClub/WhoCanIVoteFor.png?label=ready&title=Ready)](https://waffle.io/DemocracyClub/WhoCanIVoteFor)
-
 # WhoCanIVoteFor
 
 This project is brand new!

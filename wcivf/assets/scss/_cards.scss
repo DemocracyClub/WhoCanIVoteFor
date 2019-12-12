@@ -1,5 +1,9 @@
 /* Cards */
 
+section + .card {
+  margin-top:$card-margin*2;
+}
+
 .card {
   width: 100%;
   box-sizing: border-box;
@@ -39,7 +43,7 @@
       clear: both;
       margin-left: 0 !important;
       margin-right: 0 !important;
-      width: 100px;
+      width: 120px;
     }
   }
   .person_photo.detail {
@@ -108,9 +112,6 @@
     margin-bottom: 1em;
   }
 
-  &.candidate_card_list_candidate {
-    height: 13rem;
-  }
   &.person_elected {
     width: 70%;
     margin:0 auto 40px auto;
@@ -255,14 +256,17 @@ blockquote {
         float: left;
         margin-right:0.5em;
       }
+    &>div {
+      margin-left:120px;
+    }
+  }
+  h4 {
+    margin-top:0;
   }
 
   details {
     summary {
       overflow:auto;
-      h4 {
-        margin-top:0;
-      }
     }
     summary::-webkit-details-marker {
       display:none;

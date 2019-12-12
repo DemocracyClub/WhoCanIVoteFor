@@ -1,21 +1,8 @@
-from django.views.generic import TemplateView, RedirectView
-from django.core.urlresolvers import reverse
-
-from .helpers import GoCardlessHelper
+from django.views.generic import TemplateView
 
 
 class DonateFormView(TemplateView):
-    template_name = "donate.html"
-
-
-class ProcessDonationView(RedirectView):
-    def get_redirect_url(self, *args, **kwargs):
-        redirect_flow_id = self.request.GET.get("redirect_flow_id")
-        if redirect_flow_id:
-            gc = GoCardlessHelper(self.request)
-            gc.confirm_redirect_flow()
-            gc.create_payment()
-        return reverse("donations:donate_thanks")
+    template_name = "donations/donate.html"
 
 
 class DonateThanksView(TemplateView):

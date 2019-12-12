@@ -32,7 +32,7 @@ class FeedbackFormView(UpdateView):
             extra_tags="template",
         )
 
-        if is_safe_url(self.object.source_url):
+        if is_safe_url(self.object.source_url, allowed_hosts=None):
             return self.object.source_url
         else:
             return "/"

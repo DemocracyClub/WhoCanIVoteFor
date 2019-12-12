@@ -1,3 +1,4 @@
+import re
 from contextlib import contextmanager
 from datetime import datetime, timedelta
 import json
@@ -38,3 +39,11 @@ def first_thursday_in_may_for_year(year):
 
 def may_election_day_this_year():
     return first_thursday_in_may_for_year(datetime.now().year)
+
+
+def clean_postcode(postcode):
+    postcode = postcode.replace("+", "")
+    incode_pattern = "[0-9][ABD-HJLNP-UW-Z]{2}"
+    space_regex = re.compile(r" *(%s)$" % incode_pattern)
+    postcode = space_regex.sub(r" \1", postcode.upper())
+    return postcode

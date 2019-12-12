@@ -3,13 +3,14 @@ import pytz
 
 from django.conf import settings
 from django.contrib.postgres.fields import JSONField
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import models
 from django.utils.html import mark_safe
 from django.utils.text import slugify
 
-
-from .managers import ElectionManager, PostManager
+from elections.wikipedia_map import ballot_to_wikipedia
+from .helpers import expected_sopn_publish_date
+from .managers import ElectionManager
 
 LOCAL_TZ = pytz.timezone("Europe/London")
 
@@ -30,7 +31,9 @@ class Election(models.Model):
     description = models.TextField(blank=True)
     ballot_colour = models.CharField(blank=True, max_length=100)
     election_type = models.CharField(blank=True, max_length=100)
-    voting_system = models.ForeignKey("VotingSystem", null=True, blank=True)
+    voting_system = models.ForeignKey(
+        "VotingSystem", null=True, blank=True, on_delete=models.CASCADE
+    )
     uses_lists = models.BooleanField(default=False)
     voter_age = models.CharField(blank=True, max_length=100)
     voter_citizenship = models.TextField(blank=True)
@@ -99,7 +102,7 @@ class Election(models.Model):
     @property
     def start_time(self):
         election_datetime = self._election_datetime_tz()
-        return utc_to_local(election_datetime.replace(hour=6))
+        return utc_to_local(election_datetime.replace(hour=7))
 
     @property
     def end_time(self):
@@ -149,26 +152,57 @@ class Post(models.Model):
     organization = models.CharField(blank=True, max_length=100)
     area_name = models.CharField(blank=True, max_length=100)
     area_id = models.CharField(blank=True, max_length=100)
+    territory = models.CharField(blank=True, max_length=3)
     elections = models.ManyToManyField(
         Election, through="elections.PostElection"
     )
 
-    objects = PostManager()
+    def nice_organization(self):
+        return (
+            self.organization.replace(" County Council", "")
+            .replace(" Borough Council", "")
+            .replace(" District Council", "")
+            .replace("London Borough of ", "")
+            .replace(" Council", "")
+        )
+
+    def nice_territory(self):
+        if self.territory == "WLS":
+            return "Wales"
+
+        if self.territory == "ENG":
+            return "England"
+
+        if self.territory == "SCT":
+            return "Scotland"
+
+        if self.territory == "NIR":
+            return "Northern Ireland"
+
+        return self.territory
 
 
 class PostElection(models.Model):
-    ballot_paper_id = models.CharField(blank=True, max_length=800)
-    post = models.ForeignKey(Post)
-    election = models.ForeignKey(Election)
+    ballot_paper_id = models.CharField(blank=True, max_length=800, unique=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    election = models.ForeignKey(Election, on_delete=models.CASCADE)
     contested = models.BooleanField(default=True)
     winner_count = models.IntegerField(blank=True, null=True)
     locked = models.BooleanField(default=False)
     cancelled = models.BooleanField(default=False)
     replaced_by = models.ForeignKey(
-        "PostElection", null=True, blank=True, related_name="replaces"
+        "PostElection",
+        null=True,
+        blank=True,
+        related_name="replaces",
+        on_delete=models.CASCADE,
     )
     metadata = JSONField(null=True)
-    voting_system = models.ForeignKey("VotingSystem", null=True, blank=True)
+    voting_system = models.ForeignKey(
+        "VotingSystem", null=True, blank=True, on_delete=models.CASCADE
+    )
+    wikipedia_url = models.CharField(blank=True, null=True, max_length=800)
+    wikipedia_bio = models.TextField(null=True)
 
     def get_name_suffix(self):
         election_type = self.ballot_paper_id.split(".")[0]
@@ -180,10 +214,15 @@ class PostElection(models.Model):
             return "region"
         return "area"
 
+    def expected_sopn_date(self):
+        return expected_sopn_publish_date(
+            self.ballot_paper_id, self.post.territory
+        )
+
     def friendly_name(self):
         # TODO Take more info from YNR/EE about the election
         # rather than hard coding not_wards and not_by_elections
-        name = self.post.area_name
+        name = self.post.label
 
         suffix = self.get_name_suffix()
         if suffix:
@@ -227,6 +266,15 @@ class PostElection(models.Model):
             return self.voting_system
         else:
             return self.election.voting_system
+
+    @property
+    def display_as_party_list(self):
+        if (
+            self.get_voting_system
+            and self.get_voting_system.slug in settings.PARTY_LIST_VOTING_TYPES
+        ):
+            return True
+        return False
 
 
 class VotingSystem(models.Model):

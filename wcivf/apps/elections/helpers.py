@@ -1,6 +1,9 @@
+import sys
 from functools import update_wrapper
 
 from django.conf import settings
+from sopn_publish_date import StatementPublishDate, Country
+from datetime import datetime
 
 import requests
 
@@ -8,6 +11,15 @@ import requests
 class EEHelper:
 
     ee_cache = {}
+
+    def prewarm_cache(self, current=False):
+        page1 = "{}/api/elections/".format(settings.EE_BASE)
+        if current:
+            page1 = "{}?current=True".format(page1)
+        pages = JsonPaginator(page1, sys.stdout)
+        for page in pages:
+            for result in page["results"]:
+                self.ee_cache[result["election_id"]] = result
 
     def get_data(self, election_id):
         if election_id in self.ee_cache:
@@ -35,7 +47,7 @@ class JsonPaginator:
             r = requests.get(self.next_page)
             if r.status_code != 200:
                 self.stdout.write("crashing with response:")
-                self.stdout.write(r.content)
+                self.stdout.write(r.text)
             r.raise_for_status()
             data = r.json()
 
@@ -81,3 +93,36 @@ class ElectionIDSwitcher:
 
         self.__name__ = self.__qualname__ = view.__name__
         return view(request, *args, **kwargs)
+
+
+def expected_sopn_publish_date(slug, territory):
+    country = {
+        "ENG": Country.ENGLAND,
+        "WLS": Country.WALES,
+        "SCT": Country.SCOTLAND,
+        "NIR": Country.NORTHERN_IRELAND,
+    }
+
+    if not expected_sopn_publish_date.lookup:
+        expected_sopn_publish_date.lookup = StatementPublishDate()
+
+    if slug.startswith("local") and territory not in country:
+        return None
+
+    try:
+        if slug.startswith("local") and territory is not None:
+
+            date_of_poll = datetime.strptime(
+                slug.split(".")[-1], "%Y-%m-%d"
+            ).date()
+
+            return expected_sopn_publish_date.lookup.local(
+                date_of_poll, country=country[territory]
+            )
+        else:
+            return expected_sopn_publish_date.lookup.for_id(slug)
+    except BaseException:
+        return None
+
+
+expected_sopn_publish_date.lookup = None

@@ -36,11 +36,6 @@ def date_from_string(dt):
 
 
 class Command(BaseCommand):
-    def add_arguments(self, parser):
-        parser.add_argument(
-            "filename", help="Path to the file with the hustings in it"
-        )
-
     def delete_all_companies(self):
         """
         Clear our companies away.
@@ -127,27 +122,49 @@ class Command(BaseCommand):
         company.save()
         return company
 
+    def get_not_associated(self, url):
+        self.not_associated_companies = collections.defaultdict(set)
+        req = requests.get(url)
+        for line in req.text.splitlines():
+            person_id, company_number = line.split(",")
+            self.not_associated_companies[person_id].add(company_number)
+
     @transaction.atomic
     def handle(self, **options):
         """
         Entrypoint for our command.
         """
+        companies_base_url = "https://raw.githubusercontent.com/EdwardBetts/companies-house/master/"
+        companies_url = "{}/companies.csv".format(companies_base_url)
+        not_associated_url = "{}/not_associated.csv".format(companies_base_url)
+
+        self.get_not_associated(not_associated_url)
+
         self.delete_all_companies()
         counter = 0
-        with open(options["filename"], "r") as fh:
-            reader = csv.reader(fh)
-            next(reader)
-            for row in reader:
-                try:
-                    data = Company(*row)
-                except TypeError:
-                    print(row)
-                    raise
-                associated_company = self.create_company(data)
-                if associated_company:
-                    counter += 1
-                    print(
-                        "Created associated company {0} <{1}>".format(
-                            counter, associated_company
-                        )
+        req = requests.get(companies_url)
+        reader = csv.reader(req.text.splitlines())
+        next(reader)
+        for row in reader:
+            try:
+                data = Company(*row)
+            except TypeError:
+                print(row)
+                raise
+
+            if data.person_id in self.not_associated_companies:
+                if (
+                    data.company_number
+                    in self.not_associated_companies[data.person_id]
+                ):
+                    # This (person, company) pair has been asserted as not connected
+                    continue
+
+            associated_company = self.create_company(data)
+            if associated_company:
+                counter += 1
+                print(
+                    "Created associated company {0} <{1}>".format(
+                        counter, associated_company
                     )
+                )

@@ -2,9 +2,13 @@
 {% load postcode_tags %}
 {% load humanize %}
 
-<div class="card" id="polling_place">
+<section class="card" id="polling_place">
 
-  <h2 id='where'>Where to vote</h2>
+  <h2 id='where'>
+    <span aria-hidden="true">📍</span>
+    Where to vote
+    <span aria-hidden="true">📍</span>
+  </h2>
 
   {% if voter_id_required %}
     {% if voter_id_required.1 %}
@@ -127,4 +131,4 @@
   </script>
   {% endif %}
 
-</div>
+</section>

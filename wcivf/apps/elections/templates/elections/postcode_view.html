@@ -11,53 +11,24 @@
 {% block content %}
 
 {% if postelections.count != 1 %}
-
-<div class="card next_election">
-  {% if postelections.count == 0 %}
-    We don't know of any upcoming elections.
-  {% else %}
-    {% regroup postelections by election.election_date as header_elections_by_date %}
-    <h2>Elections in your area</h2>
-
-    {% for election_group in header_elections_by_date %}
-        <h3>{{ election_group.grouper|naturalday:"l j F Y"|title }}</h3>
-
-        <p>
-          You will have {{ election_group.list|length|apnumber }}
-          ballot paper{{ election_group.list|length|pluralize }} to fill out.
-        </p>
-
-        <ul>
-          {% for ballot in election_group.list %}
-          <li>
-            <a href="#election_{{ ballot.election.slug }}">
-            {{ ballot.election.nice_election_name }}
-            {% if ballot.post.label != post.election %}
-              {% if 'mayor' not in ballot.election.slug %}
-                : {{ ballot.post.label }}
-              {% endif %}
-            {% endif %}
-            </a>
-            {{ ballot.short_cancelled_message_html }}
-          </li>
-          {% endfor %}
-        </ul>
-    {% endfor %}
-  {% endif %}
-
-<p>There may also be parish, town or
-          community council elections in some areas.</p>
-</div>
+{#  Inline nav of elections #}
+{% include "elections/includes/inline_elections_nav_list.html" %}
 {% endif %}
+
 
 {% regroup postelections by election.election_date as elections_by_date %}
 {% for election_group in elections_by_date %}
   {% for postelection in election_group.list %}
-  <div id="election_{{ postelection.election.slug }}" class="card">
+  <section id="election_{{ postelection.election.slug }}">
+    <div class="card">
     {% if postelection.cancelled %}
       {% include "elections/includes/_cancelled_election.html" with object=postelection only %}
     {% else %}
-      <h1>{{ postelection.election.nice_election_name }}</h1>
+      <h1>
+        <span aria-hidden="true">🗳️</span>
+        {{ postelection.election.nice_election_name }}
+        <span aria-hidden="true">🗳️</span>
+      </h1>
       {% if postelection.friendly_name != postelection.election.nice_election_name %}
       <h2>{{ postelection.friendly_name }}</h2>
       {% endif %}
@@ -66,7 +37,8 @@
         This election
         {% now "j F Y" as current_day %}
         {% if postelection.election.election_date|date:"j F Y" == current_day %}
-        <strong>is being held today</strong>. Polls are open till 10pm.
+        <strong>is being held today</strong>.
+        Polls are open till {% if "local.city-of-london" in postelection.election.slug %}8pm{% else%}10pm{%endif %}.
         {% else %}
         {{ postelection.election.in_past|yesno:"was,will be" }} held
         <strong>{{ postelection.election.election_date|naturalday:"\o\n l j F Y" }}</strong>.
@@ -127,7 +99,7 @@
       {% endif %}
 
       {% if postelection.people %}
-        {% if postelection.election.uses_lists %}
+        {% if postelection.display_as_party_list %}
         {% include "elections/includes/_people_list_with_lists.html" with people=postelection.people %}
         {% else %}
         {% include "elections/includes/_people_list.html" with people=postelection.people %}
@@ -161,15 +133,32 @@
       {% endif %}
 
     {% endif %}
-  </div>
+    </div>
 
   {% if postelection.husting_set.exists %}
     <div class="card">
-      <h3>Election events near you</h3>
+      <h3>
+        <span aria-hidden="true">📅</span>
+        Election events near you
+        <span aria-hidden="true">📅</span>
+      </h3>
       <p>You can meet candidates and question them at local hustings.</p>
       {% include "elections/includes/_hustings_list.html" with hustings=postelection.husting_set.all %}
     </div>
   {% endif %}
+    {% if postelection.ballotnewsarticle_set.exists %}
+    {% include "news_mentions/news_articles.html" with news_articles=postelection.ballotnewsarticle_set.all %}
+    {% endif %}
+
+  {% if postelection.wikipedia_bio %}
+    <div class="card">
+    <h3>Wikipedia</h3>
+    <p>{{ postelection.wikipedia_bio }}</p>
+    <p><a href="{{ postelection.wikipedia_url }}">Read more on Wikipedia</a></p>
+    </div>
+  {% endif %}
+
+  </section>
 
   {% endfor %}
 {% endfor %}
@@ -178,8 +167,12 @@
 {% include "elections/includes/_polling_place.html" with elections_by_date=elections_by_date voter_id_required=voter_id_required %}
 
 {% if not messages %}
-  <div class="card">
-    <h2>Election reminders for {{ postcode }}</h2>
+  <section class="card">
+    <h2>
+      <span aria-hidden="true">⏰</span>
+      Election reminders for {{ postcode }}
+      <span aria-hidden="true">⏰</span>
+    </h2>
     <p>We can email you the next time there is an election in {{ postcode }}.</p>
     {% include "email_form/election_reminders_form.html" %}
 
@@ -187,7 +180,7 @@
     Or add future elections in {{ postcode }} to your calendar:
     <a href="webcal://whocanivotefor.co.uk{% url 'postcode_ical_view' postcode %}">iCal feed</a>
   </p>
-  </div>
+  </section>
 {% endif %}
 
 

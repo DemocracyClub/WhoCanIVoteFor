@@ -127,7 +127,10 @@ class Command(BaseCommand):
         with open(options["filename"], "r") as fh:
             reader = csv.DictReader(fh)
             for row in reader:
-                husting = self.create_husting(row)
+                try:
+                    husting = self.create_husting(row)
+                except:
+                    husting = None
                 if husting:
                     hustings_counter += 1
                     self.stdout.write(

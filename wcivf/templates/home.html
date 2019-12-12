@@ -19,26 +19,46 @@
       <button type="submit">Find your candidates</button>
     </form>
   </div>
-{#  {% if upcoming_elections %}#}
-{#    <div class="card upcoming_elections">#}
-{#      <h2>Upcoming by-elections</h2>#}
-{#      {% regroup upcoming_elections by election.election_date as elections_by_date %}#}
-{##}
-{#      {% for election_group in elections_by_date %}#}
-{#      <h3>{{ election_group.grouper }}</h3>#}
-{#      {% regroup election_group.list by election.nice_election_name as named_postelections %}#}
-{#      <ul>#}
-{#        {% for election in named_postelections %}#}
-{#          <li><strong>{{ election.grouper }}{{ election.list|length|pluralize }}</strong>#}
-{#          {% for postelection in election.list %}#}
-{#            <br><a href="{{ postelection.get_absolute_url }}">{{ postelection.friendly_name }}</a>#}
-{#          {% endfor %}#}
-{#          </li>#}
-{#        {% endfor %}#}
-{#      </ul>#}
-{#      {% endfor %}#}
-{#    </div>#}
-{#  {% endif %}#}
+
+  {% if show_polls_open %}
+  <div class="card centered-card">
+    <h2>UK General Election</h2>
+    <p>Polling stations are open from 7am to 10pm <strong>{{ poll_date }}</strong>.</p>
+
+    <p>You don't need your poll card to vote.</p>
+
+    <p>You must vote at your assigned polling station.</p>
+
+    <p>
+      If you are registered to vote, but you don't have your poll card, you
+      can go to the polling station and give them your name and address.
+    </p>
+
+    <p>In England, Wales and Scotland, you don't need any form of ID. In Northern Ireland, you must bring photo ID.</p>
+
+  </div>
+  {% endif %}
+
+  {% if upcoming_elections %}
+    <div class="card upcoming_elections">
+      <h2>Upcoming by-elections</h2>
+      {% regroup upcoming_elections by election.election_date as elections_by_date %}
+
+      {% for election_group in elections_by_date %}
+      <h3>{{ election_group.grouper }}</h3>
+      {% regroup election_group.list by election.nice_election_name as named_postelections %}
+      <ul>
+        {% for election in named_postelections %}
+          <li><strong>{{ election.grouper }}{{ election.list|length|pluralize }}</strong>
+          {% for postelection in election.list %}
+            <br><a href="{{ postelection.get_absolute_url }}">{{ postelection.friendly_name }}</a>
+          {% endfor %}
+          </li>
+        {% endfor %}
+      </ul>
+      {% endfor %}
+    </div>
+  {% endif %}
 
 
 {% endblock content %}

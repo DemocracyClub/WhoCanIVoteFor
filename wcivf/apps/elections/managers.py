@@ -1,8 +1,22 @@
 from django.db import models
+from django.utils import timezone
 from .helpers import EEHelper
 
 
-class ElectionManager(models.Manager):
+class ElectionQuerySet(models.QuerySet):
+    def current(self):
+        return self.filter(current=True)
+
+    def future(self):
+        return self.filter(election_date__gt=timezone.now())
+
+    def current_or_future(self):
+        return self.filter(
+            models.Q(current=True) | models.Q(election_date__gt=timezone.now())
+        )
+
+
+class ElectionManager(models.Manager.from_queryset(ElectionQuerySet)):
     def get_explainer(self, election):
         ee = EEHelper()
         ee_data = ee.get_data(election["id"])
@@ -60,8 +74,7 @@ class PostManager(models.Manager):
 
         for election_dict in post_dict["elections"]:
             election = Election.objects.get(slug=election_dict["id"])
-            kwargs = {}
-            kwargs["ballot_paper_id"] = election_dict["ballot_paper_id"]
+            kwargs = {"election": election, "post": post}
 
             kwargs["locked"] = election_dict.get("candidates_locked", False)
             if kwargs["locked"]:
@@ -72,9 +85,9 @@ class PostManager(models.Manager):
                 kwargs["winner_count"] = election_dict["winner_count"]
 
             kwargs["cancelled"] = election_dict["cancelled"]
-
             PostElection.objects.update_or_create(
-                election=election, post=post, defaults=kwargs
+                ballot_paper_id=election_dict["ballot_paper_id"],
+                defaults=kwargs,
             )
 
         return (post, created)

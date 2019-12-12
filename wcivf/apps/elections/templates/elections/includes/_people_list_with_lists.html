@@ -7,7 +7,6 @@
     {#  This is a special case where we don't want to group independants, but show a single card per person  #}
     {% for pp in person_post.list %}
       <div class="card party-list-card">
-
         {% if pp.person.photo_url %}
           <img src="{{ pp.person.photo_url }}" class="party_emblem" alt="Photo of {{ pp.person.name }}">
         {% elif pp.person.gender|lower == 'male' %}
@@ -22,18 +21,43 @@
           {% if pp.elected %}🌟{% endif %}
         </a>
       </h4>
+
+      <span class="icons">
+        {% if person_post.person.statement_to_voters %}<span class="text-icon">Statement</span>{% endif %}
+      {% if pp.person.pledges.exists %}<span class="text-icon">Pledge</span>{% endif %}
+      {% if pp.person.cv %}<span class="text-icon">CV</span>{% endif %}
+      {% if pp.person.leaflet_set.exists %}<span class="text-icon">Leaflets</span>{% endif %}
+      {% if pp.person.twitter_username %}<i class="icon-twitter" aria-hidden="true" title="Twitter"></i>{% endif %}
+      {% if pp.person.facebook_page_url or pp.person.facebook_personal_url %}<i class="icon-facebook-squared" aria-hidden="true" title="Facebook"></i>{% endif %}
+      {% if pp.person.linkedin_url %}<i class="icon-linkedin-squared" aria-hidden="true" title="LinkedIn"></i>{% endif %}
+      {% if pp.person.homepage_url %}<i class="icon-globe" aria-hidden="true" title="Homepage"></i>{% endif %}
+      {% if pp.person.email %}<i class="icon-mail" aria-hidden="true" title="Email"></i>{% endif %}
+        </span>
       </div>
     {% endfor %}
 
   {% else %}
     <div class="card party-list-card">
+      {% if person_post.list.0.party.emblem %}
+        <img src="{{ person_post.list.0.party.emblem.url }}" alt="Party emblem" class="party_emblem">
+      {% endif %}
+      <div>
+        <h4><a href="{% url "party_list_view" election=person_post.list.0.post_election.ballot_paper_id party_id=person_post.list.0.party_id %}">{{ person_post.grouper }}</a></h4>
+      {% with person_post.list.0.get_local_party as local_party %}
+      {% if local_party %}
+        <span class="icons">
+        {% if local_party.twitter %}<i class="icon-twitter" aria-hidden="true" title="Twitter"></i>{% endif %}
+        {% if local_party.person.facebook_page %}<i class="icon-facebook-squared" aria-hidden="true" title="Facebook"></i>{% endif %}
+        {% if local_party.homepage %}<i class="icon-globe" aria-hidden="true" title="Homepage"></i>{% endif %}
+        {% if local_party.email %}<i class="icon-mail" aria-hidden="true" title="Email"></i>{% endif %}
+        </span>
+      {% endif %}
+    {% endwith %}
+
+
       <details>
         <summary>
-          {% if person_post.list.0.party.emblem %}
-            <img src="{{ person_post.list.0.party.emblem.url }}" alt="Party emblem" class="party_emblem">
-          {% endif %}
-          <h4>{{ person_post.grouper }}</h4>
-          <a>Show {{ person_post.list|length }} list candidates</a>
+          <a>Show candidates</a>
         </summary>
         <div class="candidate_grid">
           {% for person in person_post.list %}
@@ -41,6 +65,7 @@
           {% endfor %}
         </div>
       </details>
+      </div>
     </div>
   {% endif %}
 {% endfor %}

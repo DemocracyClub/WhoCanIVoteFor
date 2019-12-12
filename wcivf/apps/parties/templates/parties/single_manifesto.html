@@ -1,0 +1,17 @@
+<li>
+  <a href="{{ manifesto.canonical_url }}" rel="noopener noreferrer">
+    {{ manifesto.country }} manifesto {% if manifesto.canonical_url != manifesto.pdf_url %}website{% endif %}
+    {% if manifesto.language != "English" %} in  {{ manifesto.language }}{% endif %}
+    {% if manifesto.canonical_url == manifesto.pdf_url %}(PDF){% endif %}
+  </a>
+</li>
+{% if manifesto.canonical_url != manifesto.pdf_url %}
+  <li>
+    <a href="{{ manifesto.pdf_url }}" rel="noopener noreferrer">PDF Version</a>
+  </li>
+{% endif %}
+{% if manifesto.easy_read_url %}
+  <li>
+    <a href="{{ manifesto.easy_read_url }}">Easy Read version</a>
+  </li>
+{% endif %}

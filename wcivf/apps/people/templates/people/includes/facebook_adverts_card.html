@@ -1,0 +1,33 @@
+{% load humanize %}
+{% if object.facebookadvert_set.exists %}
+<div class="card">
+<h3>Latest Facebook Adverts</h3>
+  <p>We know of about <strong>£{{ object.get_max_facebook_ad_spend|intcomma }}</strong> spent by  {{ object.name }} or their associated pages on
+    Facebook Adverts</p>
+<div class="fukol-grid">
+{% for advert in object.facebookadvert_set.all|slice:":2" %}
+  <div class="facebook_advert link-card">
+    <div>
+      <figure style="margin:0.1em;">
+        {% if advert.image_url %}
+          <img src="{{ advert.image_url }}">
+        {% else %}
+          {{ advert.ad_json.ad_creative_body|linebreaksbr }}
+        {% endif %}
+        <figcaption>
+          <a href="https://www.facebook.com/ads/library/?id={{ advert.ad_id }}" class="cta link-button" target="_blank">
+            Details
+          </a>
+        </figcaption>
+      </figure>
+
+    </div>
+  </div>
+{% endfor %}
+  </div>
+<div>
+  <p><a href="https://www.facebook.com/ads/library/?view_all_page_id={{ object.facebookadvert_set.first.ad_json.page_id }}" class="link-button" target="_blank">See all adverts</a></p>
+</div>
+
+</div>
+{% endif %}

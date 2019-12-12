@@ -7,6 +7,7 @@ from .views import (
     PostView,
     PostcodeiCalView,
     RedirectPostView,
+    PartyListVew,
 )
 from .helpers import ElectionIDSwitcher
 
@@ -22,6 +23,12 @@ urlpatterns = [
         ElectionView.as_view(),
         name="redirect_election_view",
     ),
+    url(
+        r"^(?P<election>[a-z\-]+\.[^/]+)/(?P<party_id>(joint-party|party|minor-party|ynmp-party):[0-9\-]+)/$",
+        PartyListVew.as_view(),
+        name="party_list_view",
+    ),
+    #
     url(
         "^(?P<election>[a-z\-]+\.[^/]+)(?:/(?P<ignored_slug>[^/]+))?/$",
         ElectionIDSwitcher(election_view=ElectionView, ballot_view=PostView),

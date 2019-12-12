@@ -27,7 +27,9 @@ class PersonMixin(object):
                     queryset=PersonPost.objects.all().select_related(
                         "election", "post", "party", "post_election"
                     ),
-                )
+                ),
+                "facebookadvert_set",
+                "leaflet_set",
             )
         )
 
@@ -76,6 +78,9 @@ class PersonView(DetailView, PersonMixin):
         obj.intro = self.get_intro(obj)
         obj.text_intro = strip_tags(obj.intro)
         obj.post_country = self.get_post_country(obj)
+        obj.has_current_candidacies = PersonPost.objects.filter(
+            person=obj, election__current=True
+        ).exists()
 
         if obj.personpost:
             # We can't show manifestos if they've never stood for a party
@@ -127,7 +132,7 @@ class PersonView(DetailView, PersonMixin):
             [not pp.election.in_past() for pp in person.current_personposts]
         )
 
-        if has_elections_in_future:
+        if has_elections_in_future and not person.death_date:
             intro.append("is")
         else:
             intro.append("was")

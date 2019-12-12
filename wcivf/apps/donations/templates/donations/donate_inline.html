@@ -1,42 +1,17 @@
-{% load dc_forms %}
-
-{% if request.session.donate_split_test %}
-<div class="card donate_card">
-
-  {% if request.session.donate_split_test == "make_our_democracy_better" %}
-    <h3>Help make our democracy better</h3>
-
-    <p>You can help make this website better for everyone.</p>
-    <p>This site is run by Democracy Club. It receives no government funding.
-      <em>Please chip in £3/month to help get everyone the information they need to take part.</em></p>
-    <a href="https://pay.gocardless.com/AL0002A9BYC557" class="link-button" id="donate_button" data-split_test="{{ request.session.donate_split_test }}">
-    Support Democracy Club</a>
-  {% endif %}
-
-  {% if request.session.donate_split_test == "good_information" %}
-    <h3>Democracy runs on good information</h3>
-
-    <p>You can help make this website better for everyone.</p>
-    <p>This site is run by Democracy Club. It receives no government funding.
-      <em>Please chip in £3/month to help get everyone the information they need to take part.</em>
-    </p>
-    <a href="https://pay.gocardless.com/AL0002A9BYC557" class="link-button" id="donate_button" data-split_test="{{ request.session.donate_split_test }}">
-    Support Democracy Club</a>
-  {% endif %}
-
-
-  {% if request.session.donate_split_test == "good_information_one_off_5" %}
-    <h3>Democracy runs on good information</h3>
+<section class="{% if not hide_card %}card donate_card{% endif %}">
+    {% if not hide_header %}
+    <h2>
+      <span aria-hidden="true">🙏</span>
+      Democracy runs on good information
+      <span aria-hidden="true">🙏</span>
+    </h2>
+    {% endif %}
 
     <p>You can help make this website better for everyone.</p>
     <p>This site is run by Democracy Club. It receives no government funding.
       <em>Please chip in £5 to help get everyone the information they need to take part.</em>
     </p>
-    <a href="https://pay.gocardless.com/AL0002AJJRJAQH" class="link-button" id="donate_button" data-split_test="{{ request.session.donate_split_test }}">
-    Support Democracy Club</a>
-  {% endif %}
 
-
-
-</div>
-{% endif %}
+    <a href="https://pay.gocardless.com/AL0002AJJRJAQH" class="link-button" id="donate_button">
+      Support Democracy Club</a>
+</section>

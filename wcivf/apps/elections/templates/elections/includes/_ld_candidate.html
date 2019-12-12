@@ -1,0 +1,12 @@
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org/",
+    "@type": "Person",
+    "name": "{{ person.name }}",
+    "url": "{{ CANONICAL_URL }}{{ person.get_absolute_url }}",
+    "worksFor": {
+        "@type": "Organization",
+        "name": "{{ party.party_name }}"
+    }
+}
+</script>

@@ -24,12 +24,17 @@ class Command(BaseCommand):
             reader = csv.DictReader(fh)
             for row in reader:
                 party_id = row["party_id"].strip()
+                if "-" in party_id:
+                    party_id = "joint-party:" + party_id
+                else:
+                    party_id = "party:" + party_id
+
                 try:
                     election = Election.objects.get(slug=row["election_id"])
                 except:
                     continue
                 try:
-                    party = Party.objects.get(party_id="party:%s" % party_id)
+                    party = Party.objects.get(party_id="%s" % party_id)
                     self.add_manifesto(row, party, election)
                 except Party.DoesNotExist:
                     print("Party not found with ID %s" % party_id)
@@ -42,12 +47,17 @@ class Command(BaseCommand):
 
         manifesto_web = row["manifesto website"].strip()
         manifesto_pdf = row["manifesto pdf"].strip()
+        easy_read_url = row.get("easy read version", "").strip()
         if any([manifesto_web, manifesto_pdf]):
             manifesto_obj, created = Manifesto.objects.update_or_create(
                 election=election,
                 party=party,
                 country=country,
                 language=language,
-                defaults={"web_url": manifesto_web, "pdf_url": manifesto_pdf},
+                defaults={
+                    "web_url": manifesto_web,
+                    "pdf_url": manifesto_pdf,
+                    "easy_read_url": easy_read_url,
+                },
             )
             manifesto_obj.save()

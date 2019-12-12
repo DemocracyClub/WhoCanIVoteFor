@@ -14,7 +14,7 @@ PR-CL:	Closed List
   This election uses {{ voting_system.name }}.
 
   {% if voting_system.slug == "FPTP" %}
-    <p>Mark an X in the box for your preferred candidate(s).</p>
+    <p>Mark an X in the box for your preferred candidate{{ postelection.winner_count|pluralize }}.</p>
   {% endif %}
 
   {% if voting_system.slug == "STV" %}
@@ -34,7 +34,7 @@ PR-CL:	Closed List
 
   <p>Read the instructions at the top of your ballot paper carefully.</p>
 
-  <p>For more information, visit <a href="https://www.yourvotematters.co.uk/how-do-i-vote">
+  <p>For more information, visit <a href="https://www.electoralcommission.org.uk/i-am-a/voter/how-cast-your-vote">
     The Electoral Commission's website</a> or ask an official at your polling station.</p>
 
 </details>

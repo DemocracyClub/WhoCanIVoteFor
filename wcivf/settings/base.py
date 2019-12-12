@@ -57,6 +57,7 @@ INSTALLED_APPS = (
     "results",
     "donations",
     "pledges",
+    "news_mentions",
 )
 
 MIDDLEWARE = (
@@ -64,13 +65,11 @@ MIDDLEWARE = (
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.auth.middleware.SessionAuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "core.middleware.UTMTrackerMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
-    "donations.middleware.DonationFormMiddleware",
 )
 
 ROOT_URLCONF = "wcivf.urls"
@@ -209,6 +208,8 @@ GO_CARDLESS_PAYMENT_DESCRIPTION = (
 )
 
 GOCARDLESS_REDIRECT_URL = "https://whocanivotefor.co.uk/donate/process/"
+
+PARTY_LIST_VOTING_TYPES = ["PR-CL"]
 
 # .local.py overrides all the common settings.
 try:

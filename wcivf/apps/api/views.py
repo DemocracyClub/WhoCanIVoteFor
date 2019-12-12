@@ -4,6 +4,7 @@ from rest_framework import viewsets
 from rest_framework.exceptions import APIException
 from rest_framework.response import Response
 from api import serializers
+from core.helpers import clean_postcode
 
 from people.models import Person
 from elections.views import mixins
@@ -92,7 +93,7 @@ class CandidatesAndElectionsForPostcodeViewSet(
         postcode = request.GET.get("postcode", None)
         if not postcode:
             raise PostcodeNotProvided()
-        postcode = self.clean_postcode(postcode)
+        postcode = clean_postcode(postcode)
         try:
             return self.postcode_to_ballots(postcode, compact=True)
         except InvalidPostcodeError:

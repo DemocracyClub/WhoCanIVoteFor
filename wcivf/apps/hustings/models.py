@@ -13,7 +13,7 @@ class Husting(models.Model):
     A Husting.
     """
 
-    post_election = models.ForeignKey(PostElection)
+    post_election = models.ForeignKey(PostElection, on_delete=models.CASCADE)
     title = models.CharField(max_length=250)
     url = models.URLField()
     starts = models.DateTimeField()

@@ -2,6 +2,8 @@ from django.conf import settings
 from django.utils.crypto import get_random_string
 
 import gocardless_pro
+import stripe
+from stripe.error import StripeError
 
 PAYMENT_TYPES = (
     ("subscription", "Monthly donation"),
@@ -82,3 +84,25 @@ class GoCardlessHelper(object):
             params["interval_unit"] = "monthly"
             params["day_of_month"] = "1"
             return self.client.subscriptions.create(params)
+
+
+class StripeHelper:
+    def __init__(self):
+        self.stripe = stripe
+        self.stripe.api_key = settings.STRIPE_API_KEY
+        self.StripeException = StripeError
+
+    def charge(
+        self,
+        amount,
+        token,
+        currency="gbp",
+        description="Democracy Club Donation",
+    ):
+        stripe.Charge.create(
+            amount=amount,
+            currency=currency,
+            description=description,
+            source=token,
+            metadata={"app": "wcivf"},
+        )

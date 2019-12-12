@@ -19,14 +19,13 @@ class Command(BaseCommand):
         feed = feedparser.parse(req.text)
         for entry in feed["entries"]:
             with show_data_on_error("Result", entry):
-                person_post = PersonPost.objects.get(
-                    person_id=entry["winner_person_id"],
-                    election__slug=entry["election_slug"],
-                    post__ynr_id=entry["post_id"],
-                )
                 post_election = PostElection.objects.get(
                     election__slug=entry["election_slug"],
                     post__ynr_id=entry["post_id"],
+                )
+                person_post = PersonPost.objects.get(
+                    person_id=entry["winner_person_id"],
+                    post_election=post_election,
                 )
 
                 result_event, _ = ResultEvent.objects.update_or_create(

@@ -1,13 +1,16 @@
-import re
+from datetime import date
 
 import requests
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.core.cache import cache
+from django.db.models import IntegerField
+from django.db.models import When, Case
 
 from core.models import log_postcode
+from core.utils import LastWord
 from people.models import PersonPost
 from elections.constants import UPDATED_SLUGS
 
@@ -29,13 +32,6 @@ class PostcodeToPostsMixin(object):
                 "/?invalid_postcode=1&postcode={}".format(self.postcode)
             )
         return self.render_to_response(context)
-
-    def clean_postcode(self, postcode):
-        postcode = postcode.replace("+", "")
-        incode_pattern = "[0-9][ABD-HJLNP-UW-Z]{2}"
-        space_regex = re.compile(r" *(%s)$" % incode_pattern)
-        postcode = space_regex.sub(r" \1", postcode.upper())
-        return postcode
 
     def postcode_to_ballots(self, postcode, compact=False):
         key = POSTCODE_TO_BALLOT_KEY_FMT.format(postcode.replace(" ", ""))
@@ -81,13 +77,20 @@ class PostcodeToPostsMixin(object):
         pes = PostElection.objects.filter(
             post__ynr_id__in=all_posts, election__slug__in=all_elections
         )
+        pes = pes.annotate(
+            past_date=Case(
+                When(election__election_date__lt=date.today(), then=1),
+                When(election__election_date__gte=date.today(), then=0),
+                output_field=IntegerField(),
+            )
+        )
         pes = pes.select_related("post")
         pes = pes.select_related("election")
         pes = pes.select_related("election__voting_system")
         if not compact:
             pes = pes.prefetch_related("husting_set")
         pes = pes.order_by(
-            "election__election_date", "election__election_weight"
+            "past_date", "election__election_date", "election__election_weight"
         )
 
         return pes
@@ -101,11 +104,15 @@ class PostelectionsToPeopleMixin(object):
             return people_for_post
 
         people_for_post = PersonPost.objects.filter(post_election=postelection)
+        people_for_post = people_for_post.annotate(
+            last_name=LastWord("person__name")
+        )
 
         if postelection.election.uses_lists:
             order_by = ["party__party_name", "list_position"]
         else:
-            order_by = ["person__name"]
+            order_by = ["person__sort_name", "last_name", "person__name"]
+
         people_for_post = people_for_post.order_by("-elected", *order_by)
         people_for_post = people_for_post.select_related(
             "post", "election", "person", "party", "person__cv", "results"

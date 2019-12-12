@@ -1,0 +1,11 @@
+update_configs:
+  -
+    directory: /
+    ignored_updates:
+      -
+        match:
+          dependency_name: django
+          version_requirement: 3.x
+    package_manager: python
+    update_schedule: daily
+version: 1

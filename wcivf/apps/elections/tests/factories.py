@@ -31,3 +31,6 @@ class PostElectionFactory(factory.django.DjangoModelFactory):
 
     post = factory.SubFactory(PostFactory)
     election = factory.SubFactory(ElectionFactory)
+    ballot_paper_id = factory.Sequence(
+        lambda n: "parl.place-name-%d.2015-05-07" % n
+    )

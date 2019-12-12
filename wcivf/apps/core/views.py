@@ -3,8 +3,9 @@ import datetime
 
 from django import http
 from django.conf import settings
+from django.utils import timezone
 from django.views.generic import View, FormView, TemplateView
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from .forms import PostcodeLookupForm
 
@@ -55,14 +56,29 @@ class HomePageView(PostcodeFormView):
         delta = datetime.timedelta(weeks=4)
         cut_off_date = today + delta
 
-        context["upcoming_elections"] = (
-            PostElection.objects.filter(
-                election__election_date__gte=today,
-                election__election_date__lte=cut_off_date,
-            )
-            .exclude(election__election_date=may_election_day_this_year())
-            .order_by("election__election_date")
+        # context["upcoming_elections"] = (
+        #     PostElection.objects.filter(
+        #         election__election_date__gte=today,
+        #         election__election_date__lte=cut_off_date,
+        #         election__any_non_by_elections=False,
+        #     )
+        #     .exclude(election__election_date=may_election_day_this_year())
+        #     .select_related("election", "post")
+        #     .order_by("election__election_date")
+        # )
+
+        polls_open = timezone.make_aware(
+            datetime.datetime.strptime("2019-12-12 7", "%Y-%m-%d %H")
         )
+        polls_close = timezone.make_aware(
+            datetime.datetime.strptime("2019-12-12 22", "%Y-%m-%d %H")
+        )
+        now = timezone.now()
+
+        context["show_polls_open"] = polls_close > now
+        context["poll_date"] = "on Thursday 12 December"
+        if polls_open < now and polls_close > now:
+            context["poll_date"] = "today"
 
         return context
 

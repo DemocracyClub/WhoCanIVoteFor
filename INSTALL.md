@@ -8,9 +8,8 @@ To install:
 Create a Postgres database as detailed below, then:
 
     python manage.py migrate
-    python manage.py import_elections
-    python manage.py import_posts
     python manage.py import_parties
+    python manage.py import_ballots
     python manage.py import_people
 
 If you don't want to install Redis for some reason (like e.g. laziness) you can override

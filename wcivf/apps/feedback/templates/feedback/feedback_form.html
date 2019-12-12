@@ -1,10 +1,14 @@
-<div class="card">
+<section class="card">
   <form id="feedback_form" method="post" action="{% url 'feedback_form_view' %}">
     {% csrf_token %}
     {{ feedback_form.token }}
     {{ feedback_form.source_url }}
 
-    <h3>Did you find what you were looking for?</h3>
+    <h2>
+      <span aria-hidden="true">🔎</span>
+      Did you find what you were looking for?
+      <span aria-hidden="true">🔎</span>
+    </h2>
     {% for choice in feedback_form.found_useful %}
       {{ choice.tag }}
       <label class="link-button" for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
@@ -16,4 +20,4 @@
       <button type="submit" class="button">Send feedback</button>
     </div>
   </form>
-</div>
+</section>

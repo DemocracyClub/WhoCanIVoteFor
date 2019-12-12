@@ -2,8 +2,6 @@
 <h1>Thanks for your feedback!</h1>
 {% if object.found_useful == "YES" %}
 
-<p>This website is run by Democracy Club — a tiny non-profit that tries to make democracy better.</p>
-
 <p>The information you see here is gathered publicly, by people like you.</p>
 
 <p>Help us do more to make democracy work better for everyone!</p>
@@ -12,17 +10,10 @@
 
 <p>We're sorry you didn't find what you were looking for. We'll read your feedback and pass it on to our volunteers.</p>
 
-<p>This website is run by Democracy Club — a tiny non-profit that tries to make democracy better.</p>
-
 <p>The information you see here is gathered publicly, by people like you.</p>
 
 <p>Help us do better in future!</p>
 
 {% endif %}
 
-<form method="post" class="donate_form inline_radios" action="{% url "feedback_form_view" %}">
-  {% csrf_token %}
-  {{ request.donation_form.errors }}
-  {{ request.donation_form|dc_form }}
-  <button type="submit" class="buttonNew">Next</button>
-</form>
+{% include "donations/donate_inline.html" with hide_card=1 hide_header=1 %}

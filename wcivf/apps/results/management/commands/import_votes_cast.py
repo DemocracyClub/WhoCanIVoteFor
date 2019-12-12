@@ -1,60 +1,48 @@
-import requests
-
 from django.core.management.base import BaseCommand
 from django.conf import settings
 
 from core.helpers import show_data_on_error
+from elections.helpers import JsonPaginator
 from people.models import PersonPost
 from results.models import PersonPostResult
-from elections.models import PostElection, Election
+from elections.models import PostElection
 
 
 class Command(BaseCommand):
     help = "Import results from the YNR API"
 
-    def add_arguments(self, parser):
-        parser.add_argument(
-            "--date", action="store", dest="date", help="The election date"
-        )
+    # def add_arguments(self, parser):
+    # Add back in again when we have date filters in YNR
+    # parser.add_argument(
+    #     "--date", action="store", dest="date", help="The election date"
+    # )
 
     def handle(self, *args, **options):
-        if options["date"]:
-            dates = [options["date"]]
-        else:
-            qs = (
-                Election.objects.filter(current=True)
-                .order_by("election_date")
-                .values_list("election_date", flat=True)
-                .distinct()
-            )
-            dates = [d.strftime("%Y-%m-%d") for d in qs]
-
-        for date in dates:
-            base_url = "{}/api/v0.9/result_sets/?election_date={}".format(
-                settings.YNR_BASE, date
-            )
-            next_page = base_url
-            while next_page:
-                req = requests.get(next_page)
-                data = req.json()
-                self.import_page(data["results"])
-                next_page = data.get("next")
+        base_url = "{}/api/next/results/?page_size=200".format(
+            settings.YNR_BASE
+        )
+        next_page = base_url
+        for page in JsonPaginator(next_page, self.stdout):
+            self.import_page(page["results"])
 
     def import_page(self, results):
         for resultset in results:
             post_election = PostElection.objects.get(
-                ballot_paper_id=resultset["ballot_paper_id"]
+                ballot_paper_id=resultset["ballot"]["ballot_paper_id"]
             )
-            for membership in resultset["candidate_results"]:
-                with show_data_on_error("Membership", membership):
-                    person_post = PersonPost.objects.get(
-                        post_election=post_election,
-                        person__pk=membership["membership"]["person"]["id"],
-                    )
-                    person_post.elected = membership["is_winner"]
+            for candidacy in resultset["candidate_results"]:
+                with show_data_on_error("Membership", candidacy):
+                    try:
+                        person_post = PersonPost.objects.get(
+                            post_election=post_election,
+                            person__ynr_id=candidacy["person"]["id"],
+                        )
+                    except PersonPost.DoesNotExist:
+                        continue
+                    person_post.elected = candidacy["elected"]
                     person_post.save()
 
                     PersonPostResult.objects.update_or_create(
                         person_post=person_post,
-                        votes_cast=membership["num_ballots"],
+                        defaults={"votes_cast": candidacy["num_ballots"]},
                     )

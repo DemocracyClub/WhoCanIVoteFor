@@ -14,7 +14,11 @@
   {% if object.cancelled %}
     {% include "elections/includes/_cancelled_election.html" with object=object only %}
   {% else %}
-  <h1>{{ object.election.nice_election_name }}</h1>
+  <h1>
+    <span aria-hidden="true">🗳️</span>
+    {{ object.election.nice_election_name }}
+    <span aria-hidden="true">🗳️</span>
+  </h1>
   {% if object.friendly_name != object.election.nice_election_name %}
   <h2>{{ object.friendly_name }}</h2>
   {% endif %}
@@ -23,29 +27,54 @@
       This election
     {% now "j F Y" as current_day %}
     {% if object.election.election_date|date:"j F Y" == current_day %}
-      <strong>is being held today</strong>. Polls are open till 10pm.
+      <strong>is being held today</strong>.
+      Polls are open till {% if "local.city-of-london" in object.election.slug %}8pm{% else%}10pm{%endif %}.
     {% else %}
       {% if object.election.in_past %}was{% else %}will be{% endif %} held {{ object.election.election_date|naturalday:"\o\n l j F Y" }}.
     {% endif %}
   </p>
 
+
+    {% if object.election.slug == "europarl.2019-05-23"%}
+      {% include "elections/includes/eu_results.html" with card=0 %}
+    {% endif %}
+
+
   <div class="clearfix">
     {% if person_posts.all.count %}
-
-      <p><strong>{{ person_posts.count }} candidates</strong>
-      {% if object.election.in_past %}stood{% else %}are standing{% endif %} in this {{ object.get_name_suffix }}.</p>
+      {% if not postelection.get_voting_system.slug == "PR-CL" %}
+        <p><strong>{{ person_posts.count }} candidates</strong>
+        {% if object.election.in_past %}stood{% else %}are standing{% endif %} in this {{ object.get_name_suffix }}.</p>
+      {% endif %}
       {% if not object.election.in_past and not object.locked %}
         <p><a href="{{ object.ynr_link }}">Add more at our candidate crowd-sourcing site</a></p>
       {% endif %}
 
-      {% if postelection.election.uses_lists %}
+      {% if postelection.display_as_party_list %}
         <h3>List candidates by party</h3>
-        <p>You will vote for your preferred party rather than a candidate on this ballot paper</p>
+        {% if postelection.get_voting_system.slug == "PR-CL" %}
+          <p>You will have one vote, and can vote for a single party list or independent candidate.</p>
+        {% else %}
+          <p>You will vote for your preferred party rather than a candidate on this ballot paper</p>
+        {% endif %}
         {% include "elections/includes/_people_list_with_lists.html" with people=person_posts.all %}
       {% else %}
         {% include "elections/includes/_people_list.html" with people=person_posts.all %}
       {% endif %}
     {% else %}
+
+      {% if object.expected_sopn_date and not object.election.in_past %}
+        <p>
+        The official candidate list
+        {% now "Y-m-d" as today %}
+        {% if object.expected_sopn_date|date:"Y-m-d" <= today %}
+        should have been
+        {% else %}
+        should be
+        {% endif %}
+        published on {{ object.expected_sopn_date|date:"j F Y" }}.
+        </p>
+      {% endif %}
       {% if not object.election.in_past %}
           <p><a href="{{ object.ynr_link }}">Add some candidates at our candidate crowd-sourcing site</a></p>
       {% endif %}
@@ -53,7 +82,13 @@
   </div>
   {% endif %}
 
+  {% include "elections/includes/_ld_election.html" with election=object %}
+
 </div>
+
+{% if postelection.ballotnewsarticle_set.exists %}
+  {% include "news_mentions/news_articles.html" with news_articles=postelection.ballotnewsarticle_set.all %}
+{% endif %}
 
 {% if postelection.husting_set.exists %}
   <div class="card">

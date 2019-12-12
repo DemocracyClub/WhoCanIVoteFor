@@ -26,9 +26,8 @@ class Command(BaseCommand):
 
         if options["full"]:
             commands = [
-                ("import_elections",),
-                ("import_posts",),
                 ("import_parties",),
+                ("import_ballots",),
                 ("import_people",),
                 ("import_cvs",),
             ]

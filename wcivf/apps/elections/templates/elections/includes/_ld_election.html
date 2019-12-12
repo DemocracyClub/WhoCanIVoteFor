@@ -1,0 +1,33 @@
+{% load static %}
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org/",
+    "@type": "Event",
+    "url" : "{{ CANONICAL_URL }}{{ election.get_absolute_url }}",
+    "image": "{{ CANONICAL_URL }}{% static "dc_theme/images/logo.png" %}",
+    "startDate": "{{ election.election.start_time | date:'Y-m-d H:i' }}",
+    "endDate": "{{ election.election.end_time | date:'Y-m-d H:i' }}",
+
+{% if election.election.election_type == 'parl' %}
+
+    "name": "UK Parliament Election - {{ election.post.area_name }}",
+    "description": "Election of the Member of Parliament for {{ election.post.area_name }}",
+    "location" : {
+        "@type" : "Place",
+        "address": "{{ election.post.area_name }}, UK"
+    }
+
+{% else %}
+
+    "name": "{{ election.election.name }}",
+    "description": "{{ election.friendly_name }}",
+    "location" : {
+        "@type" : "Place",
+        "address": "{{ election.post.nice_organization }}, {{ election.post.nice_territory }}, UK"
+    }
+
+{% endif %}
+
+
+}
+</script>
