@@ -16,7 +16,7 @@ Pillow==6.2.0
 icalendar==4.0.3
 dealer==2.1.0
 django-robots==3.1.0
-django-debug-toolbar==1.11
+django-debug-toolbar==3.1
 gocardless_pro==1.9.0
 newspaper3k==0.2.8
 
