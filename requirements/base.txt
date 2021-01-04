@@ -25,7 +25,7 @@ git+https://github.com/DemocracyClub/dc_signup_form.git@2.1.0
 djangorestframework-jsonp==1.0.2
 feedparser==6.0.2
 
-sentry-sdk==0.19.1
+sentry-sdk==0.19.5
 uk-election-timetables==2.0.1
 
 stripe==2.55.0
