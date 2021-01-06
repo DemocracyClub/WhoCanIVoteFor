@@ -12,7 +12,11 @@
 <section class="columns large-12">
   <div class="card">
     <div class="row">
-      <h2>UK Political parties</h2>
+      <h2>UK political parties</h2>
+      <p>The following is a list of all political parties represented by candidates in Democracy Club's UK election database (est. 2015). The list includes active, deregistered, and defunct parties.</p>
+        
+       <p>Party names and emblems are taken from the [Electoral Commission’s](http://www.electoralcommission.org.uk/) register of political parties.</p>
+
       <ul>
       {% for party in object_list %}
       <li><a href="{{ party.get_absolute_url }}">{{ party.party_name }}</a></li>
