@@ -1,3 +1,5 @@
+## Installation requirements on ubuntu
+
 WCIVF requires Python 3.
 
 To install:
@@ -5,7 +7,41 @@ To install:
     sudo apt-get install python3-dev libpq-dev libjpeg-dev redis-server
     pip install -r requirements/local.txt
 
-Create a Postgres database as detailed below, then:
+
+## Installation requirements on macOS
+
+Use homebrew to install the following dependencies:
+
+    brew install postgresql libjpeg-dev postgis
+
+Pyenv is recommended to install python versions. You can find installation instructions for pyenv [here](https://github.com/pyenv/pyenv#installation) - installation via homebrew is recommended. You can then install python 3 with:
+
+    pyenv install 3.6.12
+
+If using pyenv, after installation use the command `pyenv local 3.6.12` to set this version for the project locally. This will create a `.python-version` file with the specified python version.
+
+You can then create a [virtual environment](https://docs.python.org/3/tutorial/venv.html) with the command:
+
+    python -m venv env
+
+This will create a virtual environment in the directory `env`. You can then activate the virtual environment with:
+
+    source env/bin/activate
+
+Check that the virtual environment is using the correct python version:
+
+    python --version
+
+The output should match the python version set in the .python-version file. If it does not, something has gone wrong - delete the `env` directory and retry the steps to set the python version and create the virtual environment.
+
+You can now install the project dependencies in to your activated virtualenv:
+
+    pip install -r requirements/local.txt
+
+
+## Database setup
+
+Create a Postgres database as detailed [below](#setting-up-postgresql-and-postgis), then:
 
     python manage.py migrate
     python manage.py import_parties
@@ -20,6 +56,7 @@ the cache backend with a file at `./wcivf/settings/local.py` with the following:
            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
         }
     }
+
 
 ## Setting up PostgreSQL and PostGIS
 
