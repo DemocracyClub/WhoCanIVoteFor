@@ -12,15 +12,29 @@ To install:
 
 Use homebrew to install the following dependencies:
 
-    brew install postgresql libjpeg-dev postgis
+    brew install postgresql jpeg postgis
 
-Pyenv is recommended to install python versions. You can find installation instructions for pyenv [here](https://github.com/pyenv/pyenv#installation) - installation via homebrew is recommended. You can then install python 3 with:
+If you want to use redis, this can also be installed with homebrew:
+    
+    brew install redis
+
+Pyenv is recommended to install python versions. You can find installation instructions for pyenv [here](https://github.com/pyenv/pyenv#installation) - installation via homebrew is recommended.
+
+The python version that we are using for this project is specified in the `.python-version` file in the root of the directory.You can install this version with:
 
     pyenv install 3.6.12
 
-If using pyenv, after installation use the command `pyenv local 3.6.12` to set this version for the project locally. This will create a `.python-version` file with the specified python version.
+The presence of a `.python-version` file means that pyenv will activate this version whenever in this directory. This means that whenever running a `python` command, the version specified in `.python-version` is used. You can check this with the below command:
 
-You can then create a [virtual environment](https://docs.python.org/3/tutorial/venv.html) with the command:
+    python --version
+
+The output should match the version in `.python-version`. If the version is not installed, pyenv will output an error stating the version is not installed.
+
+If there is no `.python-version` file you can use the following command to create one and activate that version for this project:
+
+    pyenv local 3.6.12
+
+When you are happy that you are using the correct python version, you are ready to create a [virtual environment](https://docs.python.org/3/tutorial/venv.html) with the command:
 
     python -m venv env
 
@@ -32,11 +46,15 @@ Check that the virtual environment is using the correct python version:
 
     python --version
 
-The output should match the python version set in the .python-version file. If it does not, something has gone wrong - delete the `env` directory and retry the steps to set the python version and create the virtual environment.
+The output should match the python version set in the `.python-version`. If it does not, something has gone wrong - delete the `env` directory and retry the steps to set the python version and create the virtual environment.
 
 You can now install the project dependencies in to your activated virtualenv:
 
     pip install -r requirements/local.txt
+
+Check that your env has correctly installed and project is working by running the tests:
+
+    pytest
 
 
 ## Database setup
