@@ -18,7 +18,7 @@ class PostcodeFormView(FormView):
 
     def get(self, request, *args, **kwargs):
         if (
-            "postcode" in request.GET
+            request.GET.get("postcode")
             and "invalid_postcode" not in self.request.GET
         ):
             redirect_url = reverse(
