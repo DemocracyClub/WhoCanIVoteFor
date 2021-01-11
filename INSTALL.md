@@ -57,6 +57,17 @@ Check that your env has correctly installed and project is working by running th
     pytest
 
 
+## Code formatting
+
+The project uses [Black](https://black.readthedocs.io/en/stable/) for code formatting. You can run it with:
+
+    black .
+
+A pre-commit hook is defined in the project to run it automatically before each commit. See the [pre-commit docs](https://pre-commit.com/#quick-start) for more information, or simply run the below command to setup:
+
+    pre-commit install
+
+
 ## Database setup
 
 Create a Postgres database as detailed [below](#setting-up-postgresql-and-postgis), then:
