@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.db import models
 from django.utils.text import slugify
 from django.utils.timezone import now
+from django.utils.functional import cached_property
 from elections.models import Election, Post
 from parties.models import Party
 
@@ -151,6 +152,15 @@ class Person(models.Model):
                 ]
             )
         )
+
+    @cached_property
+    def current_candidacies(self):
+        """
+        Returns a QS of related PersonPost objects in the future
+        """
+        return self.personpost_set.filter(
+            election__current=True
+        ).select_related("party", "post", "election", "post_election")
 
 
 class AssociatedCompany(models.Model):
