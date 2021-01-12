@@ -49,8 +49,36 @@ class Election(models.Model):
     def __str__(self):
         return self.name
 
+    @property
     def in_past(self):
+        """
+        Returns a boolean for whether the election date is in the past
+        """
         return self.election_date < datetime.date.today()
+
+    @property
+    def is_city_of_london(self):
+        """
+        Returns boolean for if the election is within City of London district
+        """
+        return "local.city-of-london" in self.slug
+
+    @property
+    def polls_close(self):
+        """
+        Return the time the polls close
+        """
+        if self.is_city_of_london:
+            return datetime.time(20, 0)
+
+        return datetime.time(22, 0)
+
+    @property
+    def is_election_day(self):
+        """
+        Return boolean for whether it is election day
+        """
+        return self.election_date == datetime.date.today()
 
     def friendly_day(self):
         delta = self.election_date - datetime.date.today()
@@ -272,7 +300,7 @@ class PostElection(models.Model):
                     url, title
                 )
         if not message:
-            if self.election.in_past():
+            if self.election.in_past:
                 message = "(The poll for this election was cancelled)"
             else:
                 message = "<strong>(The poll for this election has been cancelled)</strong>"

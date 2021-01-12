@@ -22,10 +22,9 @@
       {% endif %}
       <p>
         This election
-        {% now "j F Y" as current_day %}
-        {% if postelection.election.election_date|date:"j F Y" == current_day %}
+        {% if postelection.election.is_election_day %}
           <strong>is being held today</strong>.
-          Polls are open till {% if "local.city-of-london" in postelection.election.slug %}8pm{% else%}10pm{%endif %}.
+          Polls are open till {% if postelection.election.is_city_of_london %}8pm{% else%}10pm{%endif %}.
         {% else %}
           {{ postelection.election.in_past|yesno:"was,will be" }} held
           <strong>{{ postelection.election.election_date|naturalday:"\o\n l j F Y" }}</strong>.
