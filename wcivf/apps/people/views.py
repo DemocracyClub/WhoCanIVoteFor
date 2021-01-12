@@ -41,9 +41,7 @@ class PersonMixin(object):
                 % {"verbose_name": queryset.model._meta.verbose_name}
             )
 
-        obj.current_personposts = PersonPost.objects.filter(
-            person=obj, election__current=True
-        ).select_related("party", "post", "election", "post_election")
+        # TODO check if this can be deleted or may be needed in future?
         # obj.leaflets = Leaflet.objects.filter(person=obj).order_by(
         #     "-date_uploaded_to_electionleaflets"
         # )[:3]
@@ -61,8 +59,8 @@ class PersonView(DetailView, PersonMixin):
             person=obj, election__current=False, post_election__cancelled=False
         ).select_related("party", "post", "election", "post_election")
         obj.personpost = None
-        if obj.current_personposts:
-            obj.personpost = obj.current_personposts[0]
+        if obj.current_candidacies:
+            obj.personpost = obj.current_candidacies.first()
         elif obj.past_personposts:
             obj.personpost = obj.past_personposts[0]
         obj.postelection = None
@@ -77,9 +75,6 @@ class PersonView(DetailView, PersonMixin):
         obj.intro = self.get_intro(obj)
         obj.text_intro = strip_tags(obj.intro)
         obj.post_country = self.get_post_country(obj)
-        obj.has_current_candidacies = PersonPost.objects.filter(
-            person=obj, election__current=True
-        ).exists()
 
         if obj.personpost:
             # We can't show manifestos if they've never stood for a party
@@ -130,7 +125,7 @@ class PersonView(DetailView, PersonMixin):
         intro = [person.name]
 
         has_elections_in_future = any(
-            [not pp.election.in_past() for pp in person.current_personposts]
+            [not pp.election.in_past() for pp in person.current_candidacies]
         )
 
         if has_elections_in_future and not person.death_date:

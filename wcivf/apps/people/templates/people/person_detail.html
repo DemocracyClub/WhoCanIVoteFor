@@ -12,7 +12,7 @@
 {% block content %}
   <div class="card person_banner">
     <h2 class="person_name">{{ object.name }}
-    {% if person.death_date and person.has_current_candidacies and person.personpost.party.party_id == "ynmp-party:2" %}
+    {% if person.death_date and person.current_candidacies and person.personpost.party.party_id == "ynmp-party:2" %}
       (Deceased)
     {% endif %}
     </h2>
@@ -90,7 +90,7 @@
             &ldquo;{{ object.favourite_biscuit }}&rdquo;
         </dd>
         {% endif %}
-        {% if object.email and object.current_personposts %}
+        {% if object.email and object.current_candidacies %}
         <dt>Email</dt>
         <dd><a href="mailto:{{ object.email }}">{{ object.email }}</a></dd>
         {% else %}
@@ -230,7 +230,7 @@
   {% endif %}
 
 
-  {% if object.local_party and object.current_personposts %}
+  {% if object.local_party and object.current_candidacies %}
   <div class="card info_card">
     <h3>{{ object.local_party.name }}</h3>
     <p>{{ object.name }}'s local party is the {{ object.local_party.name }}.</p>
@@ -265,7 +265,7 @@
   </div>
   {% endif %}
 
-{% if object.postelection.husting_set.exists and object.current_personposts %}
+{% if object.postelection.husting_set.exists and object.current_candidacies %}
     <div class="card info_card">
       <h3>Local hustings</h3>
       <p>You can meet candidates and question them at local hustings. Here are hustings where {{ object.name }} may be appearing.</p>
@@ -298,7 +298,7 @@
   {% endif %}
 
   {# Edit link #}
-  {% if object.current_personposts %}
+  {% if object.current_candidacies %}
   <div class="card" id="findmore">
   <h3>That's all we know! Will you help us find more about this candidate?</h3>
 

@@ -27,7 +27,7 @@
     for the Democracy Club dataset. </p>
 
 
-    <p>Add your name, check the box if you live in {{ object.current_personposts.0.post.label }},
+    <p>Add your name, check the box if you live in {{ object.current_candidacies.0.post.label }},
       and then press 'open email in email program'.</p>
 
     <form>
@@ -36,7 +36,7 @@
         <input type="text" id="name" onkeyup="nameChange()" class=" form-control">
       </div>
       <div class="form-group">
-        <label for="constituent" class="form-label-bold">I live in {{ object.current_personposts.0.post.label }}</label>
+        <label for="constituent" class="form-label-bold">I live in {{ object.current_candidacies.0.post.label }}</label>
         <input type="checkbox" id="constituent" onchange="constituentChange()" value="1" class=" form-control">
       </div>
     </form>
@@ -51,7 +51,7 @@
     <div id="email">
     <p>Hi,</p>
 
-    <p>My name is <span class="name">TYPE YOUR NAME IN THE BOX</span><span class="constituent">, I live in {{ object.current_personposts.0.post.label }} </span> and I'm working with a non-partisan, non-profit organisation called Democracy Club, which gathers information on election candidates in order to help voters. Your page is here:
+    <p>My name is <span class="name">TYPE YOUR NAME IN THE BOX</span><span class="constituent">, I live in {{ object.current_candidacies.0.post.label }} </span> and I'm working with a non-partisan, non-profit organisation called Democracy Club, which gathers information on election candidates in order to help voters. Your page is here:
     https://candidates.democracyclub.org.uk/person/{{ object.ynr_id }}/</p>
 
     <p>At the last election, Democracy Club's data was used by a number of national and local websites and social media platforms. So it's worth taking the time to make it complete.</p>
