@@ -125,7 +125,7 @@ class PersonView(DetailView, PersonMixin):
         intro = [person.name]
 
         has_elections_in_future = any(
-            [not pp.election.in_past() for pp in person.current_candidacies]
+            [not pp.election.in_past for pp in person.current_candidacies]
         )
 
         if has_elections_in_future and not person.death_date:

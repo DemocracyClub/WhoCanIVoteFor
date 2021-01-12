@@ -9,3 +9,4 @@ pytest-flakes
 pytest-cov
 factory_boy
 vcrpy==4.1.1
+pytest-freezegun
