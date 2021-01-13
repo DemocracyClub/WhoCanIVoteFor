@@ -15,7 +15,7 @@
     <p>The {{ object.nice_election_name }}
       {% if object.is_election_day %}
       <strong>is being held today</strong>.
-      Polls are open till {% if election.is_city_of_london %}8pm{% else%}10pm{%endif %}.
+      Polls are open till {{ object.polls_close|time:"g" }}pm.
       {% else %}
       {% if object.in_past %}was{% else %}will be{% endif %} held <strong>{{ object.election_date|naturalday:"\o\n l j F Y" }}</strong>.
       {% endif %}
