@@ -66,7 +66,7 @@ class Election(models.Model):
     @property
     def polls_close(self):
         """
-        Return the time the polls close
+        Return a time object for the time the polls close
         """
         if self.is_city_of_london:
             return datetime.time(20, 0)
