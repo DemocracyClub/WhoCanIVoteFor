@@ -274,12 +274,12 @@
 {% endif %}
 
 
-{% if object.past_personposts %}
+{% if object.past_candidacies %}
 <div class="card info_card">
   <h3>Previous elections</h3>
     <p>This candidate has previously stood for election in:</p>
     <ul>
-    {% for person_post in object.past_personposts %}
+    {% for person_post in object.past_candidacies %}
     <li><strong>{{ person_post.election.election_date|date:"Y" }}:</strong>
       <strong>{{ person_post.election }}</strong>, as the {{ person_post.party.party_name }} candidate for
       <a href="{{ person_post.post_election.get_absolute_url }}">{{ person_post.post.label }}</a>
