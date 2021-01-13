@@ -158,9 +158,15 @@ class Person(models.Model):
         """
         Returns a QS of related PersonPost objects in the future
         """
-        return self.personpost_set.filter(
-            election__current=True
-        ).select_related("party", "post", "election", "post_election")
+        return self.personpost_set.future().select_related(
+            "party", "post", "election", "post_election"
+        )
+
+    @cached_property
+    def past_candidacies(self):
+        return self.personpost_set.past().select_related(
+            "party", "post", "election", "post_election"
+        )
 
 
 class AssociatedCompany(models.Model):
