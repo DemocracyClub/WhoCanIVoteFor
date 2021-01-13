@@ -44,19 +44,14 @@ class PersonPostQuerySet(models.QuerySet):
         """
         Return objects where election is marked as current or election is in the future
         """
-        return self.filter(
-            models.Q(election__current=True)
-            | models.Q(election__election_date__gte=now())
-        )
+        return self.filter(election__election_date__gte=now())
 
     def past(self):
         """
         Return objects where related election is in the past or cancelled
         """
         return self.filter(
-            election__current=False,
-            post_election__cancelled=False,
-            election__election_date__lt=now(),
+            post_election__cancelled=False, election__election_date__lt=now()
         )
 
 
