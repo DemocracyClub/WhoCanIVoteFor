@@ -1,7 +1,11 @@
 import factory
 
 from people.models import Person, PersonPost
-from elections.tests.factories import ElectionFactory, PostFactory
+from elections.tests.factories import (
+    ElectionFactory,
+    PostFactory,
+    PostElectionFactory,
+)
 
 
 class PersonFactory(factory.django.DjangoModelFactory):
@@ -19,5 +23,6 @@ class PersonPostFactory(factory.django.DjangoModelFactory):
 
     person = factory.SubFactory(PersonFactory)
     post = factory.SubFactory(PostFactory)
+    post_election = factory.SubFactory(PostElectionFactory)
     party = None
     list_position = None

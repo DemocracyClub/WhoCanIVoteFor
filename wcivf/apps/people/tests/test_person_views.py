@@ -61,7 +61,7 @@ class PersonViewTests(TestCase):
         self.assertNotContains(response, election_name)
         election = ElectionFactory(
             name=election_name,
-            current=True,
+            current=False,
             election_date="2017-01-01",
             slug="local.foobar.2017-01-01",
         )
