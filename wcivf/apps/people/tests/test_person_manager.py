@@ -37,45 +37,37 @@ class PersonPostManagerTests(TestCase):
     def setUp(self):
         # create some Election objects with different dates
         future_election = ElectionFactoryLazySlug(
-            election_date=timezone.datetime(2021, 5, 6),
+            election_date=timezone.datetime(2021, 5, 6)
         )
-        past_election = ElectionFactoryLazySlug(
-            election_date=timezone.datetime(2017, 6, 8)
+        past_current_election = ElectionFactoryLazySlug(
+            current=True, election_date=timezone.datetime(2021, 1, 1)
         )
-
-        # create the Post object (division) with the above elections
-        post = PostFactory(elections=[future_election, past_election])
-
-        # create a ballot like object for each of the elections
-        future_post_election = PostElectionFactory(
-            election=future_election,
-            post=post,
-        )
-        past_post_election = PostElectionFactory(
-            election=past_election,
-            post=post,
+        past_not_current = ElectionFactoryLazySlug(
+            current=False, election_date=timezone.datetime(2017, 6, 8)
         )
 
         # create the 'candidacy' like objects
-        self.in_future = PersonPostFactory(
-            election=future_election,
-            post=post,
-            post_election=future_post_election,
-        )
-        self.in_past = PersonPostFactory(
-            election=past_election,
-            post=post,
-            post_election=past_post_election,
-        )
+        self.in_future = PersonPostFactory(election=future_election)
+        self.in_past_current = PersonPostFactory(election=past_current_election)
+        self.in_past_not_current = PersonPostFactory(election=past_not_current)
 
-    def test_future(self):
-        qs = PersonPost.objects.future()
-        assert qs.count() == 1
+    def test_current_or_future(self):
+        qs = PersonPost.objects.current_or_future()
+        assert qs.count() == 2
         self.assertIn(self.in_future, qs)
-        self.assertNotIn(self.in_past, qs)
+        self.assertIn(self.in_past_current, qs)
+        self.assertNotIn(self.in_past_not_current, qs)
 
-    def test_past(self):
-        qs = PersonPost.objects.past()
+    def test_past_not_current(self):
+        qs = PersonPost.objects.past_not_current()
         assert qs.count() == 1
-        self.assertIn(self.in_past, qs)
+        self.assertIn(self.in_past_not_current, qs)
         self.assertNotIn(self.in_future, qs)
+        self.assertNotIn(self.in_past_current, qs)
+
+    def test_current(self):
+        qs = PersonPost.objects.current()
+        assert qs.count() == 2
+        self.assertIn(self.in_future, qs)
+        self.assertIn(self.in_past_current, qs)
+        self.assertNotIn(self.in_past_not_current, qs)

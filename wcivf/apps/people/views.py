@@ -56,10 +56,10 @@ class PersonView(DetailView, PersonMixin):
         obj = self.get_person(queryset)
 
         obj.personpost = None
-        if obj.current_candidacies:
-            obj.personpost = obj.current_candidacies.first()
-        elif obj.past_candidacies:
-            obj.personpost = obj.past_candidacies[0]
+        if obj.current_or_future_candidacies:
+            obj.personpost = obj.current_or_future_candidacies.first()
+        elif obj.past_not_current_candidacies:
+            obj.personpost = obj.past_not_current_candidacies.first()
         obj.postelection = None
         if obj.personpost:
             try:
@@ -121,10 +121,11 @@ class PersonView(DetailView, PersonMixin):
     def get_intro(self, person):
         intro = [person.name]
 
-        if person.current_candidacies and not person.death_date:
+        if person.current_or_future_candidacies and not person.death_date:
             intro.append("is")
         else:
             intro.append("was")
+
         if person.personpost:
             party = person.personpost.party
             if party:
