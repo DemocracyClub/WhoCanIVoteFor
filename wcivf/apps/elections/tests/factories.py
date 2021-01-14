@@ -1,5 +1,6 @@
 import factory
 
+from django.utils.text import slugify
 from elections.models import Election, Post, PostElection
 
 
@@ -12,6 +13,18 @@ class ElectionFactory(factory.django.DjangoModelFactory):
     election_date = "2015-05-07"
     current = True
     name = "UK General Election 2015"
+
+
+class ElectionFactoryLazySlug(ElectionFactory):
+    """
+    Factory that sets slug 'lazily' to ensure that a new object is always
+    created
+    """
+
+    @factory.lazy_attribute_sequence
+    def slug(self, n):
+        slug = slugify(self.name)
+        return f"{slug}-{n}"
 
 
 class PostFactory(factory.django.DjangoModelFactory):

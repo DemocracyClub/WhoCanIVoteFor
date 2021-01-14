@@ -9,6 +9,7 @@ from elections.tests.factories import (
     ElectionFactory,
     PostFactory,
     PostElectionFactory,
+    ElectionFactoryLazySlug,
 )
 
 
@@ -35,12 +36,11 @@ class PersonManagerTests(TestCase):
 class PersonPostManagerTests(TestCase):
     def setUp(self):
         # create some Election objects with different dates
-        future_election = ElectionFactory(
+        future_election = ElectionFactoryLazySlug(
             election_date=timezone.datetime(2021, 5, 6),
-            slug="future-election",
         )
-        past_election = ElectionFactory(
-            election_date=timezone.datetime(2017, 6, 8), slug="past-election"
+        past_election = ElectionFactoryLazySlug(
+            election_date=timezone.datetime(2017, 6, 8)
         )
 
         # create the Post object (division) with the above elections
