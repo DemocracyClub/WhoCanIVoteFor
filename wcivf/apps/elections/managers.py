@@ -15,6 +15,13 @@ class ElectionQuerySet(models.QuerySet):
             models.Q(current=True) | models.Q(election_date__gt=timezone.now())
         )
 
+    def past(self):
+        """
+        Returns elections that are not marked as current and do not have an
+        election date in the future.
+        """
+        return self.filter(current=False, election_date__lt=timezone.now())
+
 
 class ElectionManager(models.Manager.from_queryset(ElectionQuerySet)):
     def get_explainer(self, election):
@@ -54,6 +61,12 @@ class ElectionManager(models.Manager.from_queryset(ElectionQuerySet)):
     def election_id_to_type(self, election_id):
         parts = election_id.split(".")
         return parts[0]
+
+    def past(self):
+        """
+        Allows past method on QS to be called directly from the manager
+        """
+        return self.get_queryset().past()
 
 
 class PostManager(models.Manager):
