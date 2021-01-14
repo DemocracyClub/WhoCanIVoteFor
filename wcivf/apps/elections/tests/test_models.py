@@ -24,6 +24,10 @@ class TestElectionModel(TestCase):
         assert self.election.polls_close == datetime.time(22, 00)
         assert self.city_of_london_election.polls_close == datetime.time(20, 0)
 
+    def test_polls_open(self):
+        assert self.election.polls_open == datetime.time(7, 00)
+        assert self.city_of_london_election.polls_open == datetime.time(8, 0)
+
     @pytest.mark.freeze_time("2021-05-06")
     def test_is_election_day(self):
         today = Election(election_date=datetime.date(2021, 5, 6))

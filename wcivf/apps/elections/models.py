@@ -74,6 +74,16 @@ class Election(models.Model):
         return datetime.time(22, 0)
 
     @property
+    def polls_open(self):
+        """
+        Return a time object for the time polls open
+        """
+        if self.is_city_of_london:
+            return datetime.time(8, 0)
+
+        return datetime.time(7, 0)
+
+    @property
     def is_election_day(self):
         """
         Return boolean for whether it is election day
