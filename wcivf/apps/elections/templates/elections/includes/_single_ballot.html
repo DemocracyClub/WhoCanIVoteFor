@@ -24,7 +24,7 @@
         This election
         {% if postelection.election.is_election_day %}
           <strong>is being held today</strong>.
-          Polls are open from {{ postelection.election.polls_open|time:"g" }}am till {{ postelection.election.polls_close|time:"g" }}pm.
+          Polls are open from {{ postelection.election.polls_open|time:"ga" }} till {{ postelection.election.polls_close|time:"ga" }}
         {% else %}
           {{ postelection.election.in_past|yesno:"was,will be" }} held
           <strong>{{ postelection.election.election_date|naturalday:"\o\n l j F Y" }}</strong>.

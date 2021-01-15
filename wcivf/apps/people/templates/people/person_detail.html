@@ -12,7 +12,7 @@
 {% block content %}
   <div class="card person_banner">
     <h2 class="person_name">{{ object.name }}
-    {% if person.death_date and person.current_or_future_candidacies and person.personpost.party.party_id == "ynmp-party:2" %}
+    {% if person.death_date and person.current_or_future_candidacies and person.personpost.party.is_independent %}
       (Deceased)
     {% endif %}
     </h2>

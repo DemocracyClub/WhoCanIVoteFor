@@ -3,7 +3,7 @@
 {% regroup people.by_party by party.party_name as people_by_party %}
 
 {% for person_post in people_by_party %}
-  {% if person_post.list.0.party.party_id == "ynmp-party:2" %}
+  {% if person_post.list.0.party.is_independent %}
     {#  This is a special case where we don't want to group independants, but show a single card per person  #}
     {% for pp in person_post.list %}
       <div class="card party-list-card">
