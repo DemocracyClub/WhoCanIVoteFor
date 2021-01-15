@@ -6,7 +6,7 @@ from elections.models import Election
 
 
 class TestElectionManager(TestCase):
-    @pytest.mark.freeze("2021-1-14")
+    @pytest.mark.freeze_time("2021-1-14")
     def test_past(self):
         """
         Asset that non-current elections with a past election date are returned
