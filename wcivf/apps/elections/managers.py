@@ -64,7 +64,7 @@ class ElectionManager(models.Manager.from_queryset(ElectionQuerySet)):
 
     def past(self):
         """
-        Allows past method on QS to be called directly from the manager
+        Allows past method on QuerySet object to be called directly from the manager
         """
         return self.get_queryset().past()
 

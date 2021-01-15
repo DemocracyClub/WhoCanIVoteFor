@@ -20,7 +20,7 @@
           {% if person_post.elected %}🌟 <span class="elected_text">Elected:</span> {% endif %}
           {{ person_post.person.name }}
           {% if person_post.post_election.election.current and person_post.person.death_date %}
-            {% if person_post.party.party_id == "ynmp-party:2" %}
+            {% if person_post.party.is_independent %}
             (Deceased)
 
             {% endif %}

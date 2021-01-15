@@ -78,6 +78,15 @@ class Party(models.Model):
             settings.YNR_BASE, self.emblem.path.split("/")[-1]
         )
 
+    @property
+    def is_independent(self):
+        """
+        Returns a boolean for whether the party has the internal ID that we use
+        to identify a party as independent or no party. Further info:
+        https://candidates.democracyclub.org.uk/api/docs/next/definitions/#Party
+        """
+        return self.party_id == "ynmp-party:2"
+
 
 class LocalParty(models.Model):
     parent = models.ForeignKey(

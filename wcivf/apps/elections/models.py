@@ -59,14 +59,21 @@ class Election(models.Model):
     @property
     def is_city_of_london(self):
         """
-        Returns boolean for if the election is within City of London district
+        Returns boolean for if the election is within City of London district.
+        The city often has different rules to other UK elections so it's useful
+        to know when we need to special case. For further details:
+        https://www.cityoflondon.gov.uk/about-us/voting-elections/elections/ward-elections
+        https://democracyclub.org.uk/blog/2017/03/22/eight-weird-things-about-tomorrows-city-london-elections/
         """
         return "local.city-of-london" in self.slug
 
     @property
     def polls_close(self):
         """
-        Return a time object for the time the polls close
+        Return a time object for the time the polls close.
+        Polls close earlier in City of London, for more info:
+        https://www.cityoflondon.gov.uk/about-us/voting-elections/elections/ward-elections
+        https://democracyclub.org.uk/blog/2017/03/22/eight-weird-things-about-tomorrows-city-london-elections/
         """
         if self.is_city_of_london:
             return datetime.time(20, 0)
@@ -76,7 +83,10 @@ class Election(models.Model):
     @property
     def polls_open(self):
         """
-        Return a time object for the time polls open
+        Return a time object for the time polls open.
+        Polls open later in City of London, for more info:
+        https://www.cityoflondon.gov.uk/about-us/voting-elections/elections/ward-elections
+        https://democracyclub.org.uk/blog/2017/03/22/eight-weird-things-about-tomorrows-city-london-elections/
         """
         if self.is_city_of_london:
             return datetime.time(8, 0)

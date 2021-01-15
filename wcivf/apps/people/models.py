@@ -156,7 +156,7 @@ class Person(models.Model):
     @cached_property
     def current_or_future_candidacies(self):
         """
-        Returns a QS of related PersonPost objects in the future
+        Returns a QuerySet of related PersonPost objects in the future
         """
         return self.personpost_set.current_or_future().select_related(
             "party", "post", "election", "post_election"
@@ -165,7 +165,7 @@ class Person(models.Model):
     @cached_property
     def past_not_current_candidacies(self):
         """
-        Return a QS of related PersonPost objects in the past and not current
+        Return a QuerySet of related PersonPost objects in the past and not current
         """
         return self.personpost_set.past_not_current().select_related(
             "party", "post", "election", "post_election"
