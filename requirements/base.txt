@@ -17,7 +17,6 @@ icalendar==4.0.7
 dealer==2.1.0
 django-robots==4.0
 django-debug-toolbar==3.1.1
-gocardless_pro==1.21.0
 newspaper3k==0.2.8
 
 git+git://github.com/DemocracyClub/dc_base_theme.git@0.3.11

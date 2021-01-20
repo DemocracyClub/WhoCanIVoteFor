@@ -17,6 +17,3 @@ DATABASES = {
         "PORT": "",
     }
 }
-
-GOCARDLESS_USE_SANDBOX = True
-GOCARDLESS_ACCESS_TOKEN = "Made Up"
