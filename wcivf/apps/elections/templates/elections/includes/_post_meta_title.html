@@ -1,1 +1,5 @@
-{{ object.election.name }}: The {{ person_posts|length }} candidates in {{ object.post.label }}
+{% if postelection.people|length %}
+    {{ object.election.name }}: The {{ postelection.people|length }} candidates in {{ object.post.label }}
+{% else %}
+    {{ object.election.name }}: No candidates known yet.
+{% endif %}
