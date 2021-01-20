@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from elections.import_helpers import YNRBallotImporter
+from elections.import_helpers import YNRBallotImporter, EEHelper
 from elections.models import Election
 
 
@@ -39,6 +39,20 @@ class Command(YNRBallotImporter, BaseCommand):
             election.any_non_by_elections = any_non_by_elections
             election.save()
 
+    def delete_deleted_elections(self):
+        """
+        Deletes elections that are marked as deleted in Every Election and any
+        related objects
+        """
+        ee_helper = EEHelper()
+        elections, post_elections = ee_helper.delete_deleted_elections()
+        self.stdout.write(
+            f"Deleted {elections} Election objects and relations\n"
+        )
+        self.stdout.write(
+            f"Deleted {post_elections} PostElection objects and relations\n"
+        )
+
     def handle(self, **options):
         importer = YNRBallotImporter(
             stdout=self.stdout,
@@ -48,3 +62,4 @@ class Command(YNRBallotImporter, BaseCommand):
         )
         importer.do_import()
         self.populate_any_non_by_elections_field()
+        self.delete_deleted_elections()

@@ -1,7 +1,11 @@
 import sys
 from functools import update_wrapper
 
+from django.db import transaction
 from django.conf import settings
+from django.utils.functional import cached_property
+from django.utils.timezone import datetime, timedelta
+from django.utils.http import urlencode
 from uk_election_timetables.election_ids import from_election_id
 from uk_election_timetables.calendars import Country
 
@@ -12,10 +16,56 @@ class EEHelper:
 
     ee_cache = {}
 
+    @property
+    def base_elections_url(self):
+        """
+        Builds the URL for the elections endpoint of EveryElection API
+        """
+        return f"{settings.EE_BASE}/api/elections/"
+
+    @cached_property
+    def deleted_election_ids(self):
+        """
+        Returns a generator object that retreives ids for elections that have
+        been deleted in Every Election. Accepts optional date arg, otherwise
+        defaults to objects with a Poll Open date within the last fifty days
+        """
+        params = {
+            "deleted": 1,
+            "poll_open_date__gte": datetime.now().date() - timedelta(days=50),
+        }
+        querystring = urlencode(params)
+        url = f"{self.base_elections_url}?{querystring}"
+        pages = JsonPaginator(page1=url, stdout=sys.stdout)
+        for page in pages:
+            return [result["election_id"] for result in page["results"]]
+
+    @transaction.atomic
+    def delete_deleted_elections(self):
+        """
+        Deletes Election and PostElection objects that were soft-deleted in
+        EveryElection
+        """
+        from elections.models import (
+            Election,
+            PostElection,
+        )  # noqa avoid circular import
+
+        elections_count, _ = Election.objects.filter(
+            slug__in=self.deleted_election_ids,
+            current=False,
+        ).delete()
+
+        post_elections_count, _ = PostElection.objects.filter(
+            ballot_paper_id__in=self.deleted_election_ids,
+        ).delete()
+
+        return elections_count, post_elections_count
+
     def prewarm_cache(self, current=False):
-        page1 = "{}/api/elections/".format(settings.EE_BASE)
+        page1 = self.base_elections_url
         if current:
-            page1 = "{}?current=True".format(page1)
+            page1 = f"{page1}?current=True"
         pages = JsonPaginator(page1, sys.stdout)
         for page in pages:
             for result in page["results"]:
@@ -24,9 +74,7 @@ class EEHelper:
     def get_data(self, election_id):
         if election_id in self.ee_cache:
             return self.ee_cache[election_id]
-        req = requests.get(
-            "{}/api/elections/{}/".format(settings.EE_BASE, election_id)
-        )
+        req = requests.get(f"{self.base_elections_url}{election_id}/")
         if req.status_code == 200:
             self.ee_cache[election_id] = req.json()
             return self.ee_cache[election_id]
