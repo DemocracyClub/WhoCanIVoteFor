@@ -26,5 +26,3 @@ feedparser==6.0.2
 
 sentry-sdk==0.19.5
 uk-election-timetables==2.0.1
-
-stripe==2.55.0
