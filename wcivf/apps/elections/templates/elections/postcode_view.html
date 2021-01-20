@@ -28,21 +28,16 @@
 
 {% if not messages %}
   <section class="card">
+  <p>
     <h2>
       <span aria-hidden="true">⏰</span>
-      Election reminders for {{ postcode }}
+      Add future elections in {{ postcode }} to your calendar:
       <span aria-hidden="true">⏰</span>
     </h2>
-    <p>We can email you the next time there is an election in {{ postcode }}.</p>
-    {% include "email_form/election_reminders_form.html" %}
-
-    <p>
-    Or add future elections in {{ postcode }} to your calendar:
     <a href="webcal://whocanivotefor.co.uk{% url 'postcode_ical_view' postcode %}">iCal feed</a>
   </p>
   </section>
 {% endif %}
-
 
 {#{% include "feedback/feedback_form.html" %}#}
 
