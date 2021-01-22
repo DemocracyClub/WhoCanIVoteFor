@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.utils.timezone import datetime, utc
 
 import vcr
 
@@ -28,8 +29,8 @@ class TestHustings(TestCase):
             post_election=self.ballot,
             title="Local Election Hustings",
             url="https://example.com/hustings",
-            starts="2017-03-23 19:00",
-            ends="2017-03-23 21:00",
+            starts=datetime(2017, 3, 23, 19, 00, tzinfo=utc),
+            ends=datetime(2017, 3, 23, 21, 00, tzinfo=utc),
             location="St George's Church",
             postcode="BN2 1DW",
         )
