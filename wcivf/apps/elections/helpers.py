@@ -53,7 +53,6 @@ class EEHelper:
 
         elections_count, _ = Election.objects.filter(
             slug__in=self.deleted_election_ids,
-            current=False,
         ).delete()
 
         post_elections_count, _ = PostElection.objects.filter(

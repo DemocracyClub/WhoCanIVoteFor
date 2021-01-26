@@ -101,9 +101,7 @@ class TestEEHelper:
 
         ee_helper.delete_deleted_elections()
 
-        election_filter.assert_called_once_with(
-            slug__in=["foo_id", "bar_id"], current=False
-        )
+        election_filter.assert_called_once_with(slug__in=["foo_id", "bar_id"])
         election_filter.return_value.delete.assert_called_once()
         postelection_filter.assert_called_once_with(
             ballot_paper_id__in=["foo_id", "bar_id"]
