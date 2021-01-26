@@ -240,6 +240,7 @@ class YNRBallotImporter:
         self.set_voting_system(ballot)
         self.set_metadata(ballot)
         self.set_organisation_type(ballot)
+        self.set_division_type(ballot)
         ballot.save()
 
     def set_territory(self, ballot):
@@ -287,6 +288,23 @@ class YNRBallotImporter:
                 "organisation_type"
             ]
             ballot.post.save()
+
+    def set_division_type(self, ballot):
+        """
+        Attempts to set the division_type field from EveryElection
+        """
+        if ballot.post.division_type and not self.force_update:
+            return
+
+        ee_data = self.ee_helper.get_data(ballot.ballot_paper_id)
+
+        if not ee_data or not ee_data["division"]:
+            return
+
+        ballot.post.division_type = ee_data["division"].get("division_type")
+        # ensures the division_type is valid, or will raise a ValidationError
+        ballot.post.full_clean()
+        ballot.post.save()
 
     def run_post_ballot_import_tasks(self):
         self.attach_cancelled_ballot_info()
