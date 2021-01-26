@@ -14,6 +14,7 @@ from elections.helpers import (
 from elections.import_helpers import YNRBallotImporter
 from elections.models import Election, PostElection, Post
 from datetime import date
+from elections.tests.factories import PostElectionFactory
 
 
 class ExpectedSoPNDate(TestCase):
@@ -130,3 +131,60 @@ class TestYNRBallotImporter(TestCase):
         self.assertEqual(query_set.count(), 1)
         self.assertIn(self.post, query_set)
         self.assertNotIn(self.orphan_post, query_set)
+
+
+class TestYNRBallotImporterDivisionType:
+    @pytest.fixture(autouse=True)
+    def mock_ee_helper(self, mocker):
+        """
+        Mocks the EEHelper get_data method
+        """
+        mocker.patch.object(EEHelper, "get_data", return_value=None)
+
+    @pytest.fixture
+    def ballot(self, mocker):
+        """
+        Returns an unsaved Ballot object with save method on post mocked
+        """
+        ballot = PostElectionFactory.build(post__division_type="DIW")
+        mocker.patch.object(ballot.post, "save")
+        return ballot
+
+    def test_set_division_type_unchanged(self, ballot):
+        """
+        Test that when division_type is set and not a force update, nothing
+        happens
+        """
+        importer = YNRBallotImporter(force_update=False)
+
+        assert importer.set_division_type(ballot=ballot) is None
+        assert ballot.post.division_type == "DIW"
+        EEHelper.get_data.assert_not_called()
+        ballot.post.save.assert_not_called()
+
+    def test_set_division_type_force_no_ee_data(self, ballot):
+        """
+        Test that force_update ensures update attempt tries, but doesnt change
+        when no data
+        """
+        importer = YNRBallotImporter(force_update=True)
+
+        assert importer.set_division_type(ballot=ballot) is None
+        assert ballot.post.division_type == "DIW"
+        EEHelper.get_data.assert_called_once_with(ballot.ballot_paper_id)
+        ballot.post.save.assert_not_called()
+
+    def test_set_division_type_changed(self, ballot, mocker):
+        """
+        Test that division_type gets updated
+        """
+        importer = YNRBallotImporter(force_update=True)
+        division = {"division": {"division_type": "NEW"}}
+        mocker.patch.object(EEHelper, "get_data", return_value=division)
+        mocker.patch.object(ballot.post, "full_clean")
+
+        assert importer.set_division_type(ballot=ballot) is None
+        assert ballot.post.division_type == "NEW"
+        EEHelper.get_data.assert_called_once_with(ballot.ballot_paper_id)
+        ballot.post.full_clean.assert_called_once()
+        ballot.post.save.assert_called_once()

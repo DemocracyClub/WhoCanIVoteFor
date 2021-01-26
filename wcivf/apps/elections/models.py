@@ -204,6 +204,7 @@ class Post(models.Model):
     elections = models.ManyToManyField(
         Election, through="elections.PostElection"
     )
+    division_type = models.CharField(blank=True, max_length=255)
 
     def nice_organization(self):
         return (
