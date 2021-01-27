@@ -38,8 +38,7 @@
 
       <p>
         {% if postelection.election.in_past %}
-          <strong>{{ postelection.people|length }} candidates</strong> stood in
-          {{ postelection.post.label }}&nbsp;{{ postelection.get_name_suffix }}.
+          <strong>{{ postelection.people|length }} candidates</strong> stood in {{ postelection.post.full_label }}.
         {% else %}
           {# Display different messages depending on the number of candidates #}
           {# Case: No candidates for a contested election #}
@@ -58,7 +57,7 @@
                 {% if 'mayor' in postelection.election.slug %}
                   {{ postelection.election.nice_election_name }}.
                 {% else %}
-                  {{ postelection.post.label }} {{ postelection.get_name_suffix }}.
+                  {{ postelection.post.full_label }}.
                 {% endif %}
 
                 {% if postelection.winner_count and postelection.election.voting_system_id == 'FPTP' %}
@@ -73,7 +72,7 @@
               {# Case: Candidates and the post is NOT locked (add CTA) #}
               The official candidate list has not yet been published.
               However, we expect at least <strong>{{ postelection.people|length }} candidate{{postelection.people|pluralize}}</strong>
-              to stand in the {{ postelection.post.label }} {{ postelection.get_name_suffix }}.
+              to stand in the {{ postelection.post.full_label }}.
 
               You can help improve this page: <a href="{{ postelection.ynr_link }}">
               add information about candidates to our database</a>.

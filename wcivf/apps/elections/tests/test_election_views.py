@@ -2,13 +2,14 @@ import pytest
 from django.shortcuts import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
-from elections.models import PostElection
+from elections.models import PostElection, Post
 from elections.tests.factories import (
     ElectionFactory,
     PostElectionFactory,
     PostFactory,
 )
 from people.tests.factories import PersonFactory, PersonPostFactory
+from pytest_django.asserts import assertContains
 
 
 @override_settings(
@@ -58,7 +59,6 @@ class ElectionViewTests(TestCase):
             election_date="2017-03-23",
         )
         PostElectionFactory(election=not_city_of_london)
-
         for election in [
             (self.election, "Polls are open from 8a.m. till 8p.m."),
             (not_city_of_london, "Polls are open from 7a.m. till 10p.m."),
@@ -126,3 +126,40 @@ class ElectionPostViewTests(TestCase):
         self.assertContains(
             response, f"See all 5 candidates in the {self.post.label}"
         )
+
+
+@pytest.mark.django_db
+class TestPostViewName:
+    @pytest.fixture(params=Post.DIVISION_TYPE_CHOICES)
+    def post_obj(self, request):
+        """
+        Fixture to create a Post object with each division choice
+        """
+        return PostFactory(division_type=request.param[0])
+
+    def test_name_correct(self, post_obj, client):
+        """
+        Test that the correct names for the post and post election objects are
+        displayed
+        """
+        post_election = PostElectionFactory(post=post_obj)
+
+        response = client.get(
+            post_election.get_absolute_url(),
+            follow=True,
+        )
+        assertContains(response, post_election.friendly_name)
+        assertContains(response, post_election.post.full_label)
+
+    def test_by_election(self, client):
+        """
+        Test for by elections
+        """
+        post_election = PostElectionFactory(
+            ballot_paper_id="local.by.election.2020"
+        )
+
+        response = client.get(post_election.get_absolute_url(), follow=True)
+        assertContains(response, "by-election")
+        assertContains(response, post_election.friendly_name)
+        assertContains(response, post_election.post.label)
