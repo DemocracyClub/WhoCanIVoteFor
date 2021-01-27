@@ -1,7 +1,8 @@
 import datetime
 import pytest
 
-from elections.models import Election
+from elections.models import Election, Post
+from elections.tests.factories import PostElectionFactory, PostFactory
 from django.test import TestCase
 
 
@@ -37,3 +38,89 @@ class TestElectionModel(TestCase):
         assert today.is_election_day is True
         assert future.is_election_day is False
         assert past.is_election_day is False
+
+
+class TestPostModel:
+    @pytest.mark.parametrize(
+        "division_type, description", Post.DIVISION_TYPE_CHOICES
+    )
+    def test_division_description(self, division_type, description):
+        """
+        Test that for each division type choice, the correct description is
+        returned
+        """
+        post = PostFactory.build(division_type=division_type)
+
+        assert post.division_description == description
+
+    def test_division_suffix(self, mocker):
+        description = mocker.PropertyMock(return_value="Foo Bar Division")
+        mocker.patch.object(Post, "division_description", new=description)
+        post = PostFactory.build()
+
+        assert post.division_suffix == "division"
+        description.assert_called_once()
+
+    def test_full_label(self, mocker):
+        suffix = mocker.PropertyMock(return_value="ward")
+        mocker.patch.object(Post, "division_suffix", new=suffix)
+        post = PostFactory.build(label="Ecclesall")
+        assert post.full_label == "Ecclesall ward"
+        suffix.assert_called_once()
+
+    @pytest.mark.parametrize(
+        "org_type,expected", [("police-area", True), ("another", False)]
+    )
+    def test_is_police_area(self, org_type, expected):
+        post = PostFactory.build(organization_type=org_type)
+        assert post.is_police_area == expected
+
+    @pytest.mark.parametrize(
+        "suffix, expected",
+        [
+            ("Police", "Police force area"),
+            ("Constabulary", "Constabulary Police force area"),
+        ],
+    )
+    def test_label_for_police_area(self, suffix, expected):
+        label = f"South Yorkshire {suffix}"
+        post = PostFactory.build(label=label)
+        assert post._label_for_police_area == f"South Yorkshire {expected}"
+
+
+class TestPostElectionModel:
+    @pytest.fixture
+    def post_election(self):
+        return PostElectionFactory.build(election__any_non_by_elections=True)
+
+    @pytest.mark.parametrize(
+        "ballot_paper_id,expected",
+        [("mayor.of.london", True), ("an.other.election", False)],
+    )
+    def test_is_mayoral(self, post_election, ballot_paper_id, expected):
+        post_election.ballot_paper_id = ballot_paper_id
+        assert post_election.is_mayoral == expected
+
+    def test_friendly_name_mayoral(self, post_election):
+        post_election.ballot_paper_id = "mayor.of.london"
+        assert (
+            post_election.friendly_name
+            == post_election.election.nice_election_name
+        )
+
+    def test_friendly_name(self, post_election):
+        assert post_election.friendly_name == post_election.post.full_label
+
+    @pytest.mark.parametrize(
+        "ballot_paper_id,expected",
+        [("gla.a.2021-05-06", True), ("an.other.election", False)],
+    )
+    def test_is_london_assembly_additional(
+        self, post_election, ballot_paper_id, expected
+    ):
+        post_election.ballot_paper_id = ballot_paper_id
+        assert post_election.is_london_assembly_additional == expected
+
+    def test_friendly_name_london_assembly_additonal(self, post_election):
+        post_election.ballot_paper_id = "gla.a.2021-05-06"
+        assert post_election.friendly_name == "Additional members"

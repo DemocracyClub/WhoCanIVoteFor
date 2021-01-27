@@ -192,6 +192,25 @@ class Post(models.Model):
     A post has an election and candidates
     """
 
+    DIVISION_TYPE_CHOICES = [
+        ("CED", "County Electoral Division"),
+        ("COP", "Isles of Scilly Parish"),
+        ("DIW", "District Ward"),
+        ("EUR", "European Parliament Region"),
+        ("LAC", "London Assembly Constituency"),
+        ("LBW", "London Borough Ward"),
+        ("LGE", "NI Electoral Area"),
+        ("MTW", "Metropolitan District Ward"),
+        ("NIE", "NI Assembly Constituency"),
+        ("SPC", "Scottish Parliament Constituency"),
+        ("SPE", "Scottish Parliament Region"),
+        ("UTE", "Unitary Authority Electoral Division"),
+        ("UTW", "Unitary Authority Ward"),
+        ("WAC", "Welsh Assembly Constituency"),
+        ("WAE", "Welsh Assembly Region"),
+        ("WMC", "Westminster Parliamentary Constituency"),
+    ]
+
     ynr_id = models.CharField(blank=True, max_length=100, primary_key=True)
     label = models.CharField(blank=True, max_length=255)
     role = models.CharField(blank=True, max_length=255)
@@ -204,7 +223,12 @@ class Post(models.Model):
     elections = models.ManyToManyField(
         Election, through="elections.PostElection"
     )
-    division_type = models.CharField(blank=True, max_length=255)
+    division_type = models.CharField(
+        blank=True, max_length=3, choices=DIVISION_TYPE_CHOICES
+    )
+
+    def __str__(self) -> str:
+        return f"{self.label} ({self.ynr_id})"
 
     def nice_organization(self):
         return (
@@ -230,6 +254,46 @@ class Post(models.Model):
 
         return self.territory
 
+    @property
+    def is_police_area(self):
+        return self.organization_type == "police-area"
+
+    @property
+    def _label_for_police_area(self):
+        """
+        Ensures all pcc Post labels consistently end in 'Police Force Area'
+        """
+        # remove Police if already present
+        stripped = self.label.replace(" Police", "")
+        return f"{stripped} Police force area"
+
+    @property
+    def division_description(self):
+        """
+        Return a string to describe the division
+        """
+        mapping = {
+            choice[0]: choice[1] for choice in self.DIVISION_TYPE_CHOICES
+        }
+        return mapping.get(self.division_type, "")
+
+    @property
+    def division_suffix(self):
+        """
+        Returns last word of the division_description
+        """
+        return self.division_description.split(" ")[-1].lower()
+
+    @property
+    def full_label(self):
+        """
+        Returns label with division suffix
+        """
+        if self.is_police_area:
+            return self._label_for_police_area
+
+        return f"{self.label} {self.division_suffix}".strip()
+
 
 class PostElection(models.Model):
     ballot_paper_id = models.CharField(blank=True, max_length=800, unique=True)
@@ -253,37 +317,42 @@ class PostElection(models.Model):
     wikipedia_url = models.CharField(blank=True, null=True, max_length=800)
     wikipedia_bio = models.TextField(null=True)
 
-    def get_name_suffix(self):
-        election_type = self.ballot_paper_id.split(".")[0]
-        if election_type == "local":
-            return "ward"
-        if election_type == "parl":
-            return "constituency"
-        if election_type == "europarl":
-            return "region"
-        return "area"
-
     def expected_sopn_date(self):
         return expected_sopn_publish_date(
             self.ballot_paper_id, self.post.territory
         )
 
+    @property
+    def is_mayoral(self):
+        """
+        Return a boolean for if this is a mayoral election, determined by
+        checking ballot paper id
+        """
+        return self.ballot_paper_id.startswith("mayor")
+
+    @property
+    def is_london_assembly_additional(self):
+        """
+        Return a boolean for if this is a London Assembley additional ballot
+        """
+        return self.ballot_paper_id.startswith("gla.a")
+
+    @property
     def friendly_name(self):
-        # TODO Take more info from YNR/EE about the election
-        # rather than hard coding not_wards and not_by_elections
-        name = self.post.label
-
-        suffix = self.get_name_suffix()
-        if suffix:
-            name = "{} {}".format(name, suffix)
-
-        if ".by." in self.ballot_paper_id:
-            name = "{} by-election".format(name)
-
-        if self.ballot_paper_id.startswith("mayor"):
+        """
+        Helper property used in templates to build a 'friendly' name using
+        details from associated Post object, with exceptions for by-elections
+        and mayoral elections
+        """
+        if self.is_mayoral:
             return self.election.nice_election_name
 
-        return name
+        # edge case - as this is for a single region we display this below the
+        # election name
+        if self.is_london_assembly_additional:
+            return "Additional members"
+
+        return self.post.full_label
 
     def get_absolute_url(self):
         return reverse(
