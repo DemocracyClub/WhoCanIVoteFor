@@ -91,11 +91,10 @@ class YNRPostImporter:
         self.post_cache = {}
 
     def update_or_create_from_ballot_dict(self, ballot_dict):
-        created = False
         # fall back to slug here as some temp ballots don't have an ID set
-        post_id = ballot_dict["post"].get("id", ballot_dict["post"]["slug"])
-        if not post_id in self.post_cache:
-            post, created = Post.objects.update_or_create(
+        post_id = ballot_dict["post"]["id"] or ballot_dict["post"]["slug"]
+        if post_id not in self.post_cache:
+            post, _ = Post.objects.update_or_create(
                 ynr_id=post_id,
                 defaults={"label": ballot_dict["post"]["label"]},
             )

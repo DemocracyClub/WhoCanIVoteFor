@@ -11,7 +11,7 @@ from elections.helpers import (
     EEHelper,
     JsonPaginator,
 )
-from elections.import_helpers import YNRBallotImporter
+from elections.import_helpers import YNRBallotImporter, YNRPostImporter
 from elections.models import Election, PostElection, Post
 from datetime import date
 from elections.tests.factories import PostElectionFactory
@@ -188,3 +188,39 @@ class TestYNRBallotImporterDivisionType:
         EEHelper.get_data.assert_called_once_with(ballot.ballot_paper_id)
         ballot.post.full_clean.assert_called_once()
         ballot.post.save.assert_called_once()
+
+
+class TestYNRPostImporter:
+    def test_update_or_create_from_ballot_dict_uses_id(self, mocker):
+        ballot_dict = {
+            "post": {
+                "id": "foo",
+                "slug": "bar",
+                "label": "example",
+            }
+        }
+        mock = mocker.Mock(return_value=(1, True))
+        mocker.patch("elections.models.Post.objects.update_or_create", mock)
+        importer = YNRPostImporter()
+        importer.update_or_create_from_ballot_dict(ballot_dict=ballot_dict)
+
+        mock.assert_called_once_with(
+            ynr_id="foo", defaults={"label": "example"}
+        )
+
+    def test_update_or_create_from_ballot_dict_uses_slug(self, mocker):
+        ballot_dict = {
+            "post": {
+                "id": None,
+                "slug": "bar",
+                "label": "example",
+            }
+        }
+        mock = mocker.Mock(return_value=(1, True))
+        mocker.patch("elections.models.Post.objects.update_or_create", mock)
+        importer = YNRPostImporter()
+        importer.update_or_create_from_ballot_dict(ballot_dict=ballot_dict)
+
+        mock.assert_called_once_with(
+            ynr_id="bar", defaults={"label": "example"}
+        )
