@@ -1,9 +1,11 @@
 from django.test import TestCase
+from django.utils.text import slugify
 
 from elections.tests.factories import (
     ElectionFactory,
     PostFactory,
     PostElectionFactory,
+    ElectionFactoryLazySlug,
 )
 
 from elections.models import Election, Post, PostElection
@@ -34,3 +36,12 @@ class TestFactories(TestCase):
         self._test_save(PostElection, PostElectionFactory)
         self.assertEqual(Election.objects.all().count(), 1)
         self.assertEqual(Post.objects.all().count(), 1)
+
+    def test_election_lazy_slug(self):
+        """
+        Test generated slug can be used to reverse url
+        """
+        election = ElectionFactoryLazySlug.build()
+        slug = election.slug
+        name = slugify(election.name)
+        assert election.get_absolute_url() == f"/elections/{slug}/{name}/"

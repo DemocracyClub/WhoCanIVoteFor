@@ -23,8 +23,12 @@ class ElectionFactoryLazySlug(ElectionFactory):
 
     @factory.lazy_attribute_sequence
     def slug(self, n):
-        slug = slugify(self.name)
-        return f"{slug}-{n}"
+        """
+        Build unique slug. Changes - to . to match election_view
+        regex
+        """
+        slug = slugify(self.name).replace("-", ".")
+        return f"{slug}.{n}"
 
 
 class PostFactory(factory.django.DjangoModelFactory):
