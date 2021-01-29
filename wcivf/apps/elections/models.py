@@ -1,5 +1,6 @@
 import datetime
 import pytz
+import re
 
 from django.conf import settings
 from django.contrib.postgres.fields import JSONField
@@ -137,6 +138,18 @@ class Election(models.Model):
             name = name.replace("election", "")
 
         return name
+
+    @property
+    def name_without_brackets(self):
+        """
+        Removes any characters from the election name after an opening bracket
+        TODO name this see if we can do this more reliably based on data from
+        EE
+        """
+        regex = r"\(.*?\)"
+        brackets_removed = re.sub(regex, "", self.nice_election_name)
+        # remove any extra whitespace
+        return brackets_removed.replace("  ", " ").strip()
 
     def _election_datetime_tz(self):
         election_date = self.election_date

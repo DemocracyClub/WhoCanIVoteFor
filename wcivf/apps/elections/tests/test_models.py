@@ -39,6 +39,42 @@ class TestElectionModel(TestCase):
         assert future.is_election_day is False
         assert past.is_election_day is False
 
+    def test_name_without_brackets(self):
+        names = [
+            (
+                "London Assembly Elections (Additional)",
+                "London Assembly Elections",
+            ),
+            (
+                "London Assembly Elections (Constituencies)",
+                "London Assembly Elections",
+            ),
+            (
+                "Senedd Cymru elections (Constituencies)",
+                "Senedd Cymru elections",
+            ),
+            ("Senedd Cymru elections (Regions)", "Senedd Cymru elections"),
+            (
+                "Scottish Parliament elections (Constituencies)",
+                "Scottish Parliament elections",
+            ),
+            (
+                "Scottish Parliament elections (Regions)",
+                "Scottish Parliament elections",
+            ),
+        ]
+        for name in names:
+            with self.subTest(name=name):
+                self.election.any_non_by_elections = True
+                self.election.name = name[0]
+                self.assertEqual(self.election.name_without_brackets, name[1])
+
+    def test_name_without_brackets_by_election(self):
+        self.election.any_non_by_elections = False
+        self.election.name = "Scottish Parliament (Constituencies)"
+        expected = "Scottish Parliament by-election"
+        self.assertEqual(self.election.name_without_brackets, expected)
+
 
 class TestPostModel:
     @pytest.mark.parametrize(

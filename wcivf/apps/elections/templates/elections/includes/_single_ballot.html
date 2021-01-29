@@ -9,7 +9,7 @@
     {% else %}
       <h1>
         <span aria-hidden="true">🗳️</span>
-        {{ postelection.election.nice_election_name }}
+        {{ postelection.election.name_without_brackets }}
         <span aria-hidden="true">🗳️</span>
       </h1>
       {% if postelection.friendly_name != postelection.election.nice_election_name %}

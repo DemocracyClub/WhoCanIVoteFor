@@ -42,7 +42,7 @@ class YNRElectionImporter:
                 election_type=slug.split(".")[0],
                 defaults={
                     "election_date": ballot_dict["election"]["election_date"],
-                    "name": ballot_dict["election"]["name"],
+                    "name": ballot_dict["election"]["name"].strip(),
                     "current": ballot_dict["election"]["current"],
                     "election_weight": election_weight,
                 },
