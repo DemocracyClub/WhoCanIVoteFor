@@ -170,6 +170,14 @@ class YNRBallotImporter:
             # This is because there's a high chance we've not
             # got all the ballots we need yet.
             self.run_post_ballot_import_tasks()
+        self.delete_orphan_posts()
+
+    def delete_orphan_posts(self):
+        """
+        This method cleans orphan posts.
+        This typically gets called at the end of the import process.
+        """
+        return Post.objects.filter(postelection=None).delete()
 
     @transaction.atomic()
     def add_ballots(self, results):
