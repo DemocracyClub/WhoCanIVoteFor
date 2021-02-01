@@ -2,13 +2,17 @@ import pytest
 import sys
 
 from django.test import TestCase
-
+from elections.tests.factories import (
+    PostFactory,
+    ElectionFactory,
+)
 from elections.helpers import (
     expected_sopn_publish_date,
     EEHelper,
     JsonPaginator,
 )
-from elections.models import Election, PostElection
+from elections.import_helpers import YNRBallotImporter
+from elections.models import Election, PostElection, Post
 from datetime import date
 
 
@@ -107,3 +111,22 @@ class TestEEHelper:
             ballot_paper_id__in=["foo_id", "bar_id"]
         )
         postelection_filter.return_value.delete.assert_called_once()
+
+
+class TestYNRBallotImporter(TestCase):
+    def setUp(self):
+        self.importer = YNRBallotImporter()
+        election = ElectionFactory(name="Adur local election")
+        self.post = PostFactory(label="Adur local election")
+        self.post.elections.add(election)
+        self.orphan_post = PostFactory(
+            label="Adur local election", elections=None, ynr_id="foo"
+        )
+
+    def test_delete_orphan_posts(self):
+        deleted_posts, _ = self.importer.delete_orphan_posts()
+        query_set = Post.objects.all()
+        self.assertEqual(deleted_posts, 1)
+        self.assertEqual(query_set.count(), 1)
+        self.assertIn(self.post, query_set)
+        self.assertNotIn(self.orphan_post, query_set)
