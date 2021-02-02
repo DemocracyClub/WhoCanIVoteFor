@@ -26,6 +26,9 @@ class PersonViewTests(TestCase):
         response = self.client.get(self.person_url, follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "people/person_detail.html")
+        self.assertNotContains(
+            response, '<meta name="robots" content="noindex">'
+        )
 
     def test_not_current_person_view(self):
         response = self.client.get(self.person_url, follow=True)
@@ -35,6 +38,7 @@ class PersonViewTests(TestCase):
         )
         self.assertContains(response, "Previous elections")
         self.assertNotContains(response, "Contact information")
+        self.assertContains(response, '<meta name="robots" content="noindex">')
 
     def test_correct_elections_listed(self):
         response = self.client.get(self.person_url, follow=True)
