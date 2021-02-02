@@ -19,10 +19,22 @@ class PersonViewTests(TestCase):
         self.person = PersonFactory()
         self.person_url = self.person.get_absolute_url()
 
-    def test_person_view(self):
+    def test_current_person_view(self):
+        self.personpost = PersonPostFactory(
+            person=self.person, election=ElectionFactory()
+        )
         response = self.client.get(self.person_url, follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "people/person_detail.html")
+
+    def test_not_current_person_view(self):
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "people/not_current_person_detail.html"
+        )
+        self.assertContains(response, "Previous elections")
+        self.assertNotContains(response, "Contact information")
 
     def test_correct_elections_listed(self):
         response = self.client.get(self.person_url, follow=True)

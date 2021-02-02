@@ -52,6 +52,17 @@ class PersonMixin(object):
 class PersonView(DetailView, PersonMixin):
     model = Person
 
+    def get_template_names(self):
+        """
+        When we don't have current candidacies,
+        we return an alternative template with
+        just intro and past elections.
+        """
+
+        if self.object.current_or_future_candidacies:
+            return ["people/person_detail.html"]
+        return ["people/not_current_person_detail.html"]
+
     def get_object(self, queryset=None):
         obj = self.get_person(queryset)
 
