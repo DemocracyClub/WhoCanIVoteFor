@@ -9,6 +9,8 @@
 {% block og_description %}{% include "people/includes/_person_meta_description.html" %}{% endblock og_description %}
 {% block og_image %}{% if object.photo_url %}{{ object.photo_url }}{% endif %}{% endblock og_image %}
 
+{% block page_meta %}<meta name="robots" content="noindex">{% endblock page_meta %}
+
 {% block content %}
   <div class="card person_banner">
     <h2 class="person_name">{{ object.name }}
