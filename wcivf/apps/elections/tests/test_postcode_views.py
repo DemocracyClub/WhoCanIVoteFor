@@ -1,6 +1,9 @@
+import pytest
 import vcr
 
+from django.urls import reverse
 from django.test import TestCase, override_settings
+from pytest_django import asserts
 
 from elections.tests.factories import (
     ElectionFactory,
@@ -67,3 +70,80 @@ class PostcodeViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["postelections"].count(), 1)
         self.assertContains(response, "Tower Hamlets")
+
+
+@pytest.mark.freeze_time("2021-05-06")
+@pytest.mark.django_db
+class TestPostcodeViewPolls:
+    """
+    Tests to check that the PostcodeView response contains correct polling
+    station opening timnes
+    """
+
+    @pytest.fixture
+    def mock_response(self, mocker):
+        """
+        Patch the get request to Every Election to return a mock that
+        individual tests can then add json data to
+        """
+        response = mocker.MagicMock(status_code=200)
+        response.json.return_value = {"results": []}
+        mocker.patch(
+            "requests.get",
+            return_value=response,
+            autospec=True,
+        )
+        return response
+
+    def test_city_of_london_today(self, mock_response, client):
+        post_election = PostElectionFactory(
+            ballot_paper_id="local.city-of-london.aldgate.2021-05-06",
+            election__slug="local.city-of-london.2021-05-06",
+            election__election_date="2021-05-06",
+        )
+        mock_response.json.return_value["results"].append(
+            {"election_id": post_election.ballot_paper_id}
+        )
+
+        response = client.get(
+            reverse("postcode_view", kwargs={"postcode": "e1 2ax"}), follow=True
+        )
+        asserts.assertContains(
+            response, "Polling stations are open from 8a.m. till 8p.m. today"
+        )
+
+    def test_not_city_of_london_today(self, mock_response, client):
+        post_election = PostElectionFactory(
+            ballot_paper_id="local.sheffield.ecclesall.2021-05-06",
+            election__slug="local.sheffield.2021-05-06",
+            election__election_date="2021-05-06",
+        )
+        mock_response.json.return_value["results"].append(
+            {"election_id": post_election.ballot_paper_id}
+        )
+
+        response = client.get(
+            reverse("postcode_view", kwargs={"postcode": "s11 8qe"}),
+            follow=True,
+        )
+        asserts.assertContains(
+            response, "Polling stations are open from 7a.m. till 10p.m. today"
+        )
+
+    def test_not_today(self, mock_response, client):
+        post_election = PostElectionFactory(
+            election__election_date="2021-05-07",
+        )
+        mock_response.json.return_value["results"].append(
+            {"election_id": post_election.ballot_paper_id}
+        )
+
+        response = client.get(
+            reverse("postcode_view", kwargs={"postcode": "TE11ST"}), follow=True
+        )
+        asserts.assertNotContains(
+            response, "Polling stations are open from 7a.m. till 10p.m. today"
+        )
+        asserts.assertNotContains(
+            response, "Polling stations are open from 8a.m. till 8p.m. today"
+        )
