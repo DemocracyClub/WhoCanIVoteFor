@@ -18,13 +18,6 @@
       (Deceased)
     {% endif %}
     </h2>
-    {% if object.photo_url %}
-      <img src="{{ object.photo_url }}" class="person_photo detail" alt="profile photo of {{ object.name }}">
-    {% endif %}
-
-    <p>
-    {{ object.intro|safe }}. Our volunteers have been adding information on {{ object.name }} - here's everything we know so far!
-    </p>
   </div>
 
   <div class="card info_card">
@@ -40,39 +33,11 @@
       </ul>
   </div>
 
-  {% if referer_postcode %}
-  <div class="back">
-  <p>
-  <a href="{% url 'postcode_view' referer_postcode %}">&laquo; Back to candidates in {{ referer_postcode }}</a>
-  </p>
-  </div>
-  {% endif %}
-
-{% if not referer_postcode %}
-  {% include "elections/includes/_postcode_search_form.html" %}
-{% endif %}
+{% include "elections/includes/_postcode_search_form.html" %}
 
 {% endblock content %}
 
 {% block breadcrumbs %}
-{% if referer_postcode %}
-  {# We've come from the postcode page #}
-  <ol vocab="http://schema.org/" typeof="BreadcrumbList" class="breadcrumbs" aria-label="You are here:" role="navigation">
-    {% url 'home_view' as home_view %}
-    {% breadcrumb_item home_view 'Home' 1 %}
-    {% url 'postcode_view' referer_postcode as postcode_view %}
-    {% breadcrumb_item postcode_view 'Candidates in '|add:referer_postcode 2 %}
-    <li class="disabled"><span class="show-for-sr">Current: </span> {{ object.name }}</li>
-  </ol>
-{% elif object.personpost %}
-  {# There's a current post #}
-  <ol vocab="http://schema.org/" typeof="BreadcrumbList" class="breadcrumbs" aria-label="You are here:" role="navigation">
-    {% url 'home_view' as home_view %}
-    {% breadcrumb_item home_view 'Home' 1 %}
-    {% breadcrumb_item object.personpost.post_election.get_absolute_url 'Candidates in '|add:object.personpost.post.label 2 %}
-    <li class="disabled"><span class="show-for-sr">Current: </span> {{ object.name }}</li>
-  </ol>
-{% endif %}
 
 {% include "elections/includes/_ld_candidate.html" with person=object.personpost.person party=object.personpost.party %}
 
