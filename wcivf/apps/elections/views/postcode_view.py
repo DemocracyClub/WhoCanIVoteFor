@@ -1,5 +1,5 @@
 from icalendar import Calendar, Event, vText
-
+from django.utils import timezone
 from django.conf import settings
 from django.http import HttpResponse
 from django.views.generic import TemplateView, View
@@ -132,7 +132,7 @@ class PostcodeiCalView(
             event["summary"] = "{} - {}".format(
                 post_election.election.name, post_election.post.label
             )
-
+            event.add("dtstamp", timezone.now())
             event.add("dtstart", post_election.election.start_time)
             event.add("dtend", post_election.election.end_time)
             event.add(
