@@ -43,11 +43,8 @@
         <a href="{{ polling_station.custom_finder }}">
         following this link</a>.</p>
     {% else %}
-      {% now "j F Y" as current_day %}
-      {% if elections_by_date and elections_by_date.0.grouper|date:"j F Y" == current_day %}
-        {% with today_election=elections_by_date.0.list.0.election %}
-          <strong>Polling stations are open from {{ today_election.polls_open|time:"ga" }} till {{ today_election.polls_close|time:"ga" }} today.</strong>
-        {% endwith %}
+      {% if ballots_today %}
+        <strong>Polling stations are open from {{ ballots_today.0.election.polls_open|time:"ga" }} till {{ ballots_today.0.election.polls_close|time:"ga" }} today.</strong>
       {% endif %}
       {% if polling_station.addresses %}
         <p>Your polling station in {{ postcode }} depends on your address. <a href="https://wheredoivote.co.uk/postcode/{{ postcode }}/">Check the correct polling station for your address &raquo;</a></p>
