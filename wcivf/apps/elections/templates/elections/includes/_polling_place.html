@@ -43,7 +43,7 @@
         <a href="{{ polling_station.custom_finder }}">
         following this link</a>.</p>
     {% else %}
-      {% if ballots_today %}
+      {% if ballots_today and not multiple_city_of_london_elections_today %}
         <strong>Polling stations are open from {{ ballots_today.0.election.polls_open|time:"ga" }} till {{ ballots_today.0.election.polls_close|time:"ga" }} today.</strong>
       {% endif %}
       {% if polling_station.addresses %}

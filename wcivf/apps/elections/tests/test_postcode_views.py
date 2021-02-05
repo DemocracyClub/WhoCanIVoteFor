@@ -150,6 +150,59 @@ class TestPostcodeViewPolls:
             response, "Polling stations are open from 8a.m. till 8p.m. today"
         )
 
+    def test_multiple_elections_london(self, mock_response, client):
+        local_london = PostElectionFactory(
+            ballot_paper_id="local.city-of-london.aldgate.2021-05-06",
+            election__slug="local.city-of-london.2021-05-06",
+            election__election_date="2021-05-06",
+        )
+        parl_london = PostElectionFactory(
+            ballot_paper_id="parl.cities-of-london-and-westminster.by.2021-05-06",
+            election__slug="parl.2021-05-06",
+            election__election_date="2021-05-06",
+        )
+        mock_response.json.return_value["results"] = [
+            {"election_id": local_london.ballot_paper_id},
+            {"election_id": parl_london.ballot_paper_id},
+        ]
+
+        response = client.get(
+            reverse("postcode_view", kwargs={"postcode": "TE11ST"}), follow=True
+        )
+        asserts.assertNotContains(
+            response, "Polling stations are open from 7a.m. till 10p.m. today"
+        )
+        asserts.assertNotContains(
+            response, "Polling stations are open from 8a.m. till 8p.m. today"
+        )
+
+    def test_multiple_elections_not_london(self, mock_response, client):
+        local = PostElectionFactory(
+            ballot_paper_id="local.sheffield.ecclesall.2021-05-06",
+            election__slug="local.sheffield.2021-05-06",
+            election__election_date="2021-05-06",
+        )
+        pcc = PostElectionFactory(
+            ballot_paper_id="pcc.south-yorkshire.2021-05-06",
+            election__slug="pcc.south-yorkshire.2021-05-06",
+            election__election_date="2021-05-06",
+        )
+        mock_response.json.return_value["results"] = [
+            {"election_id": local.ballot_paper_id},
+            {"election_id": pcc.ballot_paper_id},
+        ]
+
+        response = client.get(
+            reverse("postcode_view", kwargs={"postcode": "TE11ST"}), follow=True
+        )
+        assert response.status_code == 200
+        asserts.assertContains(
+            response, "Polling stations are open from 7a.m. till 10p.m. today"
+        )
+        asserts.assertNotContains(
+            response, "Polling stations are open from 8a.m. till 8p.m. today"
+        )
+
 
 class TestPostcodeViewMethods:
     @pytest.fixture
@@ -203,3 +256,59 @@ class TestPostcodeViewMethods:
         result = view_obj.get_ballots()
         view_obj.postcode_to_ballots.assert_not_called()
         assert result == "ballots"
+
+    @pytest.mark.django_db
+    def test_multiple_london_elections_same_day(self, view_obj, mocker):
+        PostElectionFactory(
+            ballot_paper_id="local.city-of-london.aldgate.2021-05-06",
+            election__slug="local.city-of-london.2021-05-06",
+            election__election_date="2021-05-06",
+            election__election_type="local",
+        )
+        PostElectionFactory(
+            ballot_paper_id="parl.cities-of-london-and-westminster.2021-05-06",
+            election__slug="parl.2021-05-06",
+            election__election_date="2021-05-06",
+            election__election_type="parl",
+        )
+        mocker.patch.object(
+            view_obj,
+            "get_todays_ballots",
+            return_value=PostElection.objects.all(),
+        )
+
+        assert view_obj.multiple_city_of_london_elections_today() is True
+
+    @pytest.mark.django_db
+    def test_multiple_non_london_elections_same_day(self, view_obj, mocker):
+        PostElectionFactory(
+            election__slug="local.sheffield.2021-05-06",
+            election__election_date="2021-05-06",
+        )
+        PostElectionFactory(
+            election__slug="another.sheffield.2021-05-06",
+            election__election_date="2021-05-06",
+        )
+        mocker.patch.object(
+            view_obj,
+            "get_todays_ballots",
+            return_value=PostElection.objects.all(),
+        )
+
+        assert view_obj.multiple_city_of_london_elections_today() is False
+
+    @pytest.mark.django_db
+    def test_multiple_non_london_elections_same_day_single_election(
+        self, view_obj, mocker
+    ):
+        PostElectionFactory(
+            election__slug="local.city-of-london.2021-05-06",
+            election__election_date="2021-05-06",
+        )
+        mocker.patch.object(
+            view_obj,
+            "get_todays_ballots",
+            return_value=PostElection.objects.all(),
+        )
+
+        assert view_obj.multiple_city_of_london_elections_today() is False
