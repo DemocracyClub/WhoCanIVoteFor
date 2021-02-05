@@ -4,6 +4,7 @@ import vcr
 from django.urls import reverse
 from django.test import TestCase, override_settings
 from pytest_django import asserts
+from elections.models import PostElection
 
 from elections.tests.factories import (
     ElectionFactory,
@@ -11,6 +12,7 @@ from elections.tests.factories import (
     PostElectionFactory,
 )
 from core.models import LoggedPostcode, write_logged_postcodes
+from elections.views.postcode_view import PostcodeView
 
 
 @override_settings(
@@ -147,3 +149,57 @@ class TestPostcodeViewPolls:
         asserts.assertNotContains(
             response, "Polling stations are open from 8a.m. till 8p.m. today"
         )
+
+
+class TestPostcodeViewMethods:
+    @pytest.fixture
+    def view_obj(self, rf):
+        """
+        Returns an instance of PostcodeView
+        """
+        view = PostcodeView()
+        request = rf.get(
+            reverse("postcode_view", kwargs={"postcode": "s11 8qe"})
+        )
+        view.setup(request=request)
+
+        return view
+
+    @pytest.mark.django_db
+    @pytest.mark.freeze_time("2021-05-06")
+    def test_get_todays_ballots(self, view_obj):
+        today = PostElectionFactory(
+            election__slug="election.today",
+            election__election_date="2021-05-06",
+        )
+        tomorrow = PostElectionFactory(
+            election__slug="election.tomorrow",
+            election__election_date="2021-05-07",
+        )
+        view_obj.ballots = PostElection.objects.all()
+        ballots = view_obj.get_todays_ballots()
+
+        assert ballots.count() == 1
+        assert today in ballots
+        assert tomorrow not in ballots
+
+    def test_get_ballots(self, view_obj, mocker):
+        view_obj.postcode = "E12AX"
+        mocker.patch.object(
+            view_obj,
+            "postcode_to_ballots",
+            return_value="ballots",
+        )
+
+        result = view_obj.get_ballots()
+        view_obj.postcode_to_ballots.assert_called_once_with(postcode="E12AX")
+        assert result == "ballots"
+
+    def test_get_ballots_when_already_set(self, view_obj, mocker):
+        view_obj.postcode = "E12AX"
+        view_obj.ballots = "ballots"
+        mocker.patch.object(view_obj, "postcode_to_ballots")
+
+        result = view_obj.get_ballots()
+        view_obj.postcode_to_ballots.assert_not_called()
+        assert result == "ballots"

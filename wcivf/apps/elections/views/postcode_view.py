@@ -1,3 +1,4 @@
+from django.utils import timezone
 from icalendar import Calendar, Event, vText
 
 from django.conf import settings
@@ -5,6 +6,7 @@ from django.http import HttpResponse
 from django.views.generic import TemplateView, View
 
 from core.helpers import clean_postcode
+from elections.models import PostElection
 from .mixins import (
     LogLookUpMixin,
     PostcodeToPostsMixin,
@@ -33,14 +35,26 @@ class PostcodeView(
 
     template_name = "elections/postcode_view.html"
     pk_url_kwarg = "postcode"
+    ballots = None
+    postcode = None
+
+    def get_ballots(self):
+        """
+        Returns a QuerySet of PostElection objects. Calls postcode_to_ballots
+        and updates the self.ballots attribute the first time it is called.
+        """
+        if self.ballots is None:
+            self.ballots = self.postcode_to_ballots(postcode=self.postcode)
+
+        return self.ballots
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         self.postcode = clean_postcode(kwargs["postcode"])
-        context["postcode"] = self.postcode
-        self.log_postcode(context["postcode"])
-        context["postelections"] = self.postcode_to_ballots(context["postcode"])
+        self.log_postcode(self.postcode)
 
+        context["postcode"] = self.postcode
+        context["postelections"] = self.get_ballots()
         context["voter_id_required"] = [
             (pe, pe.election.metadata.get("2019-05-02-id-pilot"))
             for pe in context["postelections"]
@@ -54,8 +68,17 @@ class PostcodeView(
         context["polling_station"] = self.get_polling_station_info(
             context["postcode"]
         )
+        context["ballots_today"] = self.get_todays_ballots()
 
         return context
+
+    def get_todays_ballots(self):
+        """
+        Filters ballots to return those taking place today
+        """
+        return self.get_ballots().filter(
+            election__election_date=timezone.now().date()
+        )
 
 
 class PostcodeiCalView(
