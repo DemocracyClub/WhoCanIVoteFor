@@ -6,7 +6,6 @@ from django.http import HttpResponse
 from django.views.generic import TemplateView, View
 
 from core.helpers import clean_postcode
-from elections.models import PostElection
 from .mixins import (
     LogLookUpMixin,
     PostcodeToPostsMixin,
@@ -69,6 +68,9 @@ class PostcodeView(
             context["postcode"]
         )
         context["ballots_today"] = self.get_todays_ballots()
+        context[
+            "multiple_city_of_london_elections_today"
+        ] = self.multiple_city_of_london_elections_today()
 
         return context
 
@@ -79,6 +81,29 @@ class PostcodeView(
         return self.get_ballots().filter(
             election__election_date=timezone.now().date()
         )
+
+    def multiple_city_of_london_elections_today(self):
+        """
+        Checks if there are multiple elections taking place today in the City
+        of London. This is used to determine if it is safe to display polling
+        station open/close times in the template. As if there are multiple then
+        it is unclear what time the polls would be open. See this issue for
+        more info https://github.com/DemocracyClub/WhoCanIVoteFor/issues/441
+        """
+        ballots = self.get_todays_ballots()
+
+        # if only one ballot can return early
+        if ballots.count() <= 1:
+            return False
+
+        # if none are local city of london return early
+        if not ballots.filter(
+            ballot_paper_id__startswith="local.city-of-london"
+        ):
+            return False
+
+        # get unique elections and return whether more than 1
+        return ballots.values("election").distinct().count() >= 1
 
 
 class PostcodeiCalView(
