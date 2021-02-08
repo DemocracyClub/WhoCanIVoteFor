@@ -185,6 +185,7 @@ import redis
 
 REDIS_POOL = redis.ConnectionPool(host="127.0.0.1", port=6379, db=5)
 REDIS_KEY_PREFIX = "WCIVF"
+REDIS_LOG_POSTCODE = True
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
