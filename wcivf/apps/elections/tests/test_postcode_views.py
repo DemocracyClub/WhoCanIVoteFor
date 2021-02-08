@@ -232,7 +232,7 @@ class TestPostcodeViewMethods:
         view_obj.ballots = PostElection.objects.all()
         ballots = view_obj.get_todays_ballots()
 
-        assert ballots.count() == 1
+        assert len(ballots) == 1
         assert today in ballots
         assert tomorrow not in ballots
 
@@ -274,7 +274,7 @@ class TestPostcodeViewMethods:
         mocker.patch.object(
             view_obj,
             "get_todays_ballots",
-            return_value=PostElection.objects.all(),
+            return_value=list(PostElection.objects.all()),
         )
 
         assert view_obj.multiple_city_of_london_elections_today() is True
@@ -292,7 +292,7 @@ class TestPostcodeViewMethods:
         mocker.patch.object(
             view_obj,
             "get_todays_ballots",
-            return_value=PostElection.objects.all(),
+            return_value=list(PostElection.objects.all()),
         )
 
         assert view_obj.multiple_city_of_london_elections_today() is False
@@ -308,7 +308,7 @@ class TestPostcodeViewMethods:
         mocker.patch.object(
             view_obj,
             "get_todays_ballots",
-            return_value=PostElection.objects.all(),
+            return_value=list(PostElection.objects.all()),
         )
 
         assert view_obj.multiple_city_of_london_elections_today() is False
