@@ -1,4 +1,3 @@
-from django.utils import timezone
 from icalendar import Calendar, Event, vText
 
 from django.conf import settings
@@ -76,11 +75,11 @@ class PostcodeView(
 
     def get_todays_ballots(self):
         """
-        Filters ballots to return those taking place today
+        Return a list of ballots filtered by whether they are today
         """
-        return self.get_ballots().filter(
-            election__election_date=timezone.now().date()
-        )
+        return [
+            ballot for ballot in self.ballots if ballot.election.is_election_day
+        ]
 
     def multiple_city_of_london_elections_today(self):
         """
@@ -93,17 +92,16 @@ class PostcodeView(
         ballots = self.get_todays_ballots()
 
         # if only one ballot can return early
-        if ballots.count() <= 1:
+        if len(ballots) <= 1:
             return False
 
-        # if none are local city of london return early
-        if not ballots.filter(
-            ballot_paper_id__startswith="local.city-of-london"
+        if not any(
+            [ballot for ballot in ballots if ballot.election.is_city_of_london]
         ):
             return False
 
         # get unique elections and return whether more than 1
-        return ballots.values("election").distinct().count() >= 1
+        return len({ballot.election.slug for ballot in ballots}) > 1
 
 
 class PostcodeiCalView(
