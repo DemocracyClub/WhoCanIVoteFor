@@ -23,7 +23,7 @@ def log_postcode(log_dict, blocking=False):
     Take a dict with all the kwargs needed to create a LoggedPostcode
     model and create it or add it to a queue to save later
     """
-    if blocking:
+    if blocking or not settings.REDIS_LOG_POSTCODE:
         return LoggedPostcode.objects.create(**log_dict)
 
     red = redis.Redis(connection_pool=settings.REDIS_POOL)

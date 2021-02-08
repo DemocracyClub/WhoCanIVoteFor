@@ -1,6 +1,7 @@
 import pytest
 import vcr
 
+from django.conf import settings
 from django.urls import reverse
 from django.test import TestCase, override_settings
 from pytest_django import asserts
@@ -13,6 +14,7 @@ from elections.tests.factories import (
 )
 from core.models import LoggedPostcode, write_logged_postcodes
 from elections.views.postcode_view import PostcodeView
+from unittest import skipIf
 
 
 @override_settings(
@@ -36,6 +38,7 @@ class PostcodeViewTests(TestCase):
 
     @vcr.use_cassette("fixtures/vcr_cassettes/test_postcode_view.yaml")
     @override_settings(REDIS_KEY_PREFIX="WCIVF_TEST")
+    @skipIf(settings.REDIS_LOG_POSTCODE is False, "Dependant on redis running")
     def test_logged_postcodes(self):
         assert LoggedPostcode.objects.all().count() == 0
         response = self.client.get("/elections/EC1A4EU", follow=True)
