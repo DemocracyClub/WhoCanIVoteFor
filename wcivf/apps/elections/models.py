@@ -268,19 +268,6 @@ class Post(models.Model):
         return self.territory
 
     @property
-    def is_police_area(self):
-        return self.organization_type == "police-area"
-
-    @property
-    def _label_for_police_area(self):
-        """
-        Ensures all pcc Post labels consistently end in 'Police Force Area'
-        """
-        # remove Police if already present
-        stripped = self.label.replace(" Police", "")
-        return f"{stripped} Police force area"
-
-    @property
     def division_description(self):
         """
         Return a string to describe the division
@@ -302,9 +289,6 @@ class Post(models.Model):
         """
         Returns label with division suffix
         """
-        if self.is_police_area:
-            return self._label_for_police_area
-
         return f"{self.label} {self.division_suffix}".strip()
 
 
@@ -351,13 +335,20 @@ class PostElection(models.Model):
         return self.ballot_paper_id.startswith("gla.a")
 
     @property
+    def is_pcc(self):
+        """
+        Return a boolean for if this is a PCC ballot
+        """
+        return self.ballot_paper_id.startswith("pcc")
+
+    @property
     def friendly_name(self):
         """
         Helper property used in templates to build a 'friendly' name using
-        details from associated Post object, with exceptions for by-elections
-        and mayoral elections
+        details from associated Post object, with exceptions for GLA, mayoral
+        elections and pcc elections
         """
-        if self.is_mayoral:
+        if self.is_mayoral or self.is_pcc:
             return self.election.nice_election_name
 
         # edge case - as this is for a single region we display this below the

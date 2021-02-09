@@ -104,25 +104,6 @@ class TestPostModel:
         assert post.full_label == "Ecclesall ward"
         suffix.assert_called_once()
 
-    @pytest.mark.parametrize(
-        "org_type,expected", [("police-area", True), ("another", False)]
-    )
-    def test_is_police_area(self, org_type, expected):
-        post = PostFactory.build(organization_type=org_type)
-        assert post.is_police_area == expected
-
-    @pytest.mark.parametrize(
-        "suffix, expected",
-        [
-            ("Police", "Police force area"),
-            ("Constabulary", "Constabulary Police force area"),
-        ],
-    )
-    def test_label_for_police_area(self, suffix, expected):
-        label = f"South Yorkshire {suffix}"
-        post = PostFactory.build(label=label)
-        assert post._label_for_police_area == f"South Yorkshire {expected}"
-
 
 class TestPostElectionModel:
     @pytest.fixture
@@ -160,3 +141,10 @@ class TestPostElectionModel:
     def test_friendly_name_london_assembly_additonal(self, post_election):
         post_election.ballot_paper_id = "gla.a.2021-05-06"
         assert post_election.friendly_name == "Additional members"
+
+    @pytest.mark.parametrize(
+        "org_type,expected", [("pcc.ballot", True), ("not.pcc", False)]
+    )
+    def test_is_pcc(self, org_type, expected):
+        post = PostElectionFactory.build(ballot_paper_id=org_type)
+        assert post.is_pcc == expected
