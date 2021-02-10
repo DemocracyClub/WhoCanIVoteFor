@@ -224,7 +224,7 @@ class Post(models.Model):
         ("WMC", "Westminster Parliamentary Constituency"),
     ]
 
-    ynr_id = models.CharField(blank=True, max_length=100, primary_key=True)
+    ynr_id = models.CharField(max_length=100, primary_key=True)
     label = models.CharField(blank=True, max_length=255)
     role = models.CharField(blank=True, max_length=255)
     group = models.CharField(blank=True, max_length=100)

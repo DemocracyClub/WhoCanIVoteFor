@@ -93,6 +93,10 @@ class YNRPostImporter:
     def update_or_create_from_ballot_dict(self, ballot_dict):
         # fall back to slug here as some temp ballots don't have an ID set
         post_id = ballot_dict["post"]["id"] or ballot_dict["post"]["slug"]
+        if not post_id:
+            # if no id to use return None to indicate to skip this ballot
+            return None
+
         if post_id not in self.post_cache:
             post, _ = Post.objects.update_or_create(
                 ynr_id=post_id,
@@ -126,7 +130,7 @@ class YNRBallotImporter:
         self.ee_helper = EEHelper()
         self.voting_systems = {}
         self.election_importer = YNRElectionImporter(self.ee_helper)
-        self.post_imporer = YNRPostImporter(self.ee_helper)
+        self.post_importer = YNRPostImporter(self.ee_helper)
         self.force_update = force_update
         self.current_only = current_only
         self.exclude_candidacies = exclude_candidacies
@@ -188,9 +192,12 @@ class YNRBallotImporter:
                 ballot_dict
             )
 
-            post = self.post_imporer.update_or_create_from_ballot_dict(
+            post = self.post_importer.update_or_create_from_ballot_dict(
                 ballot_dict
             )
+            if not post:
+                # cant create a ballot without a post so skip to the next one
+                continue
 
             ballot, created = PostElection.objects.update_or_create(
                 ballot_paper_id=ballot_dict["ballot_paper_id"],
