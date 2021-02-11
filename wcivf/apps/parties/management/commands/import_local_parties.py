@@ -45,7 +45,12 @@ class Command(BaseCommand):
         with open(options["filename"], "r") as fh:
             reader = csv.DictReader(fh)
             for row in reader:
-                party_id = row["party_id"].strip()
+                try:
+                    party_id = row["party_id"].strip()
+                except AttributeError:
+                    # catch when party_id is None
+                    continue
+
                 # Try to get a post election
                 try:
                     party_list = self.get_party_list_from_party_id(party_id)
