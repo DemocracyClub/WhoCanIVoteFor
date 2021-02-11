@@ -5,7 +5,7 @@ from django.conf import settings
 from django.urls import reverse
 from django.test import TestCase, override_settings
 from pytest_django import asserts
-from elections.models import PostElection
+from elections.models import PostElection, InvalidPostcodeError
 
 from elections.tests.factories import (
     ElectionFactory,
@@ -13,6 +13,7 @@ from elections.tests.factories import (
     PostElectionFactory,
 )
 from core.models import LoggedPostcode, write_logged_postcodes
+from elections.views.mixins import PostcodeToPostsMixin
 from elections.views.postcode_view import PostcodeView
 from unittest import skipIf
 
@@ -315,3 +316,17 @@ class TestPostcodeViewMethods:
         )
 
         assert view_obj.multiple_city_of_london_elections_today() is False
+
+
+class TestPostcodeiCalView:
+    def test_invalid_postcode_redirects(self, mocker, client):
+        mocker.patch.object(
+            PostcodeToPostsMixin,
+            "postcode_to_ballots",
+            side_effect=InvalidPostcodeError,
+        )
+        url = reverse("postcode_ical_view", kwargs={"postcode": "TE1 1ST"})
+        response = client.get(url)
+
+        assert response.status_code == 302
+        assert response.url == "/?invalid_postcode=1&postcode=TE1%201ST"
