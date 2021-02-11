@@ -25,4 +25,4 @@ djangorestframework-jsonp==1.0.2
 feedparser==6.0.2
 
 sentry-sdk==0.19.5
-uk-election-timetables==2.0.1
+uk-election-timetables==2.1.0
