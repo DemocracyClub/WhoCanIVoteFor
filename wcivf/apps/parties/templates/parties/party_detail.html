@@ -39,9 +39,7 @@
   {% for post in election.list %}
     <dl>
       <dt>
-        <a href="{{ post.get_absolute_url }}">
-          {{ post.post__label }}
-        </a>
+        {{ post.post__label }}
         {% if post.post_election__cancelled %}
           (The poll for this election was cancelled)
         {% endif %}

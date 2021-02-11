@@ -9,6 +9,7 @@ shown before and after template changes.
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
+from django.core import management
 
 import vcr
 
@@ -28,3 +29,12 @@ class TestMetaTags(TestCase):
         for name, url in self.important_urls.items():
             req = self.client.get(url)
             assert req.status_code == 200
+
+
+class TestTemplates:
+    def test_validate_templates(self):
+        """
+        Calls management command to check templates - no need for an assert as
+        if something is wrong it throws an error, if not nothing happens
+        """
+        management.call_command("validate_templates")

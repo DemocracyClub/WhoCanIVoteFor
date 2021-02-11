@@ -359,7 +359,7 @@
     <li class="disabled"><span class="show-for-sr">Current: </span> {{ object.name }}</li>
   </ol>
 {% endif %}
-
-{% include "elections/includes/_ld_candidate.html" with person=object.personpost.person party=object.personpost.party %}
-
+{% if object.personpost %}
+  {% include "elections/includes/_ld_candidate.html" with person=object.personpost.person party=object.personpost.party %}
+{% endif %}
 {% endblock breadcrumbs %}
