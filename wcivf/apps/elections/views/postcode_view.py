@@ -1,7 +1,7 @@
 from icalendar import Calendar, Event, vText
 from django.utils import timezone
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import TemplateView, View
 
 from core.helpers import clean_postcode
@@ -12,6 +12,7 @@ from .mixins import (
     PostelectionsToPeopleMixin,
     NewSlugsRedirectMixin,
 )
+from elections.models import InvalidPostcodeError
 
 
 class PostcodeView(
@@ -112,6 +113,13 @@ class PostcodeiCalView(
 
     def get(self, request, *args, **kwargs):
         postcode = kwargs["postcode"]
+        try:
+            ballots = self.postcode_to_ballots(postcode=postcode)
+        except InvalidPostcodeError:
+            return HttpResponseRedirect(
+                f"/?invalid_postcode=1&postcode={postcode}"
+            )
+
         polling_station = self.get_polling_station_info(postcode)
 
         cal = Calendar()
@@ -122,7 +130,7 @@ class PostcodeiCalView(
         cal.add("version", "2.0")
         cal.add("prodid", "-//Elections in {}//mxm.dk//".format(postcode))
 
-        for post_election in self.postcode_to_ballots(postcode):
+        for post_election in ballots:
             if post_election.cancelled:
                 continue
             event = Event()
