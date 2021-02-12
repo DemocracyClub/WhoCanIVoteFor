@@ -3,6 +3,7 @@ import pytest
 
 from elections.models import Election, Post
 from elections.tests.factories import (
+    ElectionFactoryLazySlug,
     ElectionWithPostFactory,
     PostElectionFactory,
     PostFactory,
@@ -179,3 +180,55 @@ class TestPostElectionModel:
     def test_is_pcc(self, org_type, expected):
         post = PostElectionFactory.build(ballot_paper_id=org_type)
         assert post.is_pcc == expected
+
+    @pytest.mark.django_db
+    @pytest.mark.freeze_time("2021-5-1")
+    def test_next_ballot(self):
+        post = PostFactory()
+        oldest = PostElectionFactory(
+            post=post,
+            election=ElectionFactoryLazySlug(
+                election_date="2019-5-6", current=False, election_type="local"
+            ),
+        )
+        old = PostElectionFactory(
+            post=post,
+            election=ElectionFactoryLazySlug(
+                election_date="2020-5-6", current=False, election_type="local"
+            ),
+        )
+        future = PostElectionFactory(
+            post=post,
+            election=ElectionFactoryLazySlug(
+                election_date="2021-5-6", current=True, election_type="local"
+            ),
+        )
+
+        assert oldest.next_ballot == future
+        assert old.next_ballot == future
+        assert future.next_ballot is None
+
+    @pytest.mark.django_db
+    @pytest.mark.freeze_time("2021-5-1")
+    def test_next_ballot_different_election_type(self):
+        post = PostFactory()
+        local = PostElectionFactory(
+            post=post,
+            election=ElectionFactoryLazySlug(
+                election_date="2019-5-6", current=False, election_type="local"
+            ),
+        )
+        mayoral = PostElectionFactory(
+            post=post,
+            election=ElectionFactoryLazySlug(
+                election_date="2020-5-6", current=False, election_type="mayor"
+            ),
+        )
+        next_local = PostElectionFactory(
+            post=post,
+            election=ElectionFactoryLazySlug(
+                election_date="2021-5-6", current=True, election_type="local"
+            ),
+        )
+        assert local.next_ballot == next_local
+        assert mayoral.next_ballot is None

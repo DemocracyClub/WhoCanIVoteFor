@@ -5,12 +5,13 @@ from django.test.utils import override_settings
 from elections.models import Post
 from elections.tests.factories import (
     ElectionFactory,
+    ElectionFactoryLazySlug,
     ElectionWithPostFactory,
     PostElectionFactory,
     PostFactory,
 )
 from people.tests.factories import PersonFactory, PersonPostFactory
-from pytest_django.asserts import assertContains
+from pytest_django.asserts import assertContains, assertNotContains
 
 
 @override_settings(
@@ -175,3 +176,105 @@ class TestPostViewName:
         assertContains(response, "by-election")
         assertContains(response, post_election.friendly_name)
         assertContains(response, post_election.post.label)
+
+
+class TestPostViewNextElection:
+    @pytest.mark.django_db
+    @pytest.mark.freeze_time("2021-5-1")
+    def test_next_election_displayed(self, client):
+        post = PostFactory()
+        past = PostElectionFactory(
+            post=post,
+            election=ElectionFactoryLazySlug(
+                election_date="2019-5-2",
+                current=False,
+            ),
+        )
+        # create a future election expected to be displayed
+        PostElectionFactory(
+            post=post,
+            election=ElectionFactoryLazySlug(
+                election_date="2021-5-6",
+                current=True,
+            ),
+        )
+
+        response = client.get(past.get_absolute_url(), follow=True)
+        assertContains(response, "<h3>Next election</h3>")
+        assertContains(
+            response,
+            "due to take place <strong>on Thursday 6 May 2021</strong>.",
+        )
+
+    @pytest.mark.django_db
+    @pytest.mark.freeze_time("2021-5-1")
+    def test_next_election_not_displayed(self, client):
+        post = PostFactory()
+        past = PostElectionFactory(
+            post=post,
+            election=ElectionFactoryLazySlug(
+                election_date="2019-5-2",
+                current=False,
+            ),
+        )
+        response = client.get(past.get_absolute_url(), follow=True)
+        assertNotContains(response, "<h3>Next election</h3>")
+
+    @pytest.mark.django_db
+    @pytest.mark.freeze_time("2021-5-7")
+    def test_next_election_not_displayed_in_past(self, client):
+        post = PostFactory()
+        past = PostElectionFactory(
+            post=post,
+            election=ElectionFactoryLazySlug(
+                election_date="2019-5-2",
+                current=False,
+            ),
+        )
+        # create an election that just passed
+        PostElectionFactory(
+            post=post,
+            election=ElectionFactoryLazySlug(
+                election_date="2021-5-6",
+                current=True,
+            ),
+        )
+        response = client.get(past.get_absolute_url(), follow=True)
+        assertNotContains(response, "<h3>Next election</h3>")
+
+    @pytest.mark.django_db
+    @pytest.mark.freeze_time("2021-5-1")
+    def test_next_election_not_displayed_for_current_election(self, client):
+        post = PostFactory()
+        current = PostElectionFactory(
+            post=post,
+            election=ElectionFactoryLazySlug(
+                election_date="2021-5-6",
+                current=True,
+            ),
+        )
+        response = client.get(current.get_absolute_url(), follow=True)
+        assertNotContains(response, "<h3>Next election</h3>")
+
+    @pytest.mark.django_db
+    @pytest.mark.freeze_time("2021-5-6")
+    def test_next_election_is_today(self, client):
+        post = PostFactory()
+        past = PostElectionFactory(
+            post=post,
+            election=ElectionFactoryLazySlug(
+                election_date="2019-5-2",
+                current=False,
+            ),
+        )
+        # create an election taking place today
+        PostElectionFactory(
+            post=post,
+            election=ElectionFactoryLazySlug(
+                election_date="2021-5-6",
+                current=True,
+            ),
+        )
+        response = client.get(past.get_absolute_url(), follow=True)
+        assertContains(response, "<h3>Next election</h3>")
+        assertContains(response, "<strong>being held today</strong>.")

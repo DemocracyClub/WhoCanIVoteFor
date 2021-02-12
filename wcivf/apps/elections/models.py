@@ -434,6 +434,24 @@ class PostElection(models.Model):
             return True
         return False
 
+    @cached_property
+    def next_ballot(self):
+        """
+        Return the next ballot for the related post. Return None if this is
+        the current election to avoid making an unnecessary db query.
+        """
+        if self.election.current:
+            return None
+
+        try:
+            return self.post.postelection_set.filter(
+                election__election_date__gt=self.election.election_date,
+                election__election_date__gte=datetime.date.today(),
+                election__election_type=self.election.election_type,
+            ).latest("election__election_date")
+        except PostElection.DoesNotExist:
+            return None
+
 
 class VotingSystem(models.Model):
     slug = models.SlugField(primary_key=True)
