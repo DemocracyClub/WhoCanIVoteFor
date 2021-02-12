@@ -17,7 +17,6 @@ class TestHustings(TestCase):
         self.post = PostFactory(
             ynr_id="tower-hamlets",
             label="Tower Hamlets",
-            elections=self.election,
         )
         self.ballot = PostElectionFactory(
             post=self.post,

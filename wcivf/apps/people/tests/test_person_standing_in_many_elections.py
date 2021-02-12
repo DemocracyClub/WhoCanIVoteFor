@@ -13,10 +13,8 @@ class TestPersonInMultipleElections(TestCase):
         person = PersonFactory()
         election1 = ElectionFactory()
         election2 = ElectionFactory(slug="parl.2010")
-        post1 = PostFactory(elections=election2)
-        post2 = PostFactory(
-            ynr_id="WMC:E14000645", label="Southwark", elections=election2
-        )
+        post1 = PostFactory()
+        post2 = PostFactory(ynr_id="WMC:E14000645", label="Southwark")
 
         pe1 = PostElectionFactory(election=election1, post=post1)
         pe2 = PostElectionFactory(election=election2, post=post2)
