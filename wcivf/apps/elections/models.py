@@ -1,4 +1,5 @@
 import datetime
+from django.utils.functional import cached_property
 import pytz
 import re
 
@@ -199,6 +200,23 @@ class Election(models.Model):
             settings.YNR_BASE, self.slug, settings.YNR_UTM_QUERY_STRING
         )
 
+    @cached_property
+    def pluralized_division_name(self):
+        """
+        Returns a string for the pluarlized divison name for the posts in the
+        election
+        """
+        pluralise = {
+            "parish": "parishes",
+            "constituency": "constituencies",
+        }
+        suffix = self.post_set.first().division_suffix
+
+        if not suffix:
+            return "posts"
+
+        return pluralise.get(suffix, f"{suffix}s")
+
 
 class Post(models.Model):
     """
@@ -270,7 +288,7 @@ class Post(models.Model):
     @property
     def division_description(self):
         """
-        Return a string to describe the division
+        Return a string to describe the division.
         """
         mapping = {
             choice[0]: choice[1] for choice in self.DIVISION_TYPE_CHOICES
