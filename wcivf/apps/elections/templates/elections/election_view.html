@@ -35,7 +35,7 @@
             {% endif %}
         {% endif %}
 
-        <h3>Posts</h3>
+        <h3>{{ object.pluralized_division_name|title }}</h3>
         <ul>
           {% for postelection in object.postelection_set.all %}
             <li>

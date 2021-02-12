@@ -53,3 +53,13 @@ class PostElectionFactory(factory.django.DjangoModelFactory):
     ballot_paper_id = factory.Sequence(
         lambda n: "parl.place-name-%d.2015-05-07" % n
     )
+
+
+class ElectionWithPostFactory(ElectionFactoryLazySlug):
+    """
+    Builds an Election with a related Post through a PostElection
+    """
+
+    ballot = factory.RelatedFactory(
+        PostElectionFactory, factory_related_name="election"
+    )

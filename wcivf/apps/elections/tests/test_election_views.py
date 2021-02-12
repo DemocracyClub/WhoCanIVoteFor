@@ -2,9 +2,10 @@ import pytest
 from django.shortcuts import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
-from elections.models import PostElection, Post
+from elections.models import Post
 from elections.tests.factories import (
     ElectionFactory,
+    ElectionWithPostFactory,
     PostElectionFactory,
     PostFactory,
 )
@@ -73,6 +74,25 @@ class ElectionViewTests(TestCase):
                 )
                 self.assertContains(response, election[0].nice_election_name)
                 self.assertContains(response, election[1])
+
+    def test_division_name_displayed(self):
+        """
+        For each Post.DIVISION_TYPE, creates an elections, gets a response for
+        from the ElectionDetail view, and checks that the response contains the
+        correct value for division name .e.g Ward
+        """
+        Post.DIVISION_TYPE_CHOICES.append(("", ""))
+        for division_type in Post.DIVISION_TYPE_CHOICES:
+            election = ElectionWithPostFactory(
+                ballot__post__division_type=division_type[0]
+            )
+            with self.subTest(election=election):
+                response = self.client.get(
+                    election.get_absolute_url(), follow=True
+                )
+                self.assertContains(
+                    response, election.pluralized_division_name.title()
+                )
 
 
 class ElectionPostViewTests(TestCase):
