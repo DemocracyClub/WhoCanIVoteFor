@@ -52,9 +52,7 @@ class PostcodeViewTests(TestCase):
     @vcr.use_cassette("fixtures/vcr_cassettes/test_ical_view.yaml")
     def test_ical_view(self):
         election = ElectionFactory(slug="local.cambridgeshire.2017-05-04")
-        post = PostFactory(
-            ynr_id="CED:romsey", label="Romsey", elections=election
-        )
+        post = PostFactory(ynr_id="CED:romsey", label="Romsey")
 
         PostElectionFactory(post=post, election=election)
         response = self.client.get("/elections/CB13HU.ics", follow=True)
@@ -63,9 +61,7 @@ class PostcodeViewTests(TestCase):
     @vcr.use_cassette("fixtures/vcr_cassettes/test_mayor_elections.yaml")
     def test_mayor_election_postcode_lookup(self):
         election = ElectionFactory(slug="mayor.tower-hamlets.2018-05-03")
-        post = PostFactory(
-            ynr_id="tower-hamlets", label="Tower Hamlets", elections=election
-        )
+        post = PostFactory(ynr_id="tower-hamlets", label="Tower Hamlets")
 
         PostElectionFactory(
             post=post,

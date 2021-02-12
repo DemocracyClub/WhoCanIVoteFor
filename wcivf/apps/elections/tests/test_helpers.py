@@ -121,7 +121,7 @@ class TestYNRBallotImporter(TestCase):
         self.post = PostFactory(label="Adur local election")
         self.post.elections.add(election)
         self.orphan_post = PostFactory(
-            label="Adur local election", elections=None, ynr_id="foo"
+            label="Adur local election", ynr_id="foo"
         )
 
     def test_delete_orphan_posts(self):

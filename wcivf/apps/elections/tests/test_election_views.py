@@ -19,18 +19,10 @@ from pytest_django.asserts import assertContains
 )
 class ElectionViewTests(TestCase):
     def setUp(self):
-        self.election = ElectionFactory(
+        self.election = ElectionWithPostFactory(
             name="City of London Corporation local election",
             election_date="2017-03-23",
             slug="local.city-of-london.2017-03-23",
-        )
-        self.post = PostFactory(
-            ynr_id="LBW:E05009288", label="Aldersgate", elections=self.election
-        )
-        PostElection.objects.get_or_create(
-            election=self.election,
-            post=self.post,
-            ballot_paper_id="local.city-of-london.aldersgate.2017-03-23",
         )
 
     def test_election_list_view(self):
