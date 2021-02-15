@@ -1,7 +1,10 @@
 {% if postelection.people|length %}
-{% autoescape off %}See all {{ postelection.people|length }} candidates in the {{ object.election.name }} on {{
-object.election.election_date }}: {% for pp in person_posts %}{{ pp.person.name|safe }}
-({{ pp.party.party_name }}) {% endfor %}{% endautoescape %}
+  {% autoescape off %}
+    See all {{ postelection.people|length }} candidates in the {{ object.election.name }} on {{ object.election.election_date }}:
+    {% for pp in postelection.people %}
+      {{ pp.person.name|safe }} ({{ pp.party.party_name }})
+    {% endfor %}
+  {% endautoescape %}
 {% else %}
-{{ object.election.name }}: No candidates known yet.
+  {{ object.election.name }}: No candidates known yet.
 {% endif %}
