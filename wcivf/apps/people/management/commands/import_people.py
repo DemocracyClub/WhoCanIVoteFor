@@ -142,56 +142,66 @@ class Command(BaseCommand):
                 )
 
                 if self.options["recent"]:
-                    self.update_candidacies(person, person_obj)
+                    self.delete_old_candidacies(
+                        person_data=person,
+                        person_obj=person_obj,
+                    )
+                    self.update_candidacies(
+                        person_data=person, person_obj=person_obj
+                    )
 
                 if person["candidacies"]:
                     self.seen_people.add(person_obj.pk)
 
-    def update_candidacies(self, person, person_obj):
+    def delete_old_candidacies(self, person_data, person_obj):
         """
-        Compare the API dict to the candidacies we know about
+        Delete any candidacies that have been deleted upstream in YNR
         """
-        known_candidacies = set(
-            person_obj.personpost_set.all().values_list(
-                "post_election__ballot_paper_id", flat=True
-            )
-        )
+        ballot_paper_ids = [
+            c["ballot"]["ballot_paper_id"] for c in person_data["candidacies"]
+        ]
 
-        remote_candidacies = set(
-            [c["ballot"]["ballot_paper_id"] for c in person["candidacies"]]
-        )
+        count, _ = person_obj.personpost_set.exclude(
+            post_election__ballot_paper_id__in=ballot_paper_ids
+        ).delete()
+        self.stdout.write(f"Deleted {count} candidacies for {person_obj.name}")
 
-        if remote_candidacies != known_candidacies:
-            # Delete any old candidacies
-            deleted_candidacies = known_candidacies - remote_candidacies
-            person_obj.personpost_set.filter(
-                post_election__ballot_paper_id__in=deleted_candidacies
-            ).delete()
-
-            added_candidacies = remote_candidacies - known_candidacies
-            for candidacy in added_candidacies:
-                try:
-                    ballot = PostElection.objects.get(ballot_paper_id=candidacy)
-                except PostElection.DoesNotExist:
-                    # This might be because we've not run import_ballots
-                    # recently enough. Let's import just the ballots for this
-                    # date
-                    self.import_ballots_for_date(candidacy.split(".")[-1])
-                    ballot = PostElection.objects.get(ballot_paper_id=candidacy)
-                for candidacy_dict in person["candidacies"]:
-                    if candidacy_dict["ballot"]["ballot_paper_id"] == candidacy:
-                        candidacy_dict_for_ballot = candidacy_dict
-
-                person_obj.personpost_set.update_or_create(
-                    post_election=ballot,
-                    post=ballot.post,
-                    election=ballot.election,
-                    party_id=candidacy_dict_for_ballot["party"]["legacy_slug"],
-                    list_position=candidacy_dict_for_ballot[
-                        "party_list_position"
-                    ],
-                    elected=candidacy_dict_for_ballot["elected"],
+    def update_candidacies(self, person_data, person_obj):
+        """
+        Loops through candidacy dictionaries in the person data and updates or
+        creates the candidacy object for the Person
+        """
+        for candidacy in person_data["candidacies"]:
+            ballot_paper_id = candidacy["ballot"]["ballot_paper_id"]
+            try:
+                ballot = PostElection.objects.get(
+                    ballot_paper_id=ballot_paper_id
                 )
+            except PostElection.DoesNotExist:
+                # This might be because we've not run import_ballots
+                # recently enough. Let's import just the ballots for this
+                # date
+                date = ballot_paper_id.split(".")[-1]
+                self.import_ballots_for_date(date=date)
+                ballot = PostElection.objects.get(
+                    ballot_paper_id=ballot_paper_id
+                )
+
+            # TODO check if the post/election could have changed and should be
+            # used in defaults dict
+            obj, created = person_obj.personpost_set.update_or_create(
+                post_election=ballot,
+                post=ballot.post,
+                election=ballot.election,
+                defaults={
+                    "party_id": candidacy["party"]["legacy_slug"],
+                    "list_position": candidacy["party_list_position"],
+                    "elected": candidacy["elected"],
+                },
+            )
+
+            msg = f"{obj} was {'created' if created else 'updated'}"
+            self.stdout.write(msg=msg)
 
     def import_ballots_for_date(self, date):
         self.ballot_importer.do_import(params={"election_date": date})
