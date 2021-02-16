@@ -1,5 +1,9 @@
+import pytest
+
 from django.test import TestCase
 from django.test.utils import override_settings
+from unittest.mock import MagicMock
+
 from people.tests.factories import PersonFactory, PersonPostFactory
 from parties.tests.factories import PartyFactory
 from elections.tests.factories import (
@@ -7,6 +11,7 @@ from elections.tests.factories import (
     PostFactory,
     PostElectionFactory,
 )
+from people.views import PersonView
 
 
 @override_settings(
@@ -39,6 +44,18 @@ class PersonViewTests(TestCase):
         self.assertContains(response, "Previous elections")
         self.assertNotContains(response, "Contact information")
         self.assertContains(response, '<meta name="robots" content="noindex">')
+
+    def test_not_current_person_with_twfy_id(self):
+        self.person.twfy_id = 10999
+        self.person.save()
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "people/person_detail.html")
+        self.assertNotContains(
+            response, '<meta name="robots" content="noindex">'
+        )
+        self.assertContains(response, "Record in office")
+        self.assertContains(response, "TheyWorkForYou")
 
     def test_correct_elections_listed(self):
         response = self.client.get(self.person_url, follow=True)
@@ -97,3 +114,33 @@ class PersonViewTests(TestCase):
         response = self.client.get(self.person_url, follow=True)
         self.assertContains(response, election_name)
         self.assertContains(response, "was the")
+
+
+class TestPersonViewUnitTests:
+    @pytest.fixture
+    def view_obj(self, rf):
+        """
+        Return an instance of PersonView set up with a fake request object
+        """
+        request = rf.get("/person/1/")
+        view = PersonView()
+        view.setup(request=request)
+        return view
+
+    @pytest.mark.parametrize(
+        "object, expected",
+        [
+            (MagicMock(twfy_id=10999), "people/person_detail.html"),
+            (
+                MagicMock(current_or_future_candidacies=True),
+                "people/person_detail.html",
+            ),
+            (
+                MagicMock(current_or_future_candidacies=False, twfy_id=None),
+                "people/not_current_person_detail.html",
+            ),
+        ],
+    )
+    def test_get_template_names(self, view_obj, object, expected):
+        view_obj.object = object
+        assert view_obj.get_template_names() == [expected]

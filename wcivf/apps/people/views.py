@@ -54,12 +54,11 @@ class PersonView(DetailView, PersonMixin):
 
     def get_template_names(self):
         """
-        When we don't have current candidacies,
-        we return an alternative template with
-        just intro and past elections.
+        When we don't have a TheyWorkForYou ID or the person has no current
+        candidacies, we return an alternative template with just intro and past
+        elections.
         """
-
-        if self.object.current_or_future_candidacies:
+        if self.object.twfy_id or self.object.current_or_future_candidacies:
             return ["people/person_detail.html"]
         return ["people/not_current_person_detail.html"]
 
