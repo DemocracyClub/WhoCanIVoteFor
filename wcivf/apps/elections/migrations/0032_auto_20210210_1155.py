@@ -6,7 +6,6 @@ from django.db import migrations
 def forwards(apps, schema_editor):
     Post = apps.get_model("elections", "Post")
     count, _ = Post.objects.filter(ynr_id="").delete()
-    print(f"Deleted {count} Post objects")
 
 
 class Migration(migrations.Migration):
