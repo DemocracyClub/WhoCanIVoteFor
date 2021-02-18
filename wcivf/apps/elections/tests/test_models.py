@@ -152,10 +152,26 @@ class TestPostElectionModel:
 
     def test_friendly_name_mayoral(self, post_election):
         post_election.ballot_paper_id = "mayor.of.london"
+        post_election.post.label = "Greater London Authority"
         assert (
             post_election.friendly_name
-            == post_election.election.nice_election_name
+            == "Greater London Authority mayoral election"
         )
+
+    @pytest.mark.parametrize(
+        "label, expected",
+        [
+            (
+                "Avon and Somerset Constabulary",
+                "Avon and Somerset Constabulary Police force area",
+            ),
+            ("North Yorkshire Police", "North Yorkshire Police force area"),
+        ],
+    )
+    def test_friendly_name_pcc(self, post_election, label, expected):
+        post_election.ballot_paper_id = "pcc.election"
+        post_election.post.label = label
+        assert post_election.friendly_name == expected
 
     def test_friendly_name(self, post_election):
         assert post_election.friendly_name == post_election.post.full_label
@@ -169,10 +185,6 @@ class TestPostElectionModel:
     ):
         post_election.ballot_paper_id = ballot_paper_id
         assert post_election.is_london_assembly_additional == expected
-
-    def test_friendly_name_london_assembly_additonal(self, post_election):
-        post_election.ballot_paper_id = "gla.a.2021-05-06"
-        assert post_election.friendly_name == "Additional members"
 
     @pytest.mark.parametrize(
         "org_type,expected", [("pcc.ballot", True), ("not.pcc", False)]
