@@ -363,16 +363,15 @@ class PostElection(models.Model):
     def friendly_name(self):
         """
         Helper property used in templates to build a 'friendly' name using
-        details from associated Post object, with exceptions for GLA, mayoral
-        elections and pcc elections
+        details from associated Post object, with exceptions for mayoral and
+        Police and Crime Commissioner elections
         """
-        if self.is_mayoral or self.is_pcc:
-            return self.election.nice_election_name
+        if self.is_mayoral:
+            return f"{self.post.full_label} mayoral election"
 
-        # edge case - as this is for a single region we display this below the
-        # election name
-        if self.is_london_assembly_additional:
-            return "Additional members"
+        if self.is_pcc:
+            label = self.post.full_label.replace(" Police", "")
+            return f"{label} Police force area"
 
         return self.post.full_label
 

@@ -7,7 +7,7 @@
     {% endif %}
 
     <h2>{{ party_name }}</h2>
-    <h3>{{ ballot.election.nice_election_name }}{% if ballot.friendly_name != ballot.election.nice_election_name %}: {{ ballot.friendly_name }}{% endif %}</h3>
+    <h3>{{ ballot.election.nice_election_name }}{% if not ballot.is_pcc and not ballot.is_mayoral %}: {{ ballot.friendly_name }}{% endif %}</h3>
     </header>
     <dl>
         {% if local_party.facebook_page %}

@@ -12,8 +12,8 @@
         {{ postelection.election.name_without_brackets }}
         <span aria-hidden="true">🗳️</span>
       </h1>
-      {% if postelection.friendly_name != postelection.election.nice_election_name %}
-        <h2>{{ postelection.friendly_name }}</h2>
+      {% if not postelection.is_pcc and not postelection.is_mayoral %}
+        <h2>{% if postelection.is_london_assembly_additional %}Additional members{% else %}{{ postelection.friendly_name }}{% endif %}</h2>
       {% endif %}
       {% if postelection.metadata.coronavirus_message %}
         <div style="border:1px solid red;margin:1em 0;padding:1em">
@@ -38,7 +38,7 @@
 
       <p>
         {% if postelection.election.in_past %}
-          <strong>{{ postelection.people|length }} candidates</strong> stood in {{ postelection.post.full_label }}.
+          <strong>{{ postelection.people|length }} candidates</strong> stood in the {{ postelection.friendly_name }}.
         {% else %}
           {# Display different messages depending on the number of candidates #}
           {# Case: No candidates for a contested election #}
@@ -53,12 +53,7 @@
                 You will have one vote, and can vote for a single party list or independent candidate.
               {% else %}
                 You can choose from <strong>{{ postelection.people|length }} candidates</strong>
-                in the
-                {% if 'mayor' in postelection.election.slug %}
-                  {{ postelection.election.nice_election_name }}.
-                {% else %}
-                  {{ postelection.post.full_label }}.
-                {% endif %}
+                in the {{ postelection.friendly_name }}.
 
                 {% if postelection.winner_count and postelection.election.voting_system_id == 'FPTP' %}
                   You will have {{ postelection.winner_count|intword }} vote{{ postelection.winner_count|pluralize }}.
@@ -72,7 +67,7 @@
               {# Case: Candidates and the post is NOT locked (add CTA) #}
               The official candidate list has not yet been published.
               However, we expect at least <strong>{{ postelection.people|length }} candidate{{postelection.people|pluralize}}</strong>
-              to stand in the {{ postelection.post.full_label }}.
+              to stand in the {{ postelection.friendly_name }}.
 
               You can help improve this page: <a href="{{ postelection.ynr_link }}">
               add information about candidates to our database</a>.
