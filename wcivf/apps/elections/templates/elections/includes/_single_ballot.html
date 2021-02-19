@@ -2,8 +2,8 @@
 {% load humanize %}
 {% load static %}
 
-<section id="election_{{ postelection.election.slug }}">
-  <div class="card">
+<section>
+  <div class="card" id="election_{{ postelection.election.slug }}">
     {% if postelection.cancelled %}
       {% include "elections/includes/_cancelled_election.html" with object=postelection only %}
     {% else %}
