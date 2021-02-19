@@ -1,6 +1,7 @@
 import re
 from contextlib import contextmanager
 from datetime import datetime, timedelta
+from urllib.parse import urlparse
 import json
 
 
@@ -47,3 +48,10 @@ def clean_postcode(postcode):
     space_regex = re.compile(r" *(%s)$" % incode_pattern)
     postcode = space_regex.sub(r" \1", postcode.upper())
     return postcode
+
+
+def twitter_username(url):
+    """
+    Returns username from a twitter url
+    """
+    return urlparse(url).path.strip("/")

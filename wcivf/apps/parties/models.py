@@ -105,6 +105,9 @@ class LocalParty(models.Model):
     homepage = models.URLField(blank=True, max_length=800)
     email = models.EmailField(blank=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Manifesto(models.Model):
     COUNTRY_CHOICES = (

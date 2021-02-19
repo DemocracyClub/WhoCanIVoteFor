@@ -1,91 +1,81 @@
+from collections import namedtuple
 from dateutil.parser import parse
 
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
-import csv
-
+from core.mixins import ReadFromUrlMixin
+from core.helpers import twitter_username
 from parties.models import Party, LocalParty
-from elections.models import PostElection
+from parties.importers import LocalPartyImporter
+from elections.models import Election, PostElection
 
 
-class Command(BaseCommand):
+LocalElection = namedtuple("LocalElection", ["date", "urls"])
+
+
+class Command(ReadFromUrlMixin, BaseCommand):
+    ELECTIONS = [
+        LocalElection(
+            date="2018-05-03",
+            urls=[
+                "https://docs.google.com/spreadsheets/d/e/2PACX-1vS3pC0vtT9WaCyKDzqARQZY6aoYCyKZLyIvumKaX3TpqG0rt4y0fXp6dOPOZGMX6v0dFczHfizwidwZ/pub?gid=582783400&single=true&output=csv",
+            ],
+        ),
+        LocalElection(
+            date="2019-05-02",
+            urls=[
+                "https://docs.google.com/spreadsheets/d/e/2PACX-1vTO-z37bBMxKwCuORIl2vE8v0kMFHlHETvBhGjuDidM1Wy4QxQawRou53kNLjEiJmpMhebRqoWZL9s-/pub?gid=0&single=true&output=csv",
+            ],
+        ),
+        LocalElection(
+            date="2021-05-06",
+            urls=[
+                "https://docs.google.com/spreadsheets/d/e/2PACX-1vQx49JTec8i5oz_x6SJanvSKPc8BccanIlnGR4j0plbD99QFslXw7JEvWSNtdrJiePBMBi0AXkvw3e7/pub?gid=1210343217&single=true&output=csv",
+                "https://docs.google.com/spreadsheets/d/e/2PACX-1vQx49JTec8i5oz_x6SJanvSKPc8BccanIlnGR4j0plbD99QFslXw7JEvWSNtdrJiePBMBi0AXkvw3e7/pub?gid=2091491905&single=true&output=csv",
+                "https://docs.google.com/spreadsheets/d/e/2PACX-1vQx49JTec8i5oz_x6SJanvSKPc8BccanIlnGR4j0plbD99QFslXw7JEvWSNtdrJiePBMBi0AXkvw3e7/pub?gid=1013163356&single=true&output=csv",
+                "https://docs.google.com/spreadsheets/d/e/2PACX-1vQx49JTec8i5oz_x6SJanvSKPc8BccanIlnGR4j0plbD99QFslXw7JEvWSNtdrJiePBMBi0AXkvw3e7/pub?gid=1273833263&single=true&output=csv",
+            ],
+        ),
+    ]
+
     def add_arguments(self, parser):
         parser.add_argument(
-            "filename", help="Path to the file with the local parties"
-        )
-        parser.add_argument(
-            "--election-date",
-            action="store",
-            type=self.valid_date,
+            "--force-update",
+            "-f",
+            action="store_true",
             help="The date of elections this file has data about",
         )
 
     def valid_date(self, value):
         return parse(value)
 
-    def get_party_list_from_party_id(self, party_id):
-        party_id = "party:{}".format(party_id)
+    def delete_current_data(self, election):
+        count, _ = LocalParty.objects.filter(
+            post_election__election__election_date=election.date,
+        ).delete()
+        self.stdout.write(f"Deleted {count} old objects")
 
-        PARTIES = [["party:53", "party:84", "joint-party:53-119"]]
-
-        for party_list in PARTIES:
-            if party_id in party_list:
-                return party_list
-        return [party_id]
+    def current_elections(self, election):
+        if self.force_update:
+            return True
+        return Election.objects.filter(
+            current=True, election_date=election.date
+        ).exists()
 
     @transaction.atomic
     def handle(self, **options):
-        # Delete all data from non-current elections first,
-        # as rows in the source might have been deleted
-        LocalParty.objects.filter(
-            post_election__election__election_date=options["election_date"]
-        ).delete()
+        self.force_update = options["force_update"]
 
-        with open(options["filename"], "r") as fh:
-            reader = csv.DictReader(fh)
-            for row in reader:
-                try:
-                    party_id = row["party_id"].strip()
-                except AttributeError:
-                    # catch when party_id is None
-                    continue
+        for election in self.ELECTIONS:
+            self.delete_current_data(election=election)
 
-                # Try to get a post election
-                try:
-                    party_list = self.get_party_list_from_party_id(party_id)
-                    parties = Party.objects.filter(party_id__in=party_list)
-                except Party.DoesNotExist:
-                    print("Parent party not found with ID %s" % party_id)
-                    continue
-
-                post_elections = PostElection.objects.filter(
-                    ballot_paper_id=row["election_id"]
+            if not self.current_elections(election=election):
+                self.stdout.write(
+                    f"No current elections for {election.date}, skipping"
                 )
+                continue
 
-                if not post_elections.exists():
-                    # This might be an election ID, in that case,
-                    # apply thie row to all post elections without
-                    # info already
-                    post_elections = PostElection.objects.filter(
-                        election__slug=row["election_id"]
-                    ).exclude(localparty__parent__in=parties)
-                for party in parties:
-                    self.add_local_party(row, party, post_elections)
-
-    def add_local_party(self, row, party, post_elections):
-        twitter = row["Twitter"].replace("https://twitter.com/", "")
-        twitter = twitter.split("/")[0]
-        twitter = twitter.split("?")[0]
-        for post_election in post_elections:
-            LocalParty.objects.update_or_create(
-                parent=party,
-                post_election=post_election,
-                defaults={
-                    "name": row["Local party name"],
-                    "twitter": twitter,
-                    "facebook_page": row["Facebook"],
-                    "homepage": row["Website"],
-                    "email": row["Email"],
-                },
-            )
+            for url in election.urls:
+                importer = LocalPartyImporter(url=url)
+                importer.add_parties()
