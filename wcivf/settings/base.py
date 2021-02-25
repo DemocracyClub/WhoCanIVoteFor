@@ -58,6 +58,7 @@ INSTALLED_APPS = (
     "pledges",
     "news_mentions",
     "dc_design_system",
+    "referendums",
 )
 
 MIDDLEWARE = (
