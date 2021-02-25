@@ -1,0 +1,16 @@
+
+<p>You {% if postcode|first == 'S' %}will{% else %}may{% endif %} also be able to vote in a referendum</p>
+<ul>
+{% for referendum in referendums %}
+    <li {% if ballot.past_date %}class="past_elections"{% endif %}>
+
+    <a href="#election_{{ referendum.slug }}">
+    {{ referendum.council_name }} referendum
+    {% if ballot.post.label != post.election and not ballot.is_mayoral and not ballot.is_pcc %}
+        : {{ ballot.post.label }}
+    {% endif %}
+    </a>
+    {{ ballot.short_cancelled_message_html }}
+    </li>    
+{% endfor %}
+</ul>
