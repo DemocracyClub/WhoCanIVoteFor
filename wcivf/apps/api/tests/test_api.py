@@ -90,7 +90,7 @@ class TestAPISearchViews(APITestCase):
     @vcr.use_cassette("fixtures/vcr_cassettes/test_postcode_view.yaml")
     def test_candidates_for_postcode_view(self):
         url = reverse("api:candidates-for-postcode-list")
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             req = self.client.get("{}?postcode=EC1A4EU".format(url))
         assert req.status_code == 200
         assert req.json() == self.expected_response

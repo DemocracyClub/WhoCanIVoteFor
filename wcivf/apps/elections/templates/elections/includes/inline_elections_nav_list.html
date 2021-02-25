@@ -47,6 +47,10 @@
     {% endfor %}
   {% endif %}
 
+  {% if referendums %}
+    {% include 'referendums/includes/_list.html' with referendums=referendums %}
+  {% endif %}
+
 <p>There may also be parish, town or
           community council elections in some areas.</p>
 </aside>
