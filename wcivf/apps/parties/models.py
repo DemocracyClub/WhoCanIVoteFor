@@ -87,6 +87,10 @@ class Party(models.Model):
         """
         return self.party_id == "ynmp-party:2"
 
+    @property
+    def is_joint_party(self):
+        return self.party_id.startswith("joint-party:")
+
 
 class LocalParty(models.Model):
     parent = models.ForeignKey(

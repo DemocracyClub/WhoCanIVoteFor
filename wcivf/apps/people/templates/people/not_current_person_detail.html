@@ -12,28 +12,33 @@
 {% block page_meta %}<meta name="robots" content="noindex">{% endblock page_meta %}
 
 {% block content %}
-  <div class="card person_banner">
-    <h2 class="person_name">{{ object.name }}
-    {% if person.death_date and person.current_or_future_candidacies and person.personpost.party.is_independent %}
-      (Deceased)
-    {% endif %}
-    </h2>
-  </div>
+<div class="ds-scope">
+  <div class="ds-page">
+    <div class="ds-stack">
+      <section class="ds-candidate">
+        <div class="ds-candidate-body ds-stack-smaller">
+          <h2 class="ds-candidate-name ds-h3">
+            {{ object.name }}
+            {% if person.display_deceased and person.personpost.party.is_independent %}
+            (Deceased)
+            {% endif %}
+          </h2>
+          <p>{{ object.name }} stood for election {{ object.past_not_current_candidacies.count }} times.</p>
+        </div> 
+        {% if object.photo_url %}
+          <div class="ds-candidate-image">
+            <img src="{{ object.photo_url }}" alt="profile photo of {{ object.name }}">
+          </div>
+        {% endif %} 
+      </section>
 
-  <div class="card info_card">
-    <h3>Previous elections</h3>
-      <p>This candidate has previously stood for election in:</p>
-      <ul>
-      {% for person_post in object.past_not_current_candidacies %}
-      <li><strong>{{ person_post.election.election_date|date:"Y" }}:</strong>
-        <strong>{{ person_post.election }}</strong>, as the {{ person_post.party.party_name }} candidate for
-        <a href="{{ person_post.post_election.get_absolute_url }}">{{ person_post.post.label }}</a>
-        {{ person_post.post_election.short_cancelled_message_html }}
-      {% endfor %}
-      </ul>
-  </div>
+      {% include "people/includes/_person_previous_elections_card.html" %}
+      
+      {% include "elections/includes/_postcode_search_form.html" %}
 
-{% include "elections/includes/_postcode_search_form.html" %}
+    </div>
+  </div>
+</div>
 
 {% endblock content %}
 

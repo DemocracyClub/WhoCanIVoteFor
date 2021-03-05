@@ -1,0 +1,106 @@
+{% load humanize %}
+{% load markdown_deux_tags %} 
+
+{% if object.statement_to_voters or object.manifestos or object.leaflet_set.exists or object.twfy_id %}
+<section class="ds-card">
+  <div class="ds-card-body">
+    <h2 class="ds-candidate-name ds-h3">
+      {{ object.name }}'s policies
+    </h2>
+
+    {% if object.statement_to_voters %}
+    <h4>Statement to voters</h4>
+    {% if object.long_statement %}
+    <ul class="ds-details">
+      <blockquote class="ds-stack-smaller">
+        <p>{{ object.statement_intro }}</p>
+        <details>
+        <summary>Full statement</summary>
+        <p>{{ object.statement_remainder|linebreaksbr }}</p>
+        </details>
+      </blockquote>
+    </ul>
+    {% else %}
+    <blockquote>{{ object.statement_to_voters|linebreaks }}</blockquote>
+    {% endif %}
+    <p class="small">This statement was added by {{ object.name }}, their team, or by a <a
+        href="https://candidates.democracyclub.org.uk/person/{{ object.ynr_id }}">Democracy Club volunteer</a>,
+      based on
+      information published by the candidate elsewhere.</p>
+    {% endif %}
+
+    <!-- manifestos -->
+    {% if object.manifestos %}
+    {% with object.personpost.party as party %}
+
+    {% if party.emblem %}
+    <a href="{{ s.0.web_url }}"><img src="{{ party.emblem.url }}" alt="{{ party.name}} emblem"
+        class="manifesto_image"></a>
+    <a href="{{ object.manifestos.0.web_url }}"><img src="{{ party.emblem.url }}" alt="{{ party.name}} emblem"
+        class="manifesto_image"></a>
+    <a href="{{ object.manifestos.0.web_url }}"><img src="{{ party.emblem.url }}" alt="{{ party.name}} emblem"
+        class="manifesto_image"></a>
+    {% endif %}
+    <h4>Party manifesto</h4>
+    <h4>Party manifesto</h4>
+    <h4>Party manifesto</h4>
+    <p>
+      {{ object.name }} {{ object.personpost.election.in_past|yesno:"was,is" }} the {{ party.party_name }}
+      candidate.
+      Find out more about their policies in the {{ party.party_name }} manifesto.
+    </p>
+    <ul>
+      {% for manifesto in object.manifestos %}
+      {% include "parties/single_manifesto.html" %}
+      {% endfor %}
+    </ul>
+    {% endwith %}
+    {% endif %}
+
+    <!-- leaflets -->
+    {% if object.leaflet_set.exists %}
+    <h4>
+      Recent leaflets from {{ object.name }}
+    </h4>
+    {% for leaflet in object.leaflet_set.latest_four %}
+    {% if leaflet.thumb_url %}
+    <a href="https://electionleaflets.org/leaflets/{{ leaflet.leaflet_id }}">}
+      <img src="{{ leaflet.thumb_url }}" alt="Thumbnail of leaflet from {{ object.name }}" />
+    </a>
+    {% endif %}
+    <p>
+      Uploaded {{ leaflet.date_uploaded_to_electionleaflets|naturalday:"j M Y" }}<br />
+      <a href="https://electionleaflets.org/leaflets/{{ leaflet.leaflet_id }}" class="cta">See leaflet</a>
+    </p>
+    {% endfor %}
+    <p class="text" style="clear:both;padding-top:1em">
+      <a class="link-button" href="https://electionleaflets.org/person/{{ object.ynr_id }}">More leaflets from {{
+        object.name }}</a>
+      <a class="link-button" href="https://electionleaflets.org/leaflets/add/front/">Upload a leaflet</a>
+    </p>
+    {% endif %}
+
+    <!-- pledges -->
+    {% if object.pledges.exists %}
+    <h4>Candidate pledges</h4>
+    <p>Hope Not Hate, a London-based charity, canvassed local residents and community organisations to establish
+      the
+      following questions to the candidates in this ward.
+    </p>
+    {% for pledge in object.pledges.all %}
+    <h4>{{ pledge.question }}</h4>
+    <blockquote>{{ pledge.answer|markdown }}</blockquote>
+    {% endfor %}
+    {% endif %}
+
+    <!-- TWFY  -->
+    {% if object.twfy_id %}
+    <h4>Record in office</h4>
+    <p>See this candidate's <a href="https://www.theyworkforyou.com/mp/{{ object.twfy_id }}">record on
+        TheyWorkForYou</a> -
+      their speeches, voting history and more.
+    </p>
+    {% endif %}
+  </div>
+</section>
+{% endif %}

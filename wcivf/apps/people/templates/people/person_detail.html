@@ -10,354 +10,59 @@
 {% block og_image %}{% if object.photo_url %}{{ object.photo_url }}{% endif %}{% endblock og_image %}
 
 {% block content %}
-  <div class="card person_banner">
-    <h2 class="person_name">{{ object.name }}
-    {% if person.death_date and person.current_or_future_candidacies and person.personpost.party.is_independent %}
-      (Deceased)
-    {% endif %}
-    </h2>
-    {% if object.photo_url %}
-      <img src="{{ object.photo_url }}" class="person_photo detail" alt="profile photo of {{ object.name }}">
-    {% endif %}
+<div class="ds-scope">
+  <div class="ds-page">
+    <div class="ds-stack">
+      {% include "people/includes/_person_intro_card.html" %}
 
-    <p>
-    {{ object.intro|safe }}. Our volunteers have been adding information on {{ object.name }} - here's everything we know so far!
-    </p>
-  </div>
+      {% include "people/includes/_person_policy_card.html" %}
 
-  {% if object.has_any_contact_info %}
-  <div class="card info_card">
-    <h3>Contact information</h3>
-    <dl>
-        {% if object.facebook_page_url or object.facebook_personal_url %}
-        <dt>Facebook</dt>
-        <dd>
-          {% if object.facebook_personal_url %}
-          {% if object.facebook_page_url and object.facebook_personal_url %}Personal profile: {% endif %}<a href="{{ object.facebook_personal_url }}" title="{{ object.name }}'s Facebook page">
-            {{ object.facebook_personal_url }}
-          </a><br/>
-          {% endif %}
-          {% if object.facebook_page_url %}
-          {% if object.facebook_page_url and object.facebook_personal_url %}Public page: {% endif %}<a href="{{ object.facebook_page_url }}" title="{{ object.name }}'s Facebook profile">
-            {{ object.facebook_page_url }}
-          </a>
-          {% endif %}
-        </dd>
-        {% endif %}
-        {% if object.linkedin_url %}
-        <dt>LinkedIn</dt>
-        <dd>
-          <a href="{{ object.linkedin_url }}" title="{{ object.name }}'s LinkedIn profile">
-            {{ object.linkedin_url }}
-          </a>
-        </dd>
-        {% endif %}
-        {% if object.homepage_url %}
-        <dt>Home page</dt>
-        <dd>
-          <a href="{{ object.homepage_url }}" title="{{ object.name }}'s home page">
-            {{ object.homepage_url }}
-          </a>
-        </dd>
-        {% endif %}
-        {% if object.instagram_url %}
-        <dt>Instagram</dt>
-        <dd>
-          <a href="{{ object.instagram_url }}" title="{{ object.name }}'s instagram">
-            {{ object.instagram_url }}
-          </a>
-        </dd>
-        {% endif %}
-        {% if object.youtube_profile %}
-        <dt>YouTube</dt>
-        <dd>
-          <a href="{{ object.youtube_profile }}" title="{{ object.name }}'s YouTube">
-            {{ object.youtube_profile }}
-          </a>
-        </dd>
-        {% endif %}
-        {% if object.party_ppc_page_url %}
-        <dt>The party's candidate page for this person</dt>
-        <dd>
-          <a href="{{ object.party_ppc_page_url }}" title="Party page for {{ object.name }}">
-            {{ object.party_ppc_page_url }}
-          </a>
-        </dd>
-        {% endif %}
-        {% if object.favourite_biscuit %}
-        <dt>Favourite biscuit</dt>
-        <dd>
-            &ldquo;{{ object.favourite_biscuit }}&rdquo;
-        </dd>
-        {% endif %}
-        {% if object.email and object.current_or_future_candidacies %}
-        <dt>Email</dt>
-        <dd><a href="mailto:{{ object.email }}">{{ object.email }}</a></dd>
-        {% else %}
-        We don't know {{ object.name }}'s email address.
-        <a href="{{ object.get_ynr_url }}">Can you add it?</a>
-        {% endif %}
-    </dl>
-  </div>
-  {% endif %}
+      {% include "people/includes/_person_about_card.html" %}
 
-  {% if object.manifestos %}
-  {% with object.personpost.party as party %}
-  <div class="card info_card">
+      {% include "people/includes/_person_contact_card.html" %}
 
-    {% if party.emblem %}
-      <a href="{{ object.manifestos.0.web_url }}"><img src="{{ party.emblem.url }}" class="manifesto_image"></a>
-      <style>
-      @media(min-width:550px) {
-        .manifesto_card_body {
-          margin-left:130px;
-        }
-      }
-      </style>
-    {% endif %}
-    <h3>Party manifesto</h3>
-    <div class="manifesto_card_body">
-      <p>
+      {% include "people/includes/_person_previous_elections_card.html" %}
 
-      {{ object.name }} {{ object.personpost.election.in_past|yesno:"was,is" }} the {{ party.party_name }} candidate.
-        Find out more about their policies in the {{ party.party_name }} manifesto.
-      </p>
-      <ul>
-        {% for manifesto in object.manifestos %}
-          {% include "parties/single_manifesto.html" %}
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
-  {% endwith %}
-  {% endif %}
+      {% include "people/includes/_person_edit_details_card.html" %}
 
-  {% if object.statement_to_voters %}
-  <div class="card info_card">
-    <h3>Statement to voters</h3>
-    <blockquote>{{ object.statement_to_voters|linebreaks }}</blockquote>
-    <p class="small">This statement was added by {{ object.name }}, their team, or by a <a href="https://candidates.democracyclub.org.uk/person/{{ object.ynr_id }}">Democracy Club volunteer</a>, based on information published by the candidate elsewhere.</p>
-  </div>
-  {% endif %}
+      {% include "people/includes/_person_hustings_card.html" %}
 
-  {% if object.wikipedia_bio %}
-  <div class="card info_card">
-    <h3>Wikipedia</h3>
-    <p>{{ object.wikipedia_bio }}</p>
-    <a href="{{ object.wikipedia_url }}" class="link-button">Read more on Wikipedia</a>
-  </div>
-  {% endif %}
-
-{#  {% if object.leaflet_set.exists %}#}
-{#  <div class="card info_card">#}
-{#    <h3>Recent leaflets from {{ object.name }}</h3>#}
-{#    {% for leaflet in object.leaflet_set.latest_four %}#}
-{#    <div class="leaflet link-card">#}
-{#      <div class="text">#}
-{#      {% if leaflet.thumb_url %}#}
-{#      <a href="https://electionleaflets.org/leaflets/{{ leaflet.leaflet_id }}">#}
-{#      <img src="{{ leaflet.thumb_url }}" alt="Thumbnail of leaflet from {{ object.name }}" />#}
-{#      </a>#}
-{#      {% endif %}#}
-{#        <p>#}
-{#        Uploaded {{ leaflet.date_uploaded_to_electionleaflets|naturalday:"j M Y" }}<br/>#}
-{#        <a href="https://electionleaflets.org/leaflets/{{ leaflet.leaflet_id }}" class="cta">See leaflet</a>#}
-{#        </p>#}
-{##}
-{#      </div>#}
-{#    </div>#}
-{#    {% endfor %}#}
-{#    <p class="text" style="clear:both;padding-top:1em">#}
-{#      <a class="link-button" href="https://electionleaflets.org/person/{{ object.ynr_id }}">More leaflets from {{ object.name }}</a>#}
-{#      <a class="link-button" href="https://electionleaflets.org/leaflets/add/front/">Upload a leaflet</a>#}
-{#    </p>#}
-{#  </div>#}
-{#  {% endif %}#}
-
-  {% if object.twfy_id %}
-  <div class="card info_card">
-    <h3>Record in office</h3>
-    <p>
-    See this candidate's <a href="https://www.theyworkforyou.com/mp/{{ object.twfy_id }}">record on TheyWorkForYou</a> - their speeches, voting history and more.
-    </p>
-  </div>
-  {% endif %}
-
-
-{#{% if object.associatedcompany_set.exists %}#}
-{#  <div class="card info_card">#}
-{#    <h3>Associated companies</h3>#}
-{#    <p>{{object.name}} is associated with the following companies:</p>#}
-{#    <ul>#}
-{#      {% for company in  object.associatedcompany_set.all %}#}
-{#      <li>#}
-{#        <strong>{{ company.company_name }}</strong>#}
-{#        <br />#}
-{#        {{ company.role }}{% if company.role_status %}({{ company.role_status }}){% endif %}#}
-{#        {{ company.role_appointed_date | date:"Y" }} &ndash; {{ company.role_resigned_date | date:"Y"}}#}
-{#        <br />#}
-{#        <a href="https://beta.companieshouse.gov.uk/company/{{ company.company_number }}/">#}
-{#          More details from Companies House#}
-{#        </a>#}
-{#      </li>#}
-{#      {% endfor %}#}
-{#    </ul>#}
-{#  </div>#}
-{#{% endif %}#}
-
-  {% if object.twitter_username %}
-  <div class="card info_card">
-    <h3>Latest tweets</h3>
-    <div class="twitter_container">
-    <a data-width="100%" data-height="500" class="twitter-timeline" href="https://twitter.com/{{ object.twitter_username }}">
-      Tweets by @{{ object.twitter_username }}</a>
-      <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-    </div>
-  </div>
-  {% endif %}
-
-{#{%  include "people/includes/facebook_adverts_card.html" %}#}
-
-  {% if object.pledges.exists %}
-  <div class="card info_card">
-    <h3>Candidate pledges</h3>
-    <p>Hope Not Hate, a London-based charity, canvassed local residents and community organisations to establish the following questions to the candidates in this ward.</p>
-    {% for pledge in object.pledges.all %}
-      <h4>{{ pledge.question }}</h4>
-      <blockquote>{{ pledge.answer|markdown }}</blockquote>
-    {% endfor %}
-  </div>
-  {% endif %}
-
-
-  {% if object.local_party and object.current_or_future_candidacies %}
-  <div class="card info_card">
-    <h3>{{ object.local_party.name }}</h3>
-    <p>{{ object.name }}'s local party is the {{ object.local_party.name }}.</p>
-    {% if object.local_party.twitter %}
-      <p>
-        <a href="https://twitter.com/{{ object.local_party.twitter }}">
-          @{{ object.local_party.twitter }}</a>
-        on Twitter</p>
-    {% endif %}
-
-    {% if object.local_party.facebook_page %}
-      <p>
-        <a href="{{ object.local_party.facebook_page }}">
-          {{ object.local_party.facebook_page }}</a>
-        on Facebook</p>
-    {% endif %}
-
-    {% if object.local_party.homepage %}
-      <p>
-        <a href="{{ object.local_party.homepage }}">
-          {{ object.local_party.name }}'s website</a>
+      {% if referer_postcode %}
+      <div class="back">
+        <p>
+          <a href="{% url 'postcode_view' referer_postcode %}">&laquo; Back to candidates in {{ referer_postcode }}</a>
         </p>
-    {% endif %}
-
-    {% if object.local_party.email %}
-      <p>
-        <a href="mailto:{{ object.local_party.email }}">
-          Email {{ object.local_party.email }}</a>
-        </p>
-    {% endif %}
-
-  </div>
-  {% endif %}
-
-{% if object.postelection.husting_set.exists and object.current_or_future_candidacies %}
-    <div class="card info_card">
-      <h3>Local hustings</h3>
-      <p>You can meet candidates and question them at local hustings. Here are hustings where {{ object.name }} may be appearing.</p>
-      {% include "elections/includes/_hustings_list.html" with hustings=object.postelection.husting_set.all %}
-    </div>
-{% endif %}
-
-
-{% if object.past_not_current_candidacies %}
-<div class="card info_card">
-  <h3>Previous elections</h3>
-    <p>This candidate has previously stood for election in:</p>
-    <ul>
-    {% for person_post in object.past_not_current_candidacies %}
-    <li><strong>{{ person_post.election.election_date|date:"Y" }}:</strong>
-      <strong>{{ person_post.election }}</strong>, as the {{ person_post.party.party_name }} candidate for
-      <a href="{{ person_post.post_election.get_absolute_url }}">{{ person_post.post.label }}</a>
-      {{ person_post.post_election.short_cancelled_message_html }}
-    {% endfor %}
-    </ul>
-</div>
-{% endif %}
-
-  {% if referer_postcode %}
-  <div class="back">
-  <p>
-  <a href="{% url 'postcode_view' referer_postcode %}">&laquo; Back to candidates in {{ referer_postcode }}</a>
-  </p>
-  </div>
-  {% endif %}
-
-  {# Edit link #}
-  {% if object.current_or_future_candidacies %}
-  <div class="card" id="findmore">
-  <h3>That's all we know! Will you help us find more about this candidate?</h3>
-
-  <p>Our volunteers have been working hard to add information on as many candidates as possible, but they need help.</p>
-
-  {% if object.should_show_email_cta %}
-  <p>Thousands of voters will rely on this site.{% else %}<p>{% endif %}
-    If you can add information that should be on this page
-
-      {% if object.cta_example_details %}
-      - such as {{ object.name }}'s
-      {{ object.cta_example_details|join:", " }} -
+      </div>
       {% endif %}
-      please use our crowdsourcing website to add it.</p>
-    <a href="{{ object.get_ynr_url }}update/" class="link-button">
-      Add or edit details &raquo;
-    </a>
-  {% if object.should_show_email_cta %}
-    <p>You can also email {{ object.name }} directly to ask them to add information to this page.
-  <p><a href="{% url 'email_person_view' pk=object.pk ignored_slug=person.name|slugify %}" class="link-button">Ask the candidate for more information &raquo;</a></p>
-{% endif %}
 
-{#  <h4>Upload your leaflets</h4>#}
-{#  <p>If you've received election leaflets from {{ object.name }}, please take a photo#}
-{#  of them and upload them to ElectionLeaflets.org</p>#}
-{#  <p><a class="link-button" href="https://electionleaflets.org/">Add leaflets</a> </p>#}
+      {% if not referer_postcode %}
+      {% include "elections/includes/_postcode_search_form.html" %}
+      {% endif %}
 
+    </div>
   </div>
-  {% endif %}
-
-  {% if not referer_postcode %}
-{% include "elections/includes/_postcode_search_form.html" %}
-{% endif %}
-
-{#{% include "feedback/feedback_form.html" %}#}
+</div>
 
 {% endblock content %}
 
-
-
-
 {% block breadcrumbs %}
 {% if referer_postcode %}
-  {# We've come from the postcode page #}
-  <ol vocab="http://schema.org/" typeof="BreadcrumbList" class="breadcrumbs" aria-label="You are here:" role="navigation">
-    {% url 'home_view' as home_view %}
-    {% breadcrumb_item home_view 'Home' 1 %}
-    {% url 'postcode_view' referer_postcode as postcode_view %}
-    {% breadcrumb_item postcode_view 'Candidates in '|add:referer_postcode 2 %}
-    <li class="disabled"><span class="show-for-sr">Current: </span> {{ object.name }}</li>
-  </ol>
+{# We've come from the postcode page #}
+<ol vocab="http://schema.org/" typeof="BreadcrumbList" class="breadcrumbs" aria-label="You are here:" role="navigation">
+  {% url 'home_view' as home_view %}
+  {% breadcrumb_item home_view 'Home' 1 %}
+  {% url 'postcode_view' referer_postcode as postcode_view %}
+  {% breadcrumb_item postcode_view 'Candidates in '|add:referer_postcode 2 %}
+  <li class="disabled"><span class="show-for-sr">Current: </span> {{ object.name }}</li>
+</ol>
 {% elif object.personpost %}
-  {# There's a current post #}
-  <ol vocab="http://schema.org/" typeof="BreadcrumbList" class="breadcrumbs" aria-label="You are here:" role="navigation">
-    {% url 'home_view' as home_view %}
-    {% breadcrumb_item home_view 'Home' 1 %}
-    {% breadcrumb_item object.personpost.post_election.get_absolute_url 'Candidates in '|add:object.personpost.post.label 2 %}
-    <li class="disabled"><span class="show-for-sr">Current: </span> {{ object.name }}</li>
-  </ol>
+{# There's a current post #}
+<ol vocab="http://schema.org/" typeof="BreadcrumbList" class="breadcrumbs" aria-label="You are here:" role="navigation">
+  {% url 'home_view' as home_view %}
+  {% breadcrumb_item home_view 'Home' 1 %}
+  {% breadcrumb_item object.personpost.post_election.get_absolute_url 'Candidates in '|add:object.personpost.post.label 2 %}
+  <li class="disabled"><span class="show-for-sr">Current: </span> {{ object.name }}</li>
+</ol>
 {% endif %}
 
 {% include "elections/includes/_ld_candidate.html" with person=object.personpost.person party=object.personpost.party %}

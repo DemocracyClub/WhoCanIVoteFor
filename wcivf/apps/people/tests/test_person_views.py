@@ -1,16 +1,16 @@
-import pytest
-
-from django.test import TestCase
-from django.test.utils import override_settings
 from unittest.mock import MagicMock
 
-from people.tests.factories import PersonFactory, PersonPostFactory
-from parties.tests.factories import PartyFactory
+import pytest
+from django.test import TestCase
+from django.test.utils import override_settings
 from elections.tests.factories import (
     ElectionFactory,
-    PostFactory,
+    ElectionFactoryLazySlug,
     PostElectionFactory,
+    PostFactory,
 )
+from parties.tests.factories import PartyFactory
+from people.tests.factories import PersonFactory, PersonPostFactory
 from people.views import PersonView
 
 
@@ -41,8 +41,8 @@ class PersonViewTests(TestCase):
         self.assertTemplateUsed(
             response, "people/not_current_person_detail.html"
         )
-        self.assertContains(response, "Previous elections")
-        self.assertNotContains(response, "Contact information")
+        self.assertContains(response, f"{ self.person.name} stood for election")
+        self.assertNotContains(response, f"{ self.person.name} Online")
         self.assertContains(response, '<meta name="robots" content="noindex">')
 
     def test_not_current_person_with_twfy_id(self):
@@ -84,7 +84,7 @@ class PersonViewTests(TestCase):
 
         response = self.client.get(self.person_url, follow=True)
         self.assertContains(response, election_name)
-        self.assertContains(response, "is the")
+        self.assertContains(response, "is a")
 
     def test_election_in_past_listed(self):
         response = self.client.get(self.person_url, follow=True)
@@ -113,7 +113,205 @@ class PersonViewTests(TestCase):
 
         response = self.client.get(self.person_url, follow=True)
         self.assertContains(response, election_name)
-        self.assertContains(response, "was the")
+        self.assertContains(response, "was a")
+
+    def test_multiple_candidacies_intro(self):
+        election_one = ElectionFactory()
+        election_two = ElectionFactoryLazySlug()
+        party = PartyFactory(party_name="Liberal Democrat", party_id="foo")
+        PersonPostFactory(
+            person=self.person, election=election_one, party=party
+        )
+        PersonPostFactory(
+            person=self.person, election=election_two, party=party
+        )
+        response = self.client.get(self.person_url, follow=True)
+        self.assertContains(
+            response,
+            "is a Liberal Democrat candidate in the following elections:",
+        )
+
+    def test_multiple_independent_candidacies_intro(self):
+        election_one = ElectionFactory()
+        election_two = ElectionFactoryLazySlug()
+        party = PartyFactory(party_name="Independent", party_id="ynmp-party:2")
+        PersonPostFactory(
+            person=self.person, election=election_one, party=party
+        )
+        PersonPostFactory(
+            person=self.person, election=election_two, party=party
+        )
+        response = self.client.get(self.person_url, follow=True)
+        self.assertContains(
+            response, "is an Independent candidate in the following elections:"
+        )
+
+    def test_one_candidacy_intro(self):
+        election = ElectionFactory()
+        party = PartyFactory(
+            party_name="Conservative and Unionist Party", party_id="ConUnion"
+        )
+        person_post = PersonPostFactory(
+            person=self.person, election=election, party=party
+        )
+        response = self.client.get(self.person_url, follow=True)
+        self.assertContains(
+            response,
+            f"{self.person.name} is a {party.party_name} candidate in {person_post.post.label} in the {election.name}.",
+        )
+
+    def test_no_previous_elections(self):
+        PersonPostFactory(person=self.person, election=ElectionFactory())
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.template_name, ["people/person_detail.html"])
+        self.assertNotContains(response, "Previous Elections")
+
+    def test_previous_elections(self):
+        past_election = ElectionFactoryLazySlug(
+            election_date="2019-05-02", current=False
+        )
+        party = PartyFactory(party_name="Liberal Democrat", party_id="foo")
+        PersonPostFactory(
+            person=self.person,
+            post_election__election=past_election,
+            election=past_election,
+            party=party,
+            votes_cast=1000,
+        )
+        response = self.client.get(self.person_url, follow=True)
+        self.assertContains(response, "Previous Elections")
+
+    def test_no_statement_to_voters(self):
+        PersonPostFactory(person=self.person, election=ElectionFactory())
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.template_name, ["people/person_detail.html"])
+        self.assertNotContains(response, "Statement to voters")
+
+    def test_statement_to_voters(self):
+        self.person.statement_to_voters = "I believe in equal rights."
+        self.person.save()
+        PersonPostFactory(person=self.person, election=ElectionFactory())
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.template_name, ["people/person_detail.html"])
+        self.assertContains(response, "Statement to voters")
+
+    def test_no_TWFY(self):
+        PersonPostFactory(person=self.person, election=ElectionFactory())
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.template_name, ["people/person_detail.html"])
+        self.assertNotContains(response, "Record in office")
+
+    def test_TWFY(self):
+        self.person.twfy_id = 123
+        self.person.save()
+        PersonPostFactory(person=self.person, election=ElectionFactory())
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.template_name, ["people/person_detail.html"])
+        self.assertContains(response, "Record in office")
+
+    def test_no_wikipedia(self):
+        PersonPostFactory(person=self.person, election=ElectionFactory())
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.template_name, ["people/person_detail.html"])
+        self.assertNotContains(response, "Wikipedia")
+
+    def test_wikipedia(self):
+        self.person.wikipedia_bio = "yo"
+        self.person.wikipedia_url = "https//www.wikipedia.com/yo"
+        self.person.save()
+        PersonPostFactory(person=self.person, election=ElectionFactory())
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.template_name, ["people/person_detail.html"])
+        self.assertContains(response, "Wikipedia")
+
+    def test_no_facebook(self):
+        PersonPostFactory(person=self.person, election=ElectionFactory())
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.template_name, ["people/person_detail.html"])
+        self.assertNotContains(response, "username")
+
+    def test_facebook(self):
+        self.person.facebook_personal_url = "https//www.facebook.com/yo"
+        self.person.facebook_page_url = "https//www.facebook.com/yo"
+        self.person.save()
+        PersonPostFactory(person=self.person, election=ElectionFactory())
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.template_name, ["people/person_detail.html"])
+        self.assertContains(response, "yo")
+
+    def test_no_linkedin(self):
+        PersonPostFactory(person=self.person, election=ElectionFactory())
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.template_name, ["people/person_detail.html"])
+        self.assertNotContains(response, "LinkedIn")
+
+    def test_linkedin(self):
+        self.person.linkedin_url = "https://www.linkedin.com/yo"
+        self.person.save()
+        PersonPostFactory(person=self.person, election=ElectionFactory())
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.template_name, ["people/person_detail.html"])
+        self.assertContains(response, "LinkedIn")
+
+    def test_instagram(self):
+        self.person.instagram_url = "https://www.instagram.com/yo"
+        self.person.save()
+        PersonPostFactory(person=self.person, election=ElectionFactory())
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.template_name, ["people/person_detail.html"])
+        self.assertContains(response, "Instagram")
+
+    def test_no_instagram(self):
+        PersonPostFactory(person=self.person, election=ElectionFactory())
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.template_name, ["people/person_detail.html"])
+        self.assertNotContains(response, "Instagram")
+
+    def test_party_page(self):
+        self.person.party_ppc_page_url = "https://www.voteforme.com/bob"
+        self.person.save()
+        PersonPostFactory(person=self.person, election=ElectionFactory())
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.template_name, ["people/person_detail.html"])
+        self.assertContains(
+            response, "The party's candidate page for this person"
+        )
+
+    def test_no_party_page(self):
+        PersonPostFactory(person=self.person, election=ElectionFactory())
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.template_name, ["people/person_detail.html"])
+        self.assertNotContains(
+            response, "The party's candidate page for this person"
+        )
+
+    def test_no_youtube(self):
+        PersonPostFactory(person=self.person, election=ElectionFactory())
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.template_name, ["people/person_detail.html"])
+        self.assertNotContains(response, "YouTube")
+
+    def test_youtube(self):
+        self.person.youtube_profile = "Mary123"
+        self.person.save()
+        PersonPostFactory(person=self.person, election=ElectionFactory())
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.template_name, ["people/person_detail.html"])
+        self.assertContains(response, "YouTube")
+
+    def test_email(self):
+        self.person.email = "me@voteforme.com"
+        self.person.save()
+        PersonPostFactory(person=self.person, election=ElectionFactory())
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.template_name, ["people/person_detail.html"])
+        self.assertContains(response, "Email")
+
+    def test_no_email(self):
+        PersonPostFactory(person=self.person, election=ElectionFactory())
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.template_name, ["people/person_detail.html"])
+        self.assertNotContains(response, "Email")
 
 
 class TestPersonViewUnitTests:

@@ -1,0 +1,42 @@
+{% load humanize %}
+
+{% if object.current_or_future_candidacies %}
+<section class="ds-card">
+  <div class="ds-card-body">
+    <h3>That's all we know! Will you help us find more about this candidate?</h3>
+    <p>Our volunteers have been working hard to add information on as many
+      candidates as possible, but they need help.
+    </p>
+
+    {% if object.should_show_email_cta %}
+    <p>Thousands of voters will rely on this site.
+      {% else %}
+    <p>
+      {% endif %}
+      If you can add information that should be on this page
+
+      {% if object.cta_example_details %}
+      - such as {{ object.name }}'s
+      {{ object.cta_example_details|join:", " }} -
+      {% endif %}
+      please use our crowdsourcing website to add it.</p>
+    <a href="{{ object.get_ynr_url }}update/" class="ds-cta ds-cta-blue">
+      Add or edit details &raquo;
+    </a>
+    {% if object.should_show_email_cta %}
+    <p>You can also email {{ object.name }} directly to ask them to add information to this page.
+    <p>
+      <a href="{% url 'email_person_view' pk=object.pk ignored_slug=person.name|slugify %}"
+        class="ds-cta ds-cta-blue">Ask the
+        candidate for more information &raquo;</a>
+    </p>
+    {% endif %}
+
+    <h4>Upload your leaflets</h4>
+    <p>If you've received election leaflets from {{ object.name }}, please take a photo
+      of them and upload them to ElectionLeaflets.org</p>
+    <p><a class="ds-button ds-cta ds-cta-blue" type="button" href="https://electionleaflets.org/">Add leaflets</a>
+    </p>
+  </div>
+</section>
+{% endif %}

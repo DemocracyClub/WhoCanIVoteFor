@@ -153,6 +153,74 @@ class Person(models.Model):
             )
         )
 
+    @property
+    def facebook_personal_username(self):
+        facebook_personal_url = self.facebook_personal_url
+        facebook_split = list(filter(None, facebook_personal_url.split("/")))
+        facebook_personal_username = facebook_split[-1]
+
+        return facebook_personal_username
+
+    @property
+    def facebook_username(self):
+        facebook_page_url = self.facebook_page_url
+        facebook_split = list(filter(None, facebook_page_url.split("/")))
+        return facebook_split[-1]
+
+    @property
+    def instagram_username(self):
+        instagram_url = self.instagram_url
+        instagram_split = list(filter(None, instagram_url.split("/")))
+        instagram_username = instagram_split[-1]
+
+        return instagram_username
+
+    @property
+    def linkedin_username(self):
+        linkedin_url = self.linkedin_url
+        linkedin_split = list(filter(None, linkedin_url.split("/")))
+        linkedin_username = linkedin_split[-1]
+
+        return linkedin_username
+
+    @property
+    def youtube_username(self):
+        youtube_url = self.youtube_profile
+        if "channel" in youtube_url:
+            return self.name + "'s Channel"
+        youtube_split = list(filter(None, youtube_url.split("/")))
+        youtube_username = youtube_split[-1]
+        return youtube_username
+
+    @property
+    def long_statement(self):
+        return self.statement_count > 100
+
+    @property
+    def statement_count(self):
+        statement = self.statement_to_voters
+        statement_count = len(statement.split())
+        return statement_count
+
+    @property
+    def statement_intro(self):
+        statement_intro = self.statement_to_voters.split(".")[0] + "."
+        return statement_intro
+
+    @property
+    def statement_remainder(self):
+        statement_split = self.statement_to_voters.split(".")
+        statement_remainder = ".".join(statement_split[1:])
+
+        return statement_remainder
+
+    @property
+    def display_deceased(self):
+        if self.death_date and self.current_or_future_candidacies:
+            return True
+        else:
+            return False
+
     @cached_property
     def current_or_future_candidacies(self):
         """

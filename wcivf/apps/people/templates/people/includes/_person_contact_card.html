@@ -1,0 +1,108 @@
+<section class="ds-card">
+    <div class="ds-card-body ds-stack-smaller">
+      <h2 class="ds-candidate-name ds-h3">
+        {{ object.name }} online
+      </h2>
+      <dl class="ds-descriptions">
+        {% if object.facebook_page_url or object.facebook_personal_url %}
+        <div>
+          <dt>Facebook</dt>
+          <div>
+            {% if object.facebook_personal_url %}
+            <dd>
+              <a href="{{ object.facebook_personal_url }}" title="{{ object.name }}'s Facebook personal page">
+                {{ object.facebook_personal_username }}
+              </a><br />
+            </dd>
+            {% endif %}
+            {% if object.facebook_page_url %}
+            <dd>
+              <a href="{{ object.facebook_page_url }}" title="{{ object.name }}'s Facebook page">
+                {{ object.facebook_username}}
+              </a>
+            </dd>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+
+        {% if object.linkedin_url %}
+        <div>
+          <dt>LinkedIn</dt>
+          <dd>
+            <a href="{{ object.linkedin_url }}" title="{{ object.name }}'s LinkedIn profile">
+              {{ object.linkedin_username}}
+            </a>
+          </dd>
+        </div>
+        {% endif %}
+
+        {% if object.homepage_url %}
+        <div>
+          <dt>Home page</dt>
+          <dd>
+            <a href="{{ object.homepage_url }}" title="{{ object.name }}'s home page">
+              {{ object.homepage_url }}
+            </a>
+          </dd>
+        </div>
+        {% endif %}
+
+        {% if object.instagram_url %}
+        <div>
+          <dt>Instagram</dt>
+          <dd>
+            <a href="{{ object.instagram_url }}" title="{{ object.name }}'s instagram">
+              {{ object.instagram_username }}
+            </a>
+          </dd>
+        </div>
+        {% endif %}
+
+        {% if object.youtube_profile %}
+        <div>
+          <dt>YouTube</dt>
+          <dd>
+            <a href="{{ object.youtube_profile }}" title="{{ object.name }}'s YouTube">
+              {{ object.youtube_username }}
+            </a>
+          </dd>
+        </div>
+        {% endif %}
+
+        {% if object.party_ppc_page_url %}
+        <div>
+          <dt>The party's candidate page for this person</dt>
+          <dd>
+            <a href="{{ object.party_ppc_page_url }}" title="Party page for {{ object.name }}">
+              {{ object.party_ppc_page_url }}
+            </a>
+          </dd>
+        </div>
+        {% endif %}
+
+        {% if object.email and object.current_or_future_candidacies %}
+        <div>
+          <dt>Email</dt>
+          <dd>
+            <a href="mailto:{{ object.email }}">{{ object.email }}</a>
+          </dd>
+        </div>
+        {% else %}
+        <div>
+          <dt>We don't know {{ object.name }}'s email address.</dt>
+          <dd>
+            <a href="{{ object.get_ynr_url }}">Can you add it?</a>
+          </dd>
+        </div>
+        {% endif %}
+      </dl>
+      <h3>Latest tweets</h3>
+      <div class="twitter_container">
+        <a data-width="100%" data-height="500" class="twitter-timeline" href="https://twitter.com/{{ object.twitter_username }}">
+          Tweets by @{{ object.twitter_username }}</a>
+        <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+      </div>
+    </div>
+</section>
+

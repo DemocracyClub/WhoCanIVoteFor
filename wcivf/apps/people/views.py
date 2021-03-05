@@ -135,7 +135,7 @@ class PersonView(DetailView, PersonMixin):
             intro.append("is")
         else:
             intro.append("was")
-
+        # clear CTAs below
         if person.personpost:
             party = person.personpost.party
             if party:
@@ -144,9 +144,8 @@ class PersonView(DetailView, PersonMixin):
                 elif party.party_name == "Speaker seeking re-election":
                     intro.append("the Speaker seeking re-election")
                 else:
-                    intro.append("the")
-                    str = '<a href="' + party.get_absolute_url() + '">'
-                    str += party.party_name + "</a> candidate"
+                    intro.append("a")
+                    str = party.party_name + " candidate"
                     intro.append(str)
             else:
                 intro.append("a candidate")
@@ -157,13 +156,11 @@ class PersonView(DetailView, PersonMixin):
             ):
                 intro.append("the constituency of")
             if person.postelection:
-                str = '<a href="' + person.postelection.get_absolute_url()
-                str += '">' + person.personpost.post.label + "</a>"
+                str = person.personpost.post.label
             else:
                 str = person.personpost.post.label
-            str += ' in the <a href="'
-            str += person.personpost.election.get_absolute_url()
-            str += '">' + person.personpost.election.name + "</a>"
+            str += " in the "
+            str += person.personpost.election.name
             intro.append(str)
 
             if person.personpost.votes_cast:

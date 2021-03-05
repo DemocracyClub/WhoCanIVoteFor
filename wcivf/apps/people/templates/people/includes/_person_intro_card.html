@@ -1,0 +1,33 @@
+<section class="ds-candidate">
+    <div class="ds-candidate-body ds-stack-smaller">
+      <h2 class="ds-candidate-name ds-h3">
+        {{ object.name }}
+      </h2>
+      {% if person.display_deceased and person.personpost.party.is_independent %}
+      (Deceased)
+      {% endif %}
+
+      {% if object.current_or_future_candidacies.all.count > 1 %}
+        <h5>{{ object.name }} is {% if object.personpost.party.is_independent %}an{% else %}a{% endif %} {{object.personpost.party.party_name }} candidate in the following elections:</h5>
+
+          {% for candidacy in object.current_or_future_candidacies %}
+          <ul>
+            <li>
+              {{ candidacy.election.name }} for {{ candidacy.post_election.friendly_name }}
+            </li>
+          </ul>
+          {% endfor %}
+
+      {% else %}
+      <p>
+        {{ object.intro|safe }}.
+      </p>
+      {% endif %}
+    </div>
+
+    {% if object.photo_url %}
+    <div class="ds-candidate-image">
+      <img src="{{ object.photo_url }}" alt="profile photo of {{ object.name }}">
+    </div>
+    {% endif %}
+</section>

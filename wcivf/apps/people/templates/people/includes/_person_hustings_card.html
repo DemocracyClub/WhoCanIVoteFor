@@ -1,0 +1,14 @@
+{% load humanize %}
+
+{% if object.postelection.husting_set.exists and object.current_or_future_candidacies %}
+<section class="ds-card ds-stack-smaller">
+<div class="ds-card-body">
+    <h3>Local hustings</h3>
+    <p>You can meet candidates and question them at local hustings. Here are hustings where {{ object.name }} may
+    be
+    appearing.
+    </p>
+    {% include "elections/includes/_hustings_list.html" with hustings=object.postelection.husting_set.all %}
+</div>
+</section>
+{% endif %}
