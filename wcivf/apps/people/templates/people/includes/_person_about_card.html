@@ -1,0 +1,40 @@
+{% if object.wikipedia_bio or object.associatedcompany_set.exists or object.cv %}
+<section class="ds-card">
+  <div class="ds-card-body">
+    <h2 class="ds-candidate-name ds-h3">
+      About {{ object.name }}
+    </h2>
+    {% if object.cv %}
+    <p>
+    <h3>CV</h3>
+    <p>{{ object.cv }}</p>
+    {% endif %}
+    </p>
+
+    {% if object.wikipedia_bio %}
+    <h3>Wikipedia</h3>
+    <p>{{ object.wikipedia_bio }}</p>
+    <a href="{{ object.wikipedia_url }}" class="link-button">Read more on Wikipedia</a>
+    {% endif %}
+
+    {% if object.associatedcompany_set.exists %}
+    <h3>Associated companies</h3>
+    <p>{{object.name}} is associated with the following companies:</p>
+    <ul>
+      {% for company in object.associatedcompany_set.all %}
+      <li>
+        <strong>{{ company.company_name }}</strong>
+
+        {{ company.role }}{% if company.role_status %}({{ company.role_status }}){% endif %}
+        {{ company.role_appointed_date | date:"Y" }} &ndash; {{ company.role_resigned_date | date:"Y"}}
+
+        <a href="https://beta.companieshouse.gov.uk/company/{{ company.company_number }}/">
+          More details from Companies House}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+</section>
+{% endif %}

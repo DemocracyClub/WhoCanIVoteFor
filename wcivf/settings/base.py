@@ -151,6 +151,12 @@ PIPELINE = get_pipeline_settings(
     extra_js=["js/scripts.js", "feedback/js/feedback_form.js"],
 )
 
+import dc_design_system
+
+PIPELINE["SASS_ARGUMENTS"] += (
+    " -I " + dc_design_system.DC_SYSTEM_PATH + "/system"
+)
+
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
