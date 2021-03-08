@@ -57,6 +57,7 @@ INSTALLED_APPS = (
     "results",
     "pledges",
     "news_mentions",
+    "dc_design_system",
 )
 
 MIDDLEWARE = (
