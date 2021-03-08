@@ -85,8 +85,16 @@ class PostcodeView(
 
     def get_referendums(self):
         """
-        Yield all referendums associated with the ballots for this postcode
+        Yield all referendums associated with the ballots for this postcode.
+        After 6th May return an empty list to avoid displaying unwanted
+        information
         """
+        if (
+            timezone.datetime.today().date()
+            > timezone.datetime(2021, 5, 6).date()
+        ):
+            return []
+
         for ballot in self.ballots:
             yield from ballot.referendums.all()
 
