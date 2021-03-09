@@ -97,12 +97,14 @@
         </div>
         {% endif %}
       </dl>
+      {% if object.twitter_username %}
       <h3>Latest tweets</h3>
       <div class="twitter_container">
         <a data-width="100%" data-height="500" class="twitter-timeline" href="https://twitter.com/{{ object.twitter_username }}">
           Tweets by @{{ object.twitter_username }}</a>
         <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
       </div>
+      {% endif %}
     </div>
 </section>
 
