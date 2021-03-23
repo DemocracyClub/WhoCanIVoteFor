@@ -226,8 +226,10 @@ class Person(models.Model):
         """
         Returns a QuerySet of related PersonPost objects in the future
         """
-        return self.personpost_set.current_or_future().select_related(
-            "party", "post", "election", "post_election"
+        return (
+            self.personpost_set.current_or_future()
+            .select_related("party", "post", "election", "post_election")
+            .order_by("-election__election_date")
         )
 
     @cached_property
