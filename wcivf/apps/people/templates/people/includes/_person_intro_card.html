@@ -13,7 +13,8 @@
           {% for candidacy in object.current_or_future_candidacies %}
           <ul>
             <li>
-              {{ candidacy.election.name }} for {{ candidacy.post_election.friendly_name }}
+              {{ candidacy.election.name }} for <a href="{{ candidacy.post_election.get_absolute_url }}">
+                {{ candidacy.post_election.friendly_name }}</a>
             </li>
           </ul>
           {% endfor %}
