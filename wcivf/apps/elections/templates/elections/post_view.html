@@ -32,14 +32,6 @@
   </div>
 {% endif %}
 
-
-{% if postelection.husting_set.exists %}
-  <div class="card">
-    <h3>Election events</h3>
-    {% include "elections/includes/_hustings_list.html" with hustings=postelection.husting_set.all %}
-  </div>
-{% endif %}
-
 {% include "elections/includes/_postcode_search_form.html" %}
 
 {#{% include "feedback/feedback_form.html" %}#}
