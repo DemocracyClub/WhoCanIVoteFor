@@ -141,13 +141,14 @@
     <div class="card">
       <h3>
         <span aria-hidden="true">📅</span>
-        Election events near you
+        Husting events
         <span aria-hidden="true">📅</span>
       </h3>
-      <p>You can meet candidates and question them at local hustings.</p>
+      <p>You can meet candidates and question them at husting events taking place online.</p>
       {% include "elections/includes/_hustings_list.html" with hustings=postelection.husting_set.all %}
     </div>
   {% endif %}
+
   {% if postelection.ballotnewsarticle_set.exists %}
     {% include "news_mentions/news_articles.html" with news_articles=postelection.ballotnewsarticle_set.all %}
   {% endif %}
