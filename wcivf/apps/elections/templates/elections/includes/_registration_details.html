@@ -1,0 +1,36 @@
+{% load postcode_tags %}
+{% load humanize %}
+
+<section class="card">
+
+  <h2 id='where'>
+    <!-- <span aria-hidden="true">📍</span> -->
+    Register to vote
+    <!-- <span aria-hidden="true">📍</span> -->
+  </h2>
+
+<p>You need to register to vote by deadline (ADD DATE HERE)</p>
+<p>Register <a href="www.electoralcommission.org.uk">here (UPDATE WEBSITE)</a></p>
+<p>To register by post, contact your local council.</p>
+{% if polling_station.council.council_id %}
+    <p><a href="{{ polling_station.council.url }}">{{ polling_station.council.name }}</a></p>
+    <p>{{ polling_station.council.address }}</p>
+    <p>{{ polling_station.council.postcode}}</p>
+    <p>{{ polling_station.council.email }}</p>
+    <p>{{ polling_station.council.phone }}</p>
+    <p>{{ polling_station.council.website }}</p>
+{% endif %}
+{% if polling_station.council.registration_contacts %}
+    <p>{{ polling_station.council.registration_contacts }}</p>
+{% else %}
+    <h2>Need help with electoral services?</h2>
+    <p>{{ polling_station.council.electoral_services_contacts.address }}</p>
+    <p>{{ polling_station.council.electoral_services_contacts.postcode}}</p>
+    <p>{{ polling_station.council.electoral_services_contacts.website }}</p>
+    <p>{{ polling_station.council.electoral_services_contacts.email }}</p>
+    {% for number in polling_station.council.electoral_services_contacts.phone_numbers %} 
+        <p>{{ number }}</p>
+    {% endfor %}
+{% endif %}
+
+</section>
