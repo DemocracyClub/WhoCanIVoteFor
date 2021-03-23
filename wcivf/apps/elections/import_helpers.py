@@ -224,12 +224,15 @@ class YNRBallotImporter:
                         ynr_id=candidate["person"]["id"],
                         defaults={"name": candidate["person"]["name"]},
                     )
+                    result = candidate["result"] or {}
+
                     PersonPost.objects.create(
                         post_election=ballot,
                         person=person,
                         party_id=candidate["party"]["legacy_slug"],
                         list_position=candidate["party_list_position"],
-                        elected=candidate["elected"],
+                        elected=result.get("elected"),
+                        votes_cast=result.get("num_ballots", None),
                         post=ballot.post,
                         election=ballot.election,
                     )
