@@ -2,141 +2,140 @@
 {% load humanize %}
 {% load static %}
 
-<section>
-  <div class="card" id="election_{{ postelection.election.slug }}">
-    {% if postelection.cancelled %}
-      {% include "elections/includes/_cancelled_election.html" with object=postelection only %}
-    {% else %}
-      <h1>
-        <span aria-hidden="true">🗳️</span>
-        {{ postelection.election.name_without_brackets }}
-        <span aria-hidden="true">🗳️</span>
-      </h1>
-      {% if not postelection.is_pcc and not postelection.is_mayoral %}
-        <h2>{% if postelection.is_london_assembly_additional %}Additional members{% else %}{{ postelection.friendly_name }}{% endif %}</h2>
+<div class="card" id="election_{{ postelection.election.slug }}">
+  {% if postelection.cancelled %}
+    {% include "elections/includes/_cancelled_election.html" with object=postelection only %}
+  {% else %}
+    <h1>
+      <span aria-hidden="true">🗳️</span>
+      {{ postelection.election.name_without_brackets }}
+      <span aria-hidden="true">🗳️</span>
+    </h1>
+    {% if not postelection.is_pcc and not postelection.is_mayoral %}
+      <h2>{% if postelection.is_london_assembly_additional %}Additional members{% else %}{{ postelection.friendly_name }}{% endif %}</h2>
+    {% endif %}
+    {% if postelection.metadata.coronavirus_message %}
+      <div style="border:1px solid red;margin:1em 0;padding:1em">
+        <strong>{{ postelection.metadata.coronavirus_message|safe }}</strong>
+      </div>
+    {% endif %}
+    <p>
+      This election
+      {% if postelection.election.is_election_day %}
+        <strong>is being held today</strong>.
+        Polls are open from {{ postelection.election.polls_open|time:"ga" }} till {{ postelection.election.polls_close|time:"ga" }}
+      {% else %}
+        {{ postelection.election.in_past|yesno:"was,will be" }} held
+        <strong>{{ postelection.election.election_date|naturalday:"\o\n l j F Y" }}</strong>.
       {% endif %}
-      {% if postelection.metadata.coronavirus_message %}
-        <div style="border:1px solid red;margin:1em 0;padding:1em">
-          <strong>{{ postelection.metadata.coronavirus_message|safe }}</strong>
-        </div>
-      {% endif %}
-      <p>
-        This election
-        {% if postelection.election.is_election_day %}
-          <strong>is being held today</strong>.
-          Polls are open from {{ postelection.election.polls_open|time:"ga" }} till {{ postelection.election.polls_close|time:"ga" }}
+    </p>
+
+    {% if object.election.slug == "europarl.2019-05-23"%}
+      {% include "elections/includes/eu_results.html" with card=0 %}
+    {% endif %}
+
+
+    <p>
+      {% if postelection.election.in_past %}
+        <strong>{{ postelection.people|length }} candidates</strong> stood in the {{ postelection.friendly_name }}.
+      {% else %}
+        {# Display different messages depending on the number of candidates #}
+        {# Case: No candidates for a contested election #}
+        {% if not postelection.people and postelection.contested %}
+          We don't know of any candidates standing yet.
+          You can help improve this page: <a href="{{ postelection.ynr_link }}">
+          add information about candidates to our database</a>.
         {% else %}
-          {{ postelection.election.in_past|yesno:"was,will be" }} held
-          <strong>{{ postelection.election.election_date|naturalday:"\o\n l j F Y" }}</strong>.
-        {% endif %}
-      </p>
+          {% if postelection.locked %}
+            {# Case: Candidates and the post is locked #}
+            {% if postelection.voting_system.slug == "PR-CL" %}
+              You will have one vote, and can vote for a single party list or independent candidate.
+            {% else %}
+              You can choose from <strong>{{ postelection.people|length }} candidates</strong>
+              in the {{ postelection.friendly_name }}.
 
-      {% if object.election.slug == "europarl.2019-05-23"%}
-        {% include "elections/includes/eu_results.html" with card=0 %}
-      {% endif %}
+              {% if postelection.winner_count and postelection.election.voting_system_id == 'FPTP' %}
+                You will have {{ postelection.winner_count|intword }} vote{{ postelection.winner_count|pluralize }}.
+              {% endif %}
+            {% endif %}
+            <p><a href='#where'>Where do I vote?</a></p>
+            {% if postelection.get_voting_system %}
+              {% include "elections/includes/_how-to-vote.html" with voting_system=postelection.get_voting_system %}
+            {% endif %}
+          {% else %}
+            {# Case: Candidates and the post is NOT locked (add CTA) #}
+            The official candidate list has not yet been published.
+            However, we expect at least <strong>{{ postelection.people|length }} candidate{{postelection.people|pluralize}}</strong>
+            to stand in the {{ postelection.friendly_name }}.
 
-
-      <p>
-        {% if postelection.election.in_past %}
-          <strong>{{ postelection.people|length }} candidates</strong> stood in the {{ postelection.friendly_name }}.
-        {% else %}
-          {# Display different messages depending on the number of candidates #}
-          {# Case: No candidates for a contested election #}
-          {% if not postelection.people and postelection.contested %}
-            We don't know of any candidates standing yet.
             You can help improve this page: <a href="{{ postelection.ynr_link }}">
             add information about candidates to our database</a>.
-          {% else %}
-            {% if postelection.locked %}
-              {# Case: Candidates and the post is locked #}
-              {% if postelection.voting_system.slug == "PR-CL" %}
-                You will have one vote, and can vote for a single party list or independent candidate.
-              {% else %}
-                You can choose from <strong>{{ postelection.people|length }} candidates</strong>
-                in the {{ postelection.friendly_name }}.
-
-                {% if postelection.winner_count and postelection.election.voting_system_id == 'FPTP' %}
-                  You will have {{ postelection.winner_count|intword }} vote{{ postelection.winner_count|pluralize }}.
-                {% endif %}
-              {% endif %}
-              <p><a href='#where'>Where do I vote?</a></p>
-              {% if postelection.get_voting_system %}
-                {% include "elections/includes/_how-to-vote.html" with voting_system=postelection.get_voting_system %}
-              {% endif %}
-            {% else %}
-              {# Case: Candidates and the post is NOT locked (add CTA) #}
-              The official candidate list has not yet been published.
-              However, we expect at least <strong>{{ postelection.people|length }} candidate{{postelection.people|pluralize}}</strong>
-              to stand in the {{ postelection.friendly_name }}.
-
-              You can help improve this page: <a href="{{ postelection.ynr_link }}">
-              add information about candidates to our database</a>.
-            {% endif %}
           {% endif %}
         {% endif %}
-      </p>
-
-      {% if not postelection.contested %}
-        <div class="panel callout radius" style="background-color:#ffff99">
-          This election isn't contested. That means that there are the same number of candidates nominated
-          as there are seats up for election, so they all get positions without an election taking place.
-        </div>
       {% endif %}
+    </p>
 
-      {% if postelection.people %}
-        {% if postelection.display_as_party_list %}
-          {% include "elections/includes/_people_list_with_lists.html" with people=postelection.people %}
-        {% else %}
-          {% include "elections/includes/_people_list.html" with people=postelection.people %}
-        {% endif %}
-      {% endif %}
-
-      {% if postelection.expected_sopn_date and not postelection.election.in_past %}
-        <p>
-
-          {% now "Y-m-d" as today %}
-          {% if postelection.expected_sopn_date|date:"Y-m-d" <= today %}
-            {% if postelection.locked %}
-              {# If the ballot is locked, it must have a SOPN attached#}
-              The <a href="{{ postelection.ynr_sopn_link }}">official candidate list</a> was
-            {% else %}
-              The official candidate list should have been
-            {% endif %}
-          {% else %}
-            The official candidate list should be
-          {% endif %}
-          published on {{ postelection.expected_sopn_date|date:"j F Y" }}.
-        </p>
-      {% endif %}
-
-
-      {% if postelection.election.election_booklet %}
-        <h4><a href="{% static postelection.election.election_booklet %}">
-          Read the official candidate booklet for this election.</a></h4>
-      {% endif %}
-
-      {% if postelection.election.description %}
-        {{ postelection.election.description|markdown }}
-      {% endif %}
-
-
-
-      {% if postelection.election.voter_age %}
-        <details>
-          <summary>Can you vote in this election?</summary>
-          <h5>Age</h5>
-          <p>You need to be over {{ postelection.election.voter_age }} on the
-            {{ postelection.election.election_date|date:"jS" }}
-            of {{ postelection.election.election_date|date:"F Y" }} in order to vote in this election</p>
-          {% if postelection.election.voter_citizenship %}
-            <h5>Citizenship</h5>
-            {{ postelection.election.voter_citizenship|markdown }}
-          {% endif %}
-        </details>
-      {% endif %}
-
+    {% if not postelection.contested %}
+      <div class="panel callout radius" style="background-color:#ffff99">
+        This election isn't contested. That means that there are the same number of candidates nominated
+        as there are seats up for election, so they all get positions without an election taking place.
+      </div>
     {% endif %}
-  </div>
+
+    {% if postelection.people %}
+      {% if postelection.display_as_party_list %}
+        {% include "elections/includes/_people_list_with_lists.html" with people=postelection.people %}
+      {% else %}
+        {% include "elections/includes/_people_list.html" with people=postelection.people %}
+      {% endif %}
+    {% endif %}
+
+    {% if postelection.expected_sopn_date and not postelection.election.in_past %}
+      <p>
+
+        {% now "Y-m-d" as today %}
+        {% if postelection.expected_sopn_date|date:"Y-m-d" <= today %}
+          {% if postelection.locked %}
+            {# If the ballot is locked, it must have a SOPN attached#}
+            The <a href="{{ postelection.ynr_sopn_link }}">official candidate list</a> was
+          {% else %}
+            The official candidate list should have been
+          {% endif %}
+        {% else %}
+          The official candidate list should be
+        {% endif %}
+        published on {{ postelection.expected_sopn_date|date:"j F Y" }}.
+      </p>
+    {% endif %}
+
+
+    {% if postelection.election.election_booklet %}
+      <h4><a href="{% static postelection.election.election_booklet %}">
+        Read the official candidate booklet for this election.</a></h4>
+    {% endif %}
+
+    {% if postelection.election.description %}
+      {{ postelection.election.description|markdown }}
+    {% endif %}
+
+
+
+    {% if postelection.election.voter_age %}
+      <details>
+        <summary>Can you vote in this election?</summary>
+        <h5>Age</h5>
+        <p>You need to be over {{ postelection.election.voter_age }} on the
+          {{ postelection.election.election_date|date:"jS" }}
+          of {{ postelection.election.election_date|date:"F Y" }} in order to vote in this election</p>
+        {% if postelection.election.voter_citizenship %}
+          <h5>Citizenship</h5>
+          {{ postelection.election.voter_citizenship|markdown }}
+        {% endif %}
+      </details>
+    {% endif %}
+
+  {% endif %}
+
 
   {% if postelection.husting_set.exists %}
     <div class="card">
@@ -161,4 +160,4 @@
     </div>
   {% endif %}
   {% include "elections/includes/_ld_election.html" with election=object %}
-</section>
+</div>
