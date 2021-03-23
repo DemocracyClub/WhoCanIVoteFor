@@ -29,7 +29,6 @@ class Command(BaseCommand):
                 ("import_parties",),
                 ("import_ballots",),
                 ("import_people",),
-                ("import_cvs",),
             ]
         else:
             commands = [("import_people", "--recent")]
