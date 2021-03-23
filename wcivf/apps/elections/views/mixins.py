@@ -108,7 +108,7 @@ class PostelectionsToPeopleMixin(object):
             people_for_post = people_for_post.prefetch_related(
                 # "person__leaflet_set",
                 "person__pledges"
-            ).select_related("person__cv")
+            )
         cache.set(key, people_for_post)
         return people_for_post
 
