@@ -10,21 +10,6 @@
     <span aria-hidden="true">📍</span>
   </h2>
 
-  {% if voter_id_required %}
-    {% if voter_id_required.1 %}
-      {% for pe, metadata in voter_id_required %}
-        {# support more than one metadata – no cases of this yet #}
-        <h2>{{ metadata.title }}</h2>
-      {% endfor %}
-    {% else %}
-    <h3>{{ voter_id_required.0.1.title }}</h3>
-    <p><strong>{{ voter_id_required.0.1.detail }}</strong></p>
-    <a href="{{ voter_id_required.0.1.url }}">Read more</a>
-    {% endif %}
-  {% else %}
-  You don't need to take your poll card with you{% if not postcode|ni_postcode %}, or any identification{% endif %}.
-  {% endif %}
-
   {% if polling_station.polling_station_known %}
     <p>
       Your polling station is <strong>{{ polling_station.polling_station.properties.address }}</strong>.
