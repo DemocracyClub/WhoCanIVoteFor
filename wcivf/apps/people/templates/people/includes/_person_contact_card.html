@@ -10,14 +10,14 @@
           <div>
             {% if object.facebook_personal_url %}
             <dd>
-              <a href="{{ object.facebook_personal_url }}" title="{{ object.name }}'s Facebook personal page">
+              <a href="{{ object.facebook_personal_url }}" target="_blank" title="{{ object.name }}'s Facebook personal page">
                 {{ object.facebook_personal_username }}
               </a><br />
             </dd>
             {% endif %}
             {% if object.facebook_page_url %}
             <dd>
-              <a href="{{ object.facebook_page_url }}" title="{{ object.name }}'s Facebook page">
+              <a href="{{ object.facebook_page_url }}" target="_blank" title="{{ object.name }}'s Facebook page">
                 {{ object.facebook_username}}
               </a>
             </dd>
@@ -30,7 +30,7 @@
         <div>
           <dt>LinkedIn</dt>
           <dd>
-            <a href="{{ object.linkedin_url }}" title="{{ object.name }}'s LinkedIn profile">
+            <a href="{{ object.linkedin_url }}" target="_blank" title="{{ object.name }}'s LinkedIn profile">
               {{ object.linkedin_username}}
             </a>
           </dd>
@@ -41,7 +41,7 @@
         <div>
           <dt>Home page</dt>
           <dd>
-            <a href="{{ object.homepage_url }}" title="{{ object.name }}'s home page">
+            <a href="{{ object.homepage_url }}" target="_blank" title="{{ object.name }}'s home page">
               {{ object.homepage_url }}
             </a>
           </dd>
@@ -52,7 +52,7 @@
         <div>
           <dt>Instagram</dt>
           <dd>
-            <a href="{{ object.instagram_url }}" title="{{ object.name }}'s instagram">
+            <a href="{{ object.instagram_url }}" target="_blank" title="{{ object.name }}'s instagram">
               {{ object.instagram_username }}
             </a>
           </dd>
@@ -63,7 +63,7 @@
         <div>
           <dt>YouTube</dt>
           <dd>
-            <a href="{{ object.youtube_profile }}" title="{{ object.name }}'s YouTube">
+            <a href="{{ object.youtube_profile }}" target="_blank" title="{{ object.name }}'s YouTube">
               {{ object.youtube_username }}
             </a>
           </dd>
@@ -74,7 +74,7 @@
         <div>
           <dt>The party's candidate page for this person</dt>
           <dd>
-            <a href="{{ object.party_ppc_page_url }}" title="Party page for {{ object.name }}">
+            <a href="{{ object.party_ppc_page_url }}" target="_blank" title="Party page for {{ object.name }}">
               {{ object.party_ppc_page_url }}
             </a>
           </dd>
@@ -92,7 +92,7 @@
         <div>
           <dt>We don't know {{ object.name }}'s email address.</dt>
           <dd>
-            <a href="{{ object.get_ynr_url }}">Can you add it?</a>
+            <a href="{{ object.get_ynr_url }}" target="_blank">Can you add it?</a>
           </dd>
         </div>
         {% endif %}
@@ -100,7 +100,7 @@
       {% if object.twitter_username %}
       <h3>Latest tweets</h3>
       <div class="twitter_container">
-        <a data-width="100%" data-height="500" class="twitter-timeline" href="https://twitter.com/{{ object.twitter_username }}">
+        <a data-width="100%" data-height="500" class="twitter-timeline" href="https://twitter.com/{{ object.twitter_username }}" target="_blank">
           Tweets by @{{ object.twitter_username }}</a>
         <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
       </div>

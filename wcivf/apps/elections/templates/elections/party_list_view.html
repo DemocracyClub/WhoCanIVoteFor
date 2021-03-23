@@ -14,7 +14,7 @@
         <dt>Facebook</dt>
         <dd>
           {% if local_party.facebook_page %}
-          <a href="{{ local_party.facebook_page }}" title="{{ local_party.name }}'s Facebook profile">
+          <a href="{{ local_party.facebook_page }}" target="_blank" title="{{ local_party.name }}'s Facebook profile">
             {{ local_party.facebook_page }}
           </a>
           {% endif %}
@@ -24,7 +24,7 @@
         {% if local_party.homepage %}
         <dt>Home page</dt>
         <dd>
-          <a href="{{ local_party.homepage }}" title="{{ local_party.name }}'s home page">
+          <a href="{{ local_party.homepage }}" target="_blank" title="{{ local_party.name }}'s home page">
             {{ local_party.homepage }}
           </a>
         </dd>
@@ -52,7 +52,8 @@
   <div class="card info_card">
     <h3>Latest tweets</h3>
     <div class="twitter_container">
-    <a data-width="100%" data-height="500" class="twitter-timeline" href="https://twitter.com/{{ object.twitter_username }}">
+    <a data-width="100%" data-height="500" class="twitter-timeline" href="https://twitter.com/{{ object.twitter_username }}"
+    target="_blank">
       Tweets by @{{ object.twitter_username }}</a>
       <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
     </div>

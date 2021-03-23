@@ -27,11 +27,11 @@
             {% if object.in_past %}that stood{% else %}standing{% endif %} for this election,
             in <strong>{{ object.post_set.count }}</strong> posts.</p>
           {% if not object.in_past and not object.locked %}
-            <p><a href="{{ object.ynr_link }}">Add more at our candidate crowd-sourcing site</a></p>
+            <p><a href="{{ object.ynr_link }}" target="_blank">Add more at our candidate crowd-sourcing site</a></p>
           {% endif %}
           {% else %}
             {% if not object.in_past and not election.slug == 'parl.2017-06-08' %}
-              <p><a href="{{ object.ynr_link }}">Add some candidates at our candidate crowd-sourcing site</a></p>
+              <p><a href="{{ object.ynr_link }}" target="_blank">Add some candidates at our candidate crowd-sourcing site</a></p>
             {% endif %}
         {% endif %}
 
