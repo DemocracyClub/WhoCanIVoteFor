@@ -149,6 +149,10 @@ dd {
   @include media($max-width: 530px) {
       padding-left:20px;
     }
+  li {
+    display: inline-block;
+    float:none;
+  }
 }
 
 
