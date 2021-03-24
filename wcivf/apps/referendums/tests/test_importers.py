@@ -42,22 +42,22 @@ class TestReferendumImporter:
         ]
         filter.assert_has_calls(calls, any_order=True)
 
-    def test_create_referendum_no_question(self, importer, capsys):
+    def test_create_object_no_question(self, importer, capsys):
         data = {"question": None}
-        importer.create_referendum(data)
+        importer.create_object(data)
 
         captured = capsys.readouterr()
         assert captured.out == "No question to use, skipping\n"
 
-    def test_create_referendum_no_ballots(self, importer, mocker, capsys):
+    def test_create_object_no_ballots(self, importer, mocker, capsys):
         data = {"question": "Yes or no?", "election_id": "bad_id"}
         mocker.patch.object(importer, "get_ballots", return_value=None)
-        importer.create_referendum(data)
+        importer.create_object(data)
 
         captured = capsys.readouterr()
         assert captured.out == "No ballots so skipping referendum\n"
 
-    def test_create_referendum_created(self, importer, mocker, capsys):
+    def test_create_object_created(self, importer, mocker, capsys):
         data = {"question": "Yes or no?", "election_id": "bad_id"}
         mocker.patch.object(importer, "get_ballots", return_value=["Ballot"])
         referendum = mocker.Mock(pk=1)
@@ -65,7 +65,7 @@ class TestReferendumImporter:
             Referendum.objects, "create", return_value=referendum
         )
 
-        result = importer.create_referendum(data)
+        result = importer.create_object(data)
         captured = capsys.readouterr()
 
         assert result == referendum

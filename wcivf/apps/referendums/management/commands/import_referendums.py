@@ -9,4 +9,4 @@ class Command(BaseCommand):
 
     def handle(self, **options):
         importer = ReferendumImporter(url=self.URL)
-        importer.import_referendums()
+        importer.import_objects()
