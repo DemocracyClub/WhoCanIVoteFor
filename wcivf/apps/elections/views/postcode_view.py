@@ -55,12 +55,6 @@ class PostcodeView(
 
         context["postcode"] = self.postcode
         context["postelections"] = self.get_ballots()
-        context["voter_id_required"] = [
-            (pe, pe.election.metadata.get("2019-05-02-id-pilot"))
-            for pe in context["postelections"]
-            if pe.election.metadata
-            and pe.election.metadata.get("2019-05-02-id-pilot")
-        ]
         context["people_for_post"] = {}
         for postelection in context["postelections"]:
             postelection.people = self.people_for_ballot(postelection)
