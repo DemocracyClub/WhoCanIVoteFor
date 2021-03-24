@@ -4,32 +4,52 @@
 <section class="card">
 
   <h2 id='where'>
-    <!-- <span aria-hidden="true">📍</span> -->
+    <span aria-hidden="true">🗳️</span>
     Register to vote
-    <!-- <span aria-hidden="true">📍</span> -->
+    <span aria-hidden="true">🗳️</span>
   </h2>
 
-<p>You need to register to vote by deadline (ADD DATE HERE)</p>
-<p>Register <a href="www.electoralcommission.org.uk">here (UPDATE WEBSITE)</a></p>
+<p>You need to be registered in order to vote.
+  If you aren't registered to vote visit 
+  <a href="https://www.gov.uk/register-to-vote">
+    https://www.gov.uk/register-to-vote
+  </a>
+</p>
+<p>Register before midnight on (REGISTRATION DEADLINE) to vote in the Election(s) on (ELECTION DATE)</p>
 <p>To register by post, contact your local council.</p>
 {% if polling_station.council.council_id %}
-    <p><a href="{{ polling_station.council.url }}">{{ polling_station.council.name }}</a></p>
-    <p>{{ polling_station.council.address }}</p>
-    <p>{{ polling_station.council.postcode}}</p>
-    <p>{{ polling_station.council.email }}</p>
-    <p>{{ polling_station.council.phone }}</p>
-    <p>{{ polling_station.council.website }}</p>
+    <p>
+      <a href="{{ polling_station.council.url }}">
+      {{ polling_station.council.name }}
+    </a>
+    <br>{{ polling_station.council.address }}
+    <br>{{ polling_station.council.postcode}}
+    <br>
+      <a href="mailto:{{ polling_station.council.email }}">
+        {{ polling_station.council.email }}
+      </a>
+    <br>
+    <a href="{{ polling_station.council.website }}">
+      {{ polling_station.council.website }}
+    </a>
+    <br>{{ polling_station.council.phone }}
+  </p>
 {% endif %}
 {% if polling_station.council.registration_contacts %}
     <p>{{ polling_station.council.registration_contacts }}</p>
 {% else %}
     <h2>Need help with electoral services?</h2>
-    <p>{{ polling_station.council.electoral_services_contacts.address }}</p>
-    <p>{{ polling_station.council.electoral_services_contacts.postcode}}</p>
-    <p>{{ polling_station.council.electoral_services_contacts.website }}</p>
-    <p>{{ polling_station.council.electoral_services_contacts.email }}</p>
+    <br>{{ polling_station.council.electoral_services_contacts.address }}
+    <br>{{ polling_station.council.electoral_services_contacts.postcode}}
+    <br>
+    <a href="{{ polling_station.council.electoral_services_contacts.website }}">
+      {{ polling_station.council.electoral_services_contacts.website }}
+    </a>
+    <br><a href="mailto:{{ polling_station.council.electoral_services_contacts.email }}">
+      {{ polling_station.council.electoral_services_contacts.email }}
+    </a>
     {% for number in polling_station.council.electoral_services_contacts.phone_numbers %} 
-        <p>{{ number }}</p>
+        <br>{{ number }}</p>
     {% endfor %}
 {% endif %}
 
