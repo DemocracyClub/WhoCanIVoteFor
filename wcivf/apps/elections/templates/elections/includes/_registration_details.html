@@ -15,16 +15,23 @@
     https://www.gov.uk/register-to-vote
   </a>
 </p>
-<p>Register before midnight on {{ postelections.first.registration_deadline }} to vote in the {{ postelections.first.election.name }} on {{ postelections.first.election.election_date }}.</p>
-<p>Register before midnight on {{ postelections.first.postal_vote_application_deadline }} to vote by post in the {{ postelections.first.election.name }} on {{ postelections.first.election.election_date }}.</p>
+<p>Register before midnight on {{ postelections.first.registration_deadline }} 
+  to vote in the {{ postelections.first.election.name }} on 
+  {{ postelections.first.election.election_date }}.
+</p>
+<p>Register before midnight on {{ postelections.first.postal_vote_application_deadline }} 
+  to vote by post in the {{ postelections.first.election.name }} on 
+  {{ postelections.first.election.election_date }}.</p>
 <p>To register by post, contact your local council.</p>
+
 {% if polling_station.council.council_id %}
+    
     <p>
       <a href="{{ polling_station.council.url }}">
       {{ polling_station.council.name }}
     </a>
-    <br>{{ polling_station.council.address }}
-    <br>{{ polling_station.council.postcode}}
+    <br>{{ polling_station.council.address|linebreaksbr }}
+    <br>{{ polling_station.council.postcode }}
     <br>
       <a href="mailto:{{ polling_station.council.email }}">
         {{ polling_station.council.email }}
@@ -35,13 +42,21 @@
     </a>
     <br>{{ polling_station.council.phone }}
   </p>
+  
 {% endif %}
 {% if polling_station.council.registration_contacts %}
-    <p>{{ polling_station.council.registration_contacts }}</p>
+<!-- iterate through contacts here -->
+    <p>{{ polling_station.council.registration_contacts.address|linebreaksbr }}
+    <br>{{ polling_station.council.registration_contacts.postcode  }}
+    <br>{{ polling_station.council.registration_contacts.website }}
+    <br>{{ polling_station.council.registration_contacts.email }}
+    {% for number in polling_station.council.registration_contacts.phone_numbers %} 
+      <br>{{ number }}</p>
+    {% endfor %}
 {% else %}
     <h2>Need help with electoral services?</h2>
-    <br>{{ polling_station.council.electoral_services_contacts.address }}
-    <br>{{ polling_station.council.electoral_services_contacts.postcode}}
+    <br>{{ polling_station.council.electoral_services_contacts.address|linebreaksbr }}
+    <br>{{ polling_station.council.electoral_services_contacts.postcode }}
     <br>
     <a href="{{ polling_station.council.electoral_services_contacts.website }}">
       {{ polling_station.council.electoral_services_contacts.website }}
