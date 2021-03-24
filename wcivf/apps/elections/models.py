@@ -10,7 +10,7 @@ from django.db import models
 from django.utils.html import mark_safe
 from django.utils.text import slugify
 
-from .helpers import expected_sopn_publish_date
+from .helpers import get_election_timetable
 from .managers import ElectionManager
 
 LOCAL_TZ = pytz.timezone("Europe/London")
@@ -332,10 +332,27 @@ class PostElection(models.Model):
     wikipedia_url = models.CharField(blank=True, null=True, max_length=800)
     wikipedia_bio = models.TextField(null=True)
 
+    @property
     def expected_sopn_date(self):
-        return expected_sopn_publish_date(
+        return get_election_timetable(
             self.ballot_paper_id, self.post.territory
-        )
+        ).sopn_publish_date
+
+    @property
+    def registration_deadline(self):
+        return get_election_timetable(
+            self.ballot_paper_id, self.post.territory
+        ).registration_deadline
+
+    @property
+    def past_registration_deadline(self):
+        return self.registration_deadline > datetime.date.today()
+
+    @property
+    def postal_vote_application_deadline(self):
+        return get_election_timetable(
+            self.ballot_paper_id, self.post.territory
+        ).postal_vote_application_deadline
 
     @property
     def is_mayoral(self):
