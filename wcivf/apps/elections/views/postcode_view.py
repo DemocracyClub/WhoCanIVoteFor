@@ -181,4 +181,16 @@ class PostcodeiCalView(
 
             cal.add_component(event)
 
+            # add hustings events if there are any
+            for husting in post_election.husting_set.all():
+                event = Event()
+                event["uid"] = husting.uuid
+                event["summary"] = husting.title
+                event.add("dtstamp", timezone.now())
+                event.add("dtstart", husting.starts)
+                if husting.ends:
+                    event.add("dtend", husting.ends)
+                event.add("DESCRIPTION", f"Find out more at {husting.url}")
+                cal.add_component(event)
+
         return HttpResponse(cal.to_ical(), content_type="text/calendar")
