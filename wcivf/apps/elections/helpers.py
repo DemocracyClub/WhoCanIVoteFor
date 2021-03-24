@@ -142,7 +142,7 @@ class ElectionIDSwitcher:
         return view(request, *args, **kwargs)
 
 
-def expected_sopn_publish_date(slug, territory):
+def get_election_timetable(slug, territory):
     country = {
         "ENG": Country.ENGLAND,
         "WLS": Country.WALES,
@@ -154,6 +154,7 @@ def expected_sopn_publish_date(slug, territory):
         return None
 
     try:
-        return from_election_id(slug, country[territory]).sopn_publish_date
+        return from_election_id(slug, country[territory])
+
     except BaseException:
         return None
