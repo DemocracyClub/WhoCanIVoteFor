@@ -1,0 +1,21 @@
+{% load static %}
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org/",
+    "@type": "Event",
+    "url" : "{{ CANONICAL_URL }}{{ husting.post_election.get_absolute_url }}#hustings",
+    "image": "{{ CANONICAL_URL }}{% static "dc_theme/images/logo.png" %}",
+    "startDate": "{{ husting.starts | date:'Y-m-d H:i' }}",
+{% if husting.ends %}
+    "endDate": "{{ husting.ends | date:'Y-m-d H:i' }}",
+{% endif %}
+    "name": "{{ husting.title}}",
+    "description": "Husting event for {{ husting.post_election.friendly_name}}",
+{% if husting.location and husting.postcode %}
+    "location" : {
+        "@type" : "Place",
+        "address": "{{ husting.location }}, {{ husting.postcode }}, UK"
+    }
+{% endif %}
+}
+</script>

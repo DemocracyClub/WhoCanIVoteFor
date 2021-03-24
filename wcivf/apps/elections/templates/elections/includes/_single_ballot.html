@@ -138,15 +138,7 @@
 
 
   {% if postelection.husting_set.exists %}
-    <div class="card">
-      <h3>
-        <span aria-hidden="true">📅</span>
-        Husting events
-        <span aria-hidden="true">📅</span>
-      </h3>
-      <p>You can meet candidates and question them at husting events taking place online.</p>
-      {% include "elections/includes/_hustings_list.html" with hustings=postelection.husting_set.all %}
-    </div>
+    {% include "hustings/includes/_ballot.html" with hustings=postelection.husting_set.all %}
   {% endif %}
 
   {% if postelection.ballotnewsarticle_set.exists %}
@@ -160,5 +152,5 @@
       <p><a href="{{ postelection.wikipedia_url }}">Read more on Wikipedia</a></p>
     </div>
   {% endif %}
-  {% include "elections/includes/_ld_election.html" with election=object %}
+  {% include "elections/includes/_ld_election.html" with election=postelection %}
 </div>
