@@ -15,7 +15,8 @@
     https://www.gov.uk/register-to-vote
   </a>
 </p>
-<p>Register before midnight on (REGISTRATION DEADLINE) to vote in the Election(s) on (ELECTION DATE)</p>
+<p>Register before midnight on {{ postelections.first.registration_deadline }} to vote in the {{ postelections.first.election.name }} on {{ postelections.first.election.election_date }}.</p>
+<p>Register before midnight on {{ postelections.first.postal_vote_application_deadline }} to vote by post in the {{ postelections.first.election.name }} on {{ postelections.first.election.election_date }}.</p>
 <p>To register by post, contact your local council.</p>
 {% if polling_station.council.council_id %}
     <p>
