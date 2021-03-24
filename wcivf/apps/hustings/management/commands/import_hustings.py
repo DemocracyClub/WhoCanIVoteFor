@@ -143,11 +143,19 @@ class Command(BaseCommand):
         if options["quiet"]:
             self.stdout = open(os.devnull, "w")
 
+        file = options["filename"]
+        if file:
+            answer = input(
+                "All hustings will be deleted and replaced with only those included in the file proved. Do you want to continue? y/n\n"
+            )
+            if answer != "y":
+                return
+
         count, _ = Husting.objects.all().delete()
-        self.stdout.write(f"Deleted {count} Husting objects")
+        self.stdout.write(f"Deleting {count} Husting objects")
 
         self.hustings_counter = 0
-        if options["filename"]:
+        if file:
             self.importer = HustingImporter(file_path=options["filename"])
             return self.import_hustings()
 
