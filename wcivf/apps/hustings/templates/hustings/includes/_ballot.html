@@ -1,0 +1,9 @@
+<div class="card" id="hustings">
+    <h3>
+      <span aria-hidden="true">📅</span>
+      Husting events
+      <span aria-hidden="true">📅</span>
+    </h3>
+    <p>You can meet candidates and question them at husting events taking place online.</p>
+    {% include "hustings/includes/_list.html" with hustings=postelection.husting_set.all %}
+</div>

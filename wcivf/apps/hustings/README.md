@@ -7,6 +7,5 @@ The term is used synonymously with stump in the United States.
 **Or so says [Wikipedia](https://en.wikipedia.org/wiki/Husting)**
 
 
-To load the hustings, first download the Hustings Google Sheet as a CSV
-
-Then run `python manage.py import_hustings path/to/that.csv`
+To load the hustings from a Google Sheet check the URLS in `import_hustings` are
+correct, then runx `python manage.py import_hustings`
