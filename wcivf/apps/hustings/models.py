@@ -2,6 +2,7 @@
 Models for Hustings
 """
 import datetime
+import hashlib
 
 from django.db import models
 
@@ -27,3 +28,11 @@ class Husting(models.Model):
 
     def in_past(self):
         return self.starts.date() < datetime.date.today()
+
+    @property
+    def uuid(self):
+        """
+        Build a uuid to be used when creating an iCal event for the object
+        """
+        s = f"{self.title}{self.starts.timestamp()}"
+        return hashlib.md5(s.encode("utf-8")).hexdigest()
