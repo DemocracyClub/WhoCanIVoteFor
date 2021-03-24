@@ -21,7 +21,7 @@ newspaper3k==0.2.8
 
 git+git://github.com/DemocracyClub/dc_base_theme.git@0.3.11
 git+https://github.com/DemocracyClub/dc_signup_form.git@2.1.0
-git+https://github.com/DemocracyClub/design-system.git@0.1.0
+git+https://github.com/DemocracyClub/design-system.git@0.1.1
 djangorestframework-jsonp==1.0.2
 feedparser==6.0.2
 
