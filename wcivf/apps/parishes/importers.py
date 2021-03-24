@@ -7,16 +7,22 @@ from parishes.models import ParishCouncilElection
 class ParishCouncilElectionImporter(ImportAdditionalElectionMixin):
     model = ParishCouncilElection
 
-    def is_contested(self, value):
-        yes = ["y", "yes"]
+    def clean_is_contested(self, value):
         value = str(value).strip().lower()
-        return value in yes
+        if value in ["y", "yes"]:
+            return True
+        if value in ["n", "no"]:
+            return False
+        return None
 
-    def num_ward_seats(self, value):
+    def clean_num_ward_seats(self, value):
         try:
             return int(value)
-        except ValueError:
+        except (ValueError, TypeError):
             return 0
+
+    def clean_precept(self, value):
+        return value.strip("£ ")
 
     def create_object(self, row):
         election_id = row.pop("Election ID")
@@ -32,11 +38,11 @@ class ParishCouncilElectionImporter(ImportAdditionalElectionMixin):
             council_type=row["Council Type"],
             local_authority=row["Local Authority"],
             parish_ward_name=row["Parish Ward Name"],
-            ward_seats=self.num_ward_seats(row["Ward Seats"]),
+            ward_seats=self.clean_num_ward_seats(row["Ward Seats"]),
             website=row["Council Website"],
-            precept=row["Precept 2020-2021"],
+            precept=self.clean_precept(row["Precept 2020-2021"]),
             sopn=row["Link to SoPN PDF"],
-            is_contested=self.is_contested(row["Contested (Y/N)?"]),
+            is_contested=self.clean_is_contested(row["Contested (Y/N)?"]),
         )
         parish.ballots.set(ballots)
         sys.stdout.write(f"Created ParishCouncilElection <{parish.pk}>\n")

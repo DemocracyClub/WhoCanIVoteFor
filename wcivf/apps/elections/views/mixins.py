@@ -7,7 +7,7 @@ from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.core.cache import cache
 from django.db.models import IntegerField
-from django.db.models import When, Case
+from django.db.models import When, Case, Count
 
 from core.models import log_postcode
 from core.utils import LastWord
@@ -65,6 +65,11 @@ class PostcodeToPostsMixin(object):
                 When(election__election_date__gte=date.today(), then=0),
                 output_field=IntegerField(),
             )
+        )
+        # majority of ballots will have 0 so do this now to help reduce
+        # unnecessary DB queries later on
+        pes = pes.annotate(
+            num_parish_councils=Count("parish_councils"),
         )
         pes = pes.select_related("post")
         pes = pes.select_related("election")

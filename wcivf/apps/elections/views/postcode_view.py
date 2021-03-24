@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import TemplateView, View
 
 from core.helpers import clean_postcode
+from parishes.models import ParishCouncilElection
 from .mixins import (
     LogLookUpMixin,
     PostcodeToPostsMixin,
@@ -72,6 +73,7 @@ class PostcodeView(
             "multiple_city_of_london_elections_today"
         ] = self.multiple_city_of_london_elections_today()
         context["referendums"] = list(self.get_referendums())
+        context["parish_council"] = self.get_parish_council()
 
         return context
 
@@ -119,6 +121,22 @@ class PostcodeView(
 
         # get unique elections and return whether more than 1
         return len({ballot.election.slug for ballot in ballots}) > 1
+
+    def get_parish_council(self):
+        """
+        Check if we have any ballots with a parish council, if not return an
+        empty QuerySet. If we do, return the first object we find. This may seem
+        arbritary to only use the first object we find but in practice we only
+        assign a single parish council for to a single english local election
+        ballot. So in practice we should only ever find one object.
+        """
+        ballots_with_parishes = self.ballots.filter(num_parish_councils__gt=0)
+        if not ballots_with_parishes:
+            return None
+
+        return ParishCouncilElection.objects.filter(
+            ballots__in=self.ballots
+        ).first()
 
 
 class PostcodeiCalView(

@@ -19,3 +19,7 @@ class ParishCouncilElection(models.Model):
     sopn = models.URLField(blank=True, help_text="Link to SoPN PDF")
     ward_seats = models.PositiveIntegerField(default=0)
     is_contested = models.NullBooleanField(default=None)
+
+    @property
+    def is_contested_known(self):
+        return self.is_contested is not None

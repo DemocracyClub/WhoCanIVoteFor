@@ -1,0 +1,38 @@
+{% load humanize %}
+
+<div class="card" id="parishcouncil">
+
+<h1>
+    <span aria-hidden="true">🗳️</span>
+    {{ parish_council.council_name }}
+    <span aria-hidden="true">🗳️</span>
+</h1>
+
+<p>
+    {% if parish_council.is_contested %}
+    You will also be able to vote for {{ parish_council.ward_seats }} councillors to sit
+    {% else %}
+    You are also represented by {{ parish_council.ward_seats }} councillors
+    {% endif %}
+    on <a href="{{ parish_council.website }}">{{ parish_council.council_name }}</a>{% if parish_council.parish_ward_name %} {{ parish_council.parish_ward_name}}{% endif %}. 
+</p>
+
+<p>
+    {{ parish_council.council_name }} is a {{ parish_council.council_type }} Council.
+</p>
+<p>
+    {{ parish_council.council_type }} councils are the first tier of local government, and have a wide range of powers including looking after community buildings, planning, street lighting and allotments.
+    They also have the power to raise money through council tax, known as the ‘precept’.
+    In 2020-2021, {{ parish_council.council_name }} raised £{{ parish_council.precept|intcomma }} through the precept.
+</p>
+
+{% if parish_council.is_contested is True %}
+    <p><a href="{{ parish_council.sopn }}">View the official list of candidates (PDF).</a></p>
+{% elif parish_council.is_contested is False %}
+    <p>
+    This election was uncontested because not enough candidates came forward to stand for it.
+    <a href="{{ parish_council.sopn }}">See who was elected</a>.
+    </p>
+{% endif %}
+
+</div>
