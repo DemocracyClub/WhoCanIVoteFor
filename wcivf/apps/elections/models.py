@@ -346,7 +346,7 @@ class PostElection(models.Model):
 
     @property
     def past_registration_deadline(self):
-        return self.registration_deadline > datetime.date.today()
+        return self.registration_deadline < datetime.date.today()
 
     @property
     def postal_vote_application_deadline(self):
