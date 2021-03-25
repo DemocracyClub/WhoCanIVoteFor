@@ -58,7 +58,7 @@
                 You will have {{ postelection.winner_count|intword }} vote{{ postelection.winner_count|pluralize }}.
               {% endif %}
             {% endif %}
-            <p><a href='#where'>Where do I vote?</a></p>
+
             {% if postelection.get_voting_system %}
               {% include "elections/includes/_how-to-vote.html" with voting_system=postelection.get_voting_system %}
             {% endif %}
