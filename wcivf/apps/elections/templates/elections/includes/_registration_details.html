@@ -4,9 +4,9 @@
 <section class="card">
 
   <h2 id='where'>
-    <span aria-hidden="true">🗳️</span>
+    <span aria-hidden="true">📝</span>
     Register to vote
-    <span aria-hidden="true">🗳️</span>
+    <span aria-hidden="true">📝</span>
   </h2>
 
 <p>You need to be registered in order to vote.
@@ -15,13 +15,11 @@
     https://www.gov.uk/register-to-vote
   </a>
 </p>
-<p>Register before midnight on {{ postelection.registration_deadline }} 
-  to vote in the {{ postelection.election.name }} on 
+<p>Register before midnight on {{ postelection.registration_deadline }} on 
   {{ postelection.election.election_date }}.
 </p>
 <p>Register before midnight on {{ postelection.postal_vote_application_deadline }} 
-  to vote by post in the {{ postelection.election.name }} on 
-  {{ postelection.election.election_date }}.</p>
+  to vote by post on {{ postelection.election.election_date }}.</p>
 <p>To register by post, contact your local council.</p>
 {% if council.council_id %}  
   <p>{{ council.name }}
