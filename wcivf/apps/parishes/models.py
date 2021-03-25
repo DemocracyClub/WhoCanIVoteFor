@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class ParishCouncilElection(models.Model):
@@ -21,5 +22,9 @@ class ParishCouncilElection(models.Model):
     is_contested = models.NullBooleanField(default=None)
 
     @property
-    def is_contested_known(self):
-        return self.is_contested is not None
+    def in_past(self):
+        """
+        Hardcoded to 6th May 2021 for simplicity but we improve this in the
+        future by taking it from the related ballot/election
+        """
+        return timezone.now().date() > timezone.datetime(2021, 5, 6).date()
