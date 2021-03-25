@@ -14,15 +14,11 @@
     {% else %}
       You are also represented by {{ parish_council.ward_seats }} councillors
     {% endif %}
-    on <a href="{{ parish_council.website }}">{{ parish_council.council_name }}</a>
-    {% if parish_council.parish_ward_name %} {{ parish_council.parish_ward_name}}{% endif %}.
+    on <a href="{{ parish_council.website }}">{{ parish_council.council_name }}</a>{% if parish_council.parish_ward_name %} {{ parish_council.parish_ward_name}}{% endif %}.
 </p>
 
 <p>
-    {{ parish_council.council_name }} is a {{ parish_council.council_type }} Council.
-</p>
-<p>
-    {{ parish_council.council_type }} councils are the first tier of local government, and have a wide range of powers including looking after community buildings, planning, street lighting and allotments.
+    <a href="https://www.localgov.co.uk/What-are-parish-councils/35176">{{ parish_council.council_type }} councils are the first tier of local government</a>, and have a wide range of powers including looking after community buildings, planning, street lighting and allotments.
     They also have the power to raise money through council tax, known as the ‘precept’.
     In 2020-2021, {{ parish_council.council_name }} raised £{{ parish_council.precept|intcomma }} through the precept.
 </p>
