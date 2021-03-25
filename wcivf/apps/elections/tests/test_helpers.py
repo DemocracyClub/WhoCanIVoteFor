@@ -21,12 +21,12 @@ class GetElectionTimetable(TestCase):
     def test_with_territory_code_eng(self):
         expected = get_election_timetable("local.2019-05-02", "ENG")
 
-        assert expected == date(2019, 4, 4)
+        assert expected.poll_date == date(2019, 5, 2)
 
     def test_with_territory_code_nir(self):
         expected = get_election_timetable("local.2019-05-02", "NIR")
 
-        assert expected == date(2019, 4, 8)
+        assert expected.poll_date == date(2019, 5, 2)
 
     def test_with_territory_code_unknown(self):
         expected = get_election_timetable("local.2019-05-02", "-")
@@ -36,7 +36,7 @@ class GetElectionTimetable(TestCase):
     def test_with_territory_code_unambiguous_election_type(self):
         expected = get_election_timetable("nia.belfast-east.2017-03-02", "NIR")
 
-        assert expected == date(2017, 2, 8)
+        assert expected.poll_date == date(2017, 3, 2)
 
     def test_with_territory_code_malformed_id(self):
         expected = get_election_timetable("whoknows", "ENG")
