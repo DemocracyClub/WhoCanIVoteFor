@@ -142,6 +142,12 @@ class PollingStationInfoMixin(object):
         cache.set(key, info)
         return info
 
+    def show_polling_card(self, post_elections):
+        for p in post_elections:
+            if p.contested and not p.cancelled:
+                return True
+        return False
+
 
 class LogLookUpMixin(object):
     def log_postcode(self, postcode):

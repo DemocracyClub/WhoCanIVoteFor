@@ -316,6 +316,29 @@ class TestPostcodeViewMethods:
 
         assert view_obj.multiple_city_of_london_elections_today() is False
 
+    @pytest.fixture
+    def post_elections(self, request):
+        return self.post_elections
+
+    @pytest.mark.django_db
+    def test_show_polling_card(self, view_obj, post_elections):
+        post_elections = [
+            PostElectionFactory(
+                election__slug="local.city-of-london.2020-05-06",
+                election__election_date="2020-05-06",
+                contested=True,
+                cancelled=False,
+            ),
+            PostElectionFactory(
+                election__slug="local.city-of-london.2020-05-06",
+                election__election_date="2020-05-06",
+                contested=False,
+                cancelled=True,
+            ),
+        ]
+
+        assert view_obj.show_polling_card(post_elections) is True
+
     def test_num_ballots_no_parish_election(self, view_obj, mocker):
         future_post_election = mocker.MagicMock(spec=PostElection, past_date=0)
         past_post_election = mocker.MagicMock(spec=PostElection, past_date=1)

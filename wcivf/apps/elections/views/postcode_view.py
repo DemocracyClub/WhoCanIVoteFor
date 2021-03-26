@@ -56,6 +56,9 @@ class PostcodeView(
 
         context["postcode"] = self.postcode
         context["postelections"] = self.get_ballots()
+        context["show_polling_card"] = self.show_polling_card(
+            context["postelections"]
+        )
         context["people_for_post"] = {}
         for postelection in context["postelections"]:
             postelection.people = self.people_for_ballot(postelection)
