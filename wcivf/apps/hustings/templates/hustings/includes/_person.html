@@ -2,6 +2,6 @@
   <div class="ds-card-body">
       <h3>Election events</h3>
       <p>You can meet candidates and question them at online events (often known as 'hustings'). Here are some events where {{ person.name }} may be appearing:</p>
-      {% include "hustings/includes/_list.html" with hustings=object.postelection.husting_set.all %}
+      {% include "hustings/includes/_list.html" with hustings=object.postelection.husting_set.displayable %}
   </div>
 </section>

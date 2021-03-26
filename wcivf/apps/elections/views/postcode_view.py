@@ -193,8 +193,8 @@ class PostcodeiCalView(
 
             cal.add_component(event)
 
-            # add hustings events if there are any
-            for husting in post_election.husting_set.all():
+            # add hustings events if there are any in the future
+            for husting in post_election.husting_set.future():
                 event = Event()
                 event["uid"] = husting.uuid
                 event["summary"] = husting.title

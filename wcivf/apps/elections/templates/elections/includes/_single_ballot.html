@@ -137,8 +137,8 @@
   {% endif %}
 
 
-  {% if postelection.husting_set.exists %}
-    {% include "hustings/includes/_ballot.html" with hustings=postelection.husting_set.all %}
+  {% if postelection.husting_set.displayable %}
+    {% include "hustings/includes/_ballot.html" with hustings=postelection.husting_set.displayable %}
   {% endif %}
 
   {% if postelection.ballotnewsarticle_set.exists %}

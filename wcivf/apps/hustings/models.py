@@ -1,12 +1,29 @@
 """
 Models for Hustings
 """
-import datetime
+from django.utils import timezone
 import hashlib
 
 from django.db import models
 
 from elections.models import PostElection
+
+
+class HustingQueryset(models.QuerySet):
+    def future(self):
+        """
+        Returns QuerySet of objects in the future or today
+        """
+        return self.filter(starts__date__gte=timezone.now().date())
+
+    def displayable(self):
+        """
+        Excludes objects in the past unless we have a postevent url for them
+        """
+        return self.exclude(
+            starts__date__lt=timezone.now().date(),
+            postevent_url="",
+        )
 
 
 class Husting(models.Model):
@@ -21,13 +38,16 @@ class Husting(models.Model):
     ends = models.DateTimeField(blank=True, null=True)
     location = models.CharField(max_length=250, blank=True, null=True)
     postcode = models.CharField(max_length=10, blank=True, null=True)
-    postevent_url = models.URLField(blank=True, null=True)
+    postevent_url = models.URLField(blank=True)
+
+    objects = HustingQueryset.as_manager()
 
     class Meta:
         ordering = ["-starts"]
 
+    @property
     def in_past(self):
-        return self.starts.date() < datetime.date.today()
+        return self.starts.date() < timezone.now().date()
 
     @property
     def uuid(self):

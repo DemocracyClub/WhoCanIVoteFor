@@ -5,5 +5,5 @@
       <span aria-hidden="true">📅</span>
     </h3>
     <p>You can meet candidates and question them at online events (often known as 'hustings'). Here are some events that are taking place:</p>
-    {% include "hustings/includes/_list.html" with hustings=postelection.husting_set.all %}
+    {% include "hustings/includes/_list.html" with hustings=postelection.husting_set.displayable %}
 </div>
