@@ -8,12 +8,12 @@
 
     {% for election_group in header_elections_by_date %}
 
-
         {% if election_group.list.0.past_date %}
-              {% ifchanged election_group.list.0.past_date %}
-                <h3>Recently past elections</h3>
-              {% endifchanged %}
-            {% endif %}
+          {% ifchanged election_group.list.0.past_date %}
+            <h3>Recently past elections</h3>
+          {% endifchanged %}
+        {% endif %}
+
         {% if election_group.list.0.past_date %}
           <h4>
             {{ election_group.grouper|naturalday:"l j F Y"|title }}
@@ -23,26 +23,29 @@
             {{ election_group.grouper|naturalday:"l j F Y"|title }}
           </h3>
           <p>
-            You will have {{ election_group.list|length|apnumber }}
+            You will have {{ num_ballots|apnumber }}
             ballot paper{{ election_group.list|length|pluralize }} to fill out.
           </p>
-
         {% endif %}
-
 
         <ul>
           {% for ballot in election_group.list %}
-          <li {% if ballot.past_date %}class="past_elections"{% endif %}>
+            <li {% if ballot.past_date %}class="past_elections"{% endif %}>
 
-            <a href="#election_{{ ballot.election.slug }}">
-            {{ ballot.election.nice_election_name }}
-            {% if ballot.post.label != post.election and not ballot.is_mayoral and not ballot.is_pcc %}
-              : {{ ballot.post.label }}
-            {% endif %}
-            </a>
-            {{ ballot.short_cancelled_message_html }}
-          </li>
+              <a href="#election_{{ ballot.election.slug }}">
+              {{ ballot.election.nice_election_name }}
+              {% if ballot.post.label != post.election and not ballot.is_mayoral and not ballot.is_pcc %}
+                : {{ ballot.post.label }}
+              {% endif %}
+              </a>
+              {{ ballot.short_cancelled_message_html }}
+            </li>
           {% endfor %}
+          {% if parish_council_election and parish_council_election.is_contested %}
+            <li {% if parish_council_election.in_past %}class="past_elections"{% endif %}>
+              <a href="#parishcouncil">{{ parish_council_election.council_name }}</a>
+            </li>
+          {% endif %}
         </ul>
     {% endfor %}
   {% endif %}

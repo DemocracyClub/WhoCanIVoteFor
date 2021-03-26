@@ -27,8 +27,8 @@
   {% include "referendums/includes/_card.html" %}
 {% endfor %}
 
-{% if parish_council %}
-  {% include "parishes/includes/_card.html" with parish_council=parish_council %}  
+{% if parish_council_election %}
+  {% include "parishes/includes/_card.html" with parish_council_election=parish_council_election %}
 {% endif %}
 
 {# Add this at the top of the page if it's known, or at the bottom if it's not #}

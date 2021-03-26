@@ -2,6 +2,7 @@ import pytest
 import vcr
 
 from django.conf import settings
+from django.db.models import Count
 from django.urls import reverse
 from django.test import TestCase, override_settings
 from pytest_django import asserts
@@ -16,6 +17,8 @@ from core.models import LoggedPostcode, write_logged_postcodes
 from elections.views.mixins import PostcodeToPostsMixin
 from elections.views.postcode_view import PostcodeView
 from unittest import skipIf
+
+from parishes.models import ParishCouncilElection
 
 
 @override_settings(
@@ -312,6 +315,110 @@ class TestPostcodeViewMethods:
         )
 
         assert view_obj.multiple_city_of_london_elections_today() is False
+
+    def test_num_ballots_no_parish_election(self, view_obj, mocker):
+        future_post_election = mocker.MagicMock(spec=PostElection, past_date=0)
+        past_post_election = mocker.MagicMock(spec=PostElection, past_date=1)
+        view_obj.ballots = [future_post_election, past_post_election]
+        assert view_obj.num_ballots() == 1
+
+    def test_num_ballots_with_contested_parish_election(self, view_obj, mocker):
+        future_post_election = mocker.MagicMock(spec=PostElection, past_date=0)
+        past_post_election = mocker.MagicMock(spec=PostElection, past_date=1)
+        parish_council_election = mocker.MagicMock(
+            spec=ParishCouncilElection,
+            in_past=False,
+            is_contested=True,
+        )
+        view_obj.ballots = [future_post_election, past_post_election]
+        view_obj.parish_council_election = parish_council_election
+        assert view_obj.num_ballots() == 2
+
+    def test_num_ballots_with_uncontested_parish_election(
+        self, view_obj, mocker
+    ):
+        future_post_election = mocker.MagicMock(spec=PostElection, past_date=0)
+        past_post_election = mocker.MagicMock(spec=PostElection, past_date=1)
+        parish_council_election = mocker.MagicMock(
+            spec=ParishCouncilElection,
+            in_past=False,
+            is_contested=False,
+        )
+        view_obj.ballots = [future_post_election, past_post_election]
+        view_obj.parish_council_election = parish_council_election
+        assert view_obj.num_ballots() == 1
+
+    def test_num_ballots_with_is_contested_none_parish_election(
+        self, view_obj, mocker
+    ):
+        future_post_election = mocker.MagicMock(spec=PostElection, past_date=0)
+        past_post_election = mocker.MagicMock(spec=PostElection, past_date=1)
+        parish_council_election = mocker.MagicMock(
+            spec=ParishCouncilElection,
+            in_past=False,
+            is_contested=None,
+        )
+        view_obj.ballots = [future_post_election, past_post_election]
+        view_obj.parish_council_election = parish_council_election
+        assert view_obj.num_ballots() == 1
+
+    def test_num_ballots_with_parish_election_in_past(self, view_obj, mocker):
+        future_post_election = mocker.MagicMock(spec=PostElection, past_date=0)
+        past_post_election = mocker.MagicMock(spec=PostElection, past_date=1)
+        parish_council_election = mocker.MagicMock(
+            spec=ParishCouncilElection,
+            in_past=True,
+            is_contested=True,
+        )
+        view_obj.ballots = [future_post_election, past_post_election]
+        view_obj.parish_council_election = parish_council_election
+        assert view_obj.num_ballots() == 1
+
+    def test_get_parish_council_election_when_already_assigned(
+        self, view_obj, mocker
+    ):
+        """
+        Test if view has a parish_council_election set it is returned
+        """
+        parish_council_election = mocker.MagicMock(spec=ParishCouncilElection)
+        view_obj.parish_council_election = parish_council_election
+
+        result = view_obj.get_parish_council_election()
+        assert result is parish_council_election
+
+    @pytest.mark.django_db
+    def test_get_parish_council_election_none(self, view_obj):
+        """
+        Test if there is no parish council related to views ballots that None
+        is returned
+        """
+        post_election = PostElectionFactory()
+        post_election.num_parish_councils = 0
+        view_obj.ballots = PostElection.objects.annotate(
+            num_parish_councils=Count("parish_councils")
+        )
+
+        result = view_obj.get_parish_council_election()
+        assert result is None
+        assert view_obj.parish_council_election is None
+
+    @pytest.mark.django_db
+    def test_get_parish_council_election_object_returned(self, view_obj):
+        """
+        Test if there is a parish council related to views ballots that it is
+        returned
+        """
+        post_election = PostElectionFactory()
+        post_election.num_parish_councils = 0
+        parish_council_election = ParishCouncilElection.objects.create()
+        parish_council_election.ballots.add(post_election)
+        view_obj.ballots = PostElection.objects.annotate(
+            num_parish_councils=Count("parish_councils")
+        )
+
+        result = view_obj.get_parish_council_election()
+        assert result == parish_council_election
+        assert view_obj.parish_council_election == parish_council_election
 
 
 class TestPostcodeiCalView:

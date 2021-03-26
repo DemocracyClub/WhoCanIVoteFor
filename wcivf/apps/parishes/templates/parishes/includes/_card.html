@@ -4,31 +4,31 @@
 
 <h1>
     <span aria-hidden="true">🗳️</span>
-      {{ parish_council.council_name }}
+      {{ parish_council_election.council_name }}
     <span aria-hidden="true">🗳️</span>
 </h1>
 
 <p>
-    {% if parish_council.is_contested %}
-      You {% if parish_council.in_past %}were also{% else %}will also be{% endif %} able to vote for {{ parish_council.ward_seats }} councillors to sit
+    {% if parish_council_election.is_contested %}
+      You {% if parish_council_election.in_past %}were also{% else %}will also be{% endif %} able to vote for {{ parish_council_election.ward_seats }} councillors to sit
     {% else %}
-      You are also represented by {{ parish_council.ward_seats }} councillors
+      You are also represented by {{ parish_council_election.ward_seats }} councillors
     {% endif %}
-    on <a href="{{ parish_council.website }}">{{ parish_council.council_name }}</a>{% if parish_council.parish_ward_name %} {{ parish_council.parish_ward_name}}{% endif %}.
+    on <a href="{{ parish_council_election.website }}">{{ parish_council_election.council_name }}</a>{% if parish_council_election.parish_ward_name %} - {{ parish_council_election.parish_ward_name}}{% endif %}.
 </p>
 
 <p>
-    <a href="https://www.localgov.co.uk/What-are-parish-councils/35176">{{ parish_council.council_type }} councils are the first tier of local government</a>, and have a wide range of powers including looking after community buildings, planning, street lighting and allotments.
+    <a href="https://www.localgov.co.uk/What-are-parish-councils/35176">{{ parish_council_election.council_type }} councils are the first tier of local government</a>, and have a wide range of powers including looking after community buildings, planning, street lighting and allotments.
     They also have the power to raise money through council tax, known as the ‘precept’.
-    In 2020-2021, {{ parish_council.council_name }} raised £{{ parish_council.precept|intcomma }} through the precept.
+    In 2020-2021, {{ parish_council_election.council_name }} raised £{{ parish_council_election.precept|intcomma }} through the precept.
 </p>
 
-{% if parish_council.is_contested %}
-    <p><a href="{{ parish_council.sopn }}">View the official list of candidates (PDF).</a></p>
-{% elif parish_council.is_uncontested %}
+{% if parish_council_election.is_contested %}
+    <p><a href="{{ parish_council_election.sopn }}">View the official list of candidates (PDF).</a></p>
+{% elif parish_council_election.is_uncontested %}
     <p>
-    This election was uncontested because not enough candidates came forward to stand for it.
-    <a href="{{ parish_council.sopn }}">See who was elected</a>.
+      This election was uncontested because not enough candidates came forward to stand for it.
+      {% if parish_council_election.sopn %}<a href="{{ parish_council_election.sopn }}">See who was elected</a>.{% endif %}
     </p>
 {% endif %}
 
