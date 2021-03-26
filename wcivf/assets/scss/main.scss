@@ -55,6 +55,8 @@ $scope: true;
 
 @if $scope {
   .ds-scope {
+    font-size: clamp(#{$s1}, 1.5vw, #{$s2});
+    @include fontMain;
     @include type;
     @include forms;
     @include optional-styles;
