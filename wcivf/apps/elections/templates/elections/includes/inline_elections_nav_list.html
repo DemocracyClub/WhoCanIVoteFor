@@ -24,7 +24,7 @@
           </h3>
           <p>
             You will have {{ num_ballots|apnumber }}
-            ballot paper{{ election_group.list|length|pluralize }} to fill out.
+            ballot paper{{ num_ballots|pluralize }} to fill out.
           </p>
         {% endif %}
 
@@ -41,11 +41,13 @@
               {{ ballot.short_cancelled_message_html }}
             </li>
           {% endfor %}
-          {% if parish_council_election and parish_council_election.is_contested %}
+
+          {% if parish_council_election and parish_council_election.election_date == election_group.grouper and parish_council_election.is_contested %}
             <li {% if parish_council_election.in_past %}class="past_elections"{% endif %}>
               <a href="#parishcouncil">{{ parish_council_election.council_name }}</a>
             </li>
           {% endif %}
+
         </ul>
     {% endfor %}
   {% endif %}
