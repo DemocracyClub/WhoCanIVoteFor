@@ -37,6 +37,7 @@ class PostcodeView(
     pk_url_kwarg = "postcode"
     ballots = None
     postcode = None
+    parish_council_election = None
 
     def get_ballots(self):
         """
@@ -67,7 +68,8 @@ class PostcodeView(
             "multiple_city_of_london_elections_today"
         ] = self.multiple_city_of_london_elections_today()
         context["referendums"] = list(self.get_referendums())
-        context["parish_council"] = self.get_parish_council()
+        context["parish_council_election"] = self.get_parish_council_election()
+        context["num_ballots"] = self.num_ballots()
 
         return context
 
@@ -116,7 +118,7 @@ class PostcodeView(
         # get unique elections and return whether more than 1
         return len({ballot.election.slug for ballot in ballots}) > 1
 
-    def get_parish_council(self):
+    def get_parish_council_election(self):
         """
         Check if we have any ballots with a parish council, if not return an
         empty QuerySet. If we do, return the first object we find. This may seem
@@ -124,13 +126,38 @@ class PostcodeView(
         assign a single parish council for to a single english local election
         ballot. So in practice we should only ever find one object.
         """
+        if self.parish_council_election is not None:
+            return self.parish_council_election
+
         ballots_with_parishes = self.ballots.filter(num_parish_councils__gt=0)
         if not ballots_with_parishes:
             return None
 
-        return ParishCouncilElection.objects.filter(
+        self.parish_council_election = ParishCouncilElection.objects.filter(
             ballots__in=self.ballots
         ).first()
+        return self.parish_council_election
+
+    def num_ballots(self):
+        """
+        Calculate the number of ballots there will be to fill in, accounting for
+        the any parish council ballots if a contested parish council election is
+        taking place in the future
+        """
+        num_ballots = len(
+            [ballot for ballot in self.ballots if not ballot.past_date]
+        )
+
+        if not self.parish_council_election:
+            return num_ballots
+
+        if self.parish_council_election.in_past:
+            return num_ballots
+
+        if self.parish_council_election.is_contested:
+            num_ballots += 1
+
+        return num_ballots
 
 
 class PostcodeiCalView(
