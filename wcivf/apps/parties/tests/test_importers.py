@@ -155,3 +155,16 @@ class TestLocalPartyImporter:
                 "email": row["Email"],
             },
         )
+
+    def test_get_name(self, importer, subtests):
+        cases = [
+            ({"Local party name": "Welsh Labour"}, "Welsh Labour"),
+            ({"Party name": "Welsh Labour"}, "Welsh Labour"),
+            ({}, None),
+        ]
+        for case in cases:
+            row = case[0]
+            expected = case[1]
+            with subtests.test(msg=row):
+                result = importer.get_name(row)
+                assert result == expected

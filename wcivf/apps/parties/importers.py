@@ -103,7 +103,7 @@ class LocalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
                 parent=party,
                 post_election=post_election,
                 defaults={
-                    "name": row["Local party name"],
+                    "name": self.get_name(row=row),
                     "twitter": twitter,
                     "facebook_page": row["Facebook"],
                     "homepage": row["Website"],
@@ -114,6 +114,13 @@ class LocalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
             self.write(
                 f"{local_party.name} was {'created' if created else 'updated'}"
             )
+
+    def get_name(self, row):
+        """
+        The sheet for Scottish/Welsh/GLA uses "Party Name" header so check for
+        both
+        """
+        return row.get("Local party name", row.get("Party name"))
 
     def import_parties(self):
         """
@@ -131,7 +138,7 @@ class LocalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
             return
 
         for row in self.all_rows():
-            name = row["Local party name"]
+            name = self.get_name(row=row)
             party_id = (row["party_id"] or "").strip()
             if not party_id or not name:
                 self.write("Missing data, skipping row")
