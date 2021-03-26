@@ -32,7 +32,9 @@
 {% endif %}
 
 {# Add this at the top of the page if it's known, or at the bottom if it's not #}
-{% include "elections/includes/_polling_place.html" with elections_by_date=elections_by_date voter_id_required=voter_id_required %}
+{% if show_polling_card %} 
+  {% include "elections/includes/_polling_place.html" with elections_by_date=elections_by_date %}
+{% endif %}
 
 {% if not postelections.first.past_registration_deadline %}
   {% include "elections/includes/_registration_details.html" with postelection=postelections.first council=polling_station.council %} 
