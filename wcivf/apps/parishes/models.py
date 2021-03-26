@@ -28,3 +28,10 @@ class ParishCouncilElection(models.Model):
         future by taking it from the related ballot/election
         """
         return timezone.now().date() > timezone.datetime(2021, 5, 6).date()
+
+    @property
+    def is_uncontested(self):
+        """
+        Check if is_contested is explicity False rather than None
+        """
+        return self.is_contested is False

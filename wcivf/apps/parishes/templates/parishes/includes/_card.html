@@ -23,9 +23,9 @@
     In 2020-2021, {{ parish_council.council_name }} raised £{{ parish_council.precept|intcomma }} through the precept.
 </p>
 
-{% if parish_council.is_contested is True %}
+{% if parish_council.is_contested %}
     <p><a href="{{ parish_council.sopn }}">View the official list of candidates (PDF).</a></p>
-{% elif parish_council.is_contested is False %}
+{% elif parish_council.is_uncontested %}
     <p>
     This election was uncontested because not enough candidates came forward to stand for it.
     <a href="{{ parish_council.sopn }}">See who was elected</a>.
