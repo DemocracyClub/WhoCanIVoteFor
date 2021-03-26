@@ -28,7 +28,7 @@ class PersonMixin(object):
                     ),
                 ),
                 "facebookadvert_set",
-                # "leaflet_set",
+                "hustings_set",
             )
         )
 
