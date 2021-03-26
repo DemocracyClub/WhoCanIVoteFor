@@ -1,0 +1,40 @@
+{% if person.local_party %}
+  <section class="ds-card">
+    <div class="ds-card-body">
+      <h3 class="ds-h3">{{ person.local_party.name }}</h3>
+      <p>{{ person.name }}'s local party is the {{ person.local_party.name }}.</p>
+
+      {% if person.local_party.twitter %}
+        <p>
+        <a href="https://twitter.com/{{ person.local_party.twitter }}">
+          @{{ person.local_party.twitter }}</a>
+          on Twitter
+        </p>
+      {% endif %}
+
+      {% if person.local_party.facebook_page %}
+        <p>
+          <a href="{{ person.local_party.facebook_page }}">
+            {{ person.local_party.facebook_page }}
+          </a>
+          on Facebook
+        </p>
+        {% endif %}
+
+      {% if person.local_party.homepage %}
+        <p>
+          <a href="{{ person.local_party.homepage }}">
+            {{ person.local_party.name }}'s website</a>
+        </p>
+      {% endif %}
+
+      {% if person.local_party.email %}
+        <p>
+          <a href="mailto:{{ person.local_party.email }}">
+            Email {{ person.local_party.email }}</a>
+        </p>
+      {% endif %}
+
+    </div>
+  </section>
+{% endif %}
