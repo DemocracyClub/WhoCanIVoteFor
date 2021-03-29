@@ -1,6 +1,7 @@
 import factory
+from elections.tests.factories import PostElectionFactory
 
-from parties.models import Party
+from parties.models import Party, LocalParty
 
 
 class PartyFactory(factory.django.DjangoModelFactory):
@@ -10,3 +11,12 @@ class PartyFactory(factory.django.DjangoModelFactory):
 
     party_id = "PP01"
     party_name = "Test Party"
+
+
+class LocalPartyFactory(factory.django.DjangoModelFactory):
+
+    parent = factory.SubFactory(PartyFactory)
+    post_election = factory.SubFactory(PostElectionFactory)
+
+    class Meta:
+        model = LocalParty

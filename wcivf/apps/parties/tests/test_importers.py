@@ -144,6 +144,7 @@ class TestLocalPartyImporter:
             "update_or_create",
             return_value=(party, True),
         )
+        mocker.patch.object(importer, "get_country", return_value="Local")
         party = mocker.MagicMock()
         post_election = mocker.MagicMock()
         ballots = mocker.MagicMock()
@@ -159,6 +160,7 @@ class TestLocalPartyImporter:
                 "facebook_page": row["Facebook"],
                 "homepage": row["Website"],
                 "email": row["Email"],
+                "is_local": True,
             },
         )
 

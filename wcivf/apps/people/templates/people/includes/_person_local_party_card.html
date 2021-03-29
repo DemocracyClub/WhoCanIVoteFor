@@ -2,7 +2,13 @@
   <section class="ds-card">
     <div class="ds-card-body">
       <h3 class="ds-h3">{{ person.local_party.name }}</h3>
-      <p>{{ person.name }}'s local party is the {{ person.local_party.name }}.</p>
+      <p>
+        {% if person.local_party.is_local %}
+          {{ person.name }}'s local party is {{ person.local_party.label }}.
+        {% else %}
+          {{ person.name }} is a {{ person.local_party.label }} candidate.
+        {% endif %}
+      </p>
 
       {% if person.local_party.twitter %}
         <p>
@@ -17,7 +23,7 @@
           <a href="{{ person.local_party.facebook_page }}">
             {{ person.local_party.facebook_page }}
           </a>
-          on Facebook
+          &nbsp;on Facebook
         </p>
         {% endif %}
 

@@ -98,22 +98,25 @@ class LocalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
         PostElection objects, and craetes a LocalParty for each of the ballots.
         """
         twitter = twitter_username(url=row["Twitter"] or "")
+        name = self.get_name(row=row)
         for post_election in ballots:
-            local_party, created = LocalParty.objects.update_or_create(
+            country = self.get_country(
+                election_slug=post_election.election.slug
+            )
+            LocalParty.objects.update_or_create(
                 parent=party,
                 post_election=post_election,
                 defaults={
-                    "name": self.get_name(row=row),
+                    "name": name,
                     "twitter": twitter,
                     "facebook_page": row["Facebook"],
                     "homepage": row["Website"],
                     "email": row["Email"],
+                    "is_local": country == "Local",
                 },
             )
 
-            self.write(
-                f"{local_party.name} was {'created' if created else 'updated'}"
-            )
+        self.write(f"Imported Local Party objects for {name}")
 
     def get_name(self, row):
         """

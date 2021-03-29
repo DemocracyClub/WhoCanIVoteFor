@@ -27,6 +27,9 @@ class Command(BaseCommand):
                 "https://docs.google.com/spreadsheets/d/e/2PACX-1vQx49JTec8i5oz_x6SJanvSKPc8BccanIlnGR4j0plbD99QFslXw7JEvWSNtdrJiePBMBi0AXkvw3e7/pub?gid=2091491905&single=true&output=csv",
                 "https://docs.google.com/spreadsheets/d/e/2PACX-1vQx49JTec8i5oz_x6SJanvSKPc8BccanIlnGR4j0plbD99QFslXw7JEvWSNtdrJiePBMBi0AXkvw3e7/pub?gid=1013163356&single=true&output=csv",
                 "https://docs.google.com/spreadsheets/d/e/2PACX-1vQx49JTec8i5oz_x6SJanvSKPc8BccanIlnGR4j0plbD99QFslXw7JEvWSNtdrJiePBMBi0AXkvw3e7/pub?gid=1273833263&single=true&output=csv",
+                "https://docs.google.com/spreadsheets/d/e/2PACX-1vQe-g_2T25Hal_utsq0cZ67UdT9SEeKi3EfY2aMWqxtkhQle16uMc_SVrX1g7T6ZQfMeDqvwF3ZTyc1/pub?gid=0&single=true&output=csv",
+                "https://docs.google.com/spreadsheets/d/e/2PACX-1vQe-g_2T25Hal_utsq0cZ67UdT9SEeKi3EfY2aMWqxtkhQle16uMc_SVrX1g7T6ZQfMeDqvwF3ZTyc1/pub?gid=1314966429&single=true&output=csv",
+                "https://docs.google.com/spreadsheets/d/e/2PACX-1vQe-g_2T25Hal_utsq0cZ67UdT9SEeKi3EfY2aMWqxtkhQle16uMc_SVrX1g7T6ZQfMeDqvwF3ZTyc1/pub?gid=1067010902&single=true&output=csv",
             ],
         ),
     ]
