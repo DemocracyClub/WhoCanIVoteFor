@@ -1,4 +1,4 @@
 -r base.txt
 
-gunicorn==20.0.4
+gunicorn==20.1.0
 ec2_tag_conditional==0.1.2
