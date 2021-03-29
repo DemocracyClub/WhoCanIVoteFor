@@ -158,6 +158,30 @@ class TestPostElectionModel:
             == "Greater London Authority mayoral election"
         )
 
+    @pytest.mark.django_db
+    def test_past_registration_deadline(self, post_election):
+        # election = ElectionWithPostFactory()
+        # election.past()
+        post = PostFactory(territory="ENG")
+        # territory = post.territory
+        oldest = PostElectionFactory(
+            ballot_paper_id="parl.cities-of-london-and-westminster.2019-05-06",
+            post=post,
+            election=ElectionFactoryLazySlug(
+                election_date="2019-5-6", current=False, election_type="parl"
+            ),
+        )
+        future = PostElectionFactory(
+            ballot_paper_id="parl.cities-of-london-and-westminster.2021-05-06",
+            post=post,
+            election=ElectionFactoryLazySlug(
+                election_date="2021-5-6", current=True, election_type="parl"
+            ),
+        )
+
+        assert oldest.past_registration_deadline is True
+        assert future.past_registration_deadline is False
+
     @pytest.mark.parametrize(
         "label, expected",
         [
