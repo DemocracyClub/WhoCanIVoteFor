@@ -9,7 +9,7 @@ from elections.tests.factories import (
     PostElectionFactory,
     PostFactory,
 )
-from parties.tests.factories import PartyFactory
+from parties.tests.factories import LocalPartyFactory, PartyFactory
 from people.tests.factories import PersonFactory, PersonPostFactory
 from people.views import PersonView
 
@@ -312,6 +312,34 @@ class PersonViewTests(TestCase):
         response = self.client.get(self.person_url, follow=True)
         self.assertEqual(response.template_name, ["people/person_detail.html"])
         self.assertNotContains(response, "Email")
+
+    def test_local_party_for_local_election(self):
+        party = PartyFactory(party_name="Labour Party", party_id="party:53")
+        local_party = LocalPartyFactory(
+            name="Derbyshire Labour", is_local=True, parent=party
+        )
+        PersonPostFactory(
+            person=self.person,
+            election=ElectionFactory(),
+            party=party,
+        )
+        response = self.client.get(self.person_url, follow=True)
+        expected = f"{self.person.name}'s local party is {local_party.label}."
+        self.assertContains(response, expected)
+
+    def test_local_party_for_non_local_election(self):
+        party = PartyFactory(party_name="Labour Party", party_id="party:53")
+        local_party = LocalPartyFactory(
+            name="Welsh Labour | Llafur Cymru", is_local=False, parent=party
+        )
+        PersonPostFactory(
+            person=self.person,
+            election=ElectionFactory(),
+            party=party,
+        )
+        response = self.client.get(self.person_url, follow=True)
+        expected = f"{self.person.name} is a {local_party.label} candidate."
+        self.assertContains(response, expected)
 
 
 class TestPersonViewUnitTests:

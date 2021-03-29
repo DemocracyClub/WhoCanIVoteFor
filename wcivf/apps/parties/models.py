@@ -104,8 +104,21 @@ class LocalParty(models.Model):
     facebook_page = models.URLField(blank=True, max_length=800)
     homepage = models.URLField(blank=True, max_length=800)
     email = models.EmailField(blank=True)
+    is_local = models.BooleanField(
+        default=True,
+        help_text="Used to identify if obj is related to a local election",
+    )
 
     def __str__(self):
+        return self.name
+
+    @property
+    def label(self):
+        """
+        Return a string with 'the' added if the name ends with 'Party'
+        """
+        if self.name.lower().endswith("party"):
+            return f"the {self.name}"
         return self.name
 
 
