@@ -25,13 +25,17 @@ class ParishCouncilElectionImporter(ImportAdditionalElectionMixin):
         return value.strip("£ ")
 
     def create_object(self, row):
+        # remove any whitespace
+        row = {k: v.strip() for k, v in row.items()}
         election_id = row.pop("Election ID")
         if not election_id:
-            return sys.stdout.write.write("No election id, skipping row\n")
+            return sys.stdout.write("No election id, skipping row\n")
 
         ballots = self.get_ballots(election_id=election_id)
         if not ballots:
-            return sys.stdout.write("No ballots for ID, skipping row\n")
+            return sys.stdout.write(
+                f"No ballots for election_id: '{election_id}', skipping row\n"
+            )
 
         parish = ParishCouncilElection.objects.create(
             council_name=row["Council Name"],
