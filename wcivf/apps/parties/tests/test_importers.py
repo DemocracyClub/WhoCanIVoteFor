@@ -30,6 +30,8 @@ class TestLocalPartyImporter:
             "Facebook": "https://facebook.com/example",
             "Website": "https://example.com",
             "Email": "email@example.com",
+            "Manifesto Website URL": "http://example.com/manifesto",
+            "Manifesto PDF URL": "http://example.com/manifesto.pdf",
         }
 
     def test_init(self, local_election):
@@ -121,6 +123,7 @@ class TestLocalPartyImporter:
         mocker.patch.object(importer, "all_rows", return_value=[row])
 
         mocker.patch.object(importer, "add_local_party")
+        mocker.patch.object(importer, "add_manifesto")
 
         # actual call to do the import
         importer.import_parties()
@@ -130,6 +133,9 @@ class TestLocalPartyImporter:
         importer.current_elections.assert_called_once()
         importer.all_rows.assert_called()
         importer.add_local_party.assert_called_once_with(row, party, ballots)
+        importer.add_manifesto.assert_called_once_with(
+            row, party, ballots[0].election
+        )
 
     def test_add_local_party(self, importer, row, mocker):
         party = mocker.MagicMock(name="Example Local Party")
@@ -168,3 +174,18 @@ class TestLocalPartyImporter:
             with subtests.test(msg=row):
                 result = importer.get_name(row)
                 assert result == expected
+
+    def test_test_get_country(self, importer, subtests):
+        cases = [
+            ("local", "Local"),
+            ("senedd", "Wales"),
+            ("sp", "Scotland"),
+            ("pcc", "UK"),
+            ("mayor", "UK"),
+            ("another", "UK"),
+        ]
+        for case in cases:
+            election_slug = case[0]
+            expected = case[1]
+            with subtests.test(msg=case[0]):
+                assert importer.get_country(election_slug) == expected
