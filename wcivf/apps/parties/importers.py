@@ -73,6 +73,14 @@ class LocalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
         this does not exist, it may be that the ID is for an Election object, so
         we return all ballots for that election ID.
         """
+        special_cases = ["senedd", "sp", "gla"]
+        election_type = election_id.split(".")[0]
+        if election_type in special_cases:
+            return PostElection.objects.filter(
+                ballot_paper_id__startswith=f"{election_type}.",
+                election__election_date=self.election.date,
+            )
+
         ballots = PostElection.objects.filter(ballot_paper_id=election_id)
 
         if not ballots:
@@ -101,7 +109,7 @@ class LocalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
         name = self.get_name(row=row)
         for post_election in ballots:
             country = self.get_country(
-                election_slug=post_election.election.slug
+                election_type=post_election.election.election_type
             )
             LocalParty.objects.update_or_create(
                 parent=party,
@@ -153,7 +161,7 @@ class LocalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
                 continue
 
             ballots = self.get_ballots(
-                election_id=row["election_id"],
+                election_id=row["election_id"].strip(),
                 parties=parties,
             )
             if not ballots:
