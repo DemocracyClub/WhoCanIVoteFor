@@ -159,11 +159,9 @@ class TestPostElectionModel:
         )
 
     @pytest.mark.django_db
+    @pytest.mark.freeze_time("2021-04-06")
     def test_past_registration_deadline(self, post_election):
-        # election = ElectionWithPostFactory()
-        # election.past()
         post = PostFactory(territory="ENG")
-        # territory = post.territory
         oldest = PostElectionFactory(
             ballot_paper_id="parl.cities-of-london-and-westminster.2019-05-06",
             post=post,
