@@ -29,29 +29,6 @@
       information published by the candidate elsewhere.</p>
     {% endif %}
 
-    <!-- manifestos -->
-    {% if object.manifestos %}
-      {% with object.personpost.party as party %}
-
-      {% if party.emblem %}
-        <a href="{{ object.manifestos.0.web_url }}"><img src="{{ party.emblem.url }}" alt="{{ party.name}} emblem"
-          class="manifesto_image"></a>
-      {% endif %}
-
-      <h4>Party manifesto</h4>
-      <p>
-        {{ object.name }} {{ object.personpost.election.in_past|yesno:"was,is" }} the {{ party.party_name }}
-        candidate.
-        Find out more about their policies in the {{ party.party_name }} manifesto.
-      </p>
-      <ul>
-        {% for manifesto in object.manifestos %}
-          {% include "parties/single_manifesto.html" %}
-        {% endfor %}
-      </ul>
-      {% endwith %}
-    {% endif %}
-
     <!-- leaflets -->
     {% if object.leaflet_set.exists %}
     <h4>
