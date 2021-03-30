@@ -1,58 +1,32 @@
 {% load static %}
 {% load humanize %}
-  <section class="candidate_card link-card {% if person_post.post_election.display_as_party_list %}candidate_card_list_candidate{% endif %} {% if person_post.elected %}person_elected{% endif %}">
-    <span class="person_photo">
-      {% if person_post.person.photo_url %}
-        <img src="{{ person_post.person.photo_url }}" class="person_photo candidate_photo" alt="Photo of {{ person_post.person.name }}">
-      {% elif person_post.person.gender|lower == 'male' %}
-        <img src="{% static 'people/images/blank-man.png' %}" style="background-color: #ddd;" class="person_photo candidate_photo">
-      {% else %}
-        <img src="{% static 'people/images/blank-woman.png' %}" style="background-color: #ddd;" class="person_photo candidate_photo">
+
+<li class="ds-candidate" style="list-style-type: none;">
+  <div class="ds-candidate-body ds-stack-smaller">
+    <h3 class="ds-candidate-name ds-h5">
+      <a href="{{ person_post.person.get_absolute_url }}">{{ person_post.person.name}}</a>
+    </h3>
+    {% if person_post.elected %}🌟 <span class="elected_text">Elected:</span> 
+    {% endif %}
+    {% if person_post.post_election.election.current and person_post.person.death_date %}
+      {% if person_post.party.is_independent %}
+        (Deceased)
       {% endif %}
-    </span>
-
-    <span class="candidate_info">
-      <h4 class="candidate_name">
-        <a href="{{ person_post.person.get_absolute_url }}" class="person_name cta">
-          {% if person_post.list_position and person_post.post_election.display_as_party_list %}
-            {{ person_post.list_position }}.
-          {% endif %}
-          {% if person_post.elected %}🌟 <span class="elected_text">Elected:</span> {% endif %}
-          {{ person_post.person.name }}
-          {% if person_post.post_election.election.current and person_post.person.death_date %}
-            {% if person_post.party.is_independent %}
-            (Deceased)
-
-            {% endif %}
-          {% endif %}
-          {% if person_post.elected %}🌟{% endif %}
-        </a>
-      </h4>
-
-      {% if not person_post.list_position or not person_post.post_election.display_as_party_list %}
-      <p class="card_party">
-        {{ person_post.party.party_name }}
-      </p>
-      {% endif %}
-
-      <span class="icons">
-      {% if person_post.votes_cast %}
-      {{ person_post.votes_cast|intcomma }} vote{{ person_post.votes_cast|pluralize }}
-      {% endif %}
-
-      {% if person_post.person.statement_to_voters %}<span class="text-icon">Statement</span>{% endif %}
-      {% if person_post.person.pledges.exists %}<span class="text-icon">Pledge</span>{% endif %}
-      {% if person_post.person.twitter_username %}<i class="icon-twitter" aria-hidden="true" title="Twitter"></i>{% endif %}
-      {% if person_post.person.facebook_page_url or person_post.person.facebook_personal_url %}<i class="icon-facebook-squared" aria-hidden="true" title="Facebook"></i>{% endif %}
-      {% if person_post.person.linkedin_url %}<i class="icon-linkedin-squared" aria-hidden="true" title="LinkedIn"></i>{% endif %}
-      {% if person_post.person.homepage_url %}<i class="icon-globe" aria-hidden="true" title="Homepage"></i>{% endif %}
-      {% if person_post.person.email %}<i class="icon-mail" aria-hidden="true" title="Email"></i>{% endif %}
-      </span>
-
-      <a class="more_info" href="{{ person_post.person.get_absolute_url }}">
-        Learn more
-      </a>
-
-      {% include "elections/includes/_ld_candidate.html" with person=person_post.person party=person_post.party %}
-    </span> <!-- /.candidate_info -->
-  </section>
+    </p>
+    <!-- {% include "elections/includes/_ld_candidate.html" with person=person_post.person party=person_post.party %} -->
+    {% endif %}
+    {% if person_post.elected %}🌟{% endif %}
+    {% if not person_post.list_position or not person_post.post_election.display_as_party_list %}
+      <div class="ds-h6">{{ person_post.party.party_name }}</div>
+    {% endif %}
+  </div>
+  <div class="ds-candidate-image">
+    {% if person_post.person.photo_url %}
+      <img src="{{ person_post.person.photo_url }}" alt="Photo of {{ person_post.person.name }}"> 
+    {% elif person_post.person.gender|lower == 'male' %}
+      <img src="{% static 'people/images/blank-man.png' %}" style="background-color: #ddd;">
+    {% else %}
+      <img src="{% static 'people/images/blank-woman.png' %}" style="background-color: #ddd;">
+    {% endif %}
+  </div>
+</li>
