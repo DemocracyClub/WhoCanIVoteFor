@@ -75,19 +75,6 @@
     </p>
     {% endif %}
 
-    <!-- pledges -->
-    {% if object.pledges.exists %}
-    <h4>Candidate pledges</h4>
-    <p>Hope Not Hate, a London-based charity, canvassed local residents and community organisations to establish
-      the
-      following questions to the candidates in this ward.
-    </p>
-    {% for pledge in object.pledges.all %}
-    <h4>{{ pledge.question }}</h4>
-    <blockquote>{{ pledge.answer|markdown }}</blockquote>
-    {% endfor %}
-    {% endif %}
-
     <!-- TWFY  -->
     {% if object.twfy_id %}
     <h4>Record in office</h4>
