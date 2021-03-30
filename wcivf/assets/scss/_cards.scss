@@ -32,7 +32,7 @@ section + .card {
       width: 100%;
     }
   }
-  .cv_thumb, .manifesto_image {
+  .cv_thumb {
     height: 120px;
     float: left;
     border: 1px solid #ccc;
@@ -57,150 +57,6 @@ section + .card {
   }
 }
 
-.info_card {
-  background: #FFF;
-}
-
-.party_card {
-  width:400px;
-  @include media(tablet) {
-    width:50%;
-    max-width:180px;
-  }
-
-  float:left;
-  position:relative;
-}
-
-.candidate_grid {
-  clear:both;
-  padding-top:1em;
-  margin: 0 -10px 10px -10px;
-    @include media($max-width: 530px) {
-      margin: 0 -20px 10px -10px;
-    }
-
-}
-
-.candidate_card {
-  background-color:#F6F6F6;
-  display:inline-block;
-  vertical-align: top;
-  width: 100%;
-  position:relative;
-  box-sizing:border-box;
-  margin: 0;
-
-  @include media(tablet) {
-    margin: 5px;
-    padding: 0 0 0 15px;
-    height: 132px;
-    width: 100%;
-    line-height:1.1em;
-  }
-
-  @include media(desktop) {
-    margin: 10px;
-    width: calc(50% - 25px);
-    padding: 0 0 0 15px;
-    line-height:1.3em;
-  }
-
-  @include media(mobile) {
-    padding: 10px;
-    height: auto;
-    margin-bottom: 1em;
-  }
-
-  &.person_elected {
-    width: 70%;
-    margin:0 auto 40px auto;
-    display:block;
-    @include media(desktop) {
-      width: calc(100% - 25px);
-    }
-    @include media(mobile) {
-      width:100%;
-      padding: 0 0 0 15px;
-    }
-    .elected_text {
-      color:$dc-bright-pink;
-    }
-
-  }
-
-  span.candidate_info {
-    display: block;
-    padding: 5px 2px 0 0px;
-    font-size:0.8em;
-
-    @include media(mobile) {
-      text-align:center;
-      float: none;
-    }
-
-    h4.candidate_name {
-      font-size: 1.3rem;
-      margin:0;
-      a {
-        color:$heading-text-colour;
-      }
-    }
-    p {
-      margin:0;
-    }
-    .card_party {
-      color: black;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .icons {
-      color: #BEBEBE;
-      cursor: pointer;
-      .text-icon {
-        color: #A9A9A9;
-        font-size: 0.6em;
-        border: 1px solid #ccc;
-        padding: 2px;
-        border-radius: 2px;
-        position: relative;
-        top: -2px;
-      }
-      [class^="icon-"]:before, [class*=" icon-"]:before {
-        margin-left: 0;
-        margin-right: 0;
-      }
-    }
-    .more_info {
-      display: block;
-      position:absolute;
-      bottom:0;
-      cursor: pointer;
-      @include media(mobile) {
-        position:relative;
-        text-align:center;
-      }
-    }
-  }
-
-  img.person_photo {
-    float: right;
-    display: block;
-    width: 130px;
-    margin: 0 0 0 5px;
-    @include media(mobile) {
-      text-align:center;
-      float: none;
-      margin: auto;
-      img {
-        width:100px;
-      }
-    }
-  }
-
-}
-
 .back {
   width: 100%;
   overflow: auto;
@@ -210,51 +66,7 @@ section + .card {
   padding-bottom: 0;
 }
 
-.party_header  {
-  overflow:auto;
-  & > * {
-    float:left;
-  }
-  & > img {
-    padding:0 0.5em 0 0;
-  }
-}
-
 blockquote {
   font-style:italic;
   font-family: sans-serif;
-}
-
-.party-list-card {
-  text-align:center;
-  .party_emblem {
-    float: none;
-    width:75px;
-  }
-
-  @include media(desktop) {
-      text-align:left;
-      .party_emblem {
-        float: left;
-        margin-right:0.5em;
-      }
-    &>div {
-      margin-left:120px;
-    }
-  }
-  h4 {
-    margin-top:0;
-  }
-
-  details {
-    summary {
-      overflow:auto;
-    }
-    summary::-webkit-details-marker {
-      display:none;
-    }
-    & > summary:first-of-type {
-    list-style-type: none;
-    }
-  }
 }
