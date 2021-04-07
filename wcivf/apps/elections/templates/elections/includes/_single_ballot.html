@@ -51,9 +51,8 @@
             {% if postelection.voting_system.slug == "PR-CL" %}
               You will have one vote, and can vote for a single party list or independent candidate.
             {% else %}
-              You can choose from <strong>{{ postelection.people|length }} candidates</strong>
+              You can choose from <strong>{{ postelection.party_ballot_count }}</strong>
               in the {{ postelection.friendly_name }}.
-
               {% if postelection.winner_count and postelection.election.voting_system_id == 'FPTP' %}
                 You will have {{ postelection.winner_count|intword }} vote{{ postelection.winner_count|pluralize }}.
               {% endif %}
@@ -64,8 +63,8 @@
           {% else %}
             {# Case: Candidates and the post is NOT locked (add CTA) #}
             The official candidate list has not yet been published.
-            However, we expect at least <strong>{{ postelection.people|length }} candidate{{postelection.people|pluralize}}</strong>
-            to stand in the {{ postelection.friendly_name }}.
+            However, we expect at least <strong>{{ postelection.party_ballot_count }} ballot{{ postelection.party_ballot_count|pluralize }}</strong> 
+            in the {{ postelection.friendly_name }}.
 
             You can help improve this page: <a href="{{ postelection.ynr_link }}">
             add information about candidates to our database</a>.

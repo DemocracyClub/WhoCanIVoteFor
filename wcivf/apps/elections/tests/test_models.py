@@ -8,6 +8,8 @@ from elections.tests.factories import (
     PostElectionFactory,
     PostFactory,
 )
+from parties.tests.factories import PartyFactory
+from people.tests.factories import PersonFactory, PersonPostFactory
 
 
 class TestElectionModel:
@@ -276,3 +278,40 @@ class TestPostElectionModel:
         )
         assert local.next_ballot == next_local
         assert mayoral.next_ballot is None
+
+    @pytest.mark.django_db
+    def test_party_ballot_count(self):
+        post = PostFactory()
+        post_election = PostElectionFactory(
+            post=post,
+            election=ElectionFactoryLazySlug(
+                election_date="2021-5-6", current=True, election_type="local"
+            ),
+        )
+        people = [PersonFactory() for p in range(5)]
+        PersonPostFactory(
+            post_election=post_election,
+            election=ElectionFactoryLazySlug(
+                election_date="2021-5-6",
+                current=True,
+                election_type="local",
+            ),
+            person=PersonFactory(),
+            party=PartyFactory(party_id="ynmp-party:2"),
+        )
+        for i, person in enumerate(people):
+            PersonPostFactory(
+                post_election=post_election,
+                election=ElectionFactoryLazySlug(
+                    election_date="2021-5-6",
+                    current=True,
+                    election_type="local",
+                ),
+                person=person,
+                party=PartyFactory(party_id=i),
+            )
+        assert post_election.party_ballot_count == "6 candidates"
+        post_election.election.uses_lists = True
+        post_election.election.save()
+        post_election.election.refresh_from_db()
+        assert post_election.party_ballot_count == "6 ballot options"

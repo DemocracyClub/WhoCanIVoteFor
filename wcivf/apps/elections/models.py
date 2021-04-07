@@ -1,12 +1,13 @@
 import datetime
-from django.utils.functional import cached_property
-import pytz
 import re
 
+import pytz
 from django.conf import settings
 from django.contrib.postgres.fields import JSONField
-from django.urls import reverse
 from django.db import models
+from django.template.defaultfilters import pluralize
+from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.html import mark_safe
 from django.utils.text import slugify
 
@@ -475,6 +476,21 @@ class PostElection(models.Model):
             ).latest("election__election_date")
         except PostElection.DoesNotExist:
             return None
+
+    @property
+    def party_ballot_count(self):
+        if self.personpost_set.exists():
+            people = self.personpost_set
+            if self.election.uses_lists:
+                ind_candidates = people.filter(party_id="ynmp-party:2").count()
+                num_other_parties = (
+                    people.values("party_id").distinct().count()
+                    - ind_candidates
+                )
+                total_parties = ind_candidates + num_other_parties
+                return f"{total_parties} ballot options"
+            else:
+                return f"{people.count()} candidate{pluralize(people.count())}"
 
 
 class VotingSystem(models.Model):
