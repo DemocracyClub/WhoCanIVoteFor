@@ -5,7 +5,7 @@
     {% if manifesto.canonical_url == manifesto.pdf_url %}(PDF){% endif %}
   </a>
 </li>
-{% if manifesto.canonical_url != manifesto.pdf_url %}
+{% if manifesto.pdf_url and manifesto.canonical_url != manifesto.pdf_url %}
   <li>
     <a href="{{ manifesto.pdf_url }}" rel="noopener noreferrer">PDF Version</a>
   </li>
