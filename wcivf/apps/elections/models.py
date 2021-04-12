@@ -49,7 +49,7 @@ class Election(models.Model):
     objects = ElectionManager()
 
     class Meta:
-        ordering = ["election_date"]
+        ordering = ["election_date", "election_weight"]
 
     def __str__(self):
         return self.name
