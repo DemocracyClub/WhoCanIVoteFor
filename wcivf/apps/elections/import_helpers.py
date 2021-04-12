@@ -1,4 +1,5 @@
 import sys
+import re
 from urllib.parse import urlencode
 
 from django.conf import settings
@@ -24,19 +25,48 @@ class YNRElectionImporter:
         self.ee_helper = ee_helper
         self.election_cache = {}
 
+    def ballot_order(self, ballot_dict):
+        charisma_map = {
+            "ref": {"default": 100},
+            "parl": {"default": 90},
+            "europarl": {"default": 80},
+            "mayor": {"default": 70, "local-authority": 65},
+            "nia": {"default": 60},
+            "gla": {"default": 60, "a": 55},
+            "naw": {"default": 60, "r": 55},
+            "senedd": {"default": 60, "r": 55},
+            "sp": {"default": 60, "r": 55},
+            "pcc": {"default": 50},
+            "local": {"default": 40},
+        }
+        modifier = 0
+        ballot_paper_id = ballot_dict["ballot_paper_id"]
+
+        # Look up the dict of possible weights for this election type
+        weights = charisma_map.get(ballot_paper_id.split(".")[0], 30)
+
+        default_weight_for_election_type = weights.get("default")
+        base_charisma = 10
+
+        # Look up `r` and `a` subtypes
+        subtype = re.match(r"^[^.]+\.([ar])\.", ballot_paper_id)
+        if subtype:
+            base_charisma = weights.get(subtype.group(1), base_charisma)
+
+        # by-elections are slightly less charismatic than scheduled elections
+        if ".by." in ballot_paper_id:
+            modifier += 1
+
+        return base_charisma - modifier
+
     def update_or_create_from_ballot_dict(self, ballot_dict):
         created = False
         slug = ballot_dict["election"]["election_id"]
 
+        election_weight = self.ballot_order(ballot_dict)
+
         if slug not in self.election_cache:
             election_type = slug.split(".")[0]
-
-            election_weight = 10
-            uses_lists = ballot_dict["election"]["party_lists_in_use"]
-            if uses_lists:
-                election_weight = 20
-            if election_type == "mayor":
-                election_weight = 5
 
             election, created = Election.objects.update_or_create(
                 slug=slug,
