@@ -24,7 +24,7 @@
         {% if person_post.elected %}
             <td>{% if person_post.votes_cast %}{{ person_post.votes_cast|intcomma }} votes (elected){% else %}Vote count not available (elected){% endif %}</td>
         {% else %}
-            <td>{% if person_post.votes_cast %}{{ person_post.votes_cast|intcomma }} votes (not elected){% else %}Vote count not available (not elected){% endif %}</td>      
+            <td>{% if person_post.votes_cast %}{{ person_post.votes_cast|intcomma }} votes (not elected){% else %}Vote count not available{% endif %}</td>      
         {% endif %}
     </tr>
     {% endfor %}
