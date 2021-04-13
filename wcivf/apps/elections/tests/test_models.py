@@ -159,6 +159,16 @@ class TestPostElectionModel:
         )
 
     @pytest.mark.django_db
+    def test_is_constituency(self, post_election):
+        post_election.ballot_paper_id = "gla.c.2021-05-06"
+        assert post_election.is_constituency is True
+
+    @pytest.mark.django_db
+    def test_is_regional(self, post_election):
+        post_election.ballot_paper_id = "gla.c.2021-05-06"
+        assert post_election.is_regional is False
+
+    @pytest.mark.django_db
     @pytest.mark.freeze_time("2021-04-06")
     def test_past_registration_deadline(self, post_election):
         post = PostFactory(territory="ENG")

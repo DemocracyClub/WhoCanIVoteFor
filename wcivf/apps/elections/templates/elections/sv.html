@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load markdown_deux_tags %}
+{% load breadcrumb_tags %}
+{% load humanize %}
+
+{% block breadcrumbs %}
+<ol vocab="http://schema.org/" typeof="BreadcrumbList" class="breadcrumbs" aria-label="You are here:" role="navigation">
+  {% url 'home_view' as home_view %}
+  {% breadcrumb_item home_view 'Home' 1 %}
+  {% url 'elections_view' as elections %}
+  {% breadcrumb_item elections 'Elections' 2 %}
+  <li class="disabled"><span class="show-for-sr">Current: </span> {{ object.nice_election_name }}</li>
+</ol>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="ds-scope">
+    <div class="ds-page">
+        <div class="ds-stack">
+            <div class="ds-card ds-padded">
+                <div class="ds-card-body">
+                    <h2>Supplementary Vote</h2>
+                    <p>The Supplementary Vote electoral system allows voters 
+                        to cast a first and second preference vote on one 
+                        ballot. If no candidate gains at least half of first 
+                        preference votes, then second preference votes gained 
+                        by the two leading candidates are taken into consideration.
+                        
+                        This is designed to ensure that the elected candidate 
+                        has closer to majority support than would be the case 
+                        under <a href="{% url 'fptp_voting_system_view' %}">First-past-the-post</a>.
+                        
+                        SV is used for Police and Crime Commissioner elections 
+                        in England and Wales, and for the positions of directly-elected 
+                        mayors in England, including London, Manchester, and Liverpool.  
+                    </p>     
+                    <h3>Example election</h3>
+                    <p>
+                        Taking the results of the 2016 Police and Crime Commissioner
+                        election in Nottinghamshire, the Labour candidate won less 
+                        than 50% of the first preference vote, so a second round was 
+                        needed. The second preference votes from the eliminated 
+                        independent and UKIP candidates were counted, and were awarded 
+                        to either Labour or Conservatives.  
+                    </p>
+
+                    <div class="ds-table">
+                        <table>
+                            <caption>
+                                <h2>
+                                    2016 Nottinghamshire Police and Crime Commissioner election
+                                </h2>
+                            </caption>
+                            <tbody>
+                                <tr>
+                                    <th>Party</th>
+                                    <th>First Preference Votes</th>
+                                    <th>First + Second Preference Votes</th>
+                                </tr>
+                                <tr>
+                                    <td>Labour</td>
+                                    <td>80,926</td>
+                                    <td>89,749 (Elected)</td>
+                                </tr>
+                                <tr>
+                                    <td>Conservative Party</td>
+                                    <td>48,155</td>
+                                    <td>56,105</td>
+                                </tr> 
+                                <tr>   
+                                    <td>UKIP</td>
+                                    <td>20.030</td>
+                                    <td>Eliminated</td>
+                                </tr> 
+                                <tr>
+                                    <td>Independent</td>
+                                    <td>14,579</td>
+                                    <td>Eliminated</td>
+                                </tr>  
+                                <tr>
+                                    <td>Independent</td>
+                                    <td>7,164</td>
+                                    <td>Eliminated</td>
+                                </tr> 
+                            </tbody>
+                        </table>
+                    </div>
+       
+                    <p>
+                        As you can see, of the 41,773 votes cast for the three eliminated 
+                        candidates, only 16,773 cast second preference votes for 
+                        either Labour of Conservative. Some voters may have decided 
+                        not to cast a second preference vote, or may have voted for 
+                        one of the other eliminated candidates as a second preference.
+                    </p>    
+                </div>
+            </div>    
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

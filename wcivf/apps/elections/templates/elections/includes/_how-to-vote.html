@@ -11,10 +11,17 @@ PR-CL:	Closed List
 
 <details style="padding-top:1em; clear: both;">
   <summary>How you vote</summary>
-  This election uses {{ voting_system.name }}.
+  {% if voting_system.slug == "FPTP" or "sv" or "AMS" %}
+    This election uses <a href="{{ voting_system.get_absolute_url }}">{{ voting_system.name }}</a>.
+  {% else %} 
+    This election uses {{ voting_system.name }}.
+  {% endif %}
 
   {% if voting_system.slug == "FPTP" %}
     <p>Mark an X in the box for your preferred candidate{{ postelection.winner_count|pluralize }}.</p>
+    {% if postelection.people|length > 1 %} 
+      <p>You can vote for up to {{ postelection.people|length }} candidates in this election.</p>
+    {% endif %}
   {% endif %}
 
   {% if voting_system.slug == "STV" %}
@@ -30,6 +37,14 @@ PR-CL:	Closed List
 
   {% if voting_system.slug == "PR-CL" %}
     <p>Mark an X in the box for one party or independent candidate.</p>
+  {% endif %}
+
+  {% if is_regional %}
+    <p>Mark an X in the box next to your preferred party or independent candidate</p>
+  {% endif %}
+
+  {% if is_constituency %}
+    <p>Mark an X in the box for your preferred candidate.</p>
   {% endif %}
 
   <p>Read the instructions at the top of your ballot paper carefully.</p>
