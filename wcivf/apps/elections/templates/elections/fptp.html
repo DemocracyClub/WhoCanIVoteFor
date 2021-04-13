@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load markdown_deux_tags %}
+{% load breadcrumb_tags %}
+{% load humanize %}
+
+{% block breadcrumbs %}
+<ol vocab="http://schema.org/" typeof="BreadcrumbList" class="breadcrumbs" aria-label="You are here:" role="navigation">
+  {% url 'home_view' as home_view %}
+  {% breadcrumb_item home_view 'Home' 1 %}
+  {% url 'elections_view' as elections %}
+  {% breadcrumb_item elections 'Elections' 2 %}
+  <li class="disabled"><span class="show-for-sr">Current: </span> {{ object.nice_election_name }}</li>
+</ol>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="ds-scope">
+    <div class="ds-page">
+        <div class="ds-stack"> 
+            <div class="ds-card ds-padded">
+                <div class="ds-card-body">
+                    <h2>First-past-the-post (FPTP)</h2>
+                    <p>The First-past-the-post voting system 
+                        is the simplest of all the voting 
+                        systems used in UK elections. Simply put: 
+                        each voter has a single vote, and the 
+                        candidate with the most votes wins the seat. 
+                        It is used in UK Parliament elections and for 
+                        English and Welsh local government elections.
+                    </p>
+            
+                    <h3>Block vote</h3>
+                    <p>The only variation of this voting system is 
+                        known as the Block Vote. Some local government 
+                        seats are multi-member, meaning, for example, 
+                        that they may return three councillors to represent 
+                        one ward. In this instance, the voter will get three 
+                        votes. This is sometimes called a block vote. 
+                        Voters do not have to vote for candidates from the 
+                        same party, however.
+                    </p>
+                        
+                    <h3>Example election</h3>
+                    <p>Taking an example ward from the 2019 local elections 
+                        in Lincolnshire, you can see that the independent 
+                        candidate was the most popular and so was elected, 
+                        but only two of the three Conservatives were. If the 
+                        Conservative vote had been split more evenly between 
+                        their candidates, then they may have allowed the sole 
+                        Labour candidate to get elected. Parties and voters, 
+                        therefore, have to take an educated guess at how well 
+                        they may do in this sort of election. Parties may wish 
+                        to indicate who their lead candidates are to voters.
+                    </p>  
+                    <div class="ds-table">
+                <table>
+                    <caption>
+                        <h2>
+                            2019 South Kesteven District Council election
+                        </h2>
+                        <h2>
+                            Deeping St James Ward (three seats) 
+                        </h2>
+                    </caption>
+                    <tbody>
+                        <tr>
+                            <th>Candidates</th>
+                            <th>Votes</th>
+                        </tr>
+                        <tr>
+                            <td>Independent</td>
+                            <td>1291 (Elected)</td>
+                        </tr>
+                        <tr>
+                            <td>Conservative Party</td>
+                            <td>349</td>
+                        </tr> 
+                        <tr>   
+                            <td>Labour Party</td>
+                            <td>461</td>
+                        </tr> 
+                        <tr>
+                            <td>Conservative Party</td>
+                            <td>945 (Elected)</td>
+                        </tr>  
+                        <tr>
+                            <td>Conservative Party</td>
+                            <td>714 (Elected)</td>
+                        </tr> 
+                    </tbody>
+                </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

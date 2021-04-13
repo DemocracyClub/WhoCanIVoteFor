@@ -33,12 +33,12 @@ class Husting(models.Model):
 
     post_election = models.ForeignKey(PostElection, on_delete=models.CASCADE)
     title = models.CharField(max_length=250)
-    url = models.URLField(max_length=800)
+    url = models.URLField()
     starts = models.DateTimeField()
     ends = models.DateTimeField(blank=True, null=True)
     location = models.CharField(max_length=250, blank=True, null=True)
     postcode = models.CharField(max_length=10, blank=True, null=True)
-    postevent_url = models.URLField(blank=True, max_length=800)
+    postevent_url = models.URLField(blank=True)
 
     objects = HustingQueryset.as_manager()
 

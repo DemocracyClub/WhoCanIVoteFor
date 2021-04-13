@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+{% load markdown_deux_tags %}
+{% load breadcrumb_tags %}
+{% load humanize %}
+
+{% block breadcrumbs %}
+<ol vocab="http://schema.org/" typeof="BreadcrumbList" class="breadcrumbs" aria-label="You are here:" role="navigation">
+  {% url 'home_view' as home_view %}
+  {% breadcrumb_item home_view 'Home' 1 %}
+  {% url 'elections_view' as elections %}
+  {% breadcrumb_item elections 'Elections' 2 %}
+  <li class="disabled"><span class="show-for-sr">Current: </span> {{ object.nice_election_name }}</li>
+</ol>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="ds-scope">
+    <div class="ds-page">
+        <div class="ds-stack">
+            <div class="ds-card ds-padded">
+                <div class="ds-card-body">
+                    <h2>The Additional Member System</h2>
+                    <p>The Additional Member System is a form of proportional representation.
+                        AMS is used for elections to the Scottish and Welsh Parliaments,
+                        as well as for those to the London Assembly.
+
+                        Voters get two ballot papers and may vote on both: one for their
+                        constituency representative, elected on the <a
+                            href="{% url 'fptp_voting_system_view' %}">First-past-the-post</a>
+                        method, and one for a regional representative. They don’t have to
+                        vote for the same party on both ballots.
+
+                        For example, a voter in Paisley in Scotland will receive a ballot
+                        that lists all of the candidates wanting to represent Paisley in
+                        the Scottish Parliament. They will also receive a ballot that
+                        lists the parties and/or independent candidates contesting the
+                        seven seats for West Scotland. The candidates on the regional
+                        ballot paper are ranked by the political party in the order they
+                        want them elected, and voters get no choice over this order
+                        (this is known as a ‘closed list’).
+                    </p>
+                    <p>
+                    <h3>Seat allocation</h3>
+                    <p>The overall number of constituency seats that a party wins will have
+                        an effect on how many regional representatives it is allocated.
+                        This is designed to bring a party’s number of seats closer to the
+                        percentage of the overall vote it received in a region.
+                        Regional seats are allocated according to a formula known as the D’Hondt
+                        method. The number of votes needed to win a seat (the ‘quota’) is
+                        calculated using the following formula:
+                    <p class="ds-card ds-padded ds-dark">
+                        Vote quota = Total number of votes won by the party / Total number of seats already won by the
+                        party, +1.
+                    </p>
+                    <p>
+                        Seats are allocated after rounds of counting. In order to be
+                        allocated a regional seat, a party must have the highest vote number
+                        after the above formula has been applied.
+                    </p>
+                    </p>
+                    <h3>Example election</h3>
+                    <p>
+                        In the 2016 West Scotland region, the result for the major parties was
+                        as follows (with vote quota totals for subsequent rounds shown in brackets):
+                    </p>
+                    <div class="ds-table ds-padded">
+                        <table>
+                            <caption>
+                                <h2>
+                                    West Scotland region, 2016 Scottish Parliament elections
+                                </h2>
+                            </caption>
+                            <tbody>
+                                <tr>
+                                    <th>Party</th>
+                                    <th>Constituency seats won (10 total)</th>
+                                    <th>Votes won</th>
+                                    <th>First round quota</th>
+                                    <th>Second round quota</th>
+                                    <th>Third round quota</th>
+                                    <th>Fourth round quota</th>
+                                    <th>Fifth round quota</th>
+                                    <th>Sixth round quota</th>
+                                    <th>Seventh round quota</th>
+                                    <th>Regional Seats Won</th>
+                                </tr>
+                                <tr>
+                                    <td>SNP</td>
+                                    <td>8</td>
+                                    <td>135,827</td>
+                                    <td>15,091</td>
+                                    <td>No change</td>
+                                    <td>No change</td>
+                                    <td>No change</td>
+                                    <td>No change</td>
+                                    <td>No change</td>
+                                    <td>No change</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>Labour</td>
+                                    <td>1</td>
+                                    <td>72,544</td>
+                                    <td>36,272 (elected)</td>
+                                    <td>24,181</td>
+                                    <td>18,136</td>
+                                    <td>No change (elected)</td>
+                                    <td>No change</td>
+                                    <td>No change (elected)</td>
+                                    <td>No change</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>Conservative</td>
+                                    <td>1</td>
+                                    <td>71,528</td>
+                                    <td>35,764</td>
+                                    <td>No change (elected)</td>
+                                    <td>23,842 (elected)</td>
+                                    <td>17,882</td>
+                                    <td>No change elected)</td>
+                                    <td>3,576</td>
+                                    <td>No change</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>Green</td>
+                                    <td>0</td>
+                                    <td>17,218</td>
+                                    <td>No change</td>
+                                    <td>No change</td>
+                                    <td>No change</td>
+                                    <td>No change</td>
+                                    <td>No change</td>
+                                    <td>No change</td>
+                                    <td>No change (elected)</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>Lib. Dem.</td>
+                                    <td>12,097</td>
+                                    <td>No change</td>
+                                    <td>No change</td>
+                                    <td>No change</td>
+                                    <td>No change</td>
+                                    <td>No change</td>
+                                    <td>No change</td>
+                                    <td>No change</td>
+                                    <td>No change</td>
+                                    <td>0</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        Although the SNP won the most votes,
+                        because they won eight out of the ten
+                        constituency seats their quota was 15,092,
+                        below almost all the other parties.
+                        As a result, they were not entitled to
+                        any regional seats.
+                    </p>
+                    <p>
+                        Labour and the Conservatives also each
+                        won a constituency seat, so their vote
+                        tally is divided by two in round one of
+                        the seat allocation, while everyone else’s
+                        is divided by one. Labour’s vote quota in
+                        round one was 36,272 (72,544/2) so the
+                        top-ranked person on their list was elected.
+                    <p>
+                    </p>
+                    <p> This process was then repeated, with
+                        Labour’s vote total now 24,181 as it was
+                        divided by three. The Conservatives,
+                        therefore, took the second list seat.
+                        This process went on until the seventh
+                        seat was won by the Green party, who
+                        had 17,218 votes to the SNP’s quota of
+                        15,091.
+                    </p>
+                    <p>
+                        As you can see, of the 41,773 votes cast for the three eliminated
+                        candidates, only 16,773 cast second preference votes for
+                        either Labour of Conservative. Some voters may have decided
+                        not to cast a second preference vote, or may have voted for
+                        one of the other eliminated candidates as a second preference.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

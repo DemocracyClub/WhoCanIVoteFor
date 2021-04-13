@@ -59,9 +59,8 @@
               {% endif %}
             {% endif %}
 
-            {% if postelection.get_voting_system %}
-              {% include "elections/includes/_how-to-vote.html" with voting_system=postelection.get_voting_system %}
-            {% endif %}
+            {% include "elections/includes/_how-to-vote.html" with voting_system=postelection.get_voting_system %}
+          
           {% else %}
             {# Case: Candidates and the post is NOT locked (add CTA) #}
             The official candidate list has not yet been published.

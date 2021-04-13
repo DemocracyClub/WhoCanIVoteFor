@@ -377,6 +377,14 @@ class PostElection(models.Model):
         return self.ballot_paper_id.startswith("pcc")
 
     @property
+    def is_constituency(self):
+        return self.ballot_paper_id.startswith(("gla.c", "senedd.c", "sp.c"))
+
+    @property
+    def is_regional(self):
+        return self.ballot_paper_id.startswith(("gla.r", "senedd.r", "sp.r"))
+
+    @property
     def friendly_name(self):
         """
         Helper property used in templates to build a 'friendly' name using
@@ -481,3 +489,14 @@ class VotingSystem(models.Model):
     @property
     def uses_party_lists(self):
         return self.slug in ["PR-CL", "AMS"]
+
+    @property
+    def get_absolute_url(self):
+        if self.slug == "FPTP":
+            return reverse("fptp_voting_system_view")
+        elif self.slug == "AMS":
+            return reverse("ams_voting_system_view")
+        elif self.slug == "sv":
+            return reverse("sv_voting_system_view")
+        else:
+            raise ValueError(f"{self.slug} has no URL defined")

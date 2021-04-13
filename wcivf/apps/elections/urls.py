@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.views.generic import TemplateView
 
 from .views import (
     PostcodeView,
@@ -41,5 +42,20 @@ urlpatterns = [
         r"^(?P<postcode>[^/]+).ics$",
         PostcodeiCalView.as_view(),
         name="postcode_ical_view",
+    ),
+    url(
+        r"^voting_system/fptp/",
+        TemplateView.as_view(template_name="elections/fptp.html"),
+        name="fptp_voting_system_view",
+    ),
+    url(
+        r"^voting_system/ams/",
+        TemplateView.as_view(template_name="elections/ams.html"),
+        name="ams_voting_system_view",
+    ),
+    url(
+        r"^voting_system/sv/",
+        TemplateView.as_view(template_name="elections/sv.html"),
+        name="sv_voting_system_view",
     ),
 ]
