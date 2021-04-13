@@ -21,6 +21,8 @@ def dt_from_string(dt):
         date = datetime.datetime.strptime(dt, "%Y-%m-%d")
     except ValueError:
         pass
+    except TypeError:
+        return None
     else:
         return timezone.make_aware(date, timezone.get_current_timezone())
 
@@ -86,6 +88,9 @@ class Command(BaseCommand):
         # kept the second option to work with previous years spreadsheets
         starts = row.get("Date (YYYY-MM-DD)") or row.get("Date (YYYY-Month-DD)")
         starts = dt_from_string(starts)
+        if not starts:
+            return None
+
         ends = None
         if row["Start time (00:00)"]:
             starts = set_time_string_on_datetime(
