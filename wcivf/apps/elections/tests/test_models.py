@@ -1,7 +1,9 @@
 import datetime
+from django.utils import timezone
+from faker import Faker
 import pytest
 
-from elections.models import Election, Post
+from elections.models import Election, Post, PostElection
 from elections.tests.factories import (
     ElectionFactoryLazySlug,
     ElectionWithPostFactory,
@@ -10,6 +12,9 @@ from elections.tests.factories import (
 )
 from parties.tests.factories import PartyFactory
 from people.tests.factories import PersonFactory, PersonPostFactory
+
+
+fake = Faker()
 
 
 class TestElectionModel:
@@ -315,3 +320,56 @@ class TestPostElectionModel:
         post_election.election.save()
         post_election.election.refresh_from_db()
         assert post_election.party_ballot_count == "6 ballot options"
+
+    def test_should_display_sopn_info_in_past(self, post_election):
+        post_election.locked = True
+        post_election.election.election_date = fake.past_date()
+        assert post_election.should_display_sopn_info is False
+
+    def test_should_display_sopn_info_not_in_past(self, post_election):
+        post_election.election.election_date = fake.future_date()
+        post_election.locked = True
+        assert post_election.should_display_sopn_info is True
+
+    def test_should_display_sopn_info_not_in_past_not_locked_no_sopn_date(
+        self, post_election, mocker
+    ):
+        post_election.election.election_date = fake.future_date()
+        post_election.locked = False
+        mocker.patch.object(
+            PostElection,
+            "expected_sopn_date",
+            new_callable=mocker.PropertyMock,
+            return_value=None,
+        )
+        assert post_election.should_display_sopn_info is False
+
+    def test_should_display_sopn_info_not_in_past_not_locked_with_sopn_date(
+        self, post_election, mocker
+    ):
+        post_election.election.election_date = fake.future_date()
+        post_election.locked = False
+        mocker.patch.object(
+            PostElection,
+            "expected_sopn_date",
+            new_callable=mocker.PropertyMock,
+            return_value=timezone.datetime.now().date(),
+        )
+        assert post_election.should_display_sopn_info is True
+
+    @pytest.mark.freeze_time("2021-04-09")
+    def test_past_expected_sopn_day(self, post_election, mocker, subtests):
+
+        dates = [
+            (timezone.datetime(2021, 4, 14).date(), False),
+            (timezone.datetime(2021, 1, 1).date(), True),
+        ]
+        for date in dates:
+            with subtests.test(msg=date[0]):
+                mocker.patch.object(
+                    PostElection,
+                    "expected_sopn_date",
+                    new_callable=mocker.PropertyMock,
+                    return_value=date[0],
+                )
+                assert post_election.past_expected_sopn_day is date[1]

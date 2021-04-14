@@ -1,6 +1,7 @@
 import factory
 
 from django.utils.text import slugify
+from django.utils import timezone
 from elections.models import Election, Post, PostElection
 
 
@@ -10,7 +11,7 @@ class ElectionFactory(factory.django.DjangoModelFactory):
         django_get_or_create = ("slug",)
 
     slug = "parl.2015"
-    election_date = "2015-05-07"
+    election_date = timezone.datetime(2015, 5, 7).date()
     current = True
     name = "UK General Election 2015"
 
