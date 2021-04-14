@@ -1,5 +1,6 @@
 import datetime
 import re
+from django.utils import timezone
 
 import pytz
 from django.conf import settings
@@ -335,9 +336,12 @@ class PostElection(models.Model):
 
     @property
     def expected_sopn_date(self):
-        return get_election_timetable(
-            self.ballot_paper_id, self.post.territory
-        ).sopn_publish_date
+        try:
+            return get_election_timetable(
+                self.ballot_paper_id, self.post.territory
+            ).sopn_publish_date
+        except AttributeError:
+            return None
 
     @property
     def registration_deadline(self):
@@ -491,6 +495,26 @@ class PostElection(models.Model):
                 return f"{total_parties} ballot options"
             else:
                 return f"{people.count()} candidate{pluralize(people.count())}"
+
+    @property
+    def should_display_sopn_info(self):
+        """
+        Return boolean for whether to display text about SOPN
+        """
+        if self.election.in_past:
+            return False
+
+        if self.locked:
+            return True
+
+        return bool(self.expected_sopn_date)
+
+    @property
+    def past_expected_sopn_day(self):
+        """
+        Return boolean for if the date we expected the sopn date
+        """
+        return self.expected_sopn_date <= timezone.now().date()
 
 
 class VotingSystem(models.Model):

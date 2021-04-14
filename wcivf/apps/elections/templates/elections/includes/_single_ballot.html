@@ -88,24 +88,22 @@
       {% endif %}
     {% endif %}
 
-    {% if postelection.expected_sopn_date and not postelection.election.in_past %}
-      <p>
 
-        {% now "Y-m-d" as today %}
-        {% if postelection.expected_sopn_date|date:"Y-m-d" <= today %}
-          {% if postelection.locked %}
-            {# If the ballot is locked, it must have a SOPN attached#}
-            The <a href="{{ postelection.ynr_sopn_link }}">official candidate list</a> was
-          {% else %}
-            The official candidate list should have been
-          {% endif %}
+    {% if post_election.should_display_sopn_info %}
+      <p>
+      {% if postelection.locked %}
+        The <a href="{{ postelection.ynr_sopn_link }}">official candidate list</a> has been published.
+      {% else %}
+        The official candidate list should
+        {% if postelection.past_expected_sopn_day %}
+         have been 
         {% else %}
-          The official candidate list should be
+         be 
         {% endif %}
         published on {{ postelection.expected_sopn_date|date:"j F Y" }}.
+      {% endif %}
       </p>
     {% endif %}
-
 
     {% if postelection.election.election_booklet %}
       <h4><a href="{% static postelection.election.election_booklet %}">
