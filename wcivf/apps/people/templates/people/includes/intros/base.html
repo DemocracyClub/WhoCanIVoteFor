@@ -1,0 +1,6 @@
+{% block intro_line %}
+    {{ person.name }} {{ verb }} a {{ candidacy.party.party_name }} candidate in {{ candidacy.post.label }} in the {{ candidacy.election.name }}.
+{% endblock %}
+{% if candidacy.votes_cast %}
+    {% include "people/includes/intros/_votes_cast.html" %}
+{% endif %}

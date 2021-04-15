@@ -1,0 +1,5 @@
+{% extends "people/includes/intros/base.html" %}
+
+{% block intro_line %}
+{{ person.name }} {{ verb }} the {{ candidacy.party.party_name }} candidate for {{ candidacy.election.name }}.
+{% endblock %}

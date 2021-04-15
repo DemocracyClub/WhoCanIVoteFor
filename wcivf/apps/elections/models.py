@@ -368,6 +368,14 @@ class PostElection(models.Model):
         return self.ballot_paper_id.startswith("mayor")
 
     @property
+    def is_parliamentary(self):
+        """
+        Return a boolean for if this is a parliamentary election, determined by
+        checking ballot paper id
+        """
+        return self.ballot_paper_id.startswith("parl")
+
+    @property
     def is_london_assembly_additional(self):
         """
         Return a boolean for if this is a London Assembley additional ballot
