@@ -1,0 +1,5 @@
+{% extends "people/includes/intros/base.html" %}
+
+{% block intro_line %}
+{{ person.name }} {{ verb }} an independent candidate in {{ candidacy.post.label }} in the {{ candidacy.election.name }}.
+{% endblock %}

@@ -1,8 +1,6 @@
 from django.views.generic import DetailView
 from django.http import Http404
 from django.db.models import Prefetch, Q
-from django.utils.html import strip_tags
-from django.contrib.humanize.templatetags.humanize import intcomma
 
 from .models import Person, PersonPost
 from parties.models import Manifesto
@@ -74,7 +72,6 @@ class PersonView(DetailView, PersonMixin):
             obj.postelection = obj.personpost.post_election
 
         obj.title = self.get_title(obj)
-        obj.intro = self.get_intro(obj)
         obj.text_intro = strip_tags(obj.intro)
         obj.post_country = self.get_post_country(obj)
 
@@ -122,55 +119,6 @@ class PersonView(DetailView, PersonMixin):
             title += " for " + person.personpost.post.label + " in the "
             title += person.personpost.election.name
         return title
-
-    def get_intro(self, person):
-        intro = [person.name]
-
-        if person.current_or_future_candidacies and not person.death_date:
-            intro.append("is")
-        else:
-            intro.append("was")
-        # clear CTAs below
-        if person.personpost:
-            party = person.personpost.party
-            if party:
-                if party.party_name == "Independent":
-                    intro.append("an independent candidate")
-                elif party.party_name == "Speaker seeking re-election":
-                    intro.append("the Speaker seeking re-election")
-                else:
-                    intro.append("a")
-                    str = party.party_name + " candidate"
-                    intro.append(str)
-            else:
-                intro.append("a candidate")
-            intro.append("in")
-            if (
-                person.personpost.post.organization
-                == "House of Commons of the United Kingdom"
-            ):
-                intro.append("the constituency of")
-            if person.postelection:
-                str = person.personpost.post.label
-            else:
-                str = person.personpost.post.label
-            str += " in the "
-            str += person.personpost.election.name
-            intro.append(str)
-
-            if person.personpost.votes_cast:
-                votes = intcomma(person.personpost.votes_cast)
-                if person.personpost.elected:
-                    intro[-1] = intro[-1] + "."
-                    results_str = (
-                        "They were elected with <strong>{}</strong> votes"
-                    )
-                else:
-                    results_str = ". They got <strong>{}</strong> votes"
-                results_str = results_str.format(votes)
-                intro.append(results_str)
-
-        return " ".join(intro)
 
 
 class EmailPersonView(PersonMixin, DetailView):

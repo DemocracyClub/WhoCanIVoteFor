@@ -1,7 +1,9 @@
 from unittest.mock import MagicMock
 
+from freezegun import freeze_time
 import pytest
 from django.test import TestCase
+from django.utils.text import slugify
 from django.test.utils import override_settings
 from elections.tests.factories import (
     ElectionFactory,
@@ -10,7 +12,11 @@ from elections.tests.factories import (
     PostFactory,
 )
 from parties.tests.factories import LocalPartyFactory, PartyFactory
-from people.tests.factories import PersonFactory, PersonPostFactory
+from people.tests.factories import (
+    PersonFactory,
+    PersonPostFactory,
+    PersonPostWithPartyFactory,
+)
 from people.views import PersonView
 
 
@@ -157,7 +163,7 @@ class PersonViewTests(TestCase):
         response = self.client.get(self.person_url, follow=True)
         self.assertContains(
             response,
-            f"{self.person.name} is a {party.party_name} candidate in {person_post.post.label} in the {election.name}.",
+            f"{self.person.name} is a {party.party_name} candidate in the constituency of {person_post.post.label} in the {election.name}.",
         )
 
     def test_no_previous_elections(self):
@@ -370,3 +376,132 @@ class TestPersonViewUnitTests:
     def test_get_template_names(self, view_obj, object, expected):
         view_obj.object = object
         assert view_obj.get_template_names() == [expected]
+
+
+@freeze_time("2021-04-15")
+class TestPersonIntro(TestCase):
+
+    # Cases to test
+    # DONE deceased person 'was'
+    # DONE standard "Foo is a Party Name candidate"
+    # DONE independent "Foo is an independent candidate"
+    # DONE speaker "Foo is the Speaker seeking re-election"
+    # parl "Foo is a Party candidate in the constituency of Post Label in the Election name"
+
+    def setUp(self):
+        self.current_candidate = self.create_person(current=True)
+        self.current_deceased = self.create_person(current=True, deceased=True)
+        self.past_candidate = self.create_person(current=False)
+        self.past_deceased = self.create_person(current=False, deceased=False)
+        self.independent_candidate = self.create_person(
+            current=True, party_name="Independent"
+        )
+        self.independent_candidate_past = self.create_person(
+            current=False, party_name="Independent"
+        )
+        self.speaker = self.create_person(
+            current=True, party_name="Speaker seeking re-election"
+        )
+        self.speaker_past = self.create_person(
+            current=False, party_name="Speaker seeking re-election"
+        )
+        parl_election = ElectionFactory(
+            current=True,
+            election_date="2023-05-11",
+            name="UK General Election 2023",
+            slug="parl.2023",
+        )
+        self.parliamentary_candidate = PersonPostWithPartyFactory(
+            person__name="Joe Bloggs",
+            election=parl_election,
+            post_election__election=parl_election,
+            post__label="Hallam",
+            post__ynr_id="hallam",
+        )
+        mayoral_election = ElectionFactory(
+            current=True,
+            election_date="2021-05-06",
+            name="Mayor of Bristol",
+            slug="mayor.bristol.2021-05-06",
+        )
+        self.mayoral_candidate = PersonPostWithPartyFactory(
+            person__name="Joe Bloggs",
+            election=mayoral_election,
+            post_election__election=mayoral_election,
+            post_election__ballot_paper_id="mayor.bristol.2021-05-06",
+            post__ynr_id="mayor-of-bristol",
+        )
+
+    def create_person(
+        self, current, deceased=False, party_name=None, election_type="local"
+    ):
+        election_date = "2021-05-06" if current else "2019-12-12"
+        death_date = "2021-04-01" if deceased else None
+        party_name = party_name or "Test Party"
+        party_id = slugify(party_name)
+        if party_name == "Independent":
+            party_id = "ynmp-party:2"
+        election = ElectionFactoryLazySlug(
+            name="Sheffield local election",
+            election_date=election_date,
+            current=current,
+        )
+
+        return PersonPostWithPartyFactory(
+            election=election,
+            person__name="Joe Bloggs",
+            post__label="Ecclesall",
+            post_election__election=election,
+            person__death_date=death_date,
+            party__party_name=party_name,
+            party__party_id=party_id,
+            post_election__ballot_paper_id=f"{election_type}.{election.slug}",
+        )
+
+    def test_standard_candidate_cases(self):
+        candidacies = [
+            (
+                self.current_candidate,
+                "Joe Bloggs is a Test Party candidate in Ecclesall in the Sheffield local election.",
+            ),
+            (
+                self.current_deceased,
+                "Joe Bloggs was a Test Party candidate in Ecclesall in the Sheffield local election.",
+            ),
+            (
+                self.past_candidate,
+                "Joe Bloggs was a Test Party candidate in Ecclesall in the Sheffield local election.",
+            ),
+            (
+                self.past_deceased,
+                "Joe Bloggs was a Test Party candidate in Ecclesall in the Sheffield local election.",
+            ),
+            (
+                self.independent_candidate,
+                "Joe Bloggs is an independent candidate in Ecclesall in the Sheffield local election.",
+            ),
+            (
+                self.independent_candidate_past,
+                "Joe Bloggs was an independent candidate in Ecclesall in the Sheffield local election.",
+            ),
+            (self.speaker, "Joe Bloggs is the Speaker seeking re-election"),
+            (
+                self.speaker_past,
+                "Joe Bloggs was the Speaker seeking re-election",
+            ),
+            (
+                self.parliamentary_candidate,
+                "Joe Bloggs is a Test Party candidate in the constituency of Hallam in the UK General Election 2023.",
+            ),
+            (
+                self.mayoral_candidate,
+                "Joe Bloggs is the Test Party candidate for Mayor of Bristol.",
+            ),
+        ]
+        for candidacy in candidacies:
+            with self.subTest(msg=candidacy[1]):
+                person = candidacy[0].person
+                expected = candidacy[1]
+                response = self.client.get(person.get_absolute_url())
+
+                self.assertContains(response, expected)

@@ -1,6 +1,7 @@
 from django.contrib.postgres.fields import JSONField
 from django.urls import reverse
 from django.db import models
+from django.template.loader import render_to_string
 from django.utils.text import slugify
 from django.utils.timezone import now
 from django.utils.functional import cached_property
@@ -235,10 +236,71 @@ class Person(models.Model):
     @cached_property
     def past_not_current_candidacies(self):
         """
-        Return a QuerySet of related PersonPost objects in the past and not current
+        Return a QuerySet of related PersonPost objects in the past and not
+        current
         """
         return self.personpost_set.past_not_current().select_related(
             "party", "post", "election", "post_election"
+        )
+
+    @cached_property
+    def featured_candidacy(self):
+        """
+        Return the current or future PersonPost object, or if there is not
+        current/future, a past one. Some people will have more than one current
+        candidacy but we still use this method to pull out some information
+        (such as party name, manifestos, local parties) to use in the opening
+        line of the persons intro, but we still show information for multiple
+        candidacies in the intro by listing the elections they stand for (see
+        _person_intro_card.html).
+        """
+        if not self.current_or_future_candidacies:
+            return self.past_not_current_candidacies.first()
+
+        return self.current_or_future_candidacies.first()
+
+    @property
+    def intro_template(self):
+        """
+        Return string path to intro template for this person.
+        """
+        base = "people/includes/intros/"
+        if not self.featured_candidacy or not self.featured_candidacy.party:
+            return f"{base}base.html"
+
+        party = self.featured_candidacy.party
+        ballot = self.featured_candidacy.post_election
+
+        if party.is_independent:
+            return f"{base}_independent.html"
+
+        if party.party_name == "Speaker seeking re-election":
+            return f"{base}_speaker.html"
+
+        if ballot.is_parliamentary:
+            return f"{base}_parl.html"
+
+        if ballot.is_mayoral:
+            return f"{base}_mayor.html"
+
+        return f"{base}base.html"
+
+    @property
+    def intro(self):
+        """
+        Return a rendered string of the persons intro from a template.
+        """
+        verb = "was"
+        if self.current_or_future_candidacies and not self.death_date:
+            verb = "is"
+
+        context = {
+            "verb": verb,
+            "person": self,
+            "candidacy": self.featured_candidacy,
+        }
+        return render_to_string(
+            template_name=self.intro_template, context=context
         )
 
 
