@@ -494,7 +494,9 @@ class PostElection(models.Model):
                 total_parties = ind_candidates + num_other_parties
                 return f"{total_parties} ballot options"
             else:
-                return f"{people.count()} candidate{pluralize(people.count())}"
+                winner_count = self.winner_count
+                winner_count_pluralized = pluralize(self.winner_count)
+                return f"{winner_count} ballot option{winner_count_pluralized}"
 
     @property
     def should_display_sopn_info(self):
@@ -539,4 +541,4 @@ class VotingSystem(models.Model):
         elif self.slug == "sv":
             return reverse("sv_voting_system_view")
         else:
-            raise ValueError(f"{self.slug} has no URL defined")
+            None
