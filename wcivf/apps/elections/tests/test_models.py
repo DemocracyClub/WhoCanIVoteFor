@@ -315,7 +315,7 @@ class TestPostElectionModel:
                 person=person,
                 party=PartyFactory(party_id=i),
             )
-        assert post_election.party_ballot_count == "6 candidates"
+        assert post_election.party_ballot_count == "1 ballot option"
         post_election.election.uses_lists = True
         post_election.election.save()
         post_election.election.refresh_from_db()

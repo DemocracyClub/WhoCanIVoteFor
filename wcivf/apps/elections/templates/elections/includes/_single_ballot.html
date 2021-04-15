@@ -51,11 +51,11 @@
             {% if postelection.voting_system.slug == "PR-CL" %}
               You will have one vote, and can vote for a single party list or independent candidate.
             {% else %}
+              {% if postelection.winner_count and postelection.election.voting_system_id == 'FPTP' %}
+                You will have up to {{ postelection.winner_count|intword }} vote{{ postelection.winner_count|pluralize }}.
+              {% endif %}
               You can choose from <strong>{{ postelection.party_ballot_count }}</strong>
               in the {{ postelection.friendly_name }}.
-              {% if postelection.winner_count and postelection.election.voting_system_id == 'FPTP' %}
-                You will have {{ postelection.winner_count|intword }} vote{{ postelection.winner_count|pluralize }}.
-              {% endif %}
             {% endif %}
 
             {% include "elections/includes/_how-to-vote.html" with voting_system=postelection.get_voting_system %}
