@@ -72,7 +72,6 @@ class PersonView(DetailView, PersonMixin):
             obj.postelection = obj.personpost.post_election
 
         obj.title = self.get_title(obj)
-        obj.text_intro = strip_tags(obj.intro)
         obj.post_country = self.get_post_country(obj)
 
         if obj.personpost:

@@ -583,3 +583,4 @@ class TestPersonIntro(TestCase):
                 intro = intro.strip()
                 intro = " ".join(intro.split())
                 self.assertEqual(intro, expected)
+                self.assertEqual(person.text_intro, expected)
