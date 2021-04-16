@@ -19,7 +19,7 @@
         <div class="ds-candidate-body ds-stack-smaller">
           <h2 class="ds-candidate-name ds-h3">
             {{ object.name }}
-            {% if person.display_deceased and person.personpost.party.is_independent %}
+            {% if person.display_deceased and person.featured_candidacy.party.is_independent %}
             (Deceased)
             {% endif %}
           </h2>
@@ -44,6 +44,6 @@
 
 {% block breadcrumbs %}
 
-{% include "elections/includes/_ld_candidate.html" with person=object.personpost.person party=object.personpost.party %}
+{% include "elections/includes/_ld_candidate.html" with person=object.featured_candidacy.person party=object.featured_candidacy.party %}
 
 {% endblock breadcrumbs %}

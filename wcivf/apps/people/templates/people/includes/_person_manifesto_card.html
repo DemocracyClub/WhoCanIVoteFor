@@ -1,12 +1,12 @@
 {% if object.manifestos %}
-{% with object.personpost.party as party %}
+{% with object.featured_candidacy.party as party %}
 <section class="ds-candidate">
     <div class="ds-candidate-body ds-stack-smaller">
         <h2 class="ds-candidate-name ds-h3">
             Party manifesto
         </h2>
         <p>
-            {{ object.name }} {{ object.personpost.election.in_past|yesno:"was,is" }} the {{ party.party_name }}
+            {{ object.name }} {{ object.featured_candidacy.election.in_past|yesno:"was,is" }} the {{ party.party_name }}
             candidate.
             Find out more about their policies in the {{ party.party_name }} manifesto.
         </p>

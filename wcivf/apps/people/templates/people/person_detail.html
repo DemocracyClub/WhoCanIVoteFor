@@ -64,11 +64,11 @@
 <ol vocab="http://schema.org/" typeof="BreadcrumbList" class="breadcrumbs" aria-label="You are here:" role="navigation">
   {% url 'home_view' as home_view %}
   {% breadcrumb_item home_view 'Home' 1 %}
-  {% breadcrumb_item object.personpost.post_election.get_absolute_url 'Candidates in '|add:object.personpost.post.label 2 %}
+  {% breadcrumb_item object.featured_candidacy.post_election.get_absolute_url 'Candidates in '|add:object.featured_candidacy.post.label 2 %}
   <li class="disabled"><span class="show-for-sr">Current: </span> {{ object.name }}</li>
 </ol>
 {% endif %}
 
-{% include "elections/includes/_ld_candidate.html" with person=object.personpost.person party=object.personpost.party %}
+{% include "elections/includes/_ld_candidate.html" with person=object.featured_candidacy.person party=object.featured_candidacy.party %}
 
 {% endblock breadcrumbs %}
