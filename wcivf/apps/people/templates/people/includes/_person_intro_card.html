@@ -3,12 +3,12 @@
       <h2 class="ds-candidate-name ds-h3">
         {{ object.name }}
       </h2>
-      {% if person.display_deceased and person.personpost.party.is_independent %}
+      {% if person.display_deceased and person.featured_candidacy.party.is_independent %}
       (Deceased)
       {% endif %}
 
       {% if object.current_or_future_candidacies.all.count > 1 %}
-        <h5>{{ object.name }} is {% if object.personpost.party.is_independent %}an{% else %}a{% endif %} {{object.personpost.party.party_name }} candidate in the following elections:</h5>
+        <h5>{{ object.name }} is {% if object.current_or_future_candidacies.0.party.is_independent %}an{% else %}a{% endif %} {{object.current_or_future_candidacies.0.party.party_name }} candidate in the following elections:</h5>
 
           {% for candidacy in object.current_or_future_candidacies %}
           <ul>
