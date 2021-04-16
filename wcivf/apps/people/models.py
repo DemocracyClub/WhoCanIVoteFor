@@ -2,6 +2,7 @@ from django.contrib.postgres.fields import JSONField
 from django.urls import reverse
 from django.db import models
 from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 from django.utils.text import slugify
 from django.utils.timezone import now
 from django.utils.functional import cached_property
@@ -302,6 +303,16 @@ class Person(models.Model):
         return render_to_string(
             template_name=self.intro_template, context=context
         )
+
+    @property
+    def text_intro(self):
+        """
+        Return intro without any HTML, special chars and extra whitespace
+        """
+        intro = self.intro
+        intro = strip_tags(intro)
+        intro = intro.strip()
+        return " ".join(intro.split())
 
 
 class AssociatedCompany(models.Model):
