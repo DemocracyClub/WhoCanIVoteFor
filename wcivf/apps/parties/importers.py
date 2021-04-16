@@ -170,7 +170,12 @@ class LocalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
 
             for party in parties:
                 self.add_local_party(row, party, ballots)
-                self.add_manifesto(row, party, ballots[0].election)
+                elections = ballots.values_list(
+                    "election__slug", flat=True
+                ).distinct()
+                for slug in elections:
+                    election = Election.objects.get(slug=slug)
+                    self.add_manifesto(row, party, election)
 
     def get_country(self, election_type):
         country_mapping = {

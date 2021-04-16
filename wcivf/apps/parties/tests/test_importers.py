@@ -118,12 +118,18 @@ class TestLocalPartyImporter:
         mocker.patch.object(importer, "get_parties", return_value=[party])
 
         ballots = mocker.MagicMock()
+        ballots.values_list.return_value.distinct.return_value = [
+            "election_slug"
+        ]
         mocker.patch.object(importer, "get_ballots", return_value=ballots)
 
         mocker.patch.object(importer, "all_rows", return_value=[row])
 
         mocker.patch.object(importer, "add_local_party")
         mocker.patch.object(importer, "add_manifesto")
+        mocker.patch.object(
+            Election.objects, "get", return_value="election_obj"
+        )
 
         # actual call to do the import
         importer.import_parties()
@@ -133,9 +139,11 @@ class TestLocalPartyImporter:
         importer.current_elections.assert_called_once()
         importer.all_rows.assert_called()
         importer.add_local_party.assert_called_once_with(row, party, ballots)
+
         importer.add_manifesto.assert_called_once_with(
-            row, party, ballots[0].election
+            row, party, "election_obj"
         )
+        Election.objects.get.assert_called_once_with(slug="election_slug")
 
     def test_add_local_party(self, importer, row, mocker):
         party = mocker.MagicMock(name="Example Local Party")
