@@ -1,6 +1,7 @@
 from unittest.mock import MagicMock
-
+from django.utils.html import strip_tags
 from freezegun import freeze_time
+
 import pytest
 from django.test import TestCase
 from django.utils.text import slugify
@@ -380,14 +381,6 @@ class TestPersonViewUnitTests:
 
 @freeze_time("2021-04-15")
 class TestPersonIntro(TestCase):
-
-    # Cases to test
-    # DONE deceased person 'was'
-    # DONE standard "Foo is a Party Name candidate"
-    # DONE independent "Foo is an independent candidate"
-    # DONE speaker "Foo is the Speaker seeking re-election"
-    # parl "Foo is a Party candidate in the constituency of Post Label in the Election name"
-
     def setUp(self):
         self.current_candidate = self.create_person(current=True)
         self.current_deceased = self.create_person(current=True, deceased=True)
@@ -431,9 +424,20 @@ class TestPersonIntro(TestCase):
             post_election__ballot_paper_id="mayor.bristol.2021-05-06",
             post__ynr_id="mayor-of-bristol",
         )
+        self.candidate_with_votes_unelected = self.create_person(
+            current=False, votes_cast=10000, elected=False
+        )
+        self.candidate_with_votes_elected = self.create_person(
+            current=False, votes_cast=10000, elected=True
+        )
 
     def create_person(
-        self, current, deceased=False, party_name=None, election_type="local"
+        self,
+        current,
+        deceased=False,
+        party_name=None,
+        election_type="local",
+        **kwargs,
     ):
         election_date = "2021-05-06" if current else "2019-12-12"
         death_date = "2021-04-01" if deceased else None
@@ -456,9 +460,10 @@ class TestPersonIntro(TestCase):
             party__party_name=party_name,
             party__party_id=party_id,
             post_election__ballot_paper_id=f"{election_type}.{election.slug}",
+            **kwargs,
         )
 
-    def test_standard_candidate_cases(self):
+    def test_intro_in_view(self):
         candidacies = [
             (
                 self.current_candidate,
@@ -497,6 +502,14 @@ class TestPersonIntro(TestCase):
                 self.mayoral_candidate,
                 "Joe Bloggs is the Test Party candidate for Mayor of Bristol.",
             ),
+            (
+                self.candidate_with_votes_unelected,
+                "They received 10,000 votes.",
+            ),
+            (
+                self.candidate_with_votes_elected,
+                "They were elected with 10,000 votes.",
+            ),
         ]
         for candidacy in candidacies:
             with self.subTest(msg=candidacy[1]):
@@ -505,3 +518,68 @@ class TestPersonIntro(TestCase):
                 response = self.client.get(person.get_absolute_url())
 
                 self.assertContains(response, expected)
+
+    def test_intro_method(self):
+        """
+        Test the exact string returned by the into method
+        """
+        candidacies = [
+            (
+                self.current_candidate,
+                "Joe Bloggs is a Test Party candidate in Ecclesall in the Sheffield local election.",
+            ),
+            (
+                self.current_deceased,
+                "Joe Bloggs was a Test Party candidate in Ecclesall in the Sheffield local election.",
+            ),
+            (
+                self.past_candidate,
+                "Joe Bloggs was a Test Party candidate in Ecclesall in the Sheffield local election.",
+            ),
+            (
+                self.past_deceased,
+                "Joe Bloggs was a Test Party candidate in Ecclesall in the Sheffield local election.",
+            ),
+            (
+                self.independent_candidate,
+                "Joe Bloggs is an independent candidate in Ecclesall in the Sheffield local election.",
+            ),
+            (
+                self.independent_candidate_past,
+                "Joe Bloggs was an independent candidate in Ecclesall in the Sheffield local election.",
+            ),
+            (
+                self.speaker,
+                "Joe Bloggs is the Speaker seeking re-election in the constituency of Ecclesall in the Sheffield local election.",
+            ),
+            (
+                self.speaker_past,
+                "Joe Bloggs was the Speaker seeking re-election in the constituency of Ecclesall in the Sheffield local election.",
+            ),
+            (
+                self.parliamentary_candidate,
+                "Joe Bloggs is a Test Party candidate in the constituency of Hallam in the UK General Election 2023.",
+            ),
+            (
+                self.mayoral_candidate,
+                "Joe Bloggs is the Test Party candidate for Mayor of Bristol.",
+            ),
+            (
+                self.candidate_with_votes_unelected,
+                "Joe Bloggs was a Test Party candidate in Ecclesall in the Sheffield local election. They received 10,000 votes.",
+            ),
+            (
+                self.candidate_with_votes_elected,
+                "Joe Bloggs was a Test Party candidate in Ecclesall in the Sheffield local election. They were elected with 10,000 votes.",
+            ),
+        ]
+
+        for candidacy in candidacies:
+            with self.subTest(msg=candidacy[1]):
+                person = candidacy[0].person
+                expected = candidacy[1]
+                intro = strip_tags(person.intro)
+                intro = intro.replace("\n", "")
+                intro = intro.strip()
+                intro = " ".join(intro.split())
+                self.assertEqual(intro, expected)
