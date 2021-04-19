@@ -25,7 +25,6 @@
       <span class="icons">
         {% if person_post.person.statement_to_voters %}<span class="text-icon">Statement</span>{% endif %}
       {% if pp.person.pledges.exists %}<span class="text-icon">Pledge</span>{% endif %}
-      {% if pp.person.cv %}<span class="text-icon">CV</span>{% endif %}
 {#      {% if pp.person.leaflet_set.exists %}<span class="text-icon">Leaflets</span>{% endif %}#}
       {% if pp.person.twitter_username %}<i class="icon-twitter" aria-hidden="true" title="Twitter"></i>{% endif %}
       {% if pp.person.facebook_page_url or pp.person.facebook_personal_url %}<i class="icon-facebook-squared" aria-hidden="true" title="Facebook"></i>{% endif %}
