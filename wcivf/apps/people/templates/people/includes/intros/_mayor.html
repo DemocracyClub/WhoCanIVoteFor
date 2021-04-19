@@ -1,5 +1,5 @@
 {% extends "people/includes/intros/base.html" %}
 
 {% block intro_line %}
-{{ person.name }} {{ verb }} the {{ candidacy.party.party_name }} candidate for {{ candidacy.election.name }}.
+{{ person.name }} {{ verb }} the <a href="{{ candidacy.party.get_absolute_url }}">{{ candidacy.party.party_name }}</a> candidate for <a href="{{ candidacy.election.get_absolute_url }}">{{ candidacy.election.name }}</a>.
 {% endblock %}
