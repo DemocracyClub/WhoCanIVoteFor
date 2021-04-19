@@ -5,7 +5,6 @@ from django.utils.html import strip_tags
 from django.contrib.humanize.templatetags.humanize import intcomma
 
 from .models import Person, PersonPost
-from elections.models import PostElection
 from parties.models import Manifesto
 
 
@@ -72,12 +71,8 @@ class PersonView(DetailView, PersonMixin):
             obj.personpost = obj.past_not_current_candidacies.first()
         obj.postelection = None
         if obj.personpost:
-            try:
-                obj.postelection = PostElection.objects.get(
-                    post=obj.personpost.post, election=obj.personpost.election
-                )
-            except PostElection.DoesNotExist:
-                pass
+            obj.postelection = obj.personpost.post_election
+
         obj.title = self.get_title(obj)
         obj.intro = self.get_intro(obj)
         obj.text_intro = strip_tags(obj.intro)
