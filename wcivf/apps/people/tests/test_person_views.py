@@ -164,7 +164,7 @@ class PersonViewTests(TestCase):
         response = self.client.get(self.person_url, follow=True)
         self.assertContains(
             response,
-            f"{self.person.name} is a {party.party_name} candidate in the constituency of {person_post.post.label} in the {election.name}.",
+            f"{self.person.name} is a {party.party_name} candidate in {person_post.post.label} constituency in the {election.name}.",
         )
 
     def test_no_previous_elections(self):
@@ -496,7 +496,7 @@ class TestPersonIntro(TestCase):
             ),
             (
                 self.parliamentary_candidate,
-                "Joe Bloggs is a Test Party candidate in the constituency of Hallam in the UK General Election 2023.",
+                "Joe Bloggs is a Test Party candidate in Hallam constituency in the UK General Election 2023.",
             ),
             (
                 self.mayoral_candidate,
@@ -550,15 +550,15 @@ class TestPersonIntro(TestCase):
             ),
             (
                 self.speaker,
-                "Joe Bloggs is the Speaker seeking re-election in the constituency of Ecclesall in the Sheffield local election.",
+                "Joe Bloggs is the Speaker seeking re-election in Ecclesall constituency in the Sheffield local election.",
             ),
             (
                 self.speaker_past,
-                "Joe Bloggs was the Speaker seeking re-election in the constituency of Ecclesall in the Sheffield local election.",
+                "Joe Bloggs was the Speaker seeking re-election in Ecclesall constituency in the Sheffield local election.",
             ),
             (
                 self.parliamentary_candidate,
-                "Joe Bloggs is a Test Party candidate in the constituency of Hallam in the UK General Election 2023.",
+                "Joe Bloggs is a Test Party candidate in Hallam constituency in the UK General Election 2023.",
             ),
             (
                 self.mayoral_candidate,
