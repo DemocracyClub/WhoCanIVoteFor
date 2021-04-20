@@ -52,7 +52,19 @@
               You will have one vote, and can vote for a single party list or independent candidate.
             {% else %}
               {% if postelection.winner_count and postelection.election.voting_system_id == 'FPTP' %}
-                You will have up to {{ postelection.winner_count|intword }} vote{{ postelection.winner_count|pluralize }}.
+                You will have {{ postelection.winner_count|apnumber }} vote{{ postelection.winner_count|pluralize }}, 
+                and can choose from <strong>{{ postelection.people.count|apnumber }} candidate{{ postelection.people|pluralize }}</strong>. 
+              {% endif %}
+              {% if postelection.winner_count and postelection.election.voting_system_id == 'AMS' %}
+                You will have one vote, and can choose from <strong>{{ postelection.party_ballot_count }}</strong>
+                in the {{ postelection.friendly_name }}.
+              {% endif %}
+              {% if postelection.winner_count and postelection.election.voting_system_id == 'sv' %}
+                You will have two votes, and can choose from <strong>{{ postelection.party_ballot_count }}</strong>
+                in the {{ postelection.friendly_name }}.
+              {% endif %}
+              {% if postelection.winner_count and postelection.election.voting_system_id == 'STV' %}
+                You can choose from {{ postelection.people.apnumber }} candidate{{ postelection.people|pluralize }}. 
               {% endif %}
               You can choose from <strong>{{ postelection.party_ballot_count }}</strong>
               in the {{ postelection.friendly_name }}.
@@ -63,7 +75,7 @@
           {% else %}
             {# Case: Candidates and the post is NOT locked (add CTA) #}
             The official candidate list has not yet been published.
-            However, we expect at least <strong>{{ postelection.party_ballot_count }} ballot{{ postelection.party_ballot_count|pluralize }}</strong> 
+            However, we expect at least <strong>{{ postelection.party_ballot_count }}</strong> 
             in the {{ postelection.friendly_name }}.
 
             You can help improve this page: <a href="{{ postelection.ynr_link }}">

@@ -1,4 +1,6 @@
+{% load humanize %}
 {% comment %}
+
 Voting system is currently one of:
 
 AMS:	Additional Member System
@@ -20,7 +22,7 @@ PR-CL:	Closed List
   {% if voting_system.slug == "FPTP" %}
     <p>Mark an X in the box for your preferred candidate{{ postelection.winner_count|pluralize }}.</p>
     {% if postelection.people|length > 1 %} 
-      <p>You can vote for up to {{ postelection.winner_count }} candidate{{ postelection.winner_count|pluralize }} in this election.</p>
+      <p>You can vote for up to {{ postelection.winner_count|apnumber }} candidate{{ postelection.winner_count|pluralize }} in this election.</p>
     {% endif %}
   {% endif %}
 
