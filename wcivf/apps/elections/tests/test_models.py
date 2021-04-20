@@ -177,6 +177,10 @@ class TestPostElectionModel:
     def test_is_constituency(self, post_election):
         post_election.ballot_paper_id = "gla.c.2021-05-06"
         assert post_election.is_constituency is True
+        post_election.ballot_paper_id = "senedd.c.2021-05-06"
+        assert post_election.is_constituency is True
+        post_election.ballot_paper_id = "sp.c.2021-05-06"
+        assert post_election.is_constituency is True
 
     @pytest.mark.django_db
     def test_is_regional(self, post_election):
