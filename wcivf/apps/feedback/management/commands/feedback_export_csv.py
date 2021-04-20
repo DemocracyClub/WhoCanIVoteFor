@@ -35,6 +35,7 @@ class Command(BaseCommand):
                 {
                     "created": feedback.created,
                     "found_useful": feedback.found_useful,
+                    "sources": feedback.sources,
                     "comments": feedback.comments,
                     "source_url": feedback.source_url,
                 }
