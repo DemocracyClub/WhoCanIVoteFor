@@ -136,6 +136,11 @@ class TestPersonModel(TestCase):
                 create_person(election_type="gla.c"),
                 "people/includes/intros/_constituency.html",
             ),
+            # list,
+            (
+                create_person(list_election=True),
+                "people/includes/intros/_list_ballot.html",
+            ),
         ]
         for candidacy in candidacies:
             person = candidacy[0].person

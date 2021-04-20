@@ -9,6 +9,8 @@ def create_person(
     party_name=None,
     election_type="local",
     election_name=None,
+    list_election=False,
+    by_election=False,
     **kwargs,
 ):
     election_date = "2021-05-06" if current else "2019-12-12"
@@ -21,6 +23,8 @@ def create_person(
         name=election_name or "Sheffield local election",
         election_date=election_date,
         current=current,
+        uses_lists=list_election,
+        any_non_by_elections=not by_election,
     )
 
     return PersonPostWithPartyFactory(

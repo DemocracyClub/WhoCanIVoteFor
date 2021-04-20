@@ -438,6 +438,12 @@ class TestPersonIntro(TestCase):
             election_type="pcc",
             election_name="Police and Crime Commissioner for South Yorkshire",
         )
+        self.list_candidate = create_person(
+            election_type="gla.a",
+            list_election=True,
+            list_position=1,
+            election_name="London Assembly elections (additional)",
+        )
 
     def test_intro_in_view(self):
         candidacies = [
@@ -492,6 +498,10 @@ class TestPersonIntro(TestCase):
             (
                 self.pcc_candidate,
                 "Joe Bloggs is the Test Party candidate for Police and Crime Commissioner for South Yorkshire.",
+            ),
+            (
+                self.list_candidate,
+                "Joe Bloggs is the 1st place candidate for the Test Party in the London Assembly elections (additional).",
             ),
         ]
         for candidacy in candidacies:
@@ -558,6 +568,10 @@ class TestPersonIntro(TestCase):
             (
                 self.pcc_candidate,
                 "Joe Bloggs is the Test Party candidate for Police and Crime Commissioner for South Yorkshire.",
+            ),
+            (
+                self.list_candidate,
+                "Joe Bloggs is the 1st place candidate for the Test Party in the London Assembly elections (additional).",
             ),
         ]
 
