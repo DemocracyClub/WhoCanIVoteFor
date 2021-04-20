@@ -295,7 +295,7 @@ class Person(models.Model):
 
         return f"{base}base.html"
 
-    @property
+    @cached_property
     def intro(self):
         """
         Return a rendered string of the persons intro from a template.
