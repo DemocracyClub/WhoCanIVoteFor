@@ -13,6 +13,14 @@
       {{ choice.tag }}
       <label class="link-button" for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
     {% endfor %}
+    
+    <div class="comments_container">
+      <p>
+        What other websites/sources have you used to 
+        research the election?
+      </p> 
+        {{ feedback_form.sources }}
+    </div>
 
     <div class="comments_container">
       <p>Can you tell us anything more?</p>
