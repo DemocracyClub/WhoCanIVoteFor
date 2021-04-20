@@ -32,7 +32,8 @@ class YNRElectionImporter:
             election_type = slug.split(".")[0]
 
             election_weight = 10
-            if ballot_dict["election"]["party_lists_in_use"]:
+            uses_lists = ballot_dict["election"]["party_lists_in_use"]
+            if uses_lists:
                 election_weight = 20
             if election_type == "mayor":
                 election_weight = 5
@@ -45,6 +46,7 @@ class YNRElectionImporter:
                     "name": ballot_dict["election"]["name"].strip(),
                     "current": ballot_dict["election"]["current"],
                     "election_weight": election_weight,
+                    "uses_lists": uses_lists,
                 },
             )
 
