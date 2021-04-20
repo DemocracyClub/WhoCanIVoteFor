@@ -2,6 +2,7 @@ from elections.tests.factories import (
     ElectionFactory,
 )
 from parties.tests.factories import PartyFactory
+from people.tests.helpers import create_person
 from people.tests.factories import PersonFactory, PersonPostFactory
 from django.test import TestCase
 
@@ -69,3 +70,66 @@ class TestPersonModel(TestCase):
             "https://www.youtube.com/user/pierscorbyn2"
         )
         assert self.person.youtube_username == "pierscorbyn2"
+
+    def test_intro_template(self):
+        candidacies = [
+            # independent
+            (
+                create_person(party_name="Independent"),
+                "people/includes/intros/_independent.html",
+            ),
+            # mayor
+            (
+                create_person(election_type="mayor"),
+                "people/includes/intros/_mayor.html",
+            ),
+            # pcc
+            (
+                create_person(election_type="pcc"),
+                "people/includes/intros/_pcc.html",
+            ),
+            # parl
+            (
+                create_person(election_type="parl"),
+                "people/includes/intros/_parl.html",
+            ),
+            # speaker
+            (
+                create_person(party_name="Speaker seeking re-election"),
+                "people/includes/intros/_speaker.html",
+            ),
+            # base
+            (
+                create_person(election_type="local"),
+                "people/includes/intros/base.html",
+            ),
+            (
+                create_person(election_type="sp"),
+                "people/includes/intros/base.html",
+            ),
+            (
+                create_person(election_type="senedd"),
+                "people/includes/intros/base.html",
+            ),
+            (
+                create_person(election_type="europarl"),
+                "people/includes/intros/base.html",
+            ),
+            (
+                create_person(election_type="gla"),
+                "people/includes/intros/base.html",
+            ),
+            (
+                create_person(election_type="nia"),
+                "people/includes/intros/base.html",
+            ),
+            (
+                create_person(election_type="naw"),
+                "people/includes/intros/base.html",
+            ),
+        ]
+        for candidacy in candidacies:
+            person = candidacy[0].person
+            expected = candidacy[1]
+            with self.subTest(msg=candidacy[1]):
+                self.assertEqual(person.intro_template, expected)

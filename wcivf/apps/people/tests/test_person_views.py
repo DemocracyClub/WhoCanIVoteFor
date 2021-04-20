@@ -393,10 +393,14 @@ class TestPersonIntro(TestCase):
             current=False, party_name="Independent"
         )
         self.speaker = create_person(
-            current=True, party_name="Speaker seeking re-election"
+            current=True,
+            party_name="Speaker seeking re-election",
+            election_name="UK General Election",
         )
         self.speaker_past = create_person(
-            current=False, party_name="Speaker seeking re-election"
+            current=False,
+            party_name="Speaker seeking re-election",
+            election_name="UK General Election",
         )
         parl_election = ElectionFactory(
             current=True,
@@ -430,6 +434,10 @@ class TestPersonIntro(TestCase):
         self.candidate_with_votes_elected = create_person(
             current=False, votes_cast=10000, elected=True
         )
+        self.pcc_candidate = create_person(
+            election_type="pcc",
+            election_name="Police and Crime Commissioner for South Yorkshire",
+        )
 
     def test_intro_in_view(self):
         candidacies = [
@@ -457,10 +465,13 @@ class TestPersonIntro(TestCase):
                 self.independent_candidate_past,
                 "Joe Bloggs was an independent candidate in Ecclesall in the Sheffield local election.",
             ),
-            (self.speaker, "Joe Bloggs is the Speaker seeking re-election"),
+            (
+                self.speaker,
+                "Joe Bloggs is the Speaker seeking re-election in Ecclesall constituency in the UK General Election",
+            ),
             (
                 self.speaker_past,
-                "Joe Bloggs was the Speaker seeking re-election",
+                "Joe Bloggs was the Speaker seeking re-election in Ecclesall constituency in the UK General Election",
             ),
             (
                 self.parliamentary_candidate,
@@ -477,6 +488,10 @@ class TestPersonIntro(TestCase):
             (
                 self.candidate_with_votes_elected,
                 "They were elected with 10,000 votes.",
+            ),
+            (
+                self.pcc_candidate,
+                "Joe Bloggs is the Test Party candidate for Police and Crime Commissioner for South Yorkshire.",
             ),
         ]
         for candidacy in candidacies:
@@ -518,11 +533,11 @@ class TestPersonIntro(TestCase):
             ),
             (
                 self.speaker,
-                "Joe Bloggs is the Speaker seeking re-election in Ecclesall constituency in the Sheffield local election.",
+                "Joe Bloggs is the Speaker seeking re-election in Ecclesall constituency in the UK General Election.",
             ),
             (
                 self.speaker_past,
-                "Joe Bloggs was the Speaker seeking re-election in Ecclesall constituency in the Sheffield local election.",
+                "Joe Bloggs was the Speaker seeking re-election in Ecclesall constituency in the UK General Election.",
             ),
             (
                 self.parliamentary_candidate,
@@ -539,6 +554,10 @@ class TestPersonIntro(TestCase):
             (
                 self.candidate_with_votes_elected,
                 "Joe Bloggs was a Test Party candidate in Ecclesall in the Sheffield local election. They were elected with 10,000 votes.",
+            ),
+            (
+                self.pcc_candidate,
+                "Joe Bloggs is the Test Party candidate for Police and Crime Commissioner for South Yorkshire.",
             ),
         ]
 

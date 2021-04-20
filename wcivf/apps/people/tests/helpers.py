@@ -8,6 +8,7 @@ def create_person(
     deceased=False,
     party_name=None,
     election_type="local",
+    election_name=None,
     **kwargs,
 ):
     election_date = "2021-05-06" if current else "2019-12-12"
@@ -17,7 +18,7 @@ def create_person(
     if party_name == "Independent":
         party_id = "ynmp-party:2"
     election = ElectionFactoryLazySlug(
-        name="Sheffield local election",
+        name=election_name or "Sheffield local election",
         election_date=election_date,
         current=current,
     )

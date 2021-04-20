@@ -284,6 +284,9 @@ class Person(models.Model):
         if ballot.is_mayoral:
             return f"{base}_mayor.html"
 
+        if ballot.is_pcc:
+            return f"{base}_pcc.html"
+
         return f"{base}base.html"
 
     @property
