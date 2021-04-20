@@ -1,5 +1,5 @@
 {% extends "people/includes/intros/base.html" %}
 
 {% block intro_line %}
-{{ person.name }} {{ verb }} an independent candidate in {{ candidacy.post.label }} in the <a href="{{ candidacy.election.get_absolute_url }}" title="{{ candidacy.election.name }}">{{ candidacy.election.name }}</a>.
+{{ person.name }} {{ verb }} an independent candidate in {{ candidacy.post.label }} in the <a href="{{ candidacy.election.get_absolute_url }}" title="{{ candidacy.election.nice_election_name }}">{{ candidacy.election.nice_election_name }}</a>.
 {% endblock %}
