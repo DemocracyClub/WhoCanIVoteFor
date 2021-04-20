@@ -116,16 +116,25 @@ class TestPersonModel(TestCase):
                 "people/includes/intros/base.html",
             ),
             (
-                create_person(election_type="gla"),
-                "people/includes/intros/base.html",
-            ),
-            (
                 create_person(election_type="nia"),
                 "people/includes/intros/base.html",
             ),
             (
                 create_person(election_type="naw"),
                 "people/includes/intros/base.html",
+            ),
+            # constituency
+            (
+                create_person(election_type="sp.c"),
+                "people/includes/intros/_constituency.html",
+            ),
+            (
+                create_person(election_type="senedd.c"),
+                "people/includes/intros/_constituency.html",
+            ),
+            (
+                create_person(election_type="gla.c"),
+                "people/includes/intros/_constituency.html",
             ),
         ]
         for candidacy in candidacies:

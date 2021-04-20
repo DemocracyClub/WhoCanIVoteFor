@@ -287,6 +287,9 @@ class Person(models.Model):
         if ballot.is_pcc:
             return f"{base}_pcc.html"
 
+        if ballot.is_constituency:
+            return f"{base}_constituency.html"
+
         return f"{base}base.html"
 
     @property
