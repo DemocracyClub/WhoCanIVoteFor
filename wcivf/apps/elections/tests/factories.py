@@ -14,6 +14,7 @@ class ElectionFactory(factory.django.DjangoModelFactory):
     election_date = timezone.datetime(2015, 5, 7).date()
     current = True
     name = "UK General Election 2015"
+    any_non_by_elections = True
 
 
 class ElectionFactoryLazySlug(ElectionFactory):

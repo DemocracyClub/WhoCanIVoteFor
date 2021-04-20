@@ -169,7 +169,8 @@ class TestPostViewName:
         Test for by elections
         """
         post_election = PostElectionFactory(
-            ballot_paper_id="local.by.election.2020"
+            ballot_paper_id="local.by.election.2020",
+            election__any_non_by_elections=False,
         )
 
         response = client.get(post_election.get_absolute_url(), follow=True)

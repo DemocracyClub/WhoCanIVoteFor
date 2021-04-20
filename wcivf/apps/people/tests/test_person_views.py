@@ -162,6 +162,7 @@ class PersonViewTests(TestCase):
             person=self.person, election=election, party=party
         )
         response = self.client.get(self.person_url, follow=True)
+
         self.assertContains(
             response,
             f"{self.person.name} is a {party.party_name} candidate in {person_post.post.label} constituency in the {election.name}.",
