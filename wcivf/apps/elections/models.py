@@ -7,6 +7,7 @@ from django.conf import settings
 from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django.template.defaultfilters import pluralize
+from django.contrib.humanize.templatetags.humanize import apnumber
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.html import mark_safe
@@ -500,11 +501,16 @@ class PostElection(models.Model):
                     - ind_candidates
                 )
                 total_parties = ind_candidates + num_other_parties
-                return f"{total_parties} ballot options"
+                total_parties_apnumber = apnumber(total_parties)
+                options_pluralized = pluralize(total_parties)
+                return f"{total_parties_apnumber} option{options_pluralized}"
             else:
-                winner_count = self.winner_count
-                winner_count_pluralized = pluralize(self.winner_count)
-                return f"{winner_count} ballot option{winner_count_pluralized}"
+                num_parties = people.values("party_id").distinct().count()
+                num_parties_apnumber = apnumber(num_parties)
+                candidates_pluralized = pluralize(num_parties)
+                return (
+                    f"{num_parties_apnumber} candidate{candidates_pluralized}"
+                )
 
     @property
     def should_display_sopn_info(self):
