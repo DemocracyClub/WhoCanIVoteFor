@@ -4,7 +4,6 @@ from freezegun import freeze_time
 
 import pytest
 from django.test import TestCase
-from django.utils.text import slugify
 from django.test.utils import override_settings
 from elections.tests.factories import (
     ElectionFactory,
@@ -19,6 +18,7 @@ from people.tests.factories import (
     PersonPostWithPartyFactory,
 )
 from people.views import PersonView
+from people.tests.helpers import create_person
 
 
 @override_settings(
@@ -382,20 +382,20 @@ class TestPersonViewUnitTests:
 @freeze_time("2021-04-15")
 class TestPersonIntro(TestCase):
     def setUp(self):
-        self.current_candidate = self.create_person(current=True)
-        self.current_deceased = self.create_person(current=True, deceased=True)
-        self.past_candidate = self.create_person(current=False)
-        self.past_deceased = self.create_person(current=False, deceased=False)
-        self.independent_candidate = self.create_person(
+        self.current_candidate = create_person(current=True)
+        self.current_deceased = create_person(current=True, deceased=True)
+        self.past_candidate = create_person(current=False)
+        self.past_deceased = create_person(current=False, deceased=False)
+        self.independent_candidate = create_person(
             current=True, party_name="Independent"
         )
-        self.independent_candidate_past = self.create_person(
+        self.independent_candidate_past = create_person(
             current=False, party_name="Independent"
         )
-        self.speaker = self.create_person(
+        self.speaker = create_person(
             current=True, party_name="Speaker seeking re-election"
         )
-        self.speaker_past = self.create_person(
+        self.speaker_past = create_person(
             current=False, party_name="Speaker seeking re-election"
         )
         parl_election = ElectionFactory(
@@ -424,43 +424,11 @@ class TestPersonIntro(TestCase):
             post_election__ballot_paper_id="mayor.bristol.2021-05-06",
             post__ynr_id="mayor-of-bristol",
         )
-        self.candidate_with_votes_unelected = self.create_person(
+        self.candidate_with_votes_unelected = create_person(
             current=False, votes_cast=10000, elected=False
         )
-        self.candidate_with_votes_elected = self.create_person(
+        self.candidate_with_votes_elected = create_person(
             current=False, votes_cast=10000, elected=True
-        )
-
-    def create_person(
-        self,
-        current,
-        deceased=False,
-        party_name=None,
-        election_type="local",
-        **kwargs,
-    ):
-        election_date = "2021-05-06" if current else "2019-12-12"
-        death_date = "2021-04-01" if deceased else None
-        party_name = party_name or "Test Party"
-        party_id = slugify(party_name)
-        if party_name == "Independent":
-            party_id = "ynmp-party:2"
-        election = ElectionFactoryLazySlug(
-            name="Sheffield local election",
-            election_date=election_date,
-            current=current,
-        )
-
-        return PersonPostWithPartyFactory(
-            election=election,
-            person__name="Joe Bloggs",
-            post__label="Ecclesall",
-            post_election__election=election,
-            person__death_date=death_date,
-            party__party_name=party_name,
-            party__party_id=party_id,
-            post_election__ballot_paper_id=f"{election_type}.{election.slug}",
-            **kwargs,
         )
 
     def test_intro_in_view(self):
