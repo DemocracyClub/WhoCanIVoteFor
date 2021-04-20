@@ -290,6 +290,9 @@ class Person(models.Model):
         if ballot.is_constituency:
             return f"{base}_constituency.html"
 
+        if ballot.election.uses_lists:
+            return f"{base}_list_ballot.html"
+
         return f"{base}base.html"
 
     @property
