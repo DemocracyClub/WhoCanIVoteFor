@@ -10,7 +10,7 @@ class FeedbackAdmin(admin.ModelAdmin):
     change_list_template = "feedback/admin/change_list.html"
 
     list_filter = ("found_useful",)
-    list_display = ("id", "found_useful", "comments", "created")
+    list_display = ("id", "found_useful", "sources", "comments", "created")
     readonly_fields = [f.name for f in Feedback._meta.get_fields()]
     ordering = ("-created", "id")
 
@@ -47,7 +47,7 @@ class FeedbackAdmin(admin.ModelAdmin):
         return self.export(
             Feedback.objects.all()
             .exclude(comments="")
-            .order_by("found_useful", "-created", "id")
+            .order_by("found_useful", "sources", "-created", "id")
         )
 
     def export(self, qs):
@@ -57,7 +57,14 @@ class FeedbackAdmin(admin.ModelAdmin):
         ] = 'attachment; filename="feedback-%s.csv"' % (
             datetime.datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
         )
-        fields = ["id", "created", "comments", "found_useful", "source_url"]
+        fields = [
+            "id",
+            "created",
+            "comments",
+            "found_useful",
+            "sources",
+            "source_url",
+        ]
         writer = csv.writer(response)
         writer.writerow(fields)
         for row in qs:
