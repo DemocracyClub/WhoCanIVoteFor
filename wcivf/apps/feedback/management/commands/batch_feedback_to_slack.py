@@ -75,6 +75,11 @@ class Command(BaseCommand):
                     "short": False,
                 },
                 {
+                    "title": "Other sources",
+                    "value": comment.sources,
+                    "short": False,
+                },
+                {
                     "title": "Page",
                     "value": "<{0}{1}>".format(
                         settings.CANONICAL_URL, comment.source_url
