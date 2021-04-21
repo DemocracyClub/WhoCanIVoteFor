@@ -66,8 +66,6 @@
               {% if postelection.winner_count and postelection.election.voting_system_id == 'STV' %}
                 You can choose from {{ postelection.people.apnumber }} candidate{{ postelection.people|pluralize }}. 
               {% endif %}
-              You can choose from <strong>{{ postelection.party_ballot_count }}</strong>
-              in the {{ postelection.friendly_name }}.
             {% endif %}
 
             {% include "elections/includes/_how-to-vote.html" with voting_system=postelection.get_voting_system %}
