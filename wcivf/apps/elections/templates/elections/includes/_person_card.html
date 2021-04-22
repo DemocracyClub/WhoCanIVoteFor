@@ -6,7 +6,7 @@
     <h3 class="ds-candidate-name ds-h5">
       <a href="{{ person_post.person.get_absolute_url }}">{{ person_post.person.name}}</a>
     </h3>
-    {% if person_post.elected %}🌟 <span class="elected_text">Elected:</span> 
+    {% if person_post.elected %}🌟 <span class="elected_text">Elected:</span>
     {% endif %}
     {% if postelection.election.current and person_post.person.death_date %}
       {% if person_post.party.is_independent %}
@@ -16,13 +16,13 @@
     <!-- {% include "elections/includes/_ld_candidate.html" with person=person_post.person party=person_post.party %} -->
     {% endif %}
     {% if person_post.elected %}🌟{% endif %}
-    {% if not person_post.list_position or not person_post.post_election.display_as_party_list %}
+    {% if not person_post.list_position or not postelection.display_as_party_list %}
       <div class="ds-h6">{{ person_post.party.party_name }}</div>
     {% endif %}
   </div>
   <div class="ds-candidate-image">
     {% if person_post.person.photo_url %}
-      <img src="{{ person_post.person.photo_url }}" alt="Photo of {{ person_post.person.name }}"> 
+      <img src="{{ person_post.person.photo_url }}" alt="Photo of {{ person_post.person.name }}">
     {% elif person_post.person.gender|lower == 'male' %}
       <img src="{% static 'people/images/blank-man.png' %}" style="background-color: #ddd;">
     {% else %}
