@@ -34,9 +34,9 @@ class YNRElectionImporter:
             "nia": {"default": 60},
             "gla": {"default": 60, "a": 55},
             "naw": {"default": 60, "r": 55},
-            "senedd": {"default": 60, "r": 55},
+            "senedd": {"default": 60, "r": 65, "c": 60},
             "sp": {"default": 60, "r": 55},
-            "pcc": {"default": 50},
+            "pcc": {"default": 70},
             "local": {"default": 40},
         }
         modifier = 0
@@ -45,8 +45,11 @@ class YNRElectionImporter:
         # Look up the dict of possible weights for this election type
         weights = charisma_map.get(ballot_paper_id.split(".")[0], 30)
 
+        organisation_type = ballot_paper_id.split(".")[0]
         default_weight_for_election_type = weights.get("default")
-        base_charisma = 10
+        base_charisma = weights.get(
+            organisation_type, default_weight_for_election_type
+        )
 
         # Look up `r` and `a` subtypes
         subtype = re.match(r"^[^.]+\.([ar])\.", ballot_paper_id)
