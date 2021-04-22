@@ -7,25 +7,26 @@
     {% if person_post.list.0.party.is_independent %}
       {#  This is a special case where we don't want to group independants, but show a single card per person  #}
       {% for pp in person_post.list %} 
-        <div class="ds-candidate-card"> 
-          <div class="ds-candidate body ds-stack-smallest">
-            <h4 class="ds-candidate-name">
-              <a href="{{ pp.person.get_absolute_url }}">
-                {% if pp.elected %}🌟 <span class="elected_text">Elected:</span> {% endif %}
-                {{ person_post.grouper }}: {{ pp.person.name }}
-                {% if pp.elected %}🌟{% endif %}
-              </a>
-            </h4>
-          </div>
-
-          <div class="ds-candidate-image">
-            {% if pp.person.photo_url %}
-              <img src="{{ pp.person.photo_url }}" alt="Photo of {{ pp.person.name }}">
-            {% elif pp.person.gender|lower == 'male' %}
-              <img src="{% static 'people/images/blank-man.png' %}" style="background-color: #ddd;">
-            {% else %}
-              <img src="{% static 'people/images/blank-woman.png' %}" style="background-color: #ddd;">
-            {% endif %}
+        <div class="ds-padded-large">
+          <div class="ds-with-sidebar"> 
+            <div>
+              <div class="ds-sidebar" style="flex-basis: 5rem">
+                {% if pp.person.photo_url %}
+                  <img src="{{ pp.person.photo_url }}" alt="Photo of {{ pp.person.name }}">
+                {% elif pp.person.gender|lower == 'male' %}
+                  <img src="{% static 'people/images/blank-man.png' %}" style="background-color: #ddd;">
+                {% else %}
+                  <img src="{% static 'people/images/blank-woman.png' %}" style="background-color: #ddd;">
+                {% endif %}
+              </div>
+              <div class="ds-not-sidebar">
+                <h4><a href="{{ pp.person.get_absolute_url }}">
+                  {% if pp.elected %}🌟 <span class="elected_text">Elected:</span> {% endif %}
+                  {{ person_post.grouper }}: {{ pp.person.name }}
+                  {% if pp.elected %}🌟{% endif %}
+                </a></h4>
+              </div>
+            </div>
           </div>
         </div>
       {% endfor %}
