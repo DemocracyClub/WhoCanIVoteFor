@@ -52,8 +52,8 @@
               You will have one vote, and can vote for a single party list or independent candidate.
             {% else %}
               {% if postelection.winner_count and postelection.election.voting_system_id == 'FPTP' %}
-                You will have {{ postelection.winner_count|apnumber }} vote{{ postelection.winner_count|pluralize }}, 
-                and can choose from <strong>{{ postelection.people.count|apnumber }} candidate{{ postelection.people|pluralize }}</strong>. 
+                You will have {{ postelection.winner_count|apnumber }} vote{{ postelection.winner_count|pluralize }},
+                and can choose from <strong>{{ postelection.people.count|apnumber }} candidate{{ postelection.people|pluralize }}</strong>.
               {% endif %}
               {% if postelection.winner_count and postelection.election.voting_system_id == 'AMS' %}
                 You will have one vote, and can choose from <strong>{{ postelection.party_ballot_count }}</strong>
@@ -64,16 +64,16 @@
                 in the {{ postelection.friendly_name }}.
               {% endif %}
               {% if postelection.winner_count and postelection.election.voting_system_id == 'STV' %}
-                You can choose from {{ postelection.people.apnumber }} candidate{{ postelection.people|pluralize }}. 
+                You can choose from {{ postelection.people.apnumber }} candidate{{ postelection.people|pluralize }}.
               {% endif %}
             {% endif %}
 
             {% include "elections/includes/_how-to-vote.html" with voting_system=postelection.get_voting_system %}
-          
+
           {% else %}
             {# Case: Candidates and the post is NOT locked (add CTA) #}
             The official candidate list has not yet been published.
-            However, we expect at least <strong>{{ postelection.party_ballot_count }}</strong> 
+            However, we expect at least <strong>{{ postelection.party_ballot_count }}</strong>
             in the {{ postelection.friendly_name }}.
 
             You can help improve this page: <a href="{{ postelection.ynr_link }}">
@@ -106,9 +106,9 @@
       {% else %}
         The official candidate list should
         {% if postelection.past_expected_sopn_day %}
-         have been 
+         have been
         {% else %}
-         be 
+         be
         {% endif %}
         published on {{ postelection.expected_sopn_date|date:"j F Y" }}.
       {% endif %}

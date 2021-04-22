@@ -6,9 +6,9 @@
   {% for person_post in people_by_party %}
     {% if person_post.list.0.party.is_independent %}
       {#  This is a special case where we don't want to group independants, but show a single card per person  #}
-      {% for pp in person_post.list %} 
+      {% for pp in person_post.list %}
         <div class="ds-padded-large">
-          <div class="ds-with-sidebar"> 
+          <div class="ds-with-sidebar">
             <div>
               <div class="ds-sidebar" style="flex-basis: 5rem">
                 {% if pp.person.photo_url %}
