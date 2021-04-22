@@ -500,10 +500,10 @@ class PostElection(models.Model):
                     people.values("party_id").distinct().count()
                     - ind_candidates
                 )
-                total_parties = ind_candidates + num_other_parties
-                total_parties_apnumber = apnumber(total_parties)
-                options_pluralized = pluralize(total_parties)
-                return f"{total_parties_apnumber} option{options_pluralized}"
+                ind_and_parties = ind_candidates + num_other_parties
+                ind_and_parties_apnumber = apnumber(ind_and_parties)
+                ind_and_parties_pluralized = pluralize(ind_and_parties)
+                return f"{ind_and_parties_apnumber} Parties or independent candidate{ind_and_parties_pluralized}"
             else:
                 num_parties = people.values("party_id").distinct().count()
                 num_parties_apnumber = apnumber(num_parties)
