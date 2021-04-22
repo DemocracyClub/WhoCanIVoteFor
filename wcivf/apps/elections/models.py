@@ -503,7 +503,10 @@ class PostElection(models.Model):
                 ind_and_parties = ind_candidates + num_other_parties
                 ind_and_parties_apnumber = apnumber(ind_and_parties)
                 ind_and_parties_pluralized = pluralize(ind_and_parties)
-                return f"{ind_and_parties_apnumber} parties or independent candidate{ind_and_parties_pluralized}"
+                value = f"{ind_and_parties_apnumber} parties"
+                if ind_candidates:
+                    value = f"{value} or independent candidate{ind_and_parties_pluralized}"
+                return value
             else:
                 num_parties = people.values("party_id").distinct().count()
                 num_parties_apnumber = apnumber(num_parties)
