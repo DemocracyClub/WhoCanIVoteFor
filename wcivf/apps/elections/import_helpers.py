@@ -78,7 +78,7 @@ class YNRElectionImporter:
                     "name": ballot_dict["election"]["name"].strip(),
                     "current": ballot_dict["election"]["current"],
                     "election_weight": election_weight,
-                    "uses_lists": ballot_dict["party_lists_in_use"],
+                    "uses_lists": ballot_dict["election"]["party_lists_in_use"],
                 },
             )
 
