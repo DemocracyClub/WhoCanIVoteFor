@@ -67,19 +67,18 @@ class YNRElectionImporter:
         slug = ballot_dict["election"]["election_id"]
 
         election_weight = self.ballot_order(ballot_dict)
-
         if slug not in self.election_cache:
             election_type = slug.split(".")[0]
 
             election, created = Election.objects.update_or_create(
                 slug=slug,
-                election_type=slug.split(".")[0],
+                election_type=election_type,
                 defaults={
                     "election_date": ballot_dict["election"]["election_date"],
                     "name": ballot_dict["election"]["name"].strip(),
                     "current": ballot_dict["election"]["current"],
                     "election_weight": election_weight,
-                    "uses_lists": uses_lists,
+                    "uses_lists": ballot_dict["party_lists_in_use"],
                 },
             )
 
