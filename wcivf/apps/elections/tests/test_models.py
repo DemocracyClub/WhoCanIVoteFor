@@ -333,7 +333,7 @@ class TestPostElectionModel:
         post_election.election.refresh_from_db()
         assert (
             post_election.party_ballot_count
-            == "six Parties or independent candidates"
+            == "six parties or independent candidates"
         )
 
     def test_should_display_sopn_info_in_past(self, post_election):
