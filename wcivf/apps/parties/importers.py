@@ -199,7 +199,7 @@ class LocalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
                 election=election,
                 party=party,
                 country=country,
-                language=language,
+                language=language or "English",
                 defaults={
                     "web_url": manifesto_web,
                     "pdf_url": manifesto_pdf,
