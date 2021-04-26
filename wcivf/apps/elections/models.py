@@ -497,8 +497,10 @@ class PostElection(models.Model):
             if self.election.uses_lists:
                 ind_candidates = people.filter(party_id="ynmp-party:2").count()
                 num_other_parties = (
-                    people.values("party_id").distinct().count()
-                    - ind_candidates
+                    people.exclude(party_id="ynmp-party:2")
+                    .values("party_id")
+                    .distinct()
+                    .count()
                 )
                 ind_and_parties = ind_candidates + num_other_parties
                 ind_and_parties_apnumber = apnumber(ind_and_parties)
@@ -507,13 +509,12 @@ class PostElection(models.Model):
                 if ind_candidates:
                     value = f"{value} or independent candidate{ind_and_parties_pluralized}"
                 return value
+
             else:
-                num_parties = people.values("party_id").distinct().count()
-                num_parties_apnumber = apnumber(num_parties)
-                candidates_pluralized = pluralize(num_parties)
-                return (
-                    f"{num_parties_apnumber} candidate{candidates_pluralized}"
-                )
+                num_candidates = people.count()
+                candidates_apnumber = apnumber(num_candidates)
+                candidates_pluralized = pluralize(num_candidates)
+                return f"{candidates_apnumber} candidate{candidates_pluralized}"
 
     @property
     def should_display_sopn_info(self):
