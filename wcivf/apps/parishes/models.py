@@ -36,6 +36,13 @@ class ParishCouncilElection(models.Model):
         return self.is_contested is False
 
     @property
+    def unknown_if_contested(self):
+        """
+        Check is is_contested is explicity None
+        """
+        return self.is_contested is None
+
+    @property
     def election_date(self):
         """
         Hardcoded for this round of elections. This is used to correctly group

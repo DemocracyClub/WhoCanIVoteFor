@@ -29,3 +29,14 @@ class TestParishCouncilElection:
             msg = f"is_contested={case[0].is_contested}"
             with subtests.test(msg=msg):
                 assert case[0].is_uncontested is case[1]
+
+    def test_unknown_if_contested(self, subtests):
+        cases = [
+            (ParishCouncilElection(is_contested=True), False),
+            (ParishCouncilElection(is_contested=False), False),
+            (ParishCouncilElection(is_contested=None), True),
+        ]
+        for case in cases:
+            msg = f"is_contested={case[0].unknown_if_contested}"
+            with subtests.test(msg=msg):
+                assert case[0].unknown_if_contested is case[1]
