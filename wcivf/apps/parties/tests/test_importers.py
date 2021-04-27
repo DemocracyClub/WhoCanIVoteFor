@@ -102,16 +102,19 @@ class TestLocalPartyImporter:
 
     def test_import_parties_no_current_elections(self, importer, mocker):
         mocker.patch.object(importer, "delete_parties_for_election_date")
+        mocker.patch.object(importer, "delete_manifestos_for_election_date")
         mocker.patch.object(importer, "current_elections", return_value=False)
         mocker.patch.object(importer, "all_rows")
 
         assert importer.import_parties() is None
         importer.delete_parties_for_election_date.assert_called_once()
+        importer.delete_manifestos_for_election_date.assert_called_once()
         importer.current_elections.assert_called_once()
         importer.all_rows.assert_not_called()
 
     def test_import_parties_runs(self, importer, row, mocker):
         mocker.patch.object(importer, "delete_parties_for_election_date")
+        mocker.patch.object(importer, "delete_manifestos_for_election_date")
         mocker.patch.object(importer, "current_elections")
 
         party = mocker.MagicMock()
@@ -134,8 +137,9 @@ class TestLocalPartyImporter:
         # actual call to do the import
         importer.import_parties()
 
-        # assert what we expet to have been called was called
+        # assert what we expect to have been called was called
         importer.delete_parties_for_election_date.assert_called_once()
+        importer.delete_manifestos_for_election_date.assert_called_once()
         importer.current_elections.assert_called_once()
         importer.all_rows.assert_called()
         importer.add_local_party.assert_called_once_with(row, party, ballots)
