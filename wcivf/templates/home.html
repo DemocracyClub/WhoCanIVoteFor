@@ -5,44 +5,52 @@
 {% block og_title %}Who Can I Vote For?{% endblock og_title %}
 
 {% block content %}
-  <div class="card centered-card">
-    <h2>Find out about candidates in your area</h2>
-    <form method=post>
-      {% csrf_token %}
-        {{ form|dc_form }}
-      {% if request.GET.invalid_postcode %}
-      <p>
-        <strong>Sorry, we don't know the postcode {{ request.GET.postcode }}.
-          Is there another one you can try?</strong>
-      </p>
-      {% endif %}
-      <button type="submit">Find your candidates</button>
-    </form>
-  </div>
-
-  {% if upcoming_elections %}
-    <div class="card upcoming_elections">
-      <h2>Upcoming by-elections</h2>
-      {% regroup upcoming_elections by election.election_date as elections_by_date %}
-
-      {% for election_group in elections_by_date %}
-      <h3>{{ election_group.grouper }}</h3>
-      {% regroup election_group.list by election.nice_election_name as named_postelections %}
-      <ul>
-        {% for election in named_postelections %}
-          <li><strong>{{ election.grouper }}{{ election.list|length|pluralize }}</strong>
-          {% for postelection in election.list %}
-            <br><a href="{{ postelection.get_absolute_url }}">{{ postelection.friendly_name }}</a>
-            {% if postelection.cancelled %}
-            {{ postelection.short_cancelled_message_html }}
+<div class="ds-scope">
+  <div class="ds-stack-smaller">
+    <div class="ds-card ds-text-centered">
+      <div class="ds-card-body">
+        <h4>Find out about candidates in your area</h4>
+        <div class="ds-field">
+          <form method=post>
+            {% csrf_token %}
+              {{ form|dc_form }}
+            {% if request.GET.invalid_postcode %}
+            <p>
+              <strong>Sorry, we don't know the postcode {{ request.GET.postcode }}.
+                Is there another one you can try?</strong>
+            </p>
             {% endif %}
-          {% endfor %}
-          </li>
-        {% endfor %}
-      </ul>
-      {% endfor %}
+            <button type="submit">Find your candidates</button>
+          </form>
+        </div>
+      </div> 
     </div>
-  {% endif %}
 
+    <!-- {% if upcoming_elections %} -->
+      <!-- <div class="ds-card">
+        <div class="ds-card-body">
+          <h2>Upcoming by-elections</h2>
+          {% regroup upcoming_elections by election.election_date as elections_by_date %}
 
+          {% for election_group in elections_by_date %}
+          <h3>{{ election_group.grouper }}</h3>
+          {% regroup election_group.list by election.nice_election_name as named_postelections %}
+          <ul>
+            {% for election in named_postelections %}
+              <li><strong>{{ election.grouper }}{{ election.list|length|pluralize }}</strong>
+              {% for postelection in election.list %}
+                <br><a href="{{ postelection.get_absolute_url }}">{{ postelection.friendly_name }}</a>
+                {% if postelection.cancelled %}
+                {{ postelection.short_cancelled_message_html }}
+                {% endif %}
+              {% endfor %}
+              </li>
+            {% endfor %}
+          </ul>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %} -->
+  </div>
+</div>
 {% endblock content %}

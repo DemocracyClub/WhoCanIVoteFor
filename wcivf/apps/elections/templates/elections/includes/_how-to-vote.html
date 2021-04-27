@@ -10,48 +10,52 @@ STV:	Single Transferable Vote
 PR-CL:	Closed List
 
 {%  endcomment %}
+<ul class="ds-details">
+  <li style="list-style: none;"> 
+    <details>
+      <summary>How you vote</summary>
+      <p>
+      {% if voting_system.get_absolute_url %}
+        This election uses <a href="{{ voting_system.get_absolute_url }}">{{ voting_system.name }}</a>.
+      {% else %} 
+        This election uses {{ voting_system.name }}.
+      {% endif %}
+      </p>
 
-<details style="padding-top:1em; clear: both;">
-  <summary>How you vote</summary>
-  {% if voting_system.get_absolute_url %}
-    This election uses <a href="{{ voting_system.get_absolute_url }}">{{ voting_system.name }}</a>.
-  {% else %} 
-    This election uses {{ voting_system.name }}.
-  {% endif %}
+      {% if voting_system.slug == "FPTP" %}
+        <p>Mark an X in the box for your preferred candidate{{ postelection.winner_count|pluralize }}.</p>
+        {% if postelection.people|length > 1 %} 
+          <p>You can vote for up to {{ postelection.winner_count|apnumber }} candidate{{ postelection.winner_count|pluralize }} in this election.</p>
+        {% endif %}
+      {% endif %}
 
-  {% if voting_system.slug == "FPTP" %}
-    <p>Mark an X in the box for your preferred candidate{{ postelection.winner_count|pluralize }}.</p>
-    {% if postelection.people|length > 1 %} 
-      <p>You can vote for up to {{ postelection.winner_count|apnumber }} candidate{{ postelection.winner_count|pluralize }} in this election.</p>
-    {% endif %}
-  {% endif %}
+      {% if voting_system.slug == "STV" %}
+        <p>Rank the candidates by your preference: 1, 2, 3…
+          You don't have to rank all the candidates, but you must at least mark your first choice.</p>
+      {% endif %}
 
-  {% if voting_system.slug == "STV" %}
-    <p>Rank the candidates by your preference: 1, 2, 3…
-      You don't have to rank all the candidates, but you must at least mark your first choice.</p>
-  {% endif %}
+      {% if voting_system.slug == "sv" %}
+        <p>Mark an X in the first column for your first choice.
+          Mark an X in the second column for your second choice.
+          You do not have to mark a second choice.</p>
+      {% endif %}
 
-  {% if voting_system.slug == "sv" %}
-    <p>Mark an X in the first column for your first choice.
-      Mark an X in the second column for your second choice.
-      You do not have to mark a second choice.</p>
-  {% endif %}
+      {% if voting_system.slug == "PR-CL" %}
+        <p>Mark an X in the box for one party or independent candidate.</p>
+      {% endif %}
 
-  {% if voting_system.slug == "PR-CL" %}
-    <p>Mark an X in the box for one party or independent candidate.</p>
-  {% endif %}
+      {% if is_regional %}
+        <p>Mark an X in the box next to your preferred party or independent candidate</p>
+      {% endif %}
 
-  {% if is_regional %}
-    <p>Mark an X in the box next to your preferred party or independent candidate</p>
-  {% endif %}
+      {% if is_constituency %}
+        <p>Mark an X in the box for your preferred candidate.</p>
+      {% endif %}
 
-  {% if is_constituency %}
-    <p>Mark an X in the box for your preferred candidate.</p>
-  {% endif %}
+      <p>Read the instructions at the top of your ballot paper carefully.</p>
 
-  <p>Read the instructions at the top of your ballot paper carefully.</p>
-
-  <p>For more information, visit <a href="https://www.electoralcommission.org.uk/i-am-a/voter/how-cast-your-vote">
-    The Electoral Commission's website</a> or ask an official at your polling station.</p>
-
-</details>
+      <p>For more information, visit <a href="https://www.electoralcommission.org.uk/i-am-a/voter/how-cast-your-vote">
+        The Electoral Commission's website</a> or ask an official at your polling station.</p>
+    </details>        
+  </li>
+</ul>

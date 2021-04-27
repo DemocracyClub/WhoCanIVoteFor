@@ -8,62 +8,66 @@
 {% block og_description %}The {{ object.name }} {% if object.in_past %}was{% else %}will be{% endif %} held on {{ object.election_date }}.{% endblock og_description %}
 
 {% block content %}
+<div class="ds-scope">
+  <div class="ds-stack-smaller">
+    <div class="ds-card">
+      <div class="ds-card-body">
+        <h3>{{ object.nice_election_name }}</h3>
 
-<div class="card">
-    <h1>{{ object.nice_election_name }}</h1>
-
-    <p>The {{ object.nice_election_name }}
-      {% if object.is_election_day %}
-      <strong>is being held today</strong>.
-      Polls are open from {{ object.polls_open|time:"ga" }} till {{ object.polls_close|time:"ga" }}
-      {% else %}
-      {% if object.in_past %}was{% else %}will be{% endif %} held <strong>{{ object.election_date|naturalday:"\o\n l j F Y" }}</strong>.
-      {% endif %}
-    </p>
-
-    {% if object.election_type != "ref" %}
-        {% if election.person_set.count %}
-          <p>{% if object.locked %}There are {% else %}We know about {% endif %}<strong>{{ election.person_set.count }}</strong> candidates
-            {% if object.in_past %}that stood{% else %}standing{% endif %} for this election,
-            in <strong>{{ object.post_set.count }}</strong> posts.</p>
-          {% if not object.in_past and not object.locked %}
-            <p><a href="{{ object.ynr_link }}">Add more at our candidate crowd-sourcing site</a></p>
-          {% endif %}
+        <p>The {{ object.nice_election_name }}
+          {% if object.is_election_day %}
+          <strong>is being held today</strong>.
+          Polls are open from {{ object.polls_open|time:"ga" }} till {{ object.polls_close|time:"ga" }}
           {% else %}
-            {% if not object.in_past and not election.slug == 'parl.2017-06-08' %}
-              <p><a href="{{ object.ynr_link }}">Add some candidates at our candidate crowd-sourcing site</a></p>
-            {% endif %}
-        {% endif %}
+          {% if object.in_past %}was{% else %}will be{% endif %} held <strong>{{ object.election_date|naturalday:"\o\n l j F Y" }}</strong>.
+          {% endif %}
+        </p>
 
-        <h3>{{ object.pluralized_division_name|title }}</h3>
-        <ul>
-          {% for postelection in object.postelection_set.all %}
-            <li>
-              <a href="{{ postelection.get_absolute_url }}">{{ postelection.post.label }}</a>
-              {{ postelection.short_cancelled_message_html }}
-            </li>
-          {% endfor %}
-        </ul>
-    {% endif %}
-    <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
-      "@type": "Event",
-      "name": "{{ object.name }}",
-      "startDate" : "{{ object.election_date }}",
-      "url" : "{{ CANONICAL_URL }}{% url 'election_view' object.slug object.name|slugify %}",
-      "location" : {
-        "@type" : "Place",
-        "name" : "UK",
-      }
-    }
-    </script>
+        {% if object.election_type != "ref" %}
+            {% if election.person_set.count %}
+              <p>{% if object.locked %}There are {% else %}We know about {% endif %}<strong>{{ election.person_set.count }}</strong> candidates
+                {% if object.in_past %}that stood{% else %}standing{% endif %} for this election,
+                in <strong>{{ object.post_set.count }}</strong> posts.</p>
+              {% if not object.in_past and not object.locked %}
+                <p><a href="{{ object.ynr_link }}">Add more at our candidate crowd-sourcing site</a></p>
+              {% endif %}
+              {% else %}
+                {% if not object.in_past and not election.slug == 'parl.2017-06-08' %}
+                  <p><a href="{{ object.ynr_link }}">Add some candidates at our candidate crowd-sourcing site</a></p>
+                {% endif %}
+            {% endif %}
+
+            <h3>{{ object.pluralized_division_name|title }}</h3>
+            <ul>
+              {% for postelection in object.postelection_set.all %}
+                <li>
+                  <a href="{{ postelection.get_absolute_url }}">{{ postelection.post.label }}</a>
+                  {{ postelection.short_cancelled_message_html }}
+                </li>
+              {% endfor %}
+            </ul>
+        {% endif %}
+        <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "Event",
+          "name": "{{ object.name }}",
+          "startDate" : "{{ object.election_date }}",
+          "url" : "{{ CANONICAL_URL }}{% url 'election_view' object.slug object.name|slugify %}",
+          "location" : {
+            "@type" : "Place",
+            "name" : "UK",
+          }
+        }
+        </script>
+      </div>
+    </div>
+    {% include "elections/includes/_postcode_search_form.html" %}
+
+    {% include "feedback/feedback_form.html" %}
+  </div>
 </div>
 
-
-{% include "elections/includes/_postcode_search_form.html" %}
-
-{% include "feedback/feedback_form.html" %}
 
 {% endblock content %}
 
