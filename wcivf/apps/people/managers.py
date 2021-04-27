@@ -96,7 +96,7 @@ class PersonManager(models.Manager):
 
         sort_name = person.get("sort_name")
         if not sort_name:
-            sort_name = person["name"].split(" ")[-1]
+            sort_name = person["name"].strip().split(" ")[-1]
 
         defaults = {
             "name": person["name"],
