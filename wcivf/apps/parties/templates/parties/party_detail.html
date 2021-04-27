@@ -11,48 +11,73 @@
 
 
 {% block content %}
-<div class="card">
-  <div class="party_header">
+<div class="ds-scope">
+  <div class="ds-card">
+    <div class="ds-stack-smaller">
+      <div class="ds-card-body">
+      {% if party.emblem %}
+        <div class="ds-with-sidebar">
+          <div>
+            <div class="ds-sidebar" style="flex-basis: 10rem">
+               <img src="{{ party.emblem.url }}" alt="{{ party_name }} emblem">
+            </div>
+            <div class="ds-not-sidebar">
+              <h2>{{ object.party_name }}</h2>
+              <p>{{ object.personpost_set.all.count|intcomma }} candidates</p>
+              {% if object.description %}
+                {{ object.description|markdown }}
+              {% endif %}
+              {% if object.wikipedia_url %}
+                <p><a href="{{ object.wikipedia_url }}">Read more on wikipedia</a></p>
+              {% endif %} 
+            </div> 
+          </div>
+        </div>
+      
+      {% else %} 
+        <div>
+          <h2>{{ object.party_name }}</h2>
+          <p>{{ object.personpost_set.all.count|intcomma }} candidate{{ object.personpost_set.all.count|pluralize }}</p>
+          {% if object.description %}
+            {{ object.description|markdown }}
+          {% endif %}
+          {% if object.wikipedia_url %}
+            <p><a href="{{ object.wikipedia_url }}">Read more on wikipedia</a></p>
+          {% endif %}  
+        </div>    
+      
+      {% endif %}
+        
+      {% regroup object.personpost_set.all.counts_by_post by election__name as people_by_election %}
 
-    {% if object.emblem %}
-    <img src="{{ object.emblem.url }}" style="max-width:300px">
-    {% endif %}
-    <div>
-      <h2>{{ object.party_name }}</h2>
-      <p>{{ object.personpost_set.all.count|intcomma }} candidates</p>
+      {% for election in people_by_election %}
+        <h4>{{ election.grouper }}</h4>
+      {% for post in election.list %}
+        <dl class="ds-descriptions">
+          <div>
+            <dt>
+              <a href="{{ post.get_absolute_url }}">
+                {{ post.post__label }}
+              </a>
+              {% if post.post_election__cancelled %}
+                (The poll for this election was cancelled)
+              {% endif %}
+            </dt>
+            <dd>
+              {{ post.num_candidates }} candidate{{ post.num_candidates|pluralize }}
+            </dd>
+          </div>
+          <div>
+ 
+          </div>
+        </dl>
+      {% endfor %}
+      {% endfor %}
+      </div>  
     </div>
   </div>
-
-  {% if object.description %}
-  {{ object.description|markdown }}
-  {% endif %}
-  {% if object.wikipedia_url %}
-  <p><a href="{{ object.wikipedia_url }}">Read more on wikipedia</a></p>
-  {% endif %}
 </div>
 
-<div class="card">
-  {% regroup object.personpost_set.all.counts_by_post by election__name as people_by_election %}
-
-  {% for election in people_by_election %}
-  <h4>{{ election.grouper }}</h4>
-  {% for post in election.list %}
-    <dl>
-      <dt>
-        <a href="{{ post.get_absolute_url }}">
-          {{ post.post__label }}
-        </a>
-        {% if post.post_election__cancelled %}
-          (The poll for this election was cancelled)
-        {% endif %}
-      </dt>
-      <dd>
-        {{ post.num_candidates }} candidate{{ post.num_candidates|pluralize }}
-      </dd>
-    </dl>
-  {% endfor %}
-  {% endfor %}
-</div>
 {% endblock content %}
 
 

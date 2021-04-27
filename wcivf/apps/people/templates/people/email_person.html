@@ -11,20 +11,21 @@
 {% block og_description %}Standing for '{{ object.posts.all.0.label }}' in {{ object.posts.all.0.election.name }}{% endblock og_description %}
 
 {% block content %}
-  <div class="card person_banner">
-    <h2 class="person_name">Ask {{ object.name }} for more information</h2>
+  <div class="ds-card">
+    <div class="ds-card-body">
+      <h2 class="ds-candidate-name">Ask {{ object.name }} for more information</h2>
 
-    {% if object.photo_url %}
-      <img src="{{ object.photo_url }}" class="person_photo" alt="profile photo of {{ object.name }}">
-    {% endif %}
+      {% if object.photo_url %}
+        <img src="{{ object.photo_url }}" class="person_photo" alt="profile photo of {{ object.name }}">
+      {% endif %}
 
-    {% if object.email %}
-      {% include "people/_person_email_form.html" %}
-    {% else %}
-      <p>We don't know {{ object.name }}'s email address.
-          <a href="{{ object.get_ynr_url }}">Can you add it?</a></p>
-    {% endif %}
-
+      {% if object.email %}
+        {% include "people/_person_email_form.html" %}
+      {% else %}
+        <p>We don't know {{ object.name }}'s email address.
+            <a href="{{ object.get_ynr_url }}">Can you add it?</a></p>
+      {% endif %}
+    </div>
   </div>
 
 {% endblock content %}

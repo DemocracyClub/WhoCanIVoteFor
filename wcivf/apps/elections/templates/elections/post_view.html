@@ -9,33 +9,36 @@
 {% block og_description %}{% include "elections/includes/_post_meta_description.html" %}{% endblock og_description %}
 
 {% block content %}
+<div class="ds-scope">
+  <div class="ds-stack-smaller">
+    {% include "elections/includes/_single_ballot.html" with postelection=object%}
 
 
-  {% include "elections/includes/_single_ballot.html" with postelection=object%}
+    {% if postelection.ballotnewsarticle_set.exists %}
+      {% include "news_mentions/news_articles.html" with news_articles=postelection.ballotnewsarticle_set.all %}
+    {% endif %}
 
+    {% if postelection.next_ballot %}
+      <div class="ds-card">
+        <div class="ds-card-body">
+          <h3>Next election</h3>
+          <p>
+            The <a href="{{ postelection.next_ballot.get_absolute_url }}">next election for {{ postelection.friendly_name }}</a> is
+              {% if postelection.next_ballot.election.is_election_day %}
+                <strong>being held today</strong>.
+              {% else %}
+                due to take place <strong>on {{ postelection.next_ballot.election.election_date|date:"l j F Y"}}</strong>.
+              {% endif %}
+          </p>
+        </div>
+      </div>
+    {% endif %}
 
-{% if postelection.ballotnewsarticle_set.exists %}
-  {% include "news_mentions/news_articles.html" with news_articles=postelection.ballotnewsarticle_set.all %}
-{% endif %}
+    {% include "elections/includes/_postcode_search_form.html" %}
 
-{% if postelection.next_ballot %}
-  <div class="card">
-    <h3>Next election</h3>
-    <p>
-      The <a href="{{ postelection.next_ballot.get_absolute_url }}">next election for {{ postelection.friendly_name }}</a> is
-        {% if postelection.next_ballot.election.is_election_day %}
-          <strong>being held today</strong>.
-        {% else %}
-          due to take place <strong>on {{ postelection.next_ballot.election.election_date|date:"l j F Y"}}</strong>.
-        {% endif %}
-    </p>
+    {% include "feedback/feedback_form.html" %}
   </div>
-{% endif %}
-
-{% include "elections/includes/_postcode_search_form.html" %}
-
-{% include "feedback/feedback_form.html" %}
-
+</div>
 
 {% endblock content %}
 

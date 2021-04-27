@@ -2,116 +2,117 @@
 {% load postcode_tags %}
 {% load humanize %}
 
-<section class="card" id="polling_place">
+<div class="ds-card" id="polling_place">
+  <div class="ds-card-body">
 
-  <h2 id='where'>
-    <span aria-hidden="true">📍</span>
-    Where to vote
-    <span aria-hidden="true">📍</span>
-  </h2>
+    <h2 id='where'>
+      <span aria-hidden="true">📍</span>
+      Where to vote
+      <span aria-hidden="true">📍</span>
+    </h2>
 
-  {% if polling_station.polling_station_known %}
-    <p>
-      Your polling station is <strong>{{ polling_station.polling_station.properties.address }}</strong>.
-      It will be open from <strong>7am to 10pm</strong>
-      <strong>
-      {% for election in elections_by_date %}{{ election.grouper|naturalday:"\o\n l j F Y" }}{% if not forloop.last %}{% ifequal forloop.revcounter 2 %} and {% else %}, {% endifequal %}{% endif %}{% endfor %}</strong>.
+    {% if polling_station.polling_station_known %}
+      <p>
+        Your polling station is <strong>{{ polling_station.polling_station.properties.address }}</strong>.
+        It will be open from <strong>7am to 10pm</strong>
+        <strong>
+        {% for election in elections_by_date %}{{ election.grouper|naturalday:"\o\n l j F Y" }}{% if not forloop.last %}{% ifequal forloop.revcounter 2 %} and {% else %}, {% endifequal %}{% endif %}{% endfor %}</strong>.
 
 
-      {% if not voter_id_required %}
-        You don't need to take your poll card with you{% if not postcode|ni_postcode %}, or any identification{% endif %}.
-      {% endif %}
-    </p>
-  {% else %}
-    {% if polling_station.custom_finder %}
-        <p>You can find your polling station by
-        <a href="{{ polling_station.custom_finder }}">
-        following this link</a>.</p>
+        {% if not voter_id_required %}
+          You don't need to take your poll card with you{% if not postcode|ni_postcode %}, or any identification{% endif %}.
+        {% endif %}
+      </p>
     {% else %}
-      {% if ballots_today and not multiple_city_of_london_elections_today %}
-        <strong>Polling stations are open from {{ ballots_today.0.election.polls_open|time:"ga" }} till {{ ballots_today.0.election.polls_close|time:"ga" }} today.</strong>
-      {% endif %}
-      {% if polling_station.addresses %}
-        <p>Your polling station in {{ postcode }} depends on your address. <a href="https://wheredoivote.co.uk/postcode/{{ postcode }}/">Check the correct polling station for your address &raquo;</a></p>
+      {% if polling_station.custom_finder %}
+          <p>You can find your polling station by
+          <a href="{{ polling_station.custom_finder }}">
+          following this link</a>.</p>
       {% else %}
-        <p>You should get a "poll card" through the post telling you where to vote.</p>
-        <p>If you haven't got one, or aren't sure where to vote, you should call
-        {% if postcode|ni_postcode %}
-          the Electoral Office
-          {% if polling_station.council%}
-            on <a href="tel:{{ polling_station.council.phone }}">
-          {{ polling_station.council.phone }}</a>.</p>
-          {% endif %}
-        {% elif polling_station.council %}
-          {{ polling_station.council.name }} on <a href="tel:{{ polling_station.council.phone }}">
-          {{ polling_station.council.phone }}</a>.</p>
+        {% if ballots_today and not multiple_city_of_london_elections_today %}
+          <strong>Polling stations are open from {{ ballots_today.0.election.polls_open|time:"ga" }} till {{ ballots_today.0.election.polls_close|time:"ga" }} today.</strong>
+        {% endif %}
+        {% if polling_station.addresses %}
+          <p>Your polling station in {{ postcode }} depends on your address. <a href="https://wheredoivote.co.uk/postcode/{{ postcode }}/">Check the correct polling station for your address &raquo;</a></p>
         {% else %}
-          your local council.</p>
+          <p>You should get a "poll card" through the post telling you where to vote.</p>
+          <p>If you haven't got one, or aren't sure where to vote, you should call
+          {% if postcode|ni_postcode %}
+            the Electoral Office
+            {% if polling_station.council%}
+              on <a href="tel:{{ polling_station.council.phone }}">
+            {{ polling_station.council.phone }}</a>.</p>
+            {% endif %}
+          {% elif polling_station.council %}
+            {{ polling_station.council.name }} on <a href="tel:{{ polling_station.council.phone }}">
+            {{ polling_station.council.phone }}</a>.</p>
+          {% else %}
+            your local council.</p>
+          {% endif %}
         {% endif %}
       {% endif %}
+      {% if postcode|ni_postcode %}
+          <p>You will need photographic identification.</p>
+      {% endif %}
     {% endif %}
-    {% if postcode|ni_postcode %}
-        <p>You will need photographic identification.</p>
-    {% endif %}
-  {% endif %}
-  <p>
-  {% if postcode|ni_postcode %}
-      <a href="http://www.eoni.org.uk/Vote/Voting-at-a-polling-place" target="_top">
-      Read more about how to vote in Northern Ireland</a>.
-    {% else %}
-      <a href="https://www.gov.uk/voting-in-the-uk/polling-stations" target="_top">
-      Read more about how to vote</a>.
-  {% endif %}
-  </p>
-
-  {% if polling_station.polling_station_known and polling_station.polling_station.geometry %}
     <p>
-      <a href="https://wheredoivote.co.uk/postcode/{{ postcode }}">
-        Get walking directions from {{ postcode }}</a>.
+    {% if postcode|ni_postcode %}
+        <a href="http://www.eoni.org.uk/Vote/Voting-at-a-polling-place" target="_top">
+        Read more about how to vote in Northern Ireland</a>.
+      {% else %}
+        <a href="https://www.gov.uk/voting-in-the-uk/polling-stations" target="_top">
+        Read more about how to vote</a>.
+    {% endif %}
     </p>
-  {% endif %}
 
-  {% if not polling_station.custom_finder and polling_station.polling_station_known and polling_station.polling_station.geometry %}
-  <div id="area_map" style="height:400px;"></div>
+    {% if polling_station.polling_station_known and polling_station.polling_station.geometry %}
+      <p>
+        <a href="https://wheredoivote.co.uk/postcode/{{ postcode }}">
+          Get walking directions from {{ postcode }}</a>.
+      </p>
+    {% endif %}
 
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
-  <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+    {% if not polling_station.custom_finder and polling_station.polling_station_known and polling_station.polling_station.geometry %}
+    <div id="area_map" style="height:400px;"></div>
 
-  <script type="text/javascript">
-  // Maps
-  window.create_area_map = function(polling_station_point) {
-  var polling_station_location = polling_station_point;
-  window.polling_station_location = polling_station_location;
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
 
-  var map = L.map('area_map', {zoomControl:true});
-  map.dragging.disable();
-  // map.touchZoom.disable();
-  // map.doubleClickZoom.disable();
-  map.scrollWheelZoom.disable();
+    <script type="text/javascript">
+    // Maps
+    window.create_area_map = function(polling_station_point) {
+    var polling_station_location = polling_station_point;
+    window.polling_station_location = polling_station_location;
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.{ext}', {
-  ext: 'png',
-  attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
-  subdomains: 'abc'
-  }).addTo(map);
+    var map = L.map('area_map', {zoomControl:true});
+    map.dragging.disable();
+    // map.touchZoom.disable();
+    // map.doubleClickZoom.disable();
+    map.scrollWheelZoom.disable();
 
-  window.map = map;
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.{ext}', {
+    ext: 'png',
+    attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+    subdomains: 'abc'
+    }).addTo(map);
 
-  L.marker(polling_station_location, {
-  'clickable': true,
-  }).addTo(map);
+    window.map = map;
 
-  map.setView(polling_station_location,15);
-  };
+    L.marker(polling_station_location, {
+    'clickable': true,
+    }).addTo(map);
 
-  var polling_station_point = [
-  {{ polling_station.polling_station.geometry.coordinates.1 }},
-  {{ polling_station.polling_station.geometry.coordinates.0 }}
-  ];
+    map.setView(polling_station_location,15);
+    };
 
-  create_area_map(polling_station_point);
+    var polling_station_point = [
+    {{ polling_station.polling_station.geometry.coordinates.1 }},
+    {{ polling_station.polling_station.geometry.coordinates.0 }}
+    ];
 
-  </script>
-  {% endif %}
+    create_area_map(polling_station_point);
 
-</section>
+    </script>
+    {% endif %}
+  </div>
+</div>

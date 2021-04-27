@@ -1,5 +1,5 @@
 {% block intro_line %}
-{{ person.name }} {{ verb }} a <a href="{{ candidacy.party.get_absolute_url }}" title="{{ candidacy.party.name }}">{{ candidacy.party.party_name }}</a> candidate in {{ candidacy.post.label }} in the <a href="{{ candidacy.election.get_absolute_url }}" title="{{ candidacy.election.name }}">{{ candidacy.election.nice_election_name }}</a>.
+{{ person.name }} {{ verb }} a <a href="{{ candidacy.party.get_absolute_url }}" title="{{ candidacy.party.name }}">{{ candidacy.party.party_name }}</a> candidate in <a href="{{ candidacy.post_election.get_absolute_url }}">{{ candidacy.post.label }}</a> in the <a href="{{ candidacy.election.get_absolute_url }}" title="{{ candidacy.election.name }}">{{ candidacy.election.nice_election_name }}</a>.
 {% endblock %}
 {% if candidacy.votes_cast %}
     {% include "people/includes/intros/_votes_cast.html" %}

@@ -1,7 +1,7 @@
 {% regroup elections by election_date as elections_by_type %}
 {% for election_group in elections_by_type %}
   <h3>
-    {{ election_group.grouper }}
+   {{ election_group.grouper }}
   </h3>
   {% for election in election_group.list %}
   <div class="election">

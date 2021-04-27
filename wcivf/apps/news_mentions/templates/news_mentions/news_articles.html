@@ -1,22 +1,24 @@
-<div class="card">
-  <h2>
-    <span aria-hidden="true">📰</span>
-    News articles
-    <span aria-hidden="true">📰</span>
-  </h2>
-  <ul>
-  {% for news_article in news_articles %}
-    <li>
-    {% if news_article.publisher %}
-    <em>{{ news_article.publisher }}</em>:
-    {% endif %}
-      <a href="{{ news_article.url }}" rel="noopener noreferrer">
-        {{ news_article.title }}
-      </a>
-    {% if news_article.summary %}
-    <p>{{ news_article.summary }}</p>
-    {% endif %}
-    </li>
-  {% endfor %}
-  </ul>
+<div class="ds-card">
+  <div class="ds-card-body">
+    <h2>
+      <span aria-hidden="true">📰</span>
+      News articles
+      <span aria-hidden="true">📰</span>
+    </h2>
+    <ul>
+    {% for news_article in news_articles %}
+      <li>
+      {% if news_article.publisher %}
+      <em>{{ news_article.publisher }}</em>:
+      {% endif %}
+        <a href="{{ news_article.url }}" rel="noopener noreferrer">
+          {{ news_article.title }}
+        </a>
+      {% if news_article.summary %}
+      <p>{{ news_article.summary }}</p>
+      {% endif %}
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
 </div>

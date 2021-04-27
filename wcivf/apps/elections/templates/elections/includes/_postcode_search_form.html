@@ -1,11 +1,15 @@
 {% load dc_forms %}
-<div class="card">
-  <h3>All elections where you live</h3>
-  <p>Enter your postcode to get information about elections,
-    your candidates and where to vote.</p>
-  <form method="post" action="/">
-    {% csrf_token %}
-    {{ postcode_form|dc_form }}
-    <button type="submit" class="button">Find your candidates</button>
-  </form>
+<div class="ds-scope">
+  <div class="ds-card">
+    <div class="ds-card-body">
+      <h3>All elections where you live</h3>
+      <p>Enter your postcode to get information about elections,
+        your candidates and where to vote.</p>
+      <form method="post" action="/">
+        {% csrf_token %}
+        {{ postcode_form|dc_form }}
+        <button type="submit" class="ds-button">Find your candidates</button>
+      </form>
+    </div>
+  </div>
 </div>

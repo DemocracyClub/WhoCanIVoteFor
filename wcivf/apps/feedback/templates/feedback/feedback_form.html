@@ -1,31 +1,35 @@
-<section class="card">
-  <form id="feedback_form" method="post" action="{% url 'feedback_form_view' %}">
-    {% csrf_token %}
-    {{ feedback_form.token }}
-    {{ feedback_form.source_url }}
+<div class="ds-scope"> 
+  <div class="ds-card">
+    <form id="feedback_form" method="post" action="{% url 'feedback_form_view' %}">
+      {% csrf_token %}
+      {{ feedback_form.token }}
+      {{ feedback_form.source_url }}
 
-    <h2>
-      <span aria-hidden="true">🔎</span>
-      Did you find what you were looking for?
-      <span aria-hidden="true">🔎</span>
-    </h2>
-    {% for choice in feedback_form.found_useful %}
-      {{ choice.tag }}
-      <label class="link-button" for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
-    {% endfor %}
-    
-    <div class="comments_container">
-      <p>
-        What other websites/sources have you used to 
-        research the election?
-      </p> 
-        {{ feedback_form.sources }}
-    </div>
+      <h4>
+        <span aria-hidden="true">🔎</span>
+        Did you find what you were looking for?
+        <span aria-hidden="true">🔎</span>
+      </h4>
+      {% for choice in feedback_form.found_useful %}
+        {{ choice.tag }}
+        <label class="link-button" for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+      {% endfor %}
+      
+      <div>
+        <p>
+          What other websites/sources have you used to 
+          research the election?
+        </p> 
+          {{ feedback_form.sources }}
+      </div>
 
-    <div class="comments_container">
-      <p>Can you tell us anything more?</p>
-      {{ feedback_form.comments }}
-      <button type="submit" class="button">Send feedback</button>
-    </div>
-  </form>
-</section>
+      <div>
+        <p>Can you tell us anything more?</p>
+        {{ feedback_form.comments }}
+        <div class="ds-padded">
+          <button type="submit" class="ds-button">Send feedback</button>
+        </div>
+      </div>
+    </form>
+   </div>
+</div>
