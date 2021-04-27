@@ -38,6 +38,12 @@ class LocalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
         ).delete()
         self.write(f"Deleted {count} local parties for {self.election.date}")
 
+    def delete_manifestos_for_election_date(self):
+        count, _ = Manifesto.objects.filter(
+            election__election_date=self.election.date,
+        ).delete()
+        self.write(f"Deleted {count} manifestos for {self.election.date}")
+
     def current_elections(self):
         """
         Checks for current Election objects with the given date
@@ -141,6 +147,7 @@ class LocalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
         parent party.
         """
         self.delete_parties_for_election_date()
+        self.delete_manifestos_for_election_date()
 
         if not self.current_elections():
             self.write(
