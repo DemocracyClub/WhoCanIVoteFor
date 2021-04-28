@@ -193,6 +193,18 @@ class Election(models.Model):
             "mayor.lewisham.2018-05-03": "booklets/2018-05-03/mayoral/mayor.lewisham.2018-05-03.pdf",
             "mayor.tower-hamlets.2018-05-03": "booklets/2018-05-03/mayoral/mayor.tower-hamlets.2018-05-03.pdf",
             "mayor.newham.2018-05-03": "booklets/2018-05-03/mayoral/mayor.newham.2018-05-03.pdf",
+            "mayor.bristol.2021-05-06": "booklets/2021-05-06/mayoral/mayor.bristol.2021-05-06.pdf",
+            "mayor.cambridgeshire-and-peterborough.2021-05-06": "booklets/2021-05-06/mayoral/mayor.cambridgeshire-and-peterborough.2021-05-06.pdf",
+            "mayor.doncaster.2021-05-06": "booklets/2021-05-06/mayoral/mayor.doncaster.2021-05-06.pdf",
+            "mayor.greater-manchester-ca.2021-05-06": "booklets/2021-05-06/mayoral/mayor.greater-manchester-ca.2021-05-06.pdf",
+            "mayor.liverpool-city-ca.2021-05-06": "booklets/2021-05-06/mayoral/mayor.liverpool-city-ca.2021-05-06.pdf",
+            "mayor.london.2021-05-06": "booklets/2021-05-06/mayoral/mayor.london.2021-05-06.pdf",
+            "mayor.north-tyneside.2021-05-06": "booklets/2021-05-06/mayoral/mayor.north-tyneside.2021-05-06.pdf",
+            "mayor.salford.2021-05-06": "booklets/2021-05-06/mayoral/mayor.salford.2021-05-06.pdf",
+            "mayor.tees-valley.2021-05-06": "booklets/2021-05-06/mayoral/mayor.tees-valley.2021-05-06.pdf",
+            "mayor.west-midlands.2021-05-06": "booklets/2021-05-06/mayoral/mayor.west-midlands.2021-05-06.pdf",
+            "mayor.west-of-england.2021-05-06": "booklets/2021-05-06/mayoral/mayor.west-of-england.2021-05-06.pdf",
+            "mayor.west-yorkshire.2021-05-06": "booklets/2021-05-06/mayoral/mayor.west-yorkshire.2021-05-06.pdf",
         }
 
         return election_to_booklet.get(self.slug)
