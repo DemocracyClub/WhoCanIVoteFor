@@ -1,6 +1,6 @@
 -r base.txt
 
-black==21.4b1
+black==21.4b2
 tox
 pytest
 pytest-django
