@@ -44,9 +44,13 @@
               </li>
             {% endfor %}
 
-            {% if parish_council_election and parish_council_election.election_date == election_group.grouper and parish_council_election.is_contested %}
+            {% if parish_council_election and parish_council_election.election_date == election_group.grouper %}
               <li {% if parish_council_election.in_past %}class="past_elections"{% endif %}>
-                <a href="#parishcouncil">{{ parish_council_election.council_name }}</a>
+                <a href="#parishcouncil">{{ parish_council_election.council_name }}
+                  {% if parish_council_election.is_unconstested %} (uncontested)
+                  {% elif parish_council_election.unknown_if_contested %} (may be contested)
+                  {% endif %}
+                </a>
               </li>
             {% endif %}
 
