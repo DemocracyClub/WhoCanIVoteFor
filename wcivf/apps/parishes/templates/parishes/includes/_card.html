@@ -1,7 +1,7 @@
 {% load humanize %}
 
-<div class="card" id="parishcouncil">
-
+<div class="ds-card" id="parishcouncil">
+<div class="ds-card-body">
 <h1>
     <span aria-hidden="true">🗳️</span>
       {{ parish_council_election.council_name }}
@@ -31,5 +31,5 @@
       {% if parish_council_election.sopn %}<a href="{{ parish_council_election.sopn }}">See who was elected</a>.{% endif %}
     </p>
 {% endif %}
-
+</div>
 </div>
