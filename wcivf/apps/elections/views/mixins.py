@@ -1,13 +1,13 @@
 from datetime import date
 
 import requests
-
-from django.urls import reverse
+from django.db.models import F
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.core.cache import cache
 from django.db.models import IntegerField
 from django.db.models import When, Case, Count
+from django.urls import reverse
 
 from core.models import log_postcode
 from core.utils import LastWord
@@ -104,7 +104,9 @@ class PostelectionsToPeopleMixin(object):
         else:
             order_by = ["person__sort_name", "last_name", "person__name"]
 
-        people_for_post = people_for_post.order_by("-elected", *order_by)
+        people_for_post = people_for_post.order_by(
+            F("elected").desc(nulls_last=True), *order_by
+        )
         people_for_post = people_for_post.select_related(
             "post", "election", "person", "party"
         )
