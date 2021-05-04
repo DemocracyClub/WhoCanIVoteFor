@@ -34,21 +34,25 @@
     <h4>
       Recent leaflets from {{ object.name }}
     </h4>
+    <ul class="ds-grid">
     {% for leaflet in object.leaflet_set.latest_four %}
-    {% if leaflet.thumb_url %}
-    <a href="https://electionleaflets.org/leaflets/{{ leaflet.leaflet_id }}">}
-      <img src="{{ leaflet.thumb_url }}" alt="Thumbnail of leaflet from {{ object.name }}" />
-    </a>
-    {% endif %}
-    <p>
-      Uploaded {{ leaflet.date_uploaded_to_electionleaflets|naturalday:"j M Y" }}<br />
-      <a href="https://electionleaflets.org/leaflets/{{ leaflet.leaflet_id }}" class="cta">See leaflet</a>
-    </p>
+      <li>
+      {% if leaflet.thumb_url %}
+      <a href="https://electionleaflets.org/leaflets/{{ leaflet.leaflet_id }}">
+        <img src="{{ leaflet.thumb_url }}" alt="Thumbnail of leaflet from {{ object.name }}" />
+      </a>
+      {% endif %}
+      <p>
+        Uploaded {{ leaflet.date_uploaded_to_electionleaflets|naturalday:"j M Y" }}<br />
+        <a href="https://electionleaflets.org/leaflets/{{ leaflet.leaflet_id }}" class="cta">See leaflet</a>
+      </p>
+      </li>
     {% endfor %}
+    </ul>
     <p class="text" style="clear:both;padding-top:1em">
-      <a class="link-button" href="https://electionleaflets.org/person/{{ object.ynr_id }}">More leaflets from {{
-        object.name }}</a>
-      <a class="link-button" href="https://electionleaflets.org/leaflets/add/front/">Upload a leaflet</a>
+      <a class="ds-cta" href="https://electionleaflets.org/person/{{ object.ynr_id }}">More leaflets from
+        {{ object.name }}</a>
+      <a class="ds-cta" href="https://electionleaflets.org/leaflets/add/">Upload a leaflet</a>
     </p>
     {% endif %}
 
