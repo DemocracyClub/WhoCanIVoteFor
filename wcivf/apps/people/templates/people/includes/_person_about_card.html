@@ -1,14 +1,18 @@
-{% if object.wikipedia_bio %}
-<section class="ds-card">
-  <div class="ds-card-body">
-    <h2 class="ds-candidate-name ds-h3">
-      About {{ object.name }}
-    </h2>
-
-    <h3>Wikipedia</h3>
-    <p>{{ object.wikipedia_bio }}</p>
-    <a href="{{ object.wikipedia_url }}" class="link-button">Read more on Wikipedia</a>
-
+{% if object.wikipedia_bio or object.favourite_biscuit %}
+  <div class="ds-card">
+    <div class="ds-card-body">
+      <h2 class="ds-candidate-name ds-h3">
+        About {{ object.name }}
+      </h2>
+      {% if object.wikipedia_bio %}
+        <h4>Wikipedia</h4>
+        <p>{{ object.wikipedia_bio }}</p>
+        <a href="{{ object.wikipedia_url }}" class="link-button">Read more on Wikipedia</a>
+      {% endif %} 
+      {% if object.favourite_biscuit %}
+        <h4>Favourite Biscuit?</h4>
+        <p>{{ object.favourite_biscuit }}</p>
+      {% endif %}
+    </div>
   </div>
-</section>
 {% endif %}
