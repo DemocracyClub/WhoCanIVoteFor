@@ -11,7 +11,7 @@ class LeafletQuerySet(models.QuerySet):
 class Leaflet(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
     leaflet_id = models.IntegerField()
-    thumb_url = models.URLField(null=True, blank=True)
+    thumb_url = models.URLField(null=True, blank=True, max_length=800)
     date_uploaded_to_electionleaflets = models.DateTimeField(
         null=True, blank=True
     )

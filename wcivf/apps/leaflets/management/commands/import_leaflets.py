@@ -14,11 +14,11 @@ from leaflets.models import Leaflet
 class Command(BaseCommand):
     @transaction.atomic
     def handle(self, **options):
-        base_url_fmt = "https://electionleaflets.org/api/ballots/{}/"
+        base_url = "https://electionleaflets.org/api/leaflets"
         Leaflet.objects.all().delete()
         qs = PostElection.objects.filter(election__current=True)
         for ballot in qs:
-            url = base_url_fmt.format(ballot.ballot_paper_id)
+            url = f"{base_url}/?ballot={ballot.ballot_paper_id}"
             while url:
                 req = requests.get(url)
                 if req.status_code == 200:
@@ -30,24 +30,28 @@ class Command(BaseCommand):
 
     def add_leaflets(self, results):
         for leaflet in results:
-            person_id = leaflet["ynr_person_id"]
-            if not person_id:
+
+            if not "people" in leaflet:
                 continue
-            thumb_url = leaflet["first_page_thumb"]
-            leaflet_id = leaflet["pk"]
-            upload_date = datetime.strptime(
-                leaflet["date_uploaded"].split(".")[0], "%Y-%m-%dT%H:%M:%S"
-            )
-            dt_aware = tz.make_aware(upload_date, tz.get_current_timezone())
-            try:
-                person = Person.objects.get_by_pk_or_redirect_from_ynr(
-                    person_id
+            for person_data in leaflet["people"]:
+                person_id = list(person_data.keys())[0]
+                thumb_url = leaflet["first_page_thumb"]
+                leaflet_id = leaflet["pk"]
+                upload_date = datetime.strptime(
+                    leaflet["date_uploaded"].split(".")[0], "%Y-%m-%dT%H:%M:%S"
                 )
-                Leaflet.objects.create(
-                    leaflet_id=leaflet_id,
-                    thumb_url=thumb_url,
-                    date_uploaded_to_electionleaflets=dt_aware,
-                    person=person,
-                )
-            except Person.DoesNotExist:
-                print("No person found with id %s" % person_id)
+                dt_aware = tz.make_aware(upload_date, tz.get_current_timezone())
+                try:
+                    person = Person.objects.get_by_pk_or_redirect_from_ynr(
+                        person_id
+                    )
+                    Leaflet.objects.update_or_create(
+                        leaflet_id=leaflet_id,
+                        person=person,
+                        defaults={
+                            "thumb_url": thumb_url,
+                            "date_uploaded_to_electionleaflets": dt_aware,
+                        },
+                    )
+                except Person.DoesNotExist:
+                    print("No person found with id %s" % person_id)
