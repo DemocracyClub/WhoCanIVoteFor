@@ -10,16 +10,16 @@
         {% endif %}
       </p>
       <dl class="ds-descriptions">
-        <div>
         {% if person.local_party.twitter %}
+        <div>
           <dt>Twitter</dt>
           <a href="https://twitter.com/{{ person.local_party.twitter }}">
             {{ person.local_party.twitter }}
           </a>
-        {% endif %}
         </div>
-        <div>
+        {% endif %}
         {% if person.local_party.facebook_page %}
+        <div>
          <dt>Facebook</dt>
           <a href="{{ person.local_party.facebook_page }}">
             {{ person.local_party.facebook_page }}
@@ -27,16 +27,18 @@
         </div>
         {% endif %}
         {% if person.local_party.homepage %}
+        <div>
          <dt>Party Homepage</dt>
           <a href="{{ person.local_party.homepage }}">
-            {{ person.local_party.name }}'s website}
+            {{ person.local_party.name }}'s website
           </a>  
         </div>
         {% endif %}
-        {% if person.local_party.email%}
+        {% if person.local_party.email %}
+        <div>
          <dt>Email</dt>
           <a href="{{ person.local_party.email }}">
-            {{ person.local_party.name }}'s email}
+            {{ person.local_party.name }}'s email
           </a>  
         </div>
         {% endif %}
