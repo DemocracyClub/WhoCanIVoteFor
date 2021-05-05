@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.utils import timezone
 
 
 class Referendum(models.Model):
@@ -36,3 +37,10 @@ class Referendum(models.Model):
     @property
     def slug(self):
         return slugify(self.question)
+
+    @property
+    def is_election_day(self):
+        """
+        Return boolean for whether it is election day
+        """
+        return self.date == timezone.now().date()

@@ -9,7 +9,7 @@
       <span aria-hidden="true">🗳️</span>
     </h1>
 
-    <p>On <strong>{{ referendum.date|naturalday:"l j F Y" }}</strong>, voters in <strong>{{ referendum.area_name }}</strong> will also be able to vote in a referendum.</p>
+    <p>{% if referendum.is_election_day %}<strong>Today</strong>{% else %}On <strong>{{ referendum.date|date:"l j F Y" }}</strong>{% endif %}, voters in <strong>{{ referendum.area_name }}</strong> will also be able to vote in a referendum.</p>
     <p>The question you will be asked on the ballot paper is:</p>
 
     <h4>{{ referendum.question}}</h4>
