@@ -79,7 +79,7 @@ class PostcodeToPostsMixin(object):
         if not compact:
             pes = pes.prefetch_related("husting_set")
         pes = pes.order_by(
-            "past_date", "election__election_date", "election__election_weight"
+            "past_date", "election__election_date", "-election__election_weight"
         )
 
         return pes
