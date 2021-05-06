@@ -43,7 +43,9 @@ class YNRElectionImporter:
         ballot_paper_id = ballot_dict["ballot_paper_id"]
 
         # Look up the dict of possible weights for this election type
-        weights = charisma_map.get(ballot_paper_id.split(".")[0], 30)
+        weights = charisma_map.get(
+            ballot_paper_id.split(".")[0], {"default": 30}
+        )
 
         organisation_type = ballot_paper_id.split(".")[0]
         default_weight_for_election_type = weights.get("default")
