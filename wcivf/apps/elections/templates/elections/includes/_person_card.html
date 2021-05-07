@@ -12,9 +12,11 @@
       </a>
     </h3>
     {% if person_post.elected %}
+    <p>
       <span aria-hidden="true">🌟</span>
       Elected
       <span aria-hidden="true">🌟</span>
+    </p>
     {% endif %}
     {% if postelection.election.current and person_post.person.death_date %}
       {% if person_post.party.is_independent %}
