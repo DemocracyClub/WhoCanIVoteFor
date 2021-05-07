@@ -35,8 +35,8 @@
       </div> 
     </div>
 
-    <!-- {% if upcoming_elections %} -->
-      <!-- <div class="ds-card">
+    {% if upcoming_elections %}
+      <div class="ds-card">
         <div class="ds-card-body">
           <h2>Upcoming by-elections</h2>
           {% regroup upcoming_elections by election.election_date as elections_by_date %}
@@ -59,7 +59,7 @@
           {% endfor %}
         </div>
       </div>
-    {% endif %} -->
+    {% endif %}
   </div>
 </div>
 {% endblock content %}
