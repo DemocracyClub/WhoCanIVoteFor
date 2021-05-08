@@ -1,7 +1,8 @@
 {% load static %}
 {% load humanize %}
 
-<li class="ds-candidate" style="list-style: none; {% if person_post.elected %} grid-column: 1/3;{% endif %}">
+<li class="ds-candidate {% if person_post.elected %}elected{% endif %}">
+
   <div class="ds-candidate-body ds-stack-smaller">
     <h3 class="ds-candidate-name ds-h5">
       {% if person_post.list_position %}
@@ -10,6 +11,11 @@
       <a href="{{ person_post.person.get_absolute_url }}" class="ds-card-link">
         {{ person_post.person.name}}
       </a>
+      {% if postelection.election.current and person_post.person.death_date %}
+        {% if person_post.party.is_independent %}
+          (Deceased)
+        {% endif %}
+      {% endif %}
     </h3>
     {% if person_post.elected %}
     <p>
@@ -18,12 +24,8 @@
       <span aria-hidden="true">🌟</span>
     </p>
     {% endif %}
-    {% if postelection.election.current and person_post.person.death_date %}
-      {% if person_post.party.is_independent %}
-        (Deceased)
-      {% endif %}
+
     <!-- {% include "elections/includes/_ld_candidate.html" with person=person_post.person party=person_post.party %} -->
-    {% endif %}
     {% if not person_post.list_position or not postelection.display_as_party_list %}
       <div class="ds-h6">{{ person_post.party.party_name }}
       {% if person_post.votes_cast %}
@@ -32,6 +34,7 @@
       </div>
     {% endif %}
   </div>
+
   <div class="ds-candidate-image">
     {% if person_post.person.photo_url %}
       <img src="{{ person_post.person.photo_url }}" alt="Photo of {{ person_post.person.name }}">

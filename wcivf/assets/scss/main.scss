@@ -204,3 +204,9 @@ summary {
   cursor: pointer;
   color: $dc-bright-pink;
 }
+
+@media (min-width: 750px) {
+  .ds-candidate.elected {
+    grid-column: 1/3;
+  }
+}
