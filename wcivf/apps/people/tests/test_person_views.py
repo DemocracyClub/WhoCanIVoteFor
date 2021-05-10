@@ -133,10 +133,8 @@ class PersonViewTests(TestCase):
             person=self.person, election=election_two, party=party
         )
         response = self.client.get(self.person_url, follow=True)
-        self.assertContains(
-            response,
-            "is a Liberal Democrat candidate in the following elections:",
-        )
+        expected = f"<h5>{self.person.name} is a Liberal Democrat candidate in the following elections:"
+        self.assertContains(response, expected, html=True)
 
     def test_multiple_independent_candidacies_intro(self):
         election_one = ElectionFactory()
@@ -149,9 +147,8 @@ class PersonViewTests(TestCase):
             person=self.person, election=election_two, party=party
         )
         response = self.client.get(self.person_url, follow=True)
-        self.assertContains(
-            response, "is an Independent candidate in the following elections:"
-        )
+        expected = f"<h5>{self.person.name} is an Independent candidate in the following elections:"
+        self.assertContains(response, expected, html=True)
 
     def test_one_candidacy_intro(self):
         election = ElectionFactory()
