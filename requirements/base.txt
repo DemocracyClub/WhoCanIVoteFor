@@ -1,6 +1,6 @@
 Django==3.2.7
 
-psycopg2-binary==2.8.6
+psycopg2-binary==2.9.1
 requests==2.25.1
 django-model-utils==4.1.1
 django-markdown-deux==1.0.5
