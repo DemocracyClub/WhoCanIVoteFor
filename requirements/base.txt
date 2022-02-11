@@ -25,7 +25,7 @@ https://github.com/DemocracyClub/dc_django_utils/archive/refs/tags/0.1.8.tar.gz
 djangorestframework-jsonp==1.0.2
 feedparser==6.0.8
 
-sentry-sdk==1.5.1
+sentry-sdk==1.5.5
 uk-election-timetables==2.2.3
 aws-sam-cli==1.37.0
 awscli==1.22.52
