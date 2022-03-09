@@ -28,5 +28,5 @@ feedparser==6.0.8
 sentry-sdk==1.5.1
 uk-election-timetables==2.2.3
 aws-sam-cli==1.37.0
-awscli==1.22.52
+awscli==1.22.70
 django-dotenv==1.4.2
