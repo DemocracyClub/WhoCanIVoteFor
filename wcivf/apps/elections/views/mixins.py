@@ -1,7 +1,7 @@
 from datetime import date
 
 import requests
-from django.db.models import F
+from django.db.models import F, Prefetch
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.core.cache import cache
@@ -11,6 +11,7 @@ from django.urls import reverse
 
 from core.models import log_postcode
 from core.utils import LastWord
+from leaflets.models import Leaflet
 from people.models import PersonPost
 from elections.constants import UPDATED_SLUGS
 
@@ -76,8 +77,7 @@ class PostcodeToPostsMixin(object):
         pes = pes.select_related("election__voting_system")
         pes = pes.select_related("referendum")
 
-        if not compact:
-            pes = pes.prefetch_related("husting_set")
+        pes = pes.prefetch_related("husting_set")
         pes = pes.order_by(
             "past_date", "election__election_date", "-election__election_weight"
         )
@@ -110,10 +110,17 @@ class PostelectionsToPeopleMixin(object):
         people_for_post = people_for_post.select_related(
             "post", "election", "person", "party"
         )
+        people_for_post = people_for_post.prefetch_related(
+            Prefetch(
+                "person__leaflet_set",
+                queryset=Leaflet.objects.order_by(
+                    "date_uploaded_to_electionleaflets"
+                ),
+                to_attr="ordered_leaflets",
+            )
+        )
         if not compact:
-
             people_for_post = people_for_post.prefetch_related(
-                # "person__leaflet_set",
                 "person__pledges"
             )
         cache.set(key, people_for_post)

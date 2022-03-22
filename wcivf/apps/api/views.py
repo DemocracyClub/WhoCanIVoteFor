@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from api import serializers
 from api.serializers import VotingSystemSerializer
 from core.helpers import clean_postcode
+from hustings.api.serializers import HustingSerializer
 
 from people.models import Person
 from elections.views import mixins
@@ -45,6 +46,15 @@ class BaseCandidatesAndElectionsViewSet(
     @abc.abstractmethod
     def get_ballots(self, request):
         pass
+
+    def add_hustings(self, postelection: PostElection):
+        hustings = None
+        hustings_qs = postelection.husting_set.all()
+        if hustings_qs:
+            hustings = HustingSerializer(
+                hustings_qs, many=True, read_only=True
+            ).data
+        return hustings
 
     def list(self, request, *args, **kwargs):
         results = []
@@ -86,6 +96,7 @@ class BaseCandidatesAndElectionsViewSet(
                 ).data,
                 "seats_contested": postelection.winner_count,
                 "organisation_type": postelection.post.organization_type,
+                "hustings": self.add_hustings(postelection),
             }
             if postelection.replaced_by:
                 election[

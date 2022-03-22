@@ -151,9 +151,7 @@
             {% endif %}
 
 
-            {% if postelection.husting_set.displayable %}
-                {% include "hustings/includes/_ballot.html" with hustings=postelection.husting_set.displayable %}
-            {% endif %}
+
 
             {% if postelection.ballotnewsarticle_set.exists %}
                 {% include "news_mentions/news_articles.html" with news_articles=postelection.ballotnewsarticle_set.all %}
@@ -171,4 +169,7 @@
             {% include "elections/includes/_ld_election.html" with election=postelection %}
         </div>
     </div>
+    {% if postelection.husting_set.displayable %}
+        {% include "hustings/includes/_ballot.html" with hustings=postelection.husting_set.displayable %}
+    {% endif %}
 </div>

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from elections.models import VotingSystem
+from leaflets.api.serializers import LeafletSerializer
 from people.models import Person, PersonPost
 from parties.models import Party
 
@@ -17,7 +18,21 @@ class PersonSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Person
-        fields = ("ynr_id", "name", "absolute_url", "email", "photo_url")
+        fields = (
+            "ynr_id",
+            "name",
+            "absolute_url",
+            "email",
+            "photo_url",
+            "leaflets",
+        )
+
+    leaflets = serializers.SerializerMethodField(allow_null=True)
+
+    def get_leaflets(self, obj: Person):
+        leaflets = obj.ordered_leaflets[:4]
+        if leaflets:
+            return LeafletSerializer(leaflets, many=True, read_only=True).data
 
 
 class PartySerializer(serializers.HyperlinkedModelSerializer):
