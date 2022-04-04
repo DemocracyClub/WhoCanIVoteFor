@@ -10,7 +10,7 @@ djangorestframework==3.13.1
 django-redis==5.2.0
 freezegun==1.1.0
 hiredis==2.0.0
-redis==4.1.3
+redis==4.2.2
 Pillow==8.4.0
 icalendar==4.0.9
 dealer==2.1.0
