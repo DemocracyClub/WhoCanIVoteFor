@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.core.cache import cache
 from django.db.models import IntegerField
 from django.db.models import When, Case, Count
+from django.db.models.functions import Coalesce
 from django.urls import reverse
 
 from core.models import log_postcode
@@ -98,11 +99,14 @@ class PostelectionsToPeopleMixin(object):
         people_for_post = people_for_post.annotate(
             last_name=LastWord("person__name")
         )
+        people_for_post = people_for_post.annotate(
+            name_for_ordering=Coalesce("person__sort_name", "person__last_name")
+        )
 
         if postelection.election.uses_lists:
             order_by = ["party__party_name", "list_position"]
         else:
-            order_by = ["person__sort_name", "last_name", "person__name"]
+            order_by = ["name_for_ordering", "person__name"]
 
         people_for_post = people_for_post.order_by(
             F("elected").desc(nulls_last=True), *order_by
