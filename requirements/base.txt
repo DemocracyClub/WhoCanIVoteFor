@@ -12,7 +12,7 @@ django-extensions==3.2.1
 djangorestframework==3.14.0
 django-redis==5.2.0
 hiredis==2.0.0
-redis==4.3.4
+redis==4.3.5
 Pillow==9.2.0
 icalendar==4.0.9
 dealer==2.1.0
