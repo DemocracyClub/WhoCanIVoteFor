@@ -11,7 +11,7 @@ django-localflavor==3.1
 django-extensions==3.2.1
 djangorestframework==3.14.0
 django-redis==5.2.0
-hiredis==2.0.0
+hiredis==2.1.1
 redis==4.3.5
 Pillow==9.3.0
 icalendar==5.0.4
