@@ -130,7 +130,7 @@ Resources:
         BatchFeedbackToSlack:
           Type: Schedule
           Properties:
-            Schedule: cron(0 9 ? * 6 *) # using the ? as you cannot use * wildcard for both day-of-month and day-of-week field. See https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions
+            Schedule: cron(0 * ? * * *) # using the ? as you cannot use * wildcard for both day-of-month and day-of-week field. See https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions
             Name: batch-feedback-to-slack
             Description: Send feedback entries for the last week to slack
             Input: '{"command": "batch_feedback_to_slack", "args": ["--hours=1"]}'
