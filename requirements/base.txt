@@ -6,7 +6,7 @@ psycopg2-binary==2.9.6
 requests==2.28.2
 django-filter==22.1
 django-model-utils==4.3.1
-Markdown==3.4.1
+Markdown==3.4.3
 django-localflavor==3.1
 django-extensions==3.2.1
 djangorestframework==3.14.0
