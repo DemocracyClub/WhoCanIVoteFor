@@ -8,7 +8,7 @@ pytest-pep8
 pytest-flakes
 pytest-cov
 factory_boy
-vcrpy==4.2.1
+vcrpy==4.3.1
 pytest-freezegun
 pytest-mock
 pytest-subtests
