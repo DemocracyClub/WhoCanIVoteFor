@@ -7,16 +7,6 @@ orbs:
   slack: circleci/slack@4.1
 
 executors:
-  py38:
-    docker:
-      - image: cimg/python:3.8
-        environment:
-          CIRCLECI: true
-          PGHOST: 127.0.0.1
-      - image: circleci/postgres:11.2-alpine-postgis-ram
-        environment:
-          POSTGRES_USER: postgres
-          POSTGRES_DB: test
   py310:
     docker:
       - image: cimg/python:3.10
@@ -117,7 +107,7 @@ jobs:
 
   sam_build:
     docker:
-      - image: amazon/aws-sam-cli-build-image-python3.8:latest
+      - image: public.ecr.aws/sam/build-python3.10:latest
     working_directory: ~/repo
     steps:
       - checkout
@@ -127,7 +117,7 @@ jobs:
             python -m venv .venv
             . .venv/bin/activate
             pip install --upgrade pip
-            pip install aws-sam-cli==1.37.0 awscli==1.22.100
+            pip install aws-sam-cli==1.89.0 awscli==1.28.0
             make build clean
       - persist_to_workspace:
           root: ~/repo/
@@ -167,7 +157,7 @@ jobs:
             python -m venv .venv
             . .venv/bin/activate
             pip install --upgrade pip
-            pip install aws-sam-cli==1.37.0 awscli==1.22.100
+            pip install aws-sam-cli==1.89.0 awscli==1.28.0
       - run:
           name: deploy
           command: |
@@ -264,7 +254,7 @@ workflows:
       - build_and_test:
           matrix:
             parameters:
-              python_version: [ py38, py310 ]
+              python_version: [ py310 ]
       - sam_build:
           requires:
           - build_and_test
@@ -344,7 +334,7 @@ workflows:
           dc-environment: production
           min-size: 1
           max-size: 20
-          desired-capacity: 1
+          desired-capacity: 3
           requires:
           - build_and_test
           - sam_deploy_staging

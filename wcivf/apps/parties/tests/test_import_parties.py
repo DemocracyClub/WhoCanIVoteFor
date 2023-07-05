@@ -11,6 +11,7 @@ SINGLE_PARTY_JSON = """{
     "ec_id": "PP01",
     "url": "https://candidates.democracyclub.org.uk/api/next/parties/PP6673/",
     "name": "Wombles Alliance",
+    "alternative_name": "Cynghrair Wombles",
     "register": "GB",
     "status": "Registered",
     "date_registered": "2018-01-31",

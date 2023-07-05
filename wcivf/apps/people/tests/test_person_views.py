@@ -536,6 +536,13 @@ class PersonViewTests(TestCase):
         expected = f"{self.person.name} is a {local_party.label} candidate."
         self.assertContains(response, expected)
 
+    def test_person_detail_404_with_string_pk(self):
+        """
+        Regression test to ensure non-int person IDs raise a 404 not a 500
+        """
+        req = self.client.get("/person/partywebsite.org/")
+        self.assertEqual(req.status_code, 404)
+
 
 class TestPersonViewUnitTests:
     @pytest.fixture

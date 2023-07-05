@@ -74,29 +74,29 @@
                                     {% else %}
                                         {% if postelection.winner_count and postelection.get_voting_system.slug == 'FPTP' %}
                                             {% blocktrans trimmed with winner_count=postelection.winner_count|apnumber plural=postelection.winner_count|pluralize num_candidates=postelection.people.count|apnumber plural_candidates=postelection.people|pluralize%}
-                                                You will have {{ winner_count }} vote{{ plural }},
+                                                You will have <strong>{{ winner_count }} vote{{ plural }}</strong>,
                                                 and can choose from <strong>{{ num_candidates }} candidate{{ plural_candidates }}</strong>.
                                             {% endblocktrans %}
                                         {% endif %}
                                         {% if postelection.winner_count and postelection.get_voting_system.slug == 'AMS' %}
                                             {% blocktrans trimmed with num_ballots=postelection.party_ballot_count postelection=postelection.friendly_name %}
-                                                You will have one vote, and can choose from <strong>{{ num_ballots }}</strong>
+                                                You will have <strong>one vote</strong>, and can choose from <strong>{{ num_ballots }}</strong>
                                                 in the {{ postelection }}.{% endblocktrans %}
                                         {% endif %}
                                         {% if postelection.winner_count and postelection.get_voting_system.slug == 'sv' %}
                                             {% blocktrans trimmed with num_ballots=postelection.party_ballot_count postelection=postelection.friendly_name %}
-                                                You will have two votes, and can choose from <strong>{{ num_ballots }}</strong>
+                                                You will have <strong>two votes</strong>, and can choose from <strong>{{ num_ballots }}</strong>
                                                 in the {{ postelection}}.
                                             {% endblocktrans %}
                                         {% endif %}
                                         {% if postelection.get_voting_system.slug == 'STV' %}
                                             {% if postelection.winner_count == 1 %}
                                                 {% blocktrans trimmed with num_ballots=postelection.party_ballot_count %}
-                                                    There is one seat up for election, and you can choose from {{ num_ballots }}.
+                                                    There is <strong>one seat</strong>  up for election, and you can choose from <strong>{{ num_ballots }}</strong>.
                                                 {% endblocktrans %}
                                             {% else %}
                                                 {% blocktrans trimmed with winner_count=postelection.winner_count|apnumber num_ballots=postelection.party_ballot_count %}
-                                                    There are {{ winner_count }} seats up for election, and you can choose from {{ num_ballots }}.
+                                                    There are <strong>{{ winner_count }} seats</strong>  up for election, and you can choose from <strong>{{ num_ballots }}</strong>.
                                                 {% endblocktrans %}
                                             {% endif %}
                                         {% endif %}
@@ -122,7 +122,7 @@
                 </p>
             {% endif %}
 
-            {% if postelection.people %}
+            {% if postelection.people and postelection.should_show_candidates %}
                 {% if postelection.display_as_party_list %}
                     {% include "elections/includes/_people_list_with_lists.html" with people=postelection.people %}
                 {% else %}
@@ -130,7 +130,7 @@
                 {% endif %}
             {% endif %}
 
-            {% if postelection.should_display_sopn_info %}
+            {% if postelection.should_display_sopn_info and not postelection.should_show_candidates %}
                 <p>
                     {% if postelection.locked %}
                         {% blocktrans trimmed with sopn_url=postelection.ynr_sopn_link %}

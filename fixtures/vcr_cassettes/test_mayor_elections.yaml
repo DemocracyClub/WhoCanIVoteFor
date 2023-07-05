@@ -7,47 +7,62 @@ interactions:
       Connection: [keep-alive]
       User-Agent: [python-requests/2.9.1]
     method: GET
-    uri: https://elections.democracyclub.org.uk/api/elections?postcode=E3%202NX&current=1
+    uri: https://developers.democracyclub.org.uk/api/v1/postcode/E3%202NX/?include_current=1
   response:
-    body: {string: ''}
-    headers:
-      Connection: [keep-alive]
-      Content-Length: ['0']
-      Content-Type: [text/html; charset=utf-8]
-      Date: ['Tue, 17 Apr 2018 11:59:21 GMT']
-      Location: ['/api/elections/?postcode=E3%202NX&current=1']
-      Server: [nginx]
-      X-Frame-Options: [SAMEORIGIN]
-    status: {code: 301, message: Moved Permanently}
-- request:
-    body: null
-    headers:
-      Accept: ['*/*']
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [python-requests/2.9.1]
-    method: GET
-    uri: https://elections.democracyclub.org.uk/api/elections/?postcode=E3%202NX&current=1
-  response:
-    body: {string: '{"count":3,"next":null,"previous":null,"results":[{"election_id":"local.tower-hamlets.2018-05-03","tmp_election_id":null,"election_title":"Tower
-        Hamlets local election","poll_open_date":"2018-05-03","election_type":{"name":"Local
-        elections","election_type":"local"},"election_subtype":null,"organisation":{"official_identifier":"TWH","organisation_type":"local-authority","organisation_subtype":"LBO","official_name":"London
-        Borough of Tower Hamlets","common_name":"London Borough of Tower Hamlets","gss":"E09000030","slug":"tower-hamlets","territory_code":"ENG","election_name":"London
-        Borough of Tower Hamlets"},"group":"local.2018-05-03","group_type":"organisation","children":["local.tower-hamlets.bethnal-green.2018-05-03","local.tower-hamlets.blackwall-cubitt-town.2018-05-03","local.tower-hamlets.bow-east.2018-05-03","local.tower-hamlets.bow-west.2018-05-03","local.tower-hamlets.bromley-north.2018-05-03","local.tower-hamlets.bromley-south.2018-05-03","local.tower-hamlets.canary-wharf.2018-05-03","local.tower-hamlets.island-gardens.2018-05-03","local.tower-hamlets.lansbury.2018-05-03","local.tower-hamlets.limehouse.2018-05-03","local.tower-hamlets.mile-end.2018-05-03","local.tower-hamlets.poplar.2018-05-03","local.tower-hamlets.shadwell.2018-05-03","local.tower-hamlets.spitalfields-banglatown.2018-05-03","local.tower-hamlets.st-dunstans.2018-05-03","local.tower-hamlets.stepney-green.2018-05-03","local.tower-hamlets.st-katharines-wapping.2018-05-03","local.tower-hamlets.st-peters.2018-05-03","local.tower-hamlets.weavers.2018-05-03","local.tower-hamlets.whitechapel.2018-05-03"],"elected_role":"Local
-        Councillor","seats_contested":null,"division":null,"voting_system":{"slug":"FPTP","name":"First-past-the-post","uses_party_lists":false},"current":true,"explanation":null,"metadata":null},{"election_id":"local.tower-hamlets.bow-east.2018-05-03","tmp_election_id":null,"election_title":"Tower
-        Hamlets local election Bow East","poll_open_date":"2018-05-03","election_type":{"name":"Local
-        elections","election_type":"local"},"election_subtype":null,"organisation":{"official_identifier":"TWH","organisation_type":"local-authority","organisation_subtype":"LBO","official_name":"London
-        Borough of Tower Hamlets","common_name":"London Borough of Tower Hamlets","gss":"E09000030","slug":"tower-hamlets","territory_code":"ENG","election_name":"London
-        Borough of Tower Hamlets"},"group":"local.tower-hamlets.2018-05-03","group_type":null,"children":[],"elected_role":"Local
-        Councillor","seats_contested":3,"division":{"divisionset":{"start_date":"2014-05-30","end_date":null,"legislation_url":null,"consultation_url":null,"short_title":"2014
-        Boundaries","mapit_generation_id":"http://mapit.mysociety.org/generations/22","notes":"Auto
-        imported from http://mapit.mysociety.org"},"name":"Bow East","official_identifier":"gss:E05009319","geography_curie":"gss:E05009319","slug":"bow-east","division_type":"LBW","division_subtype":"London
-        borough ward","division_election_sub_type":"","seats_total":null,"mapit_generation_low":22,"mapit_generation_high":30,"territory_code":"ENG"},"voting_system":{"slug":"FPTP","name":"First-past-the-post","uses_party_lists":false},"current":true,"explanation":null,"metadata":null},{"election_id":"mayor.tower-hamlets.2018-05-03","tmp_election_id":null,"election_title":"London
-        Borough of Tower Hamlets","poll_open_date":"2018-05-03","election_type":{"name":"Mayoral
-        elections","election_type":"mayor"},"election_subtype":null,"organisation":{"official_identifier":"TWH","organisation_type":"local-authority","organisation_subtype":"LBO","official_name":"London
-        Borough of Tower Hamlets","common_name":"London Borough of Tower Hamlets","gss":"E09000030","slug":"tower-hamlets","territory_code":"ENG","election_name":"London
-        Borough of Tower Hamlets"},"group":"mayor.2018-05-03","group_type":null,"children":[],"elected_role":"Mayor","seats_contested":null,"division":null,"voting_system":{"slug":"sv","name":"Supplementary
-        Vote","uses_party_lists":false},"current":true,"explanation":null,"metadata":null}]}'}
+    body: { string: '{
+      "address_picker": false,
+      "addresses": [],
+      "dates": [{
+          "date": "2018-05-03",
+          "polling_station": {
+              "polling_station_known": false
+          },
+          "ballots": [{
+                  "ballot_paper_id": "local.tower-hamlets.bow-east.2018-05-03"
+              },
+              {
+                  "ballot_paper_id": "mayor.tower-hamlets.2018-05-03"
+              }
+          ]
+      }],
+      "electoral_services": {
+          "council_id": "TWH",
+          "name": "London Borough of Tower Hamlets",
+          "email": "vote@towerhamlets.gov.uk",
+          "phone": "01234 567890",
+          "website": "http://www.towerhamlets.gov.uk/",
+          "postcode": "E1 1BJ",
+          "address": "Electoral Services\nTower Hamlets Town Hall\n160 Whitechapel Road\nStroud",
+          "identifiers": [
+              "E09000030"
+          ],
+          "nation": "England"
+      },
+      "registration": {
+          "council_id": "TWH",
+          "name": "London Borough of Tower Hamlets",
+          "email": "vote@towerhamlets.gov.uk",
+          "phone": "01234 567890",
+          "website": "http://www.towerhamlets.gov.uk/",
+          "postcode": "E1 1BJ",
+          "address": "Electoral Services\nTower Hamlets Town Hall\n160 Whitechapel Road\nStroud",
+          "identifiers": [
+              "E09000030"
+          ],
+          "nation": "England"
+      },
+      "postcode_location": {
+          "type": "Feature",
+          "properties": null,
+          "geometry": {
+              "type": "Point",
+              "coordinates": [
+                  -2.20260988,
+                  51.74391142000001
+              ]
+          }
+      }
+  }' }
     headers:
       Allow: ['GET, HEAD, OPTIONS']
       Connection: [keep-alive]

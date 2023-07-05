@@ -25,20 +25,27 @@
             </div>
         </div>
     </div>
-    <div class="ds-card">
-        <div class="ds-card-body ds-text-centered">
-            <h2>
-                <span aria-hidden="true">ℹ️</span>
-                {% trans "Photographic identification" %}
-            </h2>
-            <p>{% trans "Photographic identification will be required to vote in English local elections, and parliamentary elections across the UK, on and after 4 May 2023." %}</p>
-            <p><a href="https://www.electoralcommission.org.uk/i-am-a/voter/voter-id" aria-label="{% trans 'Learn more about photographic identification for voters on the website of the Electoral Commission.' %}">{% trans "Learn more on the website of the Electoral Commission." %}</a></p>
-
-            <p>{% trans "You can apply for a free 'Voter Authority Certificate' if you do not already possess a valid ID." %}</p>
-            <p><a href="https://www.gov.uk/apply-for-photo-id-voter-authority-certificate">{% trans "Apply for free voter ID." %}</a></p>
-            <p>{% trans "You do not need photo ID to vote by post." %}</p>
+    {% if show_results_chart %}
+        <div class="flourish-embed flourish-chart" data-src="visualisation/13653636">
+            <script src="https://public.flourish.studio/resources/embed.js"></script>
         </div>
-    </div>
+    {% endif %}
+    {% if show_gb_id_messaging %}
+        <div class="ds-card">
+            <div class="ds-card-body ds-text-centered">
+                <h2>
+                    <span aria-hidden="true">ℹ️</span>
+                    {% trans "Photographic identification" %}
+                </h2>
+                <p>{% trans "Photographic identification will be required to vote in English local elections, and parliamentary elections across the UK, on and after 4 May 2023." %}</p>
+                <p><a href="https://www.electoralcommission.org.uk/i-am-a/voter/voter-id" aria-label="{% trans 'Learn more about photographic identification for voters on the website of the Electoral Commission.' %}">{% trans "Learn more on the website of the Electoral Commission." %}</a></p>
+
+                <p>{% trans "You can apply for a free 'Voter Authority Certificate' if you do not already possess a valid ID." %}</p>
+                <p><a href="https://www.gov.uk/apply-for-photo-id-voter-authority-certificate">{% trans "Apply for free voter ID." %}</a></p>
+                <p>{% trans "You do not need photo ID to vote by post." %}</p>
+            </div>
+        </div>
+    {% endif %}
     {% if upcoming_elections %}
         <div class="ds-card">
             <div class="ds-card-body">

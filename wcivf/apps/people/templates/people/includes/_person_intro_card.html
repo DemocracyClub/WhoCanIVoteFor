@@ -6,9 +6,6 @@
         <h2 class="ds-candidate-name ds-h3">
             {{ object.name }}
         </h2>
-        {% if person.display_deceased and person.featured_candidacy.party.is_independent %}
-            {% trans "(Deceased)" %}
-        {% endif %}
 
         {% if object.current_or_future_candidacies.all.count > 1 %}
             <h5>{{ object.name }}

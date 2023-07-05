@@ -326,7 +326,10 @@ class Post(models.Model):
         """
         Returns last word of the division_description
         """
-        return self.division_description.split(" ")[-1].lower()
+        description = self.division_description
+        if not description:
+            return ""
+        return description.split(" ")[-1].lower()
 
     @property
     def full_label(self):
@@ -604,6 +607,23 @@ class PostElection(TimeStampedModel):
         Return boolean for if the date we expected the sopn date
         """
         return self.expected_sopn_date <= timezone.now().date()
+
+    @property
+    def should_show_candidates(self):
+        if not self.cancelled:
+            return True
+        if not self.metadata:
+            return True
+        if reason := self.metadata.get("cancelled_election", {}).get(
+            "cancellation_reason", ""
+        ):
+            if reason == "CANDIDATE_DEATH":
+                return False
+            if reason == "EQUAL_CANDIDATES":
+                return True
+            if reason == "UNDER_CONTESTED":
+                return True
+        return True
 
 
 class VotingSystem(models.Model):

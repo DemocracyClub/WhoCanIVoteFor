@@ -34,15 +34,27 @@ psql "$DB" -U "$USER" -c 'alter table elections_votingsystem drop constraint ele
 psql "$DB" -U "$USER" -c 'TRUNCATE elections_votingsystem RESTART IDENTITY CASCADE;'
 
 # Set up subscription
-psql "$DB" -U "$USER" -c "CREATE SUBSCRIPTION $SUBSCRIPTION CONNECTION 'dbname=$RDS_DB_NAME host=$RDS_HOST user=wcivf password=$RDS_DB_PASSWORD' PUBLICATION alltables;"
+psql "$DB" -U "$USER" -c "CREATE SUBSCRIPTION $SUBSCRIPTION CONNECTION 'dbname=$RDS_DB_NAME host=$RDS_HOST user=wcivf password=$RDS_DB_PASSWORD' PUBLICATION alltables with (streaming=true, binary=true);"
 
 # Wait for all tables to finish initial sync
 echo "starting initial db sync"
 WORKER_STATS=("not-set")
+
+COUNTER=0
 while [ "${WORKER_STATS[0]}" !=  "r" ]
 do
+    COUNTER=$((COUNTER+1))
     WORKER_STATS=$(psql wcivf -U wcivf -AXqtc "select distinct srsubstate from pg_subscription_rel;")
     sleep 15
+    # 20 here is 5 minutes. If it's working, everything should be finished
+    # by then.
+    if [ $COUNTER -gt 19 ]; then
+      COUNTER=0
+      psql "$DB" -U "$DB_USER" -c "DROP SUBSCRIPTION $SUBSCRIPTION;"
+      psql "$DB" -U "$USER" -c "CREATE SUBSCRIPTION $SUBSCRIPTION CONNECTION 'dbname=$RDS_DB_NAME host=$RDS_HOST user=wcivf password=$RDS_DB_PASSWORD' PUBLICATION alltables with (streaming=true, binary=true);"
+    fi
+    COUNTER=$((COUNTER+1))
+
 done
 
 psql "$DB" -U "$USER" -c 'ALTER TABLE elections_votingsystem ADD PRIMARY KEY (slug);'

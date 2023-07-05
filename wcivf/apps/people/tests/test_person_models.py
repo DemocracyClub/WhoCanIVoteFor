@@ -1,9 +1,5 @@
-from elections.tests.factories import (
-    ElectionFactory,
-)
-from parties.tests.factories import PartyFactory
 from people.tests.helpers import create_person
-from people.tests.factories import PersonFactory, PersonPostFactory
+from people.tests.factories import PersonFactory
 from django.test import TestCase
 
 
@@ -35,15 +31,6 @@ class TestPersonModel(TestCase):
             self.person.statement_remainder
             == " Consectetur adipiscing elit. Vivamus est eleven."
         )
-
-    def test_display_deceased(self):
-        self.party = PartyFactory()
-        self.election = ElectionFactory()
-        self.personpost = PersonPostFactory(
-            person=self.person, party=self.party, election=self.election
-        )
-        self.person.death_date = "01/01/2021"
-        assert self.person.display_deceased is True
 
     def test_facebook_personal_username(self):
         self.person.facebook_personal_url = (

@@ -30,6 +30,9 @@ DEBUG = True
 
 EMAIL_SIGNUP_BACKEND = "local_db"
 
+# SHOW_GB_ID_MESSAGING = False
+# SHOW_RESULTS_CHART = False
+
 # These example paths should only be necessary for M1 Mac users
 
 # GDAL_LIBRARY_PATH = "/opt/homebrew/Cellar/gdal/3.5.1_3/lib/libgdal.dylib"

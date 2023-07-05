@@ -80,7 +80,7 @@ Resources:
       CodeUri: .
       Handler: wcivf.lambda_handler.handler
       MemorySize: 256
-      Runtime: python3.8
+      Runtime: python3.10
       Timeout: 360
       Environment:
         Variables:
@@ -130,192 +130,192 @@ Resources:
         BatchFeedbackToSlack:
           Type: Schedule
           Properties:
-            Schedule: cron(0 * ? * * *) # using the ? as you cannot use * wildcard for both day-of-month and day-of-week field. See https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions
+            Schedule: cron(0 9 ? * FRI *) # using the ? as you cannot use * wildcard for both day-of-month and day-of-week field. See https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions
             Name: batch-feedback-to-slack
             Description: Send feedback entries for the last week to slack
-            Input: '{"command": "batch_feedback_to_slack", "args": ["--hours=1"]}'
-        ImportHustings:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-hustings
-            Description: Import hustings from google spreadsheets
-            Input: '{"command": "import_hustings"}'
-        ImportLeaflets:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-leaflets
-            Description: Import leaflets
-            Input: '{"command": "import_leaflets", "args": ["--recently-uploaded", "--uploaded-since=2022-4-1"]}'
+            Input: '{"command": "batch_feedback_to_slack", "args": ["--hours=168"]}'
+#        ImportHustings:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-hustings
+#            Description: Import hustings from google spreadsheets
+#            Input: '{"command": "import_hustings"}'
+#        ImportLeaflets:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-leaflets
+#            Description: Import leaflets
+#            Input: '{"command": "import_leaflets", "args": ["--recently-uploaded", "--uploaded-since=2022-4-1"]}'
         ImportWikipediaBios:
           Type: Schedule
           Properties:
-            Schedule: rate(1 hour)
+            Schedule: rate(1 day)
             Name: import-wikipedia-bios
             Description: Import wikipedia bio extracts
             Input: '{"command": "import_wikipedia_bios", "args": ["--current"]}'
-        ILPGlobal:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-global
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vS1fmfKixgnFKoGEiaa87HIeQrEnjPmz9Xs9ypDdh4Z-4xcv2oxUT3AB9dgcajPPMFMV3d_3ephmdcH/pub?gid=0&single=true&output=csv"]}'
-        ILPNi:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-ni
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2023-5-18", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vRxlunnk3ORlLg0CSBArM1GcRh09VPJH5b7k_biArGq3XewoLd4UZylvmcWWgNuAsn2jCPTLr2Rns3J/pub?gid=452652596&single=true&output=csv"]}'
-        ILPEngCons:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-eng-cons
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2023-5-4", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vQuqDY_98wyY5mYBsGeEwkflljYBStRyDtn-HSjPAy_kf0UpnTLqrzqINPoy7wNUeiIvDJMC0HtaAhP/pub?gid=457381042&single=true&output=csv"]}'
-        ILPEngLabour:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-eng-labour
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2023-5-4", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vQuqDY_98wyY5mYBsGeEwkflljYBStRyDtn-HSjPAy_kf0UpnTLqrzqINPoy7wNUeiIvDJMC0HtaAhP/pub?gid=1580819525&single=true&output=csv"]}'
-        ILPEngLibDems:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-eng-lib-dems
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2023-5-4", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vQuqDY_98wyY5mYBsGeEwkflljYBStRyDtn-HSjPAy_kf0UpnTLqrzqINPoy7wNUeiIvDJMC0HtaAhP/pub?gid=41026214&single=true&output=csv"]}'
-        ILPEngGreens:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-eng-greens
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2023-5-4", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vQuqDY_98wyY5mYBsGeEwkflljYBStRyDtn-HSjPAy_kf0UpnTLqrzqINPoy7wNUeiIvDJMC0HtaAhP/pub?gid=1806274182&single=true&output=csv"]}'
-        ILPEngOthers:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-eng-others
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2023-5-4", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vQuqDY_98wyY5mYBsGeEwkflljYBStRyDtn-HSjPAy_kf0UpnTLqrzqINPoy7wNUeiIvDJMC0HtaAhP/pub?gid=1274679305&single=true&output=csv"]}'
-        ILPLondonCons:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-lon-cons
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vSYHiMeM5pm4kJBejdsYvgS1GjXSHFkj143ANhpz4hZeQ2RYRCRCLUavbswpfKAP_zvIUiFRJpsZPO0/pub?gid=1817827560&single=true&output=csv"]}'
-        ILPLondonLab:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-lon-lab
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vSYHiMeM5pm4kJBejdsYvgS1GjXSHFkj143ANhpz4hZeQ2RYRCRCLUavbswpfKAP_zvIUiFRJpsZPO0/pub?gid=98621569&single=true&output=csv"]}'
-        ILPLondonLibDems:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-lon-lib-dems
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vSYHiMeM5pm4kJBejdsYvgS1GjXSHFkj143ANhpz4hZeQ2RYRCRCLUavbswpfKAP_zvIUiFRJpsZPO0/pub?gid=1901014574&single=true&output=csv"]}'
-        ILPLondonGreens:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-lon-greens
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vSYHiMeM5pm4kJBejdsYvgS1GjXSHFkj143ANhpz4hZeQ2RYRCRCLUavbswpfKAP_zvIUiFRJpsZPO0/pub?gid=954903673&single=true&output=csv"]}'
-        ILPLondonOthers:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-lon-others
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vSYHiMeM5pm4kJBejdsYvgS1GjXSHFkj143ANhpz4hZeQ2RYRCRCLUavbswpfKAP_zvIUiFRJpsZPO0/pub?gid=675723772&single=true&output=csv"]}'
-        ILPScotCons:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-scot-cons
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vTE4PeVOL00STx_lLmCYWX4pTYnhDJFWvFkImlcj95YYWzVbsz8rF2W6kvCVyElZSpr8zqXPahy6Z-G/pub?gid=1657757536&single=true&output=csv"]}'
-        ILPScotLab:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-scot-lab
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vTE4PeVOL00STx_lLmCYWX4pTYnhDJFWvFkImlcj95YYWzVbsz8rF2W6kvCVyElZSpr8zqXPahy6Z-G/pub?gid=1472367348&single=true&output=csv"]}'
-        ILPScotGreens:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-scot-greens
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vTE4PeVOL00STx_lLmCYWX4pTYnhDJFWvFkImlcj95YYWzVbsz8rF2W6kvCVyElZSpr8zqXPahy6Z-G/pub?gid=1420950884&single=true&output=csv"]}'
-        ILPScotSnp:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-scot-snp
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vTE4PeVOL00STx_lLmCYWX4pTYnhDJFWvFkImlcj95YYWzVbsz8rF2W6kvCVyElZSpr8zqXPahy6Z-G/pub?gid=1791553048&single=true&output=csv"]}'
-        ILPScotOther:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-scot-other
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vTE4PeVOL00STx_lLmCYWX4pTYnhDJFWvFkImlcj95YYWzVbsz8rF2W6kvCVyElZSpr8zqXPahy6Z-G/pub?gid=1286661054&single=true&output=csv"]}'
-        ILPWalesCons:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-wales-cons
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vT_GlefU9m8B5CPGeysNg0WWMAxv_4ed9TU29Q_w1jW_crRC93_IPd-UigLBLms_EMeuqKL0XvfvbDf/pub?gid=1664580048&single=true&output=csv"]}'
-        ILPWalesLab:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-wales-lab
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vT_GlefU9m8B5CPGeysNg0WWMAxv_4ed9TU29Q_w1jW_crRC93_IPd-UigLBLms_EMeuqKL0XvfvbDf/pub?gid=1751255273&single=true&output=csv"]}'
-        ILPWalesLibDems:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-wales-lib-dems
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vT_GlefU9m8B5CPGeysNg0WWMAxv_4ed9TU29Q_w1jW_crRC93_IPd-UigLBLms_EMeuqKL0XvfvbDf/pub?gid=2131868538&single=true&output=csv"]}'
-        ILPWalesGreens:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-wales-greens
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vT_GlefU9m8B5CPGeysNg0WWMAxv_4ed9TU29Q_w1jW_crRC93_IPd-UigLBLms_EMeuqKL0XvfvbDf/pub?gid=1565590221&single=true&output=csv"]}'
-        ILPWalesPlaid:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-wales-plaid
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vT_GlefU9m8B5CPGeysNg0WWMAxv_4ed9TU29Q_w1jW_crRC93_IPd-UigLBLms_EMeuqKL0XvfvbDf/pub?gid=935387408&single=true&output=csv"]}'
-        ILPWalesOther:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-wales-other
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vT_GlefU9m8B5CPGeysNg0WWMAxv_4ed9TU29Q_w1jW_crRC93_IPd-UigLBLms_EMeuqKL0XvfvbDf/pub?gid=1603267768&single=true&output=csv"]}'
+#        ILPGlobal:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-local-parties-global
+#            Description: Import LocalParty objects from google spreadsheets
+#            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vS1fmfKixgnFKoGEiaa87HIeQrEnjPmz9Xs9ypDdh4Z-4xcv2oxUT3AB9dgcajPPMFMV3d_3ephmdcH/pub?gid=0&single=true&output=csv"]}'
+#        ILPNi:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-local-parties-ni
+#            Description: Import LocalParty objects from google spreadsheets
+#            Input: '{"command": "import_local_parties", "args": ["--date=2023-5-18", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vRxlunnk3ORlLg0CSBArM1GcRh09VPJH5b7k_biArGq3XewoLd4UZylvmcWWgNuAsn2jCPTLr2Rns3J/pub?gid=452652596&single=true&output=csv"]}'
+#        ILPEngCons:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-local-parties-eng-cons
+#            Description: Import LocalParty objects from google spreadsheets
+#            Input: '{"command": "import_local_parties", "args": ["--date=2023-5-4", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vQuqDY_98wyY5mYBsGeEwkflljYBStRyDtn-HSjPAy_kf0UpnTLqrzqINPoy7wNUeiIvDJMC0HtaAhP/pub?gid=457381042&single=true&output=csv"]}'
+#        ILPEngLabour:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-local-parties-eng-labour
+#            Description: Import LocalParty objects from google spreadsheets
+#            Input: '{"command": "import_local_parties", "args": ["--date=2023-5-4", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vQuqDY_98wyY5mYBsGeEwkflljYBStRyDtn-HSjPAy_kf0UpnTLqrzqINPoy7wNUeiIvDJMC0HtaAhP/pub?gid=1580819525&single=true&output=csv"]}'
+#        ILPEngLibDems:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-local-parties-eng-lib-dems
+#            Description: Import LocalParty objects from google spreadsheets
+#            Input: '{"command": "import_local_parties", "args": ["--date=2023-5-4", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vQuqDY_98wyY5mYBsGeEwkflljYBStRyDtn-HSjPAy_kf0UpnTLqrzqINPoy7wNUeiIvDJMC0HtaAhP/pub?gid=41026214&single=true&output=csv"]}'
+#        ILPEngGreens:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-local-parties-eng-greens
+#            Description: Import LocalParty objects from google spreadsheets
+#            Input: '{"command": "import_local_parties", "args": ["--date=2023-5-4", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vQuqDY_98wyY5mYBsGeEwkflljYBStRyDtn-HSjPAy_kf0UpnTLqrzqINPoy7wNUeiIvDJMC0HtaAhP/pub?gid=1806274182&single=true&output=csv"]}'
+#        ILPEngOthers:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-local-parties-eng-others
+#            Description: Import LocalParty objects from google spreadsheets
+#            Input: '{"command": "import_local_parties", "args": ["--date=2023-5-4", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vQuqDY_98wyY5mYBsGeEwkflljYBStRyDtn-HSjPAy_kf0UpnTLqrzqINPoy7wNUeiIvDJMC0HtaAhP/pub?gid=1274679305&single=true&output=csv"]}'
+#        ILPLondonCons:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-local-parties-lon-cons
+#            Description: Import LocalParty objects from google spreadsheets
+#            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vSYHiMeM5pm4kJBejdsYvgS1GjXSHFkj143ANhpz4hZeQ2RYRCRCLUavbswpfKAP_zvIUiFRJpsZPO0/pub?gid=1817827560&single=true&output=csv"]}'
+#        ILPLondonLab:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-local-parties-lon-lab
+#            Description: Import LocalParty objects from google spreadsheets
+#            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vSYHiMeM5pm4kJBejdsYvgS1GjXSHFkj143ANhpz4hZeQ2RYRCRCLUavbswpfKAP_zvIUiFRJpsZPO0/pub?gid=98621569&single=true&output=csv"]}'
+#        ILPLondonLibDems:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-local-parties-lon-lib-dems
+#            Description: Import LocalParty objects from google spreadsheets
+#            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vSYHiMeM5pm4kJBejdsYvgS1GjXSHFkj143ANhpz4hZeQ2RYRCRCLUavbswpfKAP_zvIUiFRJpsZPO0/pub?gid=1901014574&single=true&output=csv"]}'
+#        ILPLondonGreens:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-local-parties-lon-greens
+#            Description: Import LocalParty objects from google spreadsheets
+#            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vSYHiMeM5pm4kJBejdsYvgS1GjXSHFkj143ANhpz4hZeQ2RYRCRCLUavbswpfKAP_zvIUiFRJpsZPO0/pub?gid=954903673&single=true&output=csv"]}'
+#        ILPLondonOthers:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-local-parties-lon-others
+#            Description: Import LocalParty objects from google spreadsheets
+#            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vSYHiMeM5pm4kJBejdsYvgS1GjXSHFkj143ANhpz4hZeQ2RYRCRCLUavbswpfKAP_zvIUiFRJpsZPO0/pub?gid=675723772&single=true&output=csv"]}'
+#        ILPScotCons:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-local-parties-scot-cons
+#            Description: Import LocalParty objects from google spreadsheets
+#            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vTE4PeVOL00STx_lLmCYWX4pTYnhDJFWvFkImlcj95YYWzVbsz8rF2W6kvCVyElZSpr8zqXPahy6Z-G/pub?gid=1657757536&single=true&output=csv"]}'
+#        ILPScotLab:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-local-parties-scot-lab
+#            Description: Import LocalParty objects from google spreadsheets
+#            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vTE4PeVOL00STx_lLmCYWX4pTYnhDJFWvFkImlcj95YYWzVbsz8rF2W6kvCVyElZSpr8zqXPahy6Z-G/pub?gid=1472367348&single=true&output=csv"]}'
+#        ILPScotGreens:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-local-parties-scot-greens
+#            Description: Import LocalParty objects from google spreadsheets
+#            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vTE4PeVOL00STx_lLmCYWX4pTYnhDJFWvFkImlcj95YYWzVbsz8rF2W6kvCVyElZSpr8zqXPahy6Z-G/pub?gid=1420950884&single=true&output=csv"]}'
+#        ILPScotSnp:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-local-parties-scot-snp
+#            Description: Import LocalParty objects from google spreadsheets
+#            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vTE4PeVOL00STx_lLmCYWX4pTYnhDJFWvFkImlcj95YYWzVbsz8rF2W6kvCVyElZSpr8zqXPahy6Z-G/pub?gid=1791553048&single=true&output=csv"]}'
+#        ILPScotOther:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-local-parties-scot-other
+#            Description: Import LocalParty objects from google spreadsheets
+#            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vTE4PeVOL00STx_lLmCYWX4pTYnhDJFWvFkImlcj95YYWzVbsz8rF2W6kvCVyElZSpr8zqXPahy6Z-G/pub?gid=1286661054&single=true&output=csv"]}'
+#        ILPWalesCons:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-local-parties-wales-cons
+#            Description: Import LocalParty objects from google spreadsheets
+#            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vT_GlefU9m8B5CPGeysNg0WWMAxv_4ed9TU29Q_w1jW_crRC93_IPd-UigLBLms_EMeuqKL0XvfvbDf/pub?gid=1664580048&single=true&output=csv"]}'
+#        ILPWalesLab:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-local-parties-wales-lab
+#            Description: Import LocalParty objects from google spreadsheets
+#            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vT_GlefU9m8B5CPGeysNg0WWMAxv_4ed9TU29Q_w1jW_crRC93_IPd-UigLBLms_EMeuqKL0XvfvbDf/pub?gid=1751255273&single=true&output=csv"]}'
+#        ILPWalesLibDems:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-local-parties-wales-lib-dems
+#            Description: Import LocalParty objects from google spreadsheets
+#            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vT_GlefU9m8B5CPGeysNg0WWMAxv_4ed9TU29Q_w1jW_crRC93_IPd-UigLBLms_EMeuqKL0XvfvbDf/pub?gid=2131868538&single=true&output=csv"]}'
+#        ILPWalesGreens:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-local-parties-wales-greens
+#            Description: Import LocalParty objects from google spreadsheets
+#            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vT_GlefU9m8B5CPGeysNg0WWMAxv_4ed9TU29Q_w1jW_crRC93_IPd-UigLBLms_EMeuqKL0XvfvbDf/pub?gid=1565590221&single=true&output=csv"]}'
+#        ILPWalesPlaid:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-local-parties-wales-plaid
+#            Description: Import LocalParty objects from google spreadsheets
+#            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vT_GlefU9m8B5CPGeysNg0WWMAxv_4ed9TU29Q_w1jW_crRC93_IPd-UigLBLms_EMeuqKL0XvfvbDf/pub?gid=935387408&single=true&output=csv"]}'
+#        ILPWalesOther:
+#          Type: Schedule
+#          Properties:
+#            Schedule: rate(1 hour)
+#            Name: import-local-parties-wales-other
+#            Description: Import LocalParty objects from google spreadsheets
+#            Input: '{"command": "import_local_parties", "args": ["--date=2022-5-5", "--url=https://docs.google.com/spreadsheets/d/e/2PACX-1vT_GlefU9m8B5CPGeysNg0WWMAxv_4ed9TU29Q_w1jW_crRC93_IPd-UigLBLms_EMeuqKL0XvfvbDf/pub?gid=1603267768&single=true&output=csv"]}'
 
   WCIVFCodeDeployApp:
     Type: AWS::CodeDeploy::Application

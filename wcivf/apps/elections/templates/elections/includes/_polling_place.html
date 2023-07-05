@@ -48,7 +48,7 @@
                 <hr>
                 <h3>{% trans "Vote on polling day" %}</h3>
             {% endif %}
-            {% blocktrans trimmed with polling_station_address=polling_station.polling_station.properties.address|linebreaksbr %}
+            {% blocktrans trimmed with polling_station_address=polling_station.station.properties.address|linebreaksbr %}
                 <p>
                     Your polling station is:
                 </p>
@@ -77,9 +77,11 @@
                     {% endif %}
                 </p>
             {% endif %}
-            <p>
-                {% blocktrans %}If you have a postal vote, you can hand it in at this polling station on election day up to 10pm{% endblocktrans %}
-            </p>
+            {% if not postcode|ni_postcode %}
+                <p>
+                    {% blocktrans %}If you have a postal vote, you can hand it in at this polling station on election day up to 10pm{% endblocktrans %}
+                </p>
+            {% endif %}
 
 
         {% else %}
@@ -139,10 +141,16 @@
             {% endif %}
         </p>
 
-        {% if polling_station.polling_station_known and polling_station.polling_station.geometry %}
+        {% if polling_station.polling_station_known and polling_station.station.geometry %}
             <p>
-                <a href="https://wheredoivote.co.uk/postcode/{{ postcode }}">
-                    {% trans "Get walking directions from" %} {{ postcode }}</a>.
+                {% if uprn %}
+                    <a href="https://wheredoivote.co.uk/address/{{ uprn }}">
+                        {% trans "Get directions" %}</a>.
+
+                {% else %}
+                    <a href="https://wheredoivote.co.uk/postcode/{{ postcode }}">
+                        {% trans "Get directions from" %} {{ postcode }}</a>.
+                {% endif %}
             </p>
         {% endif %}
 
@@ -152,7 +160,7 @@
 
 
 
-    {% if not polling_station.custom_finder and polling_station.polling_station_known and polling_station.polling_station.geometry %}
+    {% if not polling_station.custom_finder and polling_station.polling_station_known and polling_station.station.geometry %}
         <div id="area_map" class="ds-card-image"></div>
 
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
@@ -188,8 +196,8 @@
             };
 
             var polling_station_point = [
-                {{ polling_station.polling_station.geometry.coordinates.1 }},
-                {{ polling_station.polling_station.geometry.coordinates.0 }},
+                {{ polling_station.station.geometry.coordinates.1 }},
+                {{ polling_station.station.geometry.coordinates.0 }},
 
             ];
 

@@ -1,5 +1,15 @@
 {% load i18n %}
+<style>
+    .link-button {
+        color: #403F41;
+        border-color: #E6007C;
+    }
 
+    #feedback_form input[data-toggle]:checked+label, #feedback_form input[data-toggle]:checked+label:active {
+        background-color: #E6007C;
+        border-color: #E6007C;
+    }
+</style>
 <div class="ds-card">
     <form id="feedback_form" method="post" action="{% url 'feedback_form_view' %}" novalidate>
         {% csrf_token %}

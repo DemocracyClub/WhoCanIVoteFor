@@ -278,12 +278,6 @@ msgstr ""
 msgid "Show %(num_candidates)s candidates"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_person_card.html:16
-#: wcivf/apps/people/templates/people/includes/_person_intro_card.html:10
-#: wcivf/apps/people/templates/people/not_current_person_detail.html:24
-msgid "(Deceased)"
-msgstr ""
-
 #: wcivf/apps/elections/templates/elections/includes/_person_card.html:23
 msgid "Elected"
 msgstr ""

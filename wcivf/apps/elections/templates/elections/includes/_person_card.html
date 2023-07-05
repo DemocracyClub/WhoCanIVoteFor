@@ -11,11 +11,6 @@
             <a href="{{ person_post.person.get_absolute_url }}" class="ds-card-link">
                 {{ person_post.person.name}}
             </a>
-            {% if postelection.election.current and person_post.person.death_date %}
-                {% if person_post.party.is_independent %}
-                    {% trans "(Deceased)" %}
-                {% endif %}
-            {% endif %}
         </h6>
         {% if person_post.elected %}
             <p>

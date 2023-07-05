@@ -289,13 +289,6 @@ class Person(models.Model):
 
         return statement_remainder
 
-    @property
-    def display_deceased(self):
-        if self.death_date and self.current_or_future_candidacies:
-            return True
-        else:
-            return False
-
     @cached_property
     def current_or_future_candidacies(self):
         """

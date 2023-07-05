@@ -21,6 +21,6 @@ class ReferendumImporter(ImportAdditionalElectionMixin):
             return sys.stdout.write("No ballots so skipping referendum\n")
 
         referendum = Referendum.objects.create(**row)
-        referendum.ballots.set(ballots)
+        referendum.ballot_dict.set(ballots)
         sys.stdout.write(f"Created Referendum {referendum.pk}\n")
         return referendum

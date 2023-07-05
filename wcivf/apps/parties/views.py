@@ -8,4 +8,15 @@ class PartiesView(ListView):
 
 
 class PartyView(DetailView):
+    def get_template_names(self):
+        party_id = self.object.party_id
+
+        if party_id == "ynmp-party:2":
+            return ["parties/independent_candidate.html"]
+
+        if party_id == "ynmp-party:12522":
+            return ["parties/speaker_seeking_reelection.html"]
+
+        return ["parties/party_detail.html"]
+
     queryset = Party.objects.all()

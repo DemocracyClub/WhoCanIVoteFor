@@ -6,8 +6,23 @@
             {% trans "We don't know of any upcoming elections." %}
         {% else %}
             {% regroup postelections by election.election_date as header_elections_by_date %}
-            <h2>{% trans "Elections in your area" %}</h2>
+            {% if address_picker %}
+                <h2>Select your address</h2>
+            {% else %}
+                <h2>{% trans "Elections in your area" %}</h2>
+            {% endif %}
+            {% if address_picker %}
+                <div class="ds-padded-large">
+                    <ul class="ds-stack-smaller">
+                        {% for address in addresses %}
+                            <li><a href="{% url "uprn_view" postcode=postcode uprn=address.slug %}">{{ address.address }}</a></li>
+                        {% endfor %}
 
+                    </ul>
+                </div>
+
+
+            {% endif %}
             {% for election_group in header_elections_by_date %}
 
                 {% if election_group.list.0.past_date %}
@@ -61,16 +76,16 @@
                 </ul>
             {% endfor %}
         {% endif %}
+        {% if not address_picker %}
+            {% if referendums %}
+                {% include 'referendums/includes/_list.html' with referendums=referendums %}
+            {% endif %}
 
-        {% if referendums %}
-            {% include 'referendums/includes/_list.html' with referendums=referendums %}
+            {% if not ballot.election.contested and not ballot.election.ynr_sopn_link %}
+                <p>{% trans "There may also be parish, town or community council elections in some areas." %}</p>
+            {% endif %}
+
+            <p><a href='#where'>{% trans "Where do I vote?" %}</a></p>
         {% endif %}
-
-        {% if not ballot.election.contested and not ballot.election.ynr_sopn_link %}
-            <p>{% trans "There may also be parish, town or community council elections in some areas." %}</p>
-        {% endif %}
-
-        <p><a href='#where'>{% trans "Where do I vote?" %}</a></p>
-
     </div>
 </div>

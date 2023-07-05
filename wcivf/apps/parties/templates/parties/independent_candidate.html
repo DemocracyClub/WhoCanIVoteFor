@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% load markdown_filter %}
+{% load humanize %}
+{% load i18n %}
+
+{% block og_image %}{% if object.emblem_url %}{{ CANONICAL_URL }}{{ object.emblem_url }}{% endif %}{% endblock og_image %}
+{% block og_title_content %}{{ object.party_name }}{% endblock og_title_content %}
+{% block page_title %}{{ object.party_name }}{% endblock page_title %}
+{% block og_description_content %}{{ object.personpost_set.all.count }} candidates{% endblock og_description_content %}
+
+
+{% block content %}
+    <nav class="ds-breadcrumbs ds-stack" aria-label="You are here: {{ request.path }}">
+        <ol>
+            <li>
+                <a href="{% url 'home_view' %}">{% trans "Home" %}</a>
+            </li>
+            <li>
+                <a href="{% url 'parties_view' %}">{% trans "Parties" %}</a>
+            </li>
+            <li>{% blocktrans trimmed with party_name=object.party_name %}Current: {{ party_name }}{% endblocktrans %}</li>
+        </ol>
+    </nav>
+
+    <div class="ds-stack-smaller">
+
+        <div>
+            <h2>{{ object.format_name }}</h2>
+            <p>{% blocktrans trimmed with num_candidates=object.personpost_set.all.count|intcomma pluralize_candidates=object.personpost_set.all.count|pluralize %}{{ num_candidates }} candidate{{ pluralize_candidates }} in our database.{% endblocktrans %}</p>
+            {% if object.description %}
+                {{ object.description|markdown }}
+            {% endif %}
+        </div>
+
+        <p>{% trans "Independent candidates are unaffiliated with any political party." %}</p>
+        <p>{% blocktrans trimmed with ballot_name=object.party_name %}An independent candidate may appear on the ballot paper as "{{ ballot_name }}", or with no description at all.{% endblocktrans %}</p>
+
+    </div>
+
+{% endblock content %}

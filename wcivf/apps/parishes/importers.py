@@ -48,6 +48,6 @@ class ParishCouncilElectionImporter(ImportAdditionalElectionMixin):
             sopn=row["Link to SoPN PDF"],
             is_contested=self.clean_is_contested(row["Contested (Y/N)?"]),
         )
-        parish.ballots.set(ballots)
+        parish.ballot_dict.set(ballots)
         sys.stdout.write(f"Created ParishCouncilElection <{parish.pk}>\n")
         return parish

@@ -62,8 +62,8 @@ class BaseCandidatesAndElectionsViewSet(
     def list(self, request, *args, **kwargs):
         results = []
 
-        postelections = self.get_ballots(request)
-        postelections = postelections.select_related("voting_system")
+        ballots = self.get_ballots(request)
+        postelections = ballots["ballots"].select_related("voting_system")
 
         for postelection in postelections:
             candidates = []
@@ -160,7 +160,7 @@ class CandidatesAndElectionsForBallots(BaseCandidatesAndElectionsViewSet):
             pes = pes.modified_gt_with_related(date=modified_gt)
         else:
             pes = pes.order_by(*ordering)
-        ret = pes[:100]
+        ret = {"ballots": pes[:100]}
         return ret
 
 

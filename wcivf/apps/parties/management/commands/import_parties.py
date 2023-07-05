@@ -24,7 +24,8 @@ class Command(BaseCommand):
                 defaults={
                     "date_description_approved": description[
                         "date_description_approved"
-                    ]
+                    ],
+                    "active": description["active"],
                 },
             )
 
@@ -38,6 +39,7 @@ class Command(BaseCommand):
                     "description": emblem["description"],
                     "date_approved": emblem["date_approved"],
                     "default": emblem["default"],
+                    "active": emblem["active"],
                 },
             )
 

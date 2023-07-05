@@ -10,7 +10,7 @@ app_name = "mailing_list"
 
 urlpatterns = [
     re_path(
-        r"^signup/$",
+        r"^email/$",
         csrf_exempt(
             SignupFormView.as_view(
                 template_name="base.html",

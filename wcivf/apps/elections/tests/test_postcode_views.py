@@ -61,6 +61,25 @@ class PostcodeViewTests(TestCase):
         response = self.client.get("/elections/CB13HU.ics", follow=True)
         self.assertEqual(response.status_code, 200)
 
+    @vcr.use_cassette("fixtures/vcr_cassettes/test_ical_view.yaml")
+    def test_ical_view_no_polling_station(self):
+        election = ElectionFactory(slug="local.westminster.2018-11-22")
+        post = PostFactory(ynr_id="lancaster-gate.by", label="Romsey")
+
+        PostElectionFactory(
+            post=post,
+            election=election,
+            ballot_paper_id="local.westminster.lancaster-gate.by.2018-11-22",
+        )
+        response = self.client.get("/elections/CB14HU.ics", follow=True)
+        self.assertEqual(response.status_code, 200)
+
+    @vcr.use_cassette("fixtures/vcr_cassettes/test_ical_view.yaml")
+    def test_ical_view_address_picker(self):
+        response = self.client.get("/elections/AA13AA.ics", follow=True)
+        self.assertEqual(response.status_code, 200)
+        assert "You may have upcoming elections" in response.content.decode()
+
     @vcr.use_cassette("fixtures/vcr_cassettes/test_mayor_elections.yaml")
     def test_mayor_election_postcode_lookup(self):
         election = ElectionFactory(slug="mayor.tower-hamlets.2018-05-03")
@@ -76,10 +95,11 @@ class PostcodeViewTests(TestCase):
         self.assertEqual(response.context["postelections"].count(), 1)
         self.assertContains(response, "Tower Hamlets")
 
+    @vcr.use_cassette("fixtures/vcr_cassettes/test_mayor_elections.yaml")
     def test_dc_logging_postcode_valid(self):
         with self.assertLogs(level="DEBUG") as captured:
             self.client.get(
-                "/elections/DD11DD/",
+                "/elections/e32nx/",
                 {
                     "foo": "bar",
                     "utm_source": "test",
@@ -93,7 +113,7 @@ class PostcodeViewTests(TestCase):
             if record.message.startswith("dc-postcode-searches"):
                 logging_message = record
         assert logging_message
-        assert '"postcode": "DD1 1DD"' in logging_message.message
+        assert '"postcode": "E3 2NX"' in logging_message.message
         assert '"dc_product": "WCIVF"' in logging_message.message
         assert '"utm_source": "test"' in logging_message.message
         assert '"utm_campaign": "better_tracking"' in logging_message.message
@@ -131,7 +151,7 @@ class TestPostcodeViewPolls:
         individual tests can then add json data to
         """
         response = mocker.MagicMock(status_code=200)
-        response.json.return_value = {"results": []}
+        response.json.return_value = {"address_picker": False, "dates": []}
         mocker.patch(
             "requests.get",
             return_value=response,
@@ -145,8 +165,13 @@ class TestPostcodeViewPolls:
             election__slug="local.city-of-london.2021-05-06",
             election__election_date="2021-05-06",
         )
-        mock_response.json.return_value["results"].append(
-            {"election_id": post_election.ballot_paper_id}
+
+        mock_response.json.return_value["dates"].append(
+            {
+                "date": post_election.election.election_date,
+                "polling_station": {"polling_station_known": False},
+                "ballots": [{"ballot_paper_id": post_election.ballot_paper_id}],
+            }
         )
 
         response = client.get(
@@ -162,8 +187,13 @@ class TestPostcodeViewPolls:
             election__slug="local.sheffield.2021-05-06",
             election__election_date="2021-05-06",
         )
-        mock_response.json.return_value["results"].append(
-            {"election_id": post_election.ballot_paper_id}
+
+        mock_response.json.return_value["dates"].append(
+            {
+                "date": post_election.election.election_date,
+                "polling_station": {"polling_station_known": False},
+                "ballots": [{"ballot_paper_id": post_election.ballot_paper_id}],
+            }
         )
 
         response = client.get(
@@ -178,8 +208,13 @@ class TestPostcodeViewPolls:
         post_election = PostElectionFactory(
             election__election_date="2021-05-07",
         )
-        mock_response.json.return_value["results"].append(
-            {"election_id": post_election.ballot_paper_id}
+
+        mock_response.json.return_value["dates"].append(
+            {
+                "date": post_election.election.election_date,
+                "polling_station": {"polling_station_known": False},
+                "ballots": [{"ballot_paper_id": post_election.ballot_paper_id}],
+            }
         )
 
         response = client.get(
@@ -203,10 +238,25 @@ class TestPostcodeViewPolls:
             election__slug="parl.2021-05-06",
             election__election_date="2021-05-06",
         )
-        mock_response.json.return_value["results"] = [
-            {"election_id": local_london.ballot_paper_id},
-            {"election_id": parl_london.ballot_paper_id},
-        ]
+
+        mock_response.json.return_value["dates"].extend(
+            [
+                {
+                    "date": local_london.election.election_date,
+                    "polling_station": {"polling_station_known": False},
+                    "ballots": [
+                        {"ballot_paper_id": local_london.ballot_paper_id}
+                    ],
+                },
+                {
+                    "date": parl_london.election.election_date,
+                    "polling_station": {"polling_station_known": False},
+                    "ballots": [
+                        {"ballot_paper_id": parl_london.ballot_paper_id}
+                    ],
+                },
+            ]
+        )
 
         response = client.get(
             reverse("postcode_view", kwargs={"postcode": "TE11ST"}), follow=True
@@ -229,10 +279,21 @@ class TestPostcodeViewPolls:
             election__slug="pcc.south-yorkshire.2021-05-06",
             election__election_date="2021-05-06",
         )
-        mock_response.json.return_value["results"] = [
-            {"election_id": local.ballot_paper_id},
-            {"election_id": pcc.ballot_paper_id},
-        ]
+
+        mock_response.json.return_value["dates"].extend(
+            [
+                {
+                    "date": local.election.election_date,
+                    "polling_station": {"polling_station_known": False},
+                    "ballots": [{"ballot_paper_id": local.ballot_paper_id}],
+                },
+                {
+                    "date": pcc.election.election_date,
+                    "polling_station": {"polling_station_known": False},
+                    "ballots": [{"ballot_paper_id": pcc.ballot_paper_id}],
+                },
+            ]
+        )
 
         response = client.get(
             reverse("postcode_view", kwargs={"postcode": "TE11ST"}), follow=True
@@ -271,14 +332,14 @@ class TestPostcodeViewMethods:
             election__slug="election.tomorrow",
             election__election_date="2021-05-07",
         )
-        view_obj.ballots = PostElection.objects.all()
+        view_obj.ballot_dict = {"ballots": PostElection.objects.all()}
         ballots = view_obj.get_todays_ballots()
 
         assert len(ballots) == 1
         assert today in ballots
         assert tomorrow not in ballots
 
-    def test_get_ballots(self, view_obj, mocker):
+    def test_get_ballot_dict(self, view_obj, mocker):
         view_obj.postcode = "E12AX"
         mocker.patch.object(
             view_obj,
@@ -286,16 +347,18 @@ class TestPostcodeViewMethods:
             return_value="ballots",
         )
 
-        result = view_obj.get_ballots()
-        view_obj.postcode_to_ballots.assert_called_once_with(postcode="E12AX")
+        result = view_obj.get_ballot_dict()
+        view_obj.postcode_to_ballots.assert_called_once_with(
+            postcode="E12AX", uprn=None
+        )
         assert result == "ballots"
 
-    def test_get_ballots_when_already_set(self, view_obj, mocker):
+    def test_get_ballot_dict_when_already_set(self, view_obj, mocker):
         view_obj.postcode = "E12AX"
-        view_obj.ballots = "ballots"
+        view_obj.ballot_dict = "ballots"
         mocker.patch.object(view_obj, "postcode_to_ballots")
 
-        result = view_obj.get_ballots()
+        result = view_obj.get_ballot_dict()
         view_obj.postcode_to_ballots.assert_not_called()
         assert result == "ballots"
 
@@ -381,7 +444,9 @@ class TestPostcodeViewMethods:
     def test_num_ballots_no_parish_election(self, view_obj, mocker):
         future_post_election = mocker.MagicMock(spec=PostElection, past_date=0)
         past_post_election = mocker.MagicMock(spec=PostElection, past_date=1)
-        view_obj.ballots = [future_post_election, past_post_election]
+        view_obj.ballot_dict = {
+            "ballots": [future_post_election, past_post_election]
+        }
         assert view_obj.num_ballots() == 1
 
     def test_num_ballots_with_contested_parish_election(self, view_obj, mocker):
@@ -392,7 +457,9 @@ class TestPostcodeViewMethods:
             in_past=False,
             is_contested=True,
         )
-        view_obj.ballots = [future_post_election, past_post_election]
+        view_obj.ballot_dict = {
+            "ballots": [future_post_election, past_post_election]
+        }
         view_obj.parish_council_election = parish_council_election
         assert view_obj.num_ballots() == 2
 
@@ -406,7 +473,9 @@ class TestPostcodeViewMethods:
             in_past=False,
             is_contested=False,
         )
-        view_obj.ballots = [future_post_election, past_post_election]
+        view_obj.ballot_dict = {
+            "ballots": [future_post_election, past_post_election]
+        }
         view_obj.parish_council_election = parish_council_election
         assert view_obj.num_ballots() == 1
 
@@ -420,7 +489,9 @@ class TestPostcodeViewMethods:
             in_past=False,
             is_contested=None,
         )
-        view_obj.ballots = [future_post_election, past_post_election]
+        view_obj.ballot_dict = {
+            "ballots": [future_post_election, past_post_election]
+        }
         view_obj.parish_council_election = parish_council_election
         assert view_obj.num_ballots() == 1
 
@@ -432,7 +503,9 @@ class TestPostcodeViewMethods:
             in_past=True,
             is_contested=True,
         )
-        view_obj.ballots = [future_post_election, past_post_election]
+        view_obj.ballot_dict = {
+            "ballots": [future_post_election, past_post_election]
+        }
         view_obj.parish_council_election = parish_council_election
         assert view_obj.num_ballots() == 1
 
@@ -456,9 +529,11 @@ class TestPostcodeViewMethods:
         """
         post_election = PostElectionFactory()
         post_election.num_parish_councils = 0
-        view_obj.ballots = PostElection.objects.annotate(
-            num_parish_councils=Count("parish_councils")
-        )
+        view_obj.ballot_dict = {
+            "ballots": PostElection.objects.annotate(
+                num_parish_councils=Count("parish_councils")
+            )
+        }
 
         result = view_obj.get_parish_council_election()
         assert result is None
@@ -474,9 +549,11 @@ class TestPostcodeViewMethods:
         post_election.num_parish_councils = 0
         parish_council_election = ParishCouncilElection.objects.create()
         parish_council_election.ballots.add(post_election)
-        view_obj.ballots = PostElection.objects.annotate(
-            num_parish_councils=Count("parish_councils")
-        )
+        view_obj.ballot_dict = {
+            "ballots": PostElection.objects.annotate(
+                num_parish_councils=Count("parish_councils")
+            )
+        }
 
         result = view_obj.get_parish_council_election()
         assert result == parish_council_election
@@ -490,7 +567,9 @@ class TestPostcodeViewMethods:
         post_election_no_id = mocker.MagicMock(
             spec=PostElection, requires_voter_id=None, cancelled=False
         )
-        view_obj.ballots = [post_election_requires_id, post_election_no_id]
+        view_obj.ballot_dict = {
+            "ballots": [post_election_requires_id, post_election_no_id]
+        }
         assert view_obj.get_voter_id_status() == "EA-2022"
 
     @pytest.mark.django_db
@@ -498,12 +577,26 @@ class TestPostcodeViewMethods:
         post_election_no_id = mocker.MagicMock(
             spec=PostElection, requires_voter_id=None, cancelled=False
         )
-        view_obj.ballots = [post_election_no_id, post_election_no_id]
+        view_obj.ballot_dict = {
+            "ballots": [post_election_no_id, post_election_no_id]
+        }
         assert view_obj.get_voter_id_status() is None
 
 
 class TestPostcodeiCalView:
     def test_invalid_postcode_redirects(self, mocker, client):
+        mocker.patch.object(
+            PostcodeToPostsMixin,
+            "postcode_to_ballots",
+            side_effect=InvalidPostcodeError,
+        )
+        url = reverse("postcode_ical_view", kwargs={"postcode": "TE1 1ST"})
+        response = client.get(url)
+
+        assert response.status_code == 302
+        assert response.url == "/?invalid_postcode=1&postcode=TE1%201ST"
+
+    def test_ical_with_no_polling_station(self, mocker, client):
         mocker.patch.object(
             PostcodeToPostsMixin,
             "postcode_to_ballots",

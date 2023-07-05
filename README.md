@@ -2,19 +2,14 @@
 
 # WhoCanIVoteFor
 
-This project is brand new!
+This project is designed for people who don't know loads about the ins and outs of elections to use to find out everything about upcoming elections, including candidates, polling stations, electon dates, etc.
 
-It is designed for people who don't know loads about the ins and outs of elections to use to find out everything about upcoming elections, including candidates, polling stations, electon dates, etc.
-
-It will have the following features:
+It has the following features:
 
 * "Given a postcode, when is my next election?"
 * "Who are the candidates per election?"
 * "Where is my polling staion?"
-* Enter email address and postcode to get alerted about future elections in yous area
-* Option to show interest in standing for future elections
-* Option to record results of elections (power users only, maybe in a different interface to the normal one)
-* …and other things like that.
+* Enter email address and postcode to get alerted about future elections in your area
 
 It might be good to look at [this issue](https://github.com/mysociety/yournextrepresentative/issues/584) for a little more info.
 
@@ -100,8 +95,12 @@ TranslatedTemplateView.as_view(template_name="foo.html")
 Will try to render `foo_cy.html` first and if that doesn't exist it will
 render `foo.html`
 
-
 ## Pre-Election Tasks
+
+Update slack feedback schedule to post more frequently during election 
+season (perhaps daily)and less frequently during non-election season 
+(perhaps weekly). Both the hours and the cron schedule in needs to be 
+edited in `sam-template.yaml` for this change to take effect.
 
 # New WCIVF Google Sheets imports (Hustings, local parties)
 
@@ -115,10 +114,15 @@ For hustings edit https://github.com/DemocracyClub/WhoCanIVoteFor/blob/master/wc
 
 Commit, PR, merge, deploy.
 
+If you want to show the GB voter ID messaging, set `SHOW_GB_ID_MESSAGING = True` in `settings/base.py`
+
+## Post-Election Tasks
+
+When we've got some results to show, you'll want to update `SHOW_RESULTS_CHART = True` in `settings/base.py`.
+You'll also need to grab the Flourish chart info and replace it in `/templates/home.html`. It should live inside the `{% if show_results_chart %}` block.
+
 ## Deployments
 
 Deployments are triggered by Circle CI. Take a look at `.circleci/config.yml` to see details of the deployment workflow.
 
 To increase the number of EC2 instances for an environment (e.g. during busy times around elections) increase the `min-size`, `max-size` and `desired-capacity` variables found in the `code_deploy` jobs in the `config.yml` file. For further details, see notes about scaling [scaling](/docs/troubleshooting.md#scaling).
-
-

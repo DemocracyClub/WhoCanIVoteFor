@@ -22,7 +22,7 @@ Pyenv is recommended to install python versions. You can find installation instr
 
 The python version that we are using for this project is specified in the `.python-version` file in the root of the directory.You can install this version with:
 
-    pyenv install 3.8.12
+    pyenv install 3.10.4
 
 The presence of a `.python-version` file means that pyenv will activate this version whenever in this directory. This means that whenever running a `python` command, the version specified in `.python-version` is used. You can check this with the below command:
 
@@ -32,7 +32,7 @@ The output should match the version in `.python-version`. If the version is not 
 
 If there is no `.python-version` file you can use the following command to create one and activate that version for this project:
 
-    pyenv local 3.8.12
+    pyenv local 3.10.4
 
 When you are happy that you are using the correct python version, you are ready to create a [virtual environment](https://docs.python.org/3/tutorial/venv.html) with the command:
 

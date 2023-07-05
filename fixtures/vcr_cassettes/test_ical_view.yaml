@@ -7,13 +7,214 @@ interactions:
       Connection: [keep-alive]
       User-Agent: [python-requests/2.9.1]
     method: GET
-    uri: https://wheredoivote.co.uk/api/beta/postcode/CB13HU.json?auth_token=DCINTERNAL-WHO-SYM-LOCAL
+    uri: https://developers.democracyclub.org.uk/api/v1/postcode/CB13HU/?include_current=1
   response:
-    body: {string: '{"polling_station_known":true,"postcode_location":{"geometry":{"point":{"type":"Point","coordinates":[0.16076721,52.200810477499985]}},"type":"Feature"},"custom_finder":null,"council":{"url":"https://wheredoivote.co.uk/api/beta/councils/E07000008/","council_id":"E07000008","council_type":"DIS","name":"Cambridge
-        City Council","email":"elections@cambridge.gov.uk","phone":"01223 457048","website":"http://www.cambridge.gov.uk/","postcode":"CB1
-        0JH","address":"Electoral Registration Officer\nElectoral Services\nPO Box
-        700"},"polling_station":{"id":"E07000008.45","type":"Feature","geometry":{"type":"Point","coordinates":[0.15622989107142857,52.198456917857136]},"properties":{"urls":{"detail":"https://wheredoivote.co.uk/api/beta/pollingstations/?station_id=45&council_id=E07000008","geo":"https://wheredoivote.co.uk/api/beta/pollingstations/geo/?station_id=45&council_id=E07000008"},"council":"https://wheredoivote.co.uk/api/beta/councils/E07000008/","station_id":"45","postcode":"CB1
-        3HR","address":"C3 CENTRE\nCOLDHAM''S LANE\nCAMBRIDGE"}},"addresses":[]}'}
+    body: {string: '{
+  "address_picker": false,
+  "addresses": [],
+  "dates": [
+    {
+      "date": "2018-11-22",
+      "polling_station": {
+        "polling_station_known": true,
+        "custom_finder": null,
+        "report_problem_url": "http://wheredoivote.co.uk/report_problem/?source=testing&source_url=testing",
+        "station": {
+          "id": "E09000033.39-york-room-lancaster-hall-hotel",
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -0.1785134375,
+              51.512779025
+            ]
+          },
+          "properties": {
+            "postcode": "W2 3EL",
+            "address": "York Room, Lancaster Hall Hotel\n35 Craven Terrace\nLondon"
+          }
+        }
+      },
+      "advance_voting_station": {
+        "name": "Exeter Guildhall",
+        "address": "Exeter City Council\nCivic Centre\nParis Street\nExeter\nDevon",
+        "postcode": "EX1 1JN",
+        "location": {
+          "type": "Point",
+          "coordinates": [
+            -3.524551005678706,
+            50.72486002944331
+          ]
+        },
+        "opening_times": [
+          [
+            "2018-11-20",
+            "10:00:00",
+            "16:00:00"
+          ],
+          [
+            "2018-11-21",
+            "10:00:00",
+            "16:00:00"
+          ]
+        ]
+      },
+      "notifications": [],
+      "ballots": [
+        {
+          "ballot_paper_id": "local.westminster.lancaster-gate.by.2018-11-22",
+          "ballot_title": "Westminster local election Lancaster Gate by-election",
+          "ballot_url": "https://developers.democracyclub.org.uk/api/v1/sandbox/elections/local.westminster.lancaster-gate.by.2018-11-22/",
+          "poll_open_date": "2018-11-22",
+          "elected_role": "Local Councillor",
+          "metadata": null,
+          "cancelled": false,
+          "replaced_by": null,
+          "replaces": null,
+          "election_id": "local.westminster.2018-11-22",
+          "election_name": "Westminster local election",
+          "post_name": "Lancaster Gate",
+          "candidates_verified": true,
+          "voting_system": {
+            "slug": "FPTP",
+            "name": "First-past-the-post",
+            "uses_party_lists": false
+          },
+          "hustings": [
+            {
+              "title": "Local elections hustings",
+              "url": "https://example.com/hustings/",
+              "starts": "2018-04-28T18:00:00Z",
+              "ends": "2018-04-28T20:30:00Z",
+              "location": "Westminster Hall",
+              "postevent_url": "https://example.com/hustings/"
+            }
+          ],
+          "seats_contested": 1,
+          "candidates": [
+            {
+              "list_position": null,
+              "party": {
+                "party_id": "party:53",
+                "party_name": "Labour Party"
+              },
+              "previous_party_affiliations": [
+                {
+                  "party_id": "party:90",
+                  "party_name": "Liberal Democrats"
+                }
+              ],
+              "person": {
+                "ynr_id": 42253,
+                "name": "Angela Patricia Piddock",
+                "absolute_url": "https://whocanivotefor.co.uk/person/42253/angela-patricia-piddock",
+                "email": null,
+                "photo_url": "https://static-candidates.democracyclub.org.uk/media/images/images/42253.png",
+                "leaflets": [
+                  {
+                    "leaflet_id": 18145,
+                    "thumb_url": "https://images.electionleaflets.org/thumbs/350x350/leaflets/GE19_LibDem_Swinson_Booklet_front.jpg",
+                    "leaflet_url": "https://electionleaflets.org/leaflets/18145/"
+                  },
+                  {
+                    "leaflet_id": 18211,
+                    "thumb_url": "https://images.electionleaflets.org/thumbs/350x350/leaflets/image_qEe6p9N.jpg",
+                    "leaflet_url": "https://electionleaflets.org/leaflets/18211/"
+                  },
+                  {
+                    "leaflet_id": 18221,
+                    "thumb_url": "https://images.electionleaflets.org/thumbs/350x350/leaflets/Image_624.jpg",
+                    "leaflet_url": "https://electionleaflets.org/leaflets/18221/"
+                  }
+                ]
+              }
+            },
+            {
+              "list_position": null,
+              "party": {
+                "party_id": "party:52",
+                "party_name": "Conservative and Unionist Party"
+              },
+              "previous_party_affiliations": null,
+              "person": {
+                "ynr_id": 42681,
+                "name": "Margot Joan Bright",
+                "absolute_url": "https://whocanivotefor.co.uk/person/42681/margot-joan-bright",
+                "email": "lancastergate@westminsterconservatives.com",
+                "photo_url": "https://static-candidates.democracyclub.org.uk/media/images/images/42681.png",
+                "leaflets": null
+              }
+            },
+            {
+              "list_position": null,
+              "party": {
+                "party_id": "party:90",
+                "party_name": "Liberal Democrats"
+              },
+              "previous_party_affiliations": null,
+              "person": {
+                "ynr_id": 42252,
+                "name": "Sally Elizabeth Gray",
+                "absolute_url": "https://whocanivotefor.co.uk/person/42252/sally-elizabeth-gray",
+                "email": null,
+                "photo_url": "https://static-candidates.democracyclub.org.uk/media/images/images/42252.png",
+                "leaflets": null
+              }
+            },
+            {
+              "list_position": null,
+              "party": {
+                "party_id": "party:63",
+                "party_name": "Green Party"
+              },
+              "previous_party_affiliations": null,
+              "person": {
+                "ynr_id": 7505,
+                "name": "Zack Polanski",
+                "absolute_url": "https://whocanivotefor.co.uk/person/7505/zack-polanski",
+                "email": "info@zackpolanski.com",
+                "photo_url": "https://static-candidates.democracyclub.org.uk/media/images/images/7505.png",
+                "leaflets": null
+              }
+            }
+          ],
+          "wcivf_url": "https://whocanivotefor.co.uk/elections/local.westminster.2018-11-22/post-LBW:E05000638/lancaster-gate"
+        }
+      ]
+    }
+  ],
+  "electoral_services": {
+    "council_id": "E09000033",
+    "name": "City of Westminster",
+    "nation": "England",
+    "email": "electoralservices@westminster.gov.uk",
+    "phone": "020 7641 2730",
+    "website": "http://www.westminster.gov.uk/",
+    "postcode": "WC2N 5HR",
+    "address": "Electoral Registration Officer\nWestminster City Council\n2nd Floor, City Hall\n5 Strand"
+  },
+  "registration": {
+    "council_id": "E09000033",
+    "name": "City of Westminster",
+    "nation": "England",
+    "email": "electoralservices@westminster.gov.uk",
+    "phone": "020 7641 2730",
+    "website": "http://www.westminster.gov.uk/",
+    "postcode": "WC2N 5HR",
+    "address": "Electoral Registration Officer\nWestminster City Council\n2nd Floor, City Hall\n5 Strand"
+  },
+  "postcode_location": {
+    "type": "Feature",
+    "properties": null,
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -0.1804843,
+        51.5113775
+      ]
+    }
+  }
+}'}
     headers:
       Allow: ['GET, HEAD, OPTIONS']
       Connection: [keep-alive]
@@ -35,18 +236,77 @@ interactions:
       Connection: [keep-alive]
       User-Agent: [python-requests/2.9.1]
     method: GET
-    uri: https://elections.democracyclub.org.uk/api/elections?postcode=CB13HU&current=1
+    uri: https://developers.democracyclub.org.uk/api/v1/postcode/AA13AA/?include_current=1
   response:
-    body: {string: ''}
+    body: {string: '{
+  "address_picker": true,
+  "addresses": [
+    {
+      "address": "42 Leinster Gardens, London",
+      "postcode": "AA13AA",
+      "slug": "10035187881",
+      "url": "https://developers.democracyclub.org.uk/api/v1/sandbox/address/10035187881/"
+    },
+    {
+      "address": "19A Leinster Gardens, London",
+      "postcode": "AA13AA",
+      "slug": "10035187882",
+      "url": "https://developers.democracyclub.org.uk/api/v1/sandbox/address/10035187882/"
+    },
+    {
+      "address": "22 Leinster Gardens, London",
+      "postcode": "AA13AA",
+      "slug": "10035187883",
+      "url": "https://developers.democracyclub.org.uk/api/v1/sandbox/address/10035187883/"
+    }
+  ],
+  "dates": [],
+  "electoral_services": {
+    "council_id": "E09000033",
+    "name": "City of Westminster",
+    "nation": "England",
+    "email": "electoralservices@westminster.gov.uk",
+    "phone": "020 7641 2730",
+    "website": "http://www.westminster.gov.uk/",
+    "postcode": "WC2N 5HR",
+    "address": "Electoral Registration Officer\nWestminster City Council\n2nd Floor, City Hall\n5 Strand"
+  },
+  "registration": {
+    "council_id": "E09000033",
+    "name": "City of Westminster",
+    "nation": "England",
+    "email": "electoralservices@westminster.gov.uk",
+    "phone": "020 7641 2730",
+    "website": "http://www.westminster.gov.uk/",
+    "postcode": "WC2N 5HR",
+    "address": "Electoral Registration Officer\nWestminster City Council\n2nd Floor, City Hall\n5 Strand"
+  },
+  "postcode_location": {
+    "type": "Feature",
+    "properties": null,
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -0.18387315,
+        51.513099069999996
+      ]
+    }
+  }
+}
+'}
     headers:
+      Allow: ['GET, HEAD, OPTIONS']
       Connection: [keep-alive]
-      Content-Type: [text/html; charset=utf-8]
-      Date: ['Fri, 12 May 2017 09:33:25 GMT']
-      Location: ['/api/elections/?postcode=CB13HU&current=1']
-      Server: [nginx]
-      Strict-Transport-Security: [max-age=15768000]
+      Content-Language: [en]
+      Content-Length: ['1059']
+      Content-Type: [application/json]
+      Date: ['Fri, 12 May 2017 09:32:50 GMT']
+      Server: [nginx/1.4.6 (Ubuntu)]
+      Set-Cookie: ['sessionid=eyJ1dG1fZGF0YSI6e319:1d96wM:3Jz5K-McWqritz09TIO14lgtguo;
+          expires=Fri, 26-May-2017 09:32:50 GMT; HttpOnly; Max-Age=1209600; Path=/']
+      Vary: ['Accept, Accept-Language, Cookie']
       X-Frame-Options: [SAMEORIGIN]
-    status: {code: 301, message: Moved Permanently}
+    status: {code: 200, message: OK}
 - request:
     body: null
     headers:
@@ -55,24 +315,185 @@ interactions:
       Connection: [keep-alive]
       User-Agent: [python-requests/2.9.1]
     method: GET
-    uri: https://elections.democracyclub.org.uk/api/elections/?postcode=CB13HU&current=1
+    uri: https://developers.democracyclub.org.uk/api/v1/postcode/CB14HU/?include_current=1
   response:
-    body: {string: '{"count":1,"next":null,"previous":null,"results":[{"election_id":"parl.cambridge.2017-06-08","tmp_election_id":null,"election_title":"Cambridge","poll_open_date":"2017-06-08","election_type":{"name":"UK
-        Parliament","election_type":"parl"},"election_subtype":null,"organisation":{"official_identifier":"parl-hoc","organisation_type":"parl","organisation_subtype":"","official_name":"House
-        of Commons of the United Kingdom","common_name":"House of Commons","gss":"","slug":"parl","territory_code":"GBN","election_name":"UK
-        general election"},"group":"parl.2017-06-08","group_type":null,"children":[],"elected_role":"Member
-        of Parliament","division":{"divisionset":{"start_date":"2010-07-18","end_date":null,"legislation_url":null,"consultation_url":null,"short_title":"2010
-        Boundaries","mapit_generation_id":"http://mapit.mysociety.org/generations/13","notes":"Auto
-        imported from http://mapit.mysociety.org"},"name":"Cambridge","official_identifier":"gss:E14000617","geography_curie":"gss:E14000617","slug":"cambridge","division_type":"WMC","division_subtype":"UK
-        Parliament constituency","division_election_sub_type":"","seats_total":null,"mapit_generation_low":13,"mapit_generation_high":30},"voting_system":{"slug":"FPTP","name":"First-past-the-post","uses_party_lists":false},"current":true,"explanation":null}]}'}
+    body: {string: '{
+  "address_picker": false,
+  "addresses": [],
+  "dates": [
+    {
+      "date": "2058-11-22",
+      "polling_station": {
+        "polling_station_known": false,
+        "custom_finder": null,
+        "report_problem_url": null,
+        "station": null
+      },
+      "advance_voting_station": null,
+      "notifications": [],
+      "ballots": [
+        {
+          "ballot_paper_id": "local.westminster.lancaster-gate.by.2018-11-22",
+          "ballot_title": "Westminster local election Lancaster Gate by-election",
+          "ballot_url": "https://developers.democracyclub.org.uk/api/v1/sandbox/elections/local.westminster.lancaster-gate.by.2018-11-22/",
+          "poll_open_date": "2018-11-22",
+          "elected_role": "Local Councillor",
+          "metadata": null,
+          "cancelled": false,
+          "replaced_by": null,
+          "replaces": null,
+          "election_id": "local.westminster.2018-11-22",
+          "election_name": "Westminster local election",
+          "post_name": "Lancaster Gate",
+          "candidates_verified": true,
+          "voting_system": {
+            "slug": "FPTP",
+            "name": "First-past-the-post",
+            "uses_party_lists": false
+          },
+          "hustings": [
+            {
+              "title": "Local elections hustings",
+              "url": "https://example.com/hustings/",
+              "starts": "2018-04-28T18:00:00Z",
+              "ends": "2018-04-28T20:30:00Z",
+              "location": "Westminster Hall",
+              "postevent_url": "https://example.com/hustings/"
+            }
+          ],
+          "seats_contested": 1,
+          "candidates": [
+            {
+              "list_position": null,
+              "party": {
+                "party_id": "party:53",
+                "party_name": "Labour Party"
+              },
+              "previous_party_affiliations": null,
+              "person": {
+                "ynr_id": 42253,
+                "name": "Angela Patricia Piddock",
+                "absolute_url": "https://whocanivotefor.co.uk/person/42253/angela-patricia-piddock",
+                "email": null,
+                "photo_url": "https://static-candidates.democracyclub.org.uk/media/images/images/42253.png",
+                "leaflets": [
+                  {
+                    "leaflet_id": 18145,
+                    "thumb_url": "https://images.electionleaflets.org/thumbs/350x350/leaflets/GE19_LibDem_Swinson_Booklet_front.jpg",
+                    "leaflet_url": "https://electionleaflets.org/leaflets/18145/"
+                  },
+                  {
+                    "leaflet_id": 18211,
+                    "thumb_url": "https://images.electionleaflets.org/thumbs/350x350/leaflets/image_qEe6p9N.jpg",
+                    "leaflet_url": "https://electionleaflets.org/leaflets/18211/"
+                  },
+                  {
+                    "leaflet_id": 18221,
+                    "thumb_url": "https://images.electionleaflets.org/thumbs/350x350/leaflets/Image_624.jpg",
+                    "leaflet_url": "https://electionleaflets.org/leaflets/18221/"
+                  }
+                ]
+              }
+            },
+            {
+              "list_position": null,
+              "party": {
+                "party_id": "party:52",
+                "party_name": "Conservative and Unionist Party"
+              },
+              "previous_party_affiliations": null,
+              "person": {
+                "ynr_id": 42681,
+                "name": "Margot Joan Bright",
+                "absolute_url": "https://whocanivotefor.co.uk/person/42681/margot-joan-bright",
+                "email": "lancastergate@westminsterconservatives.com",
+                "photo_url": "https://static-candidates.democracyclub.org.uk/media/images/images/42681.png",
+                "leaflets": null
+              }
+            },
+            {
+              "list_position": null,
+              "party": {
+                "party_id": "party:90",
+                "party_name": "Liberal Democrats"
+              },
+              "previous_party_affiliations": null,
+              "person": {
+                "ynr_id": 42252,
+                "name": "Sally Elizabeth Gray",
+                "absolute_url": "https://whocanivotefor.co.uk/person/42252/sally-elizabeth-gray",
+                "email": null,
+                "photo_url": "https://static-candidates.democracyclub.org.uk/media/images/images/42252.png",
+                "leaflets": null
+              }
+            },
+            {
+              "list_position": null,
+              "party": {
+                "party_id": "party:63",
+                "party_name": "Green Party"
+              },
+              "previous_party_affiliations": null,
+              "person": {
+                "ynr_id": 7505,
+                "name": "Zack Polanski",
+                "absolute_url": "https://whocanivotefor.co.uk/person/7505/zack-polanski",
+                "email": "info@zackpolanski.com",
+                "photo_url": "https://static-candidates.democracyclub.org.uk/media/images/images/7505.png",
+                "leaflets": null
+              }
+            }
+          ],
+          "wcivf_url": "https://whocanivotefor.co.uk/elections/local.westminster.2018-11-22/post-LBW:E05000638/lancaster-gate"
+        }
+      ]
+    }
+  ],
+  "electoral_services": {
+    "council_id": "E09000033",
+    "name": "City of Westminster",
+    "nation": "England",
+    "email": "electoralservices@westminster.gov.uk",
+    "phone": "020 7641 2730",
+    "website": "http://www.westminster.gov.uk/",
+    "postcode": "WC2N 5HR",
+    "address": "Electoral Registration Officer\nWestminster City Council\n2nd Floor, City Hall\n5 Strand"
+  },
+  "registration": {
+    "council_id": "E09000033",
+    "name": "City of Westminster",
+    "nation": "England",
+    "email": "electoralservices@westminster.gov.uk",
+    "phone": "020 7641 2730",
+    "website": "http://www.westminster.gov.uk/",
+    "postcode": "WC2N 5HR",
+    "address": "Electoral Registration Officer\nWestminster City Council\n2nd Floor, City Hall\n5 Strand"
+  },
+  "postcode_location": {
+    "type": "Feature",
+    "properties": null,
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -0.18387315,
+        51.513099069999996
+      ]
+    }
+  }
+}
+'}
     headers:
-      Allow: ['GET, OPTIONS']
+      Allow: ['GET, HEAD, OPTIONS']
       Connection: [keep-alive]
+      Content-Language: [en]
+      Content-Length: ['1059']
       Content-Type: [application/json]
-      Date: ['Fri, 12 May 2017 09:33:26 GMT']
-      Server: [nginx]
-      Strict-Transport-Security: [max-age=15768000]
-      Vary: ['Accept, Cookie']
+      Date: ['Fri, 12 May 2017 09:32:50 GMT']
+      Server: [nginx/1.4.6 (Ubuntu)]
+      Set-Cookie: ['sessionid=eyJ1dG1fZGF0YSI6e319:1d96wM:3Jz5K-McWqritz09TIO14lgtguo;
+          expires=Fri, 26-May-2017 09:32:50 GMT; HttpOnly; Max-Age=1209600; Path=/']
+      Vary: ['Accept, Accept-Language, Cookie']
       X-Frame-Options: [SAMEORIGIN]
     status: {code: 200, message: OK}
+
 version: 1

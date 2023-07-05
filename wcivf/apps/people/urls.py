@@ -13,8 +13,8 @@ urlpatterns = [
         EmailPersonView.as_view(),
         name="email_person_view",
     ),
-    re_path(
-        r"^(?P<pk>[^/]+)/(?P<ignored_slug>.*)$",
+    path(
+        "<int:pk>/<slug:ignored_slug>",
         PersonView.as_view(),
         name="person_view",
     ),

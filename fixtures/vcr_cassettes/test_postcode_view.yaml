@@ -7,37 +7,61 @@ interactions:
       Connection: [keep-alive]
       User-Agent: [python-requests/2.9.1]
     method: GET
-    uri: https://elections.democracyclub.org.uk/api/elections?postcode=EC1A%204EU&current=1
+    uri: https://developers.democracyclub.org.uk/api/v1/postcode/EC1A%204EU/?include_current=1
   response:
-    body: {string: ''}
-    headers:
-      Connection: [keep-alive]
-      Content-Type: [text/html; charset=utf-8]
-      Date: ['Fri, 12 May 2017 09:31:21 GMT']
-      Location: ['/api/elections/?postcode=EC1A%204EU&current=1']
-      Server: [nginx]
-      Strict-Transport-Security: [max-age=15768000]
-      X-Frame-Options: [SAMEORIGIN]
-    status: {code: 301, message: Moved Permanently}
-- request:
-    body: null
-    headers:
-      Accept: ['*/*']
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [python-requests/2.9.1]
-    method: GET
-    uri: https://elections.democracyclub.org.uk/api/elections/?postcode=EC1A%204EU&current=1
-  response:
-    body: {string: '{"count":1,"next":null,"previous":null,"results":[{"election_id":"parl.cities-of-london-and-westminster.2017-06-08","tmp_election_id":null,"election_title":"Cities
-        of London and Westminster","poll_open_date":"2017-06-08","election_type":{"name":"UK
-        Parliament","election_type":"parl"},"election_subtype":null,"organisation":{"official_identifier":"parl-hoc","organisation_type":"parl","organisation_subtype":"","official_name":"House
-        of Commons of the United Kingdom","common_name":"House of Commons","gss":"","slug":"parl","territory_code":"GBN","election_name":"UK
-        general election"},"group":"parl.2017-06-08","group_type":null,"children":[],"elected_role":"Member
-        of Parliament","division":{"divisionset":{"start_date":"2010-07-18","end_date":null,"legislation_url":null,"consultation_url":null,"short_title":"2010
-        Boundaries","mapit_generation_id":"http://mapit.mysociety.org/generations/13","notes":"Auto
-        imported from http://mapit.mysociety.org"},"name":"Cities of London and Westminster","official_identifier":"gss:E14000639","geography_curie":"gss:E14000639","slug":"cities-of-london-and-westminster","division_type":"WMC","division_subtype":"UK
-        Parliament constituency","division_election_sub_type":"","seats_total":null,"mapit_generation_low":13,"mapit_generation_high":30},"voting_system":{"slug":"FPTP","name":"First-past-the-post","uses_party_lists":false},"current":true,"explanation":null}]}'}
+    body: {string: '{
+  "address_picker": false,
+  "addresses": [],
+  "dates": [{
+    "date": "2017-06-08",
+    "polling_station": {
+      "polling_station_known": false
+    },
+    "ballots": [
+      {
+      "ballot_paper_id": "parl.cities-of-london-and-westminster.2017-06-08"
+       
+      }
+    ]
+  }],
+  "electoral_services": {
+    "council_id": "STO",
+    "name": "Stroud District Council",
+    "email": "elections@stroud.gov.uk",
+    "phone": "01453 754886",
+    "website": "http://www.stroud.gov.uk/",
+    "postcode": "GL5 4UB",
+    "address": "Electoral Registration Officer\nEbley Mill\nWestward Road\nStroud",
+    "identifiers": [
+      "E07000082"
+    ],
+    "nation": "England"
+  },
+  "registration": {
+    "council_id": "STO",
+    "name": "Stroud District Council",
+    "email": "elections@stroud.gov.uk",
+    "phone": "01453 754886",
+    "website": "http://www.stroud.gov.uk/",
+    "postcode": "GL5 4UB",
+    "address": "Electoral Registration Officer\nEbley Mill\nWestward Road\nStroud",
+    "identifiers": [
+      "E07000082"
+    ],
+    "nation": "England"
+  },
+  "postcode_location": {
+    "type": "Feature",
+    "properties": null,
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -2.20260988,
+        51.74391142000001
+      ]
+    }
+  }
+}'}
     headers:
       Allow: ['GET, OPTIONS']
       Connection: [keep-alive]
@@ -56,7 +80,7 @@ interactions:
       Connection: [keep-alive]
       User-Agent: [python-requests/2.9.1]
     method: GET
-    uri: https://wheredoivote.co.uk/api/beta/postcode/EC1A%204EU.json?auth_token=DCINTERNAL-WHO-SYM-LOCAL
+    uri: https://wheredoivote.co.uk/api/beta/postcode/EC1A%204EU.json?auth_token=DCINTERNAL-WHO-SYM-LOCAL&include_current=1
   response:
     body: {string: '{"polling_station_known":false,"postcode_location":{"geometry":{"point":{"type":"Point","coordinates":[-0.0969942,51.5169862]}},"type":"Feature"},"custom_finder":null,"council":{"url":"https://wheredoivote.co.uk/api/beta/councils/E09000001/","council_id":"E09000001","council_type":"LBO","name":"City
         of London Corporation","email":"electoralservices@cityoflondon.gov.uk","phone":"0800

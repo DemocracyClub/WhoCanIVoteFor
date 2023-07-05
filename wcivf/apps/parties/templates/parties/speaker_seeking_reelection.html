@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% load markdown_filter %}
+{% load humanize %}
+{% load i18n %}
+
+{% block og_image %}{% if object.emblem_url %}{{ CANONICAL_URL }}{{ object.emblem_url }}{% endif %}{% endblock og_image %}
+{% block og_title_content %}{{ object.party_name }}{% endblock og_title_content %}
+{% block page_title %}{{ object.party_name }}{% endblock page_title %}
+{% block og_description_content %}{{ object.personpost_set.all.count }} candidates{% endblock og_description_content %}
+
+
+{% block content %}
+    <nav class="ds-breadcrumbs ds-stack" aria-label="You are here: {{ request.path }}">
+        <ol>
+            <li>
+                <a href="{% url 'home_view' %}">{% trans "Home" %}</a>
+            </li>
+            <li>
+                <a href="{% url 'parties_view' %}">{% trans "Parties" %}</a>
+            </li>
+            <li>{% blocktrans trimmed with party_name=object.party_name %}Current: {{ party_name }}{% endblocktrans %}</li>
+        </ol>
+    </nav>
+
+    <div class="ds-stack-smaller">
+
+        <div>
+            <h2>{{ object.format_name }}</h2>
+            <p>{% blocktrans trimmed with num_candidates=object.personpost_set.all.count|intcomma pluralize_candidates=object.personpost_set.all.count|pluralize %}{{ num_candidates }} candidate{{ pluralize_candidates }} in our database.{% endblocktrans %}</p>
+            {% if object.description %}
+                {{ object.description|markdown }}
+            {% endif %}
+        </div>
+    </div>
+    <p>{% trans "The Speaker of the House of Commons stands in general elections under the banner" %} "{{ object.format_name }}"</p>
+    <p>{% trans "They are not affiliated with any political party, nor do they campaign on any political issues." %}</p>
+    <p>{% trans "The Speaker generally runs unopposed by the major parties." %}</p>
+    <p>{% blocktrans trimmed %} Find out more about <a href="https://www.parliament.uk/mps-lords-and-offices/offices/commons/speakers-office/">The Speaker</a> and <a href="https://www.parliament.uk/about/living-heritage/evolutionofparliament/parliamentwork/offices-and-ceremonies/overview/the-speaker/elections/">their role in elections</a> on the parliament.uk website.{% endblocktrans %}</p>
+
+{% endblock content %}

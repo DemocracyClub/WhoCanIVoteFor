@@ -2,6 +2,7 @@ from django.urls import reverse
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
+from django.utils.translation import get_language
 from model_utils.models import TimeStampedModel
 
 from elections.models import Election
@@ -16,6 +17,7 @@ class PartyManager(models.Manager):
             "status": party["status"],
             "date_registered": party["date_registered"],
             "date_deregistered": party["date_deregistered"],
+            "alternative_name": party["alternative_name"],
         }
 
         if party["default_emblem"]:
@@ -35,6 +37,7 @@ class Party(models.Model):
 
     party_id = models.CharField(blank=True, max_length=100, primary_key=True)
     party_name = models.CharField(max_length=765)
+    alternative_name = models.CharField(max_length=765, null=True)
     emblem_url = models.URLField(blank=True, null=True)
     wikipedia_url = models.URLField(blank=True)
     description = models.TextField(blank=True)
@@ -101,17 +104,78 @@ class Party(models.Model):
         return self.party_id.startswith("joint-party:")
 
     @property
+    def is_speaker(self):
+        """
+        Returns a boolean for whether the party has the internal ID that we use
+        to identify Speaker Seeking Re-election.
+        """
+        return self.party_id == "ynmp-party:12522"
+
+    @property
+    def get_joint_party_sub_parties(self):
+        """
+        A joint party in our system has an id of "joint-party:{party_id}-{party_id}".
+        This function looks up a joint party's individual party records and returns
+        a queryset containing the sub-parties
+        """
+        if self.is_joint_party:
+            sub_party_numeric_ids = self.party_id.rsplit(":")[1].split("-")
+
+            sub_parties = Party.objects.filter(
+                party_id__in=[
+                    f"party:{party_id}" for party_id in sub_party_numeric_ids
+                ]
+            )
+            return sub_parties
+
+        return None
+
+    @property
     def is_deregistered(self):
         if not self.date_deregistered:
             return False
-        return self.date_deregistered > timezone.now().date()
+        return self.date_deregistered < timezone.now().date()
 
     @property
     def format_name(self):
-        name = self.name
+        name = self.party_name
         if self.is_deregistered:
-            name = "{} (Deregistered {})".format(name, self.date_deregistered)
+            name = f"{name} (Deregistered)"
         return name
+
+    @property
+    def get_party_register_url(self):
+        if self.ec_id == self.party_id or not self.ec_id:
+            # If an EC ID matches a party ID, that EC ID is in legacy slug
+            # format and cannot be used to generate a party register URL.
+            # This applies to indies, joint parties and the speaker.
+            return None
+
+        url_language = "English"
+        if get_language() == "cy":
+            url_language = "Cymraeg"
+        return f"https://search.electoralcommission.org.uk/{url_language}/Registrations/{self.ec_id}"
+
+    @property
+    def format_register(self):
+        """
+        Returns a nice name for the register code
+        """
+        if self.register == "GB":
+            return "Great Britain"
+
+        if self.register == "NI":
+            return "Northern Ireland"
+
+        return None
+
+
+class PartyDescriptionQuerySet(models.QuerySet):
+    def active(self):
+        return self.filter(active=True)
+
+    def inactive(self):
+        return self.filter(active=False)
 
 
 class PartyDescription(TimeStampedModel):
@@ -128,12 +192,25 @@ class PartyDescription(TimeStampedModel):
 
     description = models.CharField(max_length=800)
     date_description_approved = models.DateField(null=True)
+    active = models.BooleanField(default=False)
+
+    objects = PartyDescriptionQuerySet.as_manager()
 
     class Meta:
         unique_together = (
             "party",
             "description",
         )
+
+        ordering = ["-active", "date_description_approved"]
+
+
+class PartyEmblemQuerySet(models.QuerySet):
+    def active(self):
+        return self.filter(active=True)
+
+    def inactive(self):
+        return self.filter(active=False)
 
 
 class PartyEmblem(TimeStampedModel):
@@ -145,9 +222,12 @@ class PartyEmblem(TimeStampedModel):
     description = models.CharField(max_length=255)
     date_approved = models.DateField(null=True)
     default = models.BooleanField(default=False)
+    active = models.BooleanField(default=False)
+
+    objects = PartyEmblemQuerySet.as_manager()
 
     class Meta:
-        ordering = ("-default", "ec_emblem_id")
+        ordering = ("-default", "-active", "ec_emblem_id")
 
 
 class LocalParty(TimeStampedModel):

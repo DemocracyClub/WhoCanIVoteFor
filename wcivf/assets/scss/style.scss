@@ -107,10 +107,6 @@ $scope: false;
     background-color: white;
 }
 
-main {
-    padding: 0 0 !important;
-}
-
 input[type=radio] {
     visibility: hidden;
 }
@@ -155,4 +151,8 @@ input[type=radio] {
 .ds-error {
 //  centers the error for the postcode lookup
     margin: 1rem auto;
+}
+
+.ds-status-message p {
+  color: $white;
 }

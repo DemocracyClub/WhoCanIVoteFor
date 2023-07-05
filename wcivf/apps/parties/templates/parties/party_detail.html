@@ -22,63 +22,158 @@
             <li>{% blocktrans trimmed with party_name=object.party_name %}Current: {{ party_name }}{% endblocktrans %}</li>
         </ol>
     </nav>
-    <div class="ds-card">
-        <div class="ds-stack-smaller">
-            <div class="ds-card-body">
-                {% if party.emblem_url %}
-                    <div class="ds-with-sidebar">
-                        <div>
-                            <div class="ds-sidebar" style="flex-basis: 10rem">
-                                <img src="{{ party.emblem_url }}" alt="{{ party_name }} emblem">
-                            </div>
-                            <div class="ds-not-sidebar">
-                                <h2>{{ party.party_name }}</h2>
-                                <p>{% blocktrans with num_candidates=object.personpost_set.all.count|intcomma pluralize_candidates=object.personpost_set.all.count|pluralize %}{{ num_candidates }} candidate{{ pluralize_candidates }}{% endblocktrans %}</p>
-                                {% if object.description %}
-                                    {{ object.description|markdown }}
-                                {% endif %}
-                                {% if object.wikipedia_url %}
-                                    <p><a href="{{ object.wikipedia_url }}">{% trans "Read more on wikipedia" %}</a></p>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
 
-                {% else %}
-                    <div>
-                        <h2>{{ party.party_name }}</h2>
-                        <p>{% blocktrans trimmed with num_candidates=object.personpost_set.all.count|intcomma pluralize_candidates=object.personpost_set.all.count|pluralize %}{{ num_candidates }} candidate{{ pluralize_candidates }}{% endblocktrans %}</p>
+    <div class="ds-stack-smaller">
+        {% if party.emblem_url %}
+            <div class="ds-with-sidebar">
+                <div>
+                    <div class="ds-sidebar" style="flex-basis: 10rem">
+                        <img src="{{ party.emblem_url }}" alt="{{ party_name }} emblem">
+                    </div>
+                    <div class="ds-not-sidebar">
+                        <h2>{{ object.format_name }}</h2>
+                        {% if object.alternative_name %}
+                            <p>{% blocktrans with alt_name=object.alternative_name %}Alternative name: {{ alt_name }}{% endblocktrans %}</p>
+                        {% endif %}
+                        <p>{% blocktrans with num_candidates=object.personpost_set.all.count|intcomma pluralize_candidates=object.personpost_set.all.count|pluralize %}{{ num_candidates }} candidate{{ pluralize_candidates }} in our database.{% endblocktrans %}</p>
                         {% if object.description %}
                             {{ object.description|markdown }}
                         {% endif %}
                         {% if object.wikipedia_url %}
                             <p><a href="{{ object.wikipedia_url }}">{% trans "Read more on wikipedia" %}</a></p>
                         {% endif %}
+                        {% if object.is_deregistered %}
+                            <p>{% blocktrans with dereg_date=object.date_deregistered %}This political party was deregistered on {{ dereg_date }}, and can no longer field candidates. {% endblocktrans %}</p>
+                        {% endif %}
                     </div>
-
-                {% endif %}
-
-                {% regroup object.personpost_set.all.counts_by_post by election__name as people_by_election %}
-
-                {% for election in people_by_election %}
-                    <div class="ds-table">
-                        <table>
-                            <caption>{{ election.grouper }}</caption>
-                            <tr>
-                                <th>{% trans "Post" %}</th>
-                                <th>{% trans "Number of candidates" %}</th>
-                            </tr>
-                            {% for post in election.list %}
-                                <tr>
-                                    <td>{{ post.post__label }}</td>
-                                    <td>{% blocktrans trimmed with num_candidates=post.num_candidates pluralize_candidates=post.num_candidates|pluralize %}{{ num_candidates }} candidate{{ pluralize_candidates }}{% endblocktrans %}</td>
-                                </tr>
-                            {% endfor %}
-                        </table>
-                    </div>
-                {% endfor %}
+                </div>
             </div>
-        </div>
+        {% else %}
+            <div>
+                <h2>{{ object.format_name }}</h2>
+                <p>{% blocktrans trimmed with num_candidates=object.personpost_set.all.count|intcomma pluralize_candidates=object.personpost_set.all.count|pluralize %}{{ num_candidates }} candidate{{ pluralize_candidates }} in our database.{% endblocktrans %}</p>
+                {% if object.description %}
+                    {{ object.description|markdown }}
+                {% endif %}
+                {% if object.wikipedia_url %}
+                    <p><a href="{{ object.wikipedia_url }}">{% trans "Read more on wikipedia" %}</a></p>
+                {% endif %}
+                {% if object.is_deregistered %}
+                    <p>{% blocktrans with dereg_date=object.date_deregistered %}This political party was deregistered on {{ dereg_date }}, and can no longer field candidates. {% endblocktrans %}</p>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if object.register %}
+            {% blocktrans trimmed with register=object.format_register was_is=object.is_deregistered|yesno:"was,is" %}
+                <p>This party {{ was_is }} on the <strong>{{ register }}</strong> register.</p>
+            {% endblocktrans %}
+        {% endif %}
+
+        {% if object.is_joint_party %}
+            {% with sub_parties=object.get_joint_party_sub_parties %}
+                <div class="ds-card">
+                    <div class="ds-card-body">
+                        <h3>
+                            <span aria-hidden="true">🤝</span>
+                            {% trans "Joint description" %}
+                        </h3>
+                        <p>
+                            {% blocktrans with joint_name=object.party_name first_name=sub_parties.0.party_name second_name=sub_parties.1.party_name %}
+                                "{{ joint_name }}" is a joint description of the {{ first_name }} and the {{ second_name }}.
+                            {% endblocktrans %}
+                        </p>
+                    </div>
+                </div>
+                <ul>
+                    {% for sub_party in sub_parties %}
+                        <li>
+                            <a href="{{ sub_party.get_party_register_url }}">{% blocktrans with party_name=sub_party.party_name %}View the entry for the {{ party_name }} in the register of political parties.{% endblocktrans %}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endwith %}
+        {% else %}
+            {% if object.ec_id != object.party_id %}
+                <!-- Non-party parties will have an EC ID matching their party_id -->
+                <ul>
+                    <li>
+                        <a href="{{ object.get_party_register_url }}">{% trans "View this party's entry in the register of political parties." %}</a>
+                    </li>
+                </ul>
+            {% endif %}
+        {% endif %}
+
+
+        <h3>{% trans "Ballot descriptions" %}</h3>
+        {% if object.alternative_name or object.party_descriptions.active %}
+            <p>{% blocktrans trimmed with ballot_name=object.party_name %} This party may appear on the ballot paper as "{{ ballot_name }}", or any of the following names:{% endblocktrans %}</p>
+            <ul>
+                {% if object.alternative_name %}
+                    <li>{{ object.party_name}} | {{ object.alternative_name }}</li>
+                {% endif %}
+                {% if object.party_descriptions.active %}
+                    {% for description in object.party_descriptions.active %}
+                        <li>{{ description.description }}</li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        {% else %}
+            <p>{% trans "This party currently has no alternative descriptions registered with the Electoral Commission." %}</p>
+        {% endif %}
+        {% if object.party_descriptions.inactive %}
+            <ul class="ds-details">
+                <li>
+                    <details>
+                        <summary>
+                            {% trans "Previous Descriptions" %}
+                        </summary>
+                        <p>{% trans "These descriptions are no longer registered with the Electoral Commission and cannot be used:" %}</p>
+                        <ul>
+                            {% for description in object.party_descriptions.inactive %}
+                                <li>{{ description.description }}</li>
+                            {% endfor %}
+                        </ul>
+                    </details>
+                </li>
+            </ul>
+        {% endif %}
+
+
+        <h3>{% trans "Emblems" %}</h3>
+        {% if object.emblems.active %}
+            <ul class="ds-grid" style="--gridCellMin: 5em;">
+                {% for emblem in object.emblems.active %}
+                    <li>
+                        <img src="{{ emblem.emblem_url }}" alt="{{ emblem.description }}">
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>{% trans "This party currently has no alternative emblems registered with the Electoral Commission." %}</p>
+        {% endif %}
+        {% if object.emblems.inactive %}
+            <ul class="ds-details">
+                <li>
+                    <details>
+                        <summary>
+                            {% trans "Previous Emblems" %}
+                        </summary>
+                        <p>{% trans "These emblems are no longer registered with the Electoral Commission and cannot be used:" %}</p>
+                        <ul class="ds-grid" style="--gridCellMin: 5em;">
+                            {% for emblem in object.emblems.inactive %}
+                                <li>
+                                    <img src="{{ emblem.emblem_url }}" alt="{{ emblem.description }}">
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </details>
+                </li>
+            </ul>
+        {% endif %}
     </div>
+
+
+
 
 {% endblock content %}

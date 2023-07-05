@@ -43,9 +43,6 @@ hooks:
     - location: deploy/before_install/initial_setup.sh
       timeout: 300
       runas: root
-    - location: deploy/before_install/reload_ee_db.sh
-      timeout: 300
-      runas: root
 # During the AfterInstall deployment lifecycle event, run the commands
 #   in the script specified in "location".
   AfterInstall:
@@ -67,9 +64,6 @@ hooks:
     - location: deploy/after_install/compilemessages.sh
       timeout: 300
       runas: wcivf
-    - location: deploy/after_install/ee_init_db.sh
-      timeout: 300
-      runas: wcivf
     - location: deploy/after_install/install_crontab.sh
       timeout: 300
       runas: root
@@ -77,8 +71,12 @@ hooks:
 #   in the script specified in "location".
   ApplicationStart:
     - location: deploy/start_application.sh
-      timeout: 900
+      timeout: 1200
       runas: root
+  AfterBlockTraffic:
+    - location: deploy/files/scripts/remove_db_replication.sh
+      timeout: 300
+      runas: wcivf
 # During the ValidateService deployment lifecycle event, run the commands
 #   in the script specified in "location".
   ValidateService:

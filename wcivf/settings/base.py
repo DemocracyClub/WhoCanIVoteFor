@@ -173,6 +173,9 @@ USE_I18N = True
 
 USE_TZ = True
 
+# Homepage feature switches
+SHOW_GB_ID_MESSAGING = False
+SHOW_RESULTS_CHART = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
@@ -205,7 +208,11 @@ SESSION_CACHE_ALIAS = "default"
 
 YNR_BASE = "https://candidates.democracyclub.org.uk"
 YNR_UTM_QUERY_STRING = "utm_source=who&utm_campaign=ynr_cta"
-EE_BASE = os.environ.get("EE_BASE", "https://elections.democracyclub.org.uk")
+EE_BASE = "https://elections.democracyclub.org.uk"
+DEVS_DC_BASE = os.environ.get(
+    "DEVS_DC_BASE", "https://developers.democracyclub.org.uk"
+)
+DEVS_DC_API_KEY = os.environ.get("DEVS_DC_API_KEY", None)
 
 WDIV_BASE = "http://wheredoivote.co.uk"
 WDIV_API = "/api/beta"

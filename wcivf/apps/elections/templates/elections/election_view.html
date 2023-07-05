@@ -24,7 +24,7 @@
                             <strong>is being held today</strong>. Polls are open from{% endblocktrans %} {{ object.polls_open|time:"ga" }} {% trans "till" %} {{ object.polls_close|time:"ga" }}
                     {% else %}
                         {% comment %} TO DO: Change text when the election is "tomorrow" {% endcomment %}
-                        {% blocktrans trimmed with was_will_be_in_past=postelection.election.in_past|yesno:"was,will be" election_date=object.election_date|naturalday:"\o\n l j F Y" %} {{ was_will_be_in_past }} held <strong>{{ election_date }}</strong>.{% endblocktrans %}
+                        {% blocktrans trimmed with was_will_be_in_past=object.in_past|yesno:"was,will be" election_date=object.election_date|naturalday:"\o\n l j F Y" %} This election {{ was_will_be_in_past }} held <strong>{{ election_date }}</strong>.{% endblocktrans %}
                     {% endif %}
                 </p>
 

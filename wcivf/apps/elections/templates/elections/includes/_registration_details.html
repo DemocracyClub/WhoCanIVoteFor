@@ -25,12 +25,6 @@
                 {% endblocktrans %}
             </p>
             <p>
-                {% blocktrans trimmed with postal_vote_application_deadline=postelection.postal_vote_application_deadline|date:"l jS F" election_date=postelection.election.election_date %}
-                    If you want to vote by post in the elections on {{ election_date }}, first ensure you are registered to vote and then
-                    <a href="https://www.gov.uk/government/publications/apply-for-a-postal-vote">apply for a postal vote</a> before 5pm on {{ postal_vote_application_deadline }}.
-                {% endblocktrans %}
-            </p>
-            <p>
                 {% if council %}
                     {% if council.registration_contacts %}
                         {% blocktrans trimmed %}To register by post, contact your Valuation Joint Board.{% endblocktrans %}

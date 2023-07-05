@@ -8,7 +8,7 @@ set +a
 # rotate the log file otherwise output is lost in cloudwatch
 echo "" > /var/log/db_replication/logs.log
 
-USER=$PROJECT_NAME
+USER=`whoami`
 INSTANCE_ID=$(curl http://instance-data/latest/meta-data/instance-id)
 SUBSCRIPTION=${USER}_${INSTANCE_ID:2}
 

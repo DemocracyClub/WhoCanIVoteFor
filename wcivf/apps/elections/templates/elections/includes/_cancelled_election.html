@@ -3,7 +3,7 @@
 {% load static %}
 {% load i18n %}
 
-{% if not object.contested %}
+{% if not object.contested and not object.metadata.cancelled_election %}
     {% comment %} Case 1: Election cancelled, uncontested, number of candidates equal seats, no metadata{% endcomment %}
     {% if object.winner_count == object.people.count %}
         <h4>{% trans "Uncontested Election" %}</h4>
@@ -49,8 +49,14 @@
     {% endif %}
     {% comment %} Case 4: Contested but cancelled for other reasons {% endcomment %}
 {% else %}
-    <h4>{% trans "Cancelled Election" %}</h4>
-    <p>{% trans "This election was cancelled." %}</p>
+    {% if object.metadata.cancelled_election %}
+        <h4>{{ object.metadata.cancelled_election.title }}</h4>
+        <p>{{ object.metadata.cancelled_election.detail }}</p>
+    {% else %}
+        <h4>{% trans "Cancelled Election" %}</h4>
+        <p>{% trans "This election was cancelled." %}</p>
+    {% endif %}
+
 {% endif %}
 
 <p>
@@ -69,11 +75,4 @@
         <a href="{{ object.metadata.cancelled_election.url }}">{% trans "Read more" %}</a>
     {% endif %}
 </p>
-{% comment %} Metadata should not repeat the pre-formatted messages below,
-but rather provide extra information that is not already present in the logic
-{% endcomment %}
-<p>
-    {% if object.metadata.cancelled_election.detail %}
-        {{ object.metadata.cancelled_election.detail }}
-    {% endif %}
-</p>
+

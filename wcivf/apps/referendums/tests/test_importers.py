@@ -69,5 +69,5 @@ class TestReferendumImporter:
         captured = capsys.readouterr()
 
         assert result == referendum
-        referendum.ballots.set.assert_called_once_with(["Ballot"])
+        referendum.ballot_dict.set.assert_called_once_with(["Ballot"])
         assert captured.out == "Created Referendum 1\n"

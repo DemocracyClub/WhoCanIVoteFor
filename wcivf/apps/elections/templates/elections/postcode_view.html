@@ -17,67 +17,73 @@
             {% include "elections/includes/inline_elections_nav_list.html" %}
         {% endif %}
 
+        {% if not address_picker %}
 
-        {% regroup postelections by election.election_date as elections_by_date %}
-        {% for election_group in elections_by_date %}
-            {% for postelection in election_group.list %}
-                {% if postelection.is_referendum %}
-                    {% include "referendums/includes/_card.html" with referendum=postelection.referendum %}
-                {% else %}
-                    {% include "elections/includes/_single_ballot.html" %}
-                {% endif %}
+
+            {% regroup postelections by election.election_date as elections_by_date %}
+            {% for election_group in elections_by_date %}
+                {% for postelection in election_group.list %}
+                    {% if postelection.is_referendum %}
+                        {% include "referendums/includes/_card.html" with referendum=postelection.referendum %}
+                    {% else %}
+                        {% include "elections/includes/_single_ballot.html" %}
+                    {% endif %}
+                {% endfor %}
             {% endfor %}
-        {% endfor %}
 
-        {% for referendum in referendums %}
-            {% include "referendums/includes/_card.html" %}
-        {% endfor %}
+            {% for referendum in referendums %}
+                {% include "referendums/includes/_card.html" %}
+            {% endfor %}
 
-        {% if parish_council_election %}
-            {% include "parishes/includes/_card.html" with parish_council_election=parish_council_election %}
-        {% endif %}
+            {% if parish_council_election %}
+                {% include "parishes/includes/_card.html" with parish_council_election=parish_council_election %}
+            {% endif %}
 
-        {# Add this at the top of the page if it's known, or at the bottom if it's not #}
-        {% if show_polling_card %}
-            {% include "elections/includes/_polling_place.html" with elections_by_date=elections_by_date %}
-        {% endif %}
+            {# Add this at the top of the page if it's known, or at the bottom if it's not #}
+            {% if show_polling_card %}
+                {% include "elections/includes/_polling_place.html" with elections_by_date=elections_by_date %}
+            {% endif %}
 
-        {% if requires_voter_id %}
-            {% include "elections/includes/_voter_id.html" %}
-        {% endif %}
+            {% if requires_voter_id %}
+                {% include "elections/includes/_voter_id.html" %}
+            {% endif %}
 
-        {% if not postelections or not postelections.first.past_registration_deadline %}
-            {% include "elections/includes/_registration_details.html" with postelection=postelections.first council=polling_station.council %}
-        {% endif %}
+            {% if not postelections or not postelections.first.past_registration_deadline %}
+                {% include "elections/includes/_registration_details.html" with postelection=postelections.first council=polling_station.council %}
+            {% endif %}
 
-        {% if not messages %}
-            <div class="ds-card">
-                <div class="ds-card-body">
-                    <h4>
-                        <span aria-hidden="true">⏰</span>
-                        {% blocktrans trimmed %}Add future elections in {{ postcode }} to your calendar{% endblocktrans %}
-                    </h4>
-                    <p>
-                        <a href="https://calendar.google.com/calendar/u/0/embed?src=tm55j9m2lict2h021b3479gpntshunvd@import.calendar.google.com&ctz=Europe/London">{% trans "Subscribe to the iCal feed" %}</a>
-                        <p>{% trans "Or manually subscribe by following these simple steps for your chosen calendar tool:" %}</p>
-                        <ol>
-                            <li>
-                                {% trans "In your calendar app settings, choose the option for adding a new calendar." %}
-                            </li>
-                            <li>
-                                {% trans "If presented with the option to choose a calendar type, choose web calendar." %}
-                            </li>
-                            <li>
-                                {% trans 'Enter this URL and save' %}: webcal://whocanivotefor.co.uk{% url 'postcode_ical_view' postcode %}
-                            </li>
-                        </ol>
-                    </p>
+            {% if not messages %}
+                <div class="ds-card">
+                    <div class="ds-card-body">
+                        <h4>
+                            <span aria-hidden="true">⏰</span>
+                            {% blocktrans trimmed %}Add future elections in {{ postcode }} to your calendar{% endblocktrans %}
+                        </h4>
+                        <p>
+                            <p>{% trans "Manually subscribe by following these simple steps for your chosen calendar tool:" %}</p>
+                            <ol>
+                                <li>
+                                    {% trans "In your calendar app settings, choose the option for adding a new calendar." %}
+                                </li>
+                                <li>
+                                    {% trans "If presented with the option to choose a calendar type, choose web calendar." %}
+                                </li>
+                                <li>
+                                    {% if uprn %}
+                                        {% trans 'Enter this URL and save' %}: <code>webcal://whocanivotefor.co.uk{% url 'uprn_ical_view' postcode uprn %}</code>
+                                    {% else %}
+                                        {% trans 'Enter this URL and save' %}: <code>webcal://whocanivotefor.co.uk{% url 'postcode_ical_view' postcode %}</code>
+                                    {% endif %}
+                                </li>
+                            </ol>
+                        </p>
+                    </div>
                 </div>
-            </div>
-        {% endif %}
+            {% endif %}
 
-        {% if postelections %}
-            {% include "feedback/feedback_form.html" %}
+            {% if postelections %}
+                {% include "feedback/feedback_form.html" %}
+            {% endif %}
         {% endif %}
 
     </div>
