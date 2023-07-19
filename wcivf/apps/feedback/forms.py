@@ -1,14 +1,17 @@
-import uuid
-
 from django import forms
 
-from .models import Feedback, FOUND_USEFUL_CHOICES, VOTE_CHOICES
+from .models import (
+    Feedback,
+    FOUND_USEFUL_CHOICES,
+    VOTE_CHOICES,
+    generate_feedback_token,
+)
 
 
 class FeedbackForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(FeedbackForm, self).__init__(*args, **kwargs)
-        self.fields["token"].initial = uuid.uuid4().hex
+        self.fields["token"].initial = generate_feedback_token()
 
     class Meta:
         model = Feedback

@@ -1,4 +1,5 @@
-from django.views.generic import DetailView
+from django.urls import reverse
+from django.views.generic import DetailView, RedirectView
 from django.http import Http404
 from django.db.models import Prefetch, Q, Count
 
@@ -138,6 +139,8 @@ class DummyPersonView(PersonView):
         }
 
 
-class EmailPersonView(PersonMixin, DetailView):
-    template_name = "people/email_person.html"
-    model = Person
+class EmailPersonView(RedirectView):
+    permanent = True
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse("person_view", kwargs={"pk": self.kwargs["pk"]})

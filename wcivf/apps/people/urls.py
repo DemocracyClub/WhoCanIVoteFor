@@ -18,4 +18,9 @@ urlpatterns = [
         PersonView.as_view(),
         name="person_view",
     ),
+    path(
+        "<int:pk>",
+        PersonView.as_view(),
+        name="person_view",
+    ),
 ]

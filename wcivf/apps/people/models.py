@@ -220,16 +220,6 @@ class Person(models.Model):
         return "{}/person/{}/".format(settings.YNR_BASE, self.ynr_id)
 
     @property
-    def should_show_email_cta(self):
-        show_cta = bool(self.email)
-
-        conditions = [self.statement_to_voters]
-
-        all_conditions = not any(map(bool, conditions))
-
-        return all([show_cta, all_conditions])
-
-    @property
     def has_any_contact_info(self):
         """
         Does this person have any info to display in the contact info box?

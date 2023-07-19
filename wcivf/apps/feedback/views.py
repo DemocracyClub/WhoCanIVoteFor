@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.http import HttpResponse
 from django.views.generic import View, UpdateView
 from django.utils.http import url_has_allowed_host_and_scheme
@@ -24,16 +25,19 @@ class FeedbackFormView(UpdateView):
         )
         return akismet.check(
             self.request.META["REMOTE_ADDR"],
-            self.request.META["HTTP_USER_AGENT"],
             comment_content=self.request.POST.get("comments"),
         )
 
     def get_object(self, queryset=None):
         token = self.request.POST.get("token")
         try:
-            return Feedback.objects.get(token=token)
+            return Feedback.objects.get(
+                token=token, created__date=timezone.datetime.today()
+            )
         except Feedback.DoesNotExist:
-            return Feedback(token=token)
+            if token:
+                return Feedback(token=token)
+            return Feedback()
 
     def get_success_url(self):
         messages.success(

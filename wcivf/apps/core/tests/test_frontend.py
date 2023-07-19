@@ -10,7 +10,6 @@ from django.test.utils import override_settings
 from django.urls import reverse
 from dc_utils.tests.helpers import validate_html_str
 from people.tests.factories import (
-    PersonFactory,
     PersonPostWithPartyFactory,
 )
 from parties.tests.factories import PartyFactory
@@ -52,10 +51,6 @@ class TestHtml:
             PersonPostWithPartyFactory(
                 election=ElectionFactory()
             ).person.get_absolute_url(),
-            reverse(
-                "email_person_view",
-                kwargs={"pk": PersonFactory().pk, "ignored_slug": "sadiq-khan"},
-            ),
             reverse("parties_view"),
             PartyFactory().get_absolute_url(),
             reverse("elections_view"),
