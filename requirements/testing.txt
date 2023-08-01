@@ -14,6 +14,6 @@ tomlkit
 freezegun==1.2.2
 django-debug-toolbar==4.1.0
 curlylint==0.13.1
-ruff==0.0.280
+ruff==0.0.281
 pytest-ruff
 pytest-black
