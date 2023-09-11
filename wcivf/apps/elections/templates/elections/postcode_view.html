@@ -48,6 +48,26 @@
                 {% include "elections/includes/_voter_id.html" %}
             {% endif %}
 
+
+            <div class="ds-card">
+                <div class="ds-card-body">
+                    <h2>Parliamentary boundaries are changing</h2>
+                    <p>At the next general election, the constituency you live in will
+                        be changing.</p>
+                    <p>
+                        Your current constituency is called <strong>Don Valley</strong>
+                        and the new one will be called <strong>Doncaster East and the Isle of Axholme</strong>.
+                    </p>
+                    <p>
+                        The change follows a review and public consultation into the size of all constituencies in the UK.
+                    </p>
+
+                    <p>You can <a href="#">find out more about these changes on the House of Commons website</a></p>
+
+                </div>
+            </div>
+
+
             {% if not postelections or not postelections.first.past_registration_deadline %}
                 {% include "elections/includes/_registration_details.html" with postelection=postelections.first council=polling_station.council %}
             {% endif %}
