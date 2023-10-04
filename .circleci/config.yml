@@ -279,14 +279,14 @@ workflows:
           - build_and_test
           - sam_build
           context: [ deployment-development-wcivf, slack-secrets ]
-          filters: { branches: { only: [ main, master, staging, hotfix/make-token-more-unique ] } }
+          filters: { branches: { only: [ main, master, staging, fix-cache ] } }
       - post_deploy_tests:
           name: post_deploy_tests_development
           dc-environment: development
           requires:
             - sam_deploy_development
           context: [ deployment-development-wcivf, slack-secrets ]
-          filters: { branches: { only: [ main, master, staging, hotfix/make-token-more-unique ] } }
+          filters: { branches: { only: [ main, master, staging, fix-cache ] } }
       - code_deploy:
           name: code_deploy_development
           dc-environment: development
@@ -296,7 +296,7 @@ workflows:
           requires:
           - post_deploy_tests_development
           context: [ deployment-development-wcivf, slack-secrets ]
-          filters: { branches: { only: [ main, master, staging, hotfix/make-token-more-unique ] } }
+          filters: { branches: { only: [ main, master, staging, fix-cache ] } }
       - sam_deploy:
           name: sam_deploy_staging
           dc-environment: staging
