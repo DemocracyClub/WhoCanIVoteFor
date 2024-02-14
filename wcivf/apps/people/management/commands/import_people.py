@@ -252,8 +252,14 @@ class Command(BaseCommand):
         while url:
             req = requests.get(url)
             page = req.json()
-            for result in page["results"]:
-                merged_ids.append(result["old_person_id"])
+            try:
+                for result in page["results"]:
+                    merged_ids.append(result["old_person_id"])
+            except KeyError as e:
+                if "Request was throttled" not in page.get("detail", ""):
+                    self.stdout.write(f"Error: {e}")
+                else:
+                    raise e
             url = page.get("next")
         Person.objects.filter(ynr_id__in=merged_ids).delete()
 
