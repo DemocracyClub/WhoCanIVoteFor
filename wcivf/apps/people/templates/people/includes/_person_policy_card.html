@@ -3,84 +3,80 @@
 {% load i18n %}
 
 {% if object.statement_to_voters or object.leaflet_set.exists or object.twfy_id %}
-    <section class="ds-card">
-        <div class="ds-card-body">
-            <h2 class="ds-candidate-name ds-h3">
-                {% blocktrans with person_name=object.name %}{{ person_name }}'s policies{% endblocktrans %}
-            </h2>
+    <h2 class="ds-candidate-name ds-h3">
+        {% blocktrans with person_name=object.name %}{{ person_name }}'s policies{% endblocktrans %}
+    </h2>
+    {% if object.statement_to_voters %}
+        <h4>{% trans "Statement to voters" %}</h4>
+        {% if object.long_statement %}
+            <div class="ds-details">
+                <blockquote class="ds-stack-smaller">
+                    <p>{{ object.statement_intro }}</p>
+                    <details>
+                        <summary>{% trans "Full statement" %}</summary>
+                        <p>{{ object.statement_remainder|linebreaksbr }}</p>
+                    </details>
+                </blockquote>
+            </div>
+        {% else %}
+            <blockquote>{{ object.statement_to_voters|linebreaks }}</blockquote>
+        {% endif %}
+        {% if object.statement_to_voters_last_updated %}
+            <p>{% blocktrans with date=object.statement_to_voters_last_updated|naturalday %}This statement was last updated on {{ date }}{% endblocktrans %}</p>
+        {% endif %}
+        <p class="small">
+            {% blocktrans trimmed with person_name=object.name %}
+                This statement was added by {{ person_name }}, their team, or by a
+                <a href="https://candidates.democracyclub.org.uk/volunteer/{{ object.ynr_id }}">
+                    Democracy Club volunteer</a>, based on
+                information published by the candidate elsewhere.
+            {% endblocktrans %}</p>
+    {% endif %}
 
-            {% if object.statement_to_voters %}
-                <h4>{% trans "Statement to voters" %}</h4>
-                {% if object.long_statement %}
-                    <div class="ds-details">
-                        <blockquote class="ds-stack-smaller">
-                            <p>{{ object.statement_intro }}</p>
-                            <details>
-                                <summary>{% trans "Full statement" %}</summary>
-                                <p>{{ object.statement_remainder|linebreaksbr }}</p>
-                            </details>
-                        </blockquote>
-                    </div>
-                {% else %}
-                    <blockquote>{{ object.statement_to_voters|linebreaks }}</blockquote>
-                {% endif %}
-                {% if object.statement_to_voters_last_updated %}
-                    <p>{% blocktrans with date=object.statement_to_voters_last_updated|naturalday %}This statement was last updated on {{ date }}{% endblocktrans %}</p>
-                {% endif %}
-                <p class="small">
-                    {% blocktrans trimmed with person_name=object.name %}
-                        This statement was added by {{ person_name }}, their team, or by a
-                        <a href="https://candidates.democracyclub.org.uk/volunteer/{{ object.ynr_id }}">
-                            Democracy Club volunteer</a>, based on
-                        information published by the candidate elsewhere.
-                    {% endblocktrans %}</p>
-            {% endif %}
-
-            <!-- leaflets -->
-            {% if object.leaflet_set.exists %}
-                <h4>
-                    {% blocktrans with person_name=object.name %}Recent leaflets from {{ person_name }}{% endblocktrans %}
-                </h4>
-                <ul class="ds-grid">
-                    {% for leaflet in object.leaflet_set.latest_four %}
-                        <li>
-                            {% if leaflet.thumb_url %}
-                                <a href="https://electionleaflets.org/leaflets/{{ leaflet.leaflet_id }}">
-                                    <img src="{{ leaflet.thumb_url }}" alt="{% blocktrans with person_name=object.name %}Thumbnail of leaflet from {{ person_name }}{% endblocktrans %}" />
-                                </a>
-                            {% endif %}
-                            <p>
-                                {% blocktrans trimmed with leaflet_id=leaflet.leaflet_id date=leaflet.date_uploaded_to_electionleaflets|naturalday:"j M Y" %}
-                                    Uploaded {{ date }}<br />
-                                    <a href="https://electionleaflets.org/leaflets/{{ leaflet_id }}" class="cta">See leaflet</a>
-                                {% endblocktrans %}
-                            </p>
-                        </li>
-                    {% endfor %}
-                </ul>
-                <div class="ds-cluster">
-                    <div>
-                        {% blocktrans trimmed with person_name=object.name person_id=object.ynr_id %}
-                            <a class="ds-cta" href="https://electionleaflets.org/person/{{ person_id }}">
-                                More leaflets from {{ person_name }}</a>
-                            <a class="ds-cta" href="https://electionleaflets.org/leaflets/add/">
-                                Upload a leaflet
-                            </a>
+    <!-- leaflets -->
+    {% if object.leaflet_set.exists %}
+        <h4>
+            {% blocktrans with person_name=object.name %}Recent leaflets from {{ person_name }}{% endblocktrans %}
+        </h4>
+        <ul class="ds-grid">
+            {% for leaflet in object.leaflet_set.latest_four %}
+                <li>
+                    {% if leaflet.thumb_url %}
+                        <a href="https://electionleaflets.org/leaflets/{{ leaflet.leaflet_id }}">
+                            <img src="{{ leaflet.thumb_url }}"
+                                alt="{% blocktrans with person_name=object.name %}Thumbnail of leaflet from {{ person_name }}{% endblocktrans %}"/>
+                        </a>
+                    {% endif %}
+                    <p>
+                        {% blocktrans trimmed with leaflet_id=leaflet.leaflet_id date=leaflet.date_uploaded_to_electionleaflets|naturalday:"j M Y" %}
+                            Uploaded {{ date }}<br/>
+                            <a href="https://electionleaflets.org/leaflets/{{ leaflet_id }}" class="cta">See leaflet</a>
                         {% endblocktrans %}
-                    </div>
-                </div>
-
-            {% endif %}
-
-            <!-- TWFY  -->
-            {% if object.twfy_id %}
-                <h4>{% trans "Record in office" %}</h4>
-                <p>{% trans "See this candidate's " %}
-                    <a href="https://www.theyworkforyou.com/mp/{{ object.twfy_id }}">
-                        {% trans "record on TheyWorkForYou" %}</a> -
-                    {% trans "their speeches, voting history and more" %}
-                </p>
-            {% endif %}
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="ds-cluster">
+            <div>
+                {% blocktrans trimmed with person_name=object.name person_id=object.ynr_id %}
+                    <a class="ds-cta" href="https://electionleaflets.org/person/{{ person_id }}">
+                        More leaflets from {{ person_name }}</a>
+                    <a class="ds-cta" href="https://electionleaflets.org/leaflets/add/">
+                        Upload a leaflet
+                    </a>
+                {% endblocktrans %}
+            </div>
         </div>
-    </section>
+
+    {% endif %}
+
+    <!-- TWFY  -->
+    {% if object.twfy_id %}
+        <h4>{% trans "Record in office" %}</h4>
+        <p>{% trans "See this candidate's " %}
+            <a href="https://www.theyworkforyou.com/mp/{{ object.twfy_id }}">
+                {% trans "record on TheyWorkForYou" %}</a> -
+            {% trans "their speeches, voting history and more" %}
+        </p>
+    {% endif %}
 {% endif %}

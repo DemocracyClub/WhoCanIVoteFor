@@ -2,28 +2,24 @@
 {% load i18n %}
 
 {% if object.current_or_future_candidacies %}
-    <section class="ds-card">
-        <div class="ds-card-body">
-            <h3>{% trans "That's all we know! Will you help us find more about this candidate?" %}</h3>
-            <p>{% trans "Our volunteers have been working hard to add information on as many candidates as possible, but they need help." %}</p>
-            <p>
-                {% trans "If you can add information that should be on this page" %}
+    <h2 class="ds-h3">{% trans "That's all we know! Will you help us find more about this candidate?" %}</h2>
+    <p>{% trans "Our volunteers have been working hard to add information on as many candidates as possible, but they need help." %}</p>
+    <p>
+        {% trans "If you can add information that should be on this page" %}
 
-                {% if object.cta_example_details %}
-                    {% blocktrans trimmed with person=object.name cta=object.cta_example_details|join:", "%}- such as {{ person }}'s
-                        {{ cta }} - {% endblocktrans %}
-                {% endif %}
-                {% trans "please use our crowdsourcing website to add it." %}
-            </p>
-            <a href="{{ object.get_ynr_url }}update/" class="ds-cta ds-cta-blue">
-                {% trans "Add or edit details &raquo;" %}
-            </a>
+        {% if object.cta_example_details %}
+            {% blocktrans trimmed with person=object.name cta=object.cta_example_details|join:", "%}- such as {{ person }}'s
+                {{ cta }} - {% endblocktrans %}
+        {% endif %}
+        {% trans "please use our crowdsourcing website to add it." %}
+    </p>
+    <a href="{{ object.get_ynr_url }}update/" class="ds-cta ds-cta-blue">
+        {% trans "Add or edit details &raquo;" %}
+    </a>
 
-            {#    <h4>Upload your leaflets</h4>#}
-            {#    <p>If you've received election leaflets from {{ object.name }}, please take a photo#}
-            {#      of them and upload them to ElectionLeaflets.org</p>#}
-            {#    <p><a class="ds-button ds-cta ds-cta-blue" type="button" href="https://electionleaflets.org/">Add leaflets</a>#}
-            {#    </p>#}
-        </div>
-    </section>
+    {#    <h4>Upload your leaflets</h4>#}
+    {#    <p>If you've received election leaflets from {{ object.name }}, please take a photo#}
+    {#      of them and upload them to ElectionLeaflets.org</p>#}
+    {#    <p><a class="ds-button ds-cta ds-cta-blue" type="button" href="https://electionleaflets.org/">Add leaflets</a>#}
+    {#    </p>#}
 {% endif %}

@@ -1,65 +1,61 @@
 {% load i18n %}
 {% if person.local_party %}
-    <div class="ds-card">
-        <div class="ds-card-body">
-            <h4 class="ds-h3">{{ party}}</h4>
-            <p>
-                {% if person.local_party.is_local %}
-                    {% blocktrans trimmed with person=person.name party_label=person.local_party.label %}{{ person }}'s local party is {{ party_label }}.{% endblocktrans %}
-                {% else %}
-                    {% blocktrans trimmed with person=person.name %}{{ person }} is a {{ party }} candidate.{% endblocktrans %}
-                {% endif %}
-            </p>
-            <dl class="ds-descriptions">
-                {% if person.local_party.twitter %}
-                    <div>
-                        <dt>Twitter</dt>
-                        <a href="https://twitter.com/{{ person.local_party.twitter }}">
-                            {{ person.local_party.twitter }}
-                        </a>
-                    </div>
-                {% endif %}
-                {% if person.local_party.facebook_page %}
-                    <div>
-                        <dt>Facebook</dt>
-                        <a href="{{ person.local_party.facebook_page }}">
-                            {{ person.local_party.facebook_page }}
-                        </a>
-                    </div>
-                {% endif %}
-                {% if person.local_party.homepage %}
-                    <div>
-                        <dt>{% trans "Party Homepage" %}</dt>
-                        <a href="{{ person.local_party.homepage }}">
-                            {% blocktrans trimmed %}{{ party }}'s website{% endblocktrans %}
-                        </a>
-                    </div>
-                {% endif %}
-                {% if person.local_party.email %}
-                    <div>
-                        <dt>{% trans "Email" %}</dt>
-                        <a href="mailto:{{ person.local_party.email }}">
-                            {% blocktrans %}{{ party }}'s email{% endblocktrans %}
-                        </a>
-                    </div>
-                {% endif %}
-                {% if person.local_party.contact_page_url %}
-                    <div>
-                        <dt>{% trans "Contact page" %}</dt>
-                        <a href="{{ person.local_party.contact_page_url }}">
-                            {% blocktrans trimmed %}{{ party }}'s contact page{% endblocktrans %}
-                        </a>
-                    </div>
-                {% endif %}
-                {% if person.local_party.youtube_profile_url %}
-                    <div>
-                        <dt>{% trans "Youtube page" %}</dt>
-                        <a href="{{ person.local_party.youtube_profile_url }}">
-                            {% blocktrans trimmed %}{{ party }}'s Youtube profile{% endblocktrans %}
-                        </a>
-                    </div>
-                {% endif %}
-            </dl>
-        </div>
-    </div>
+    <h4 class="ds-h3">{{ party}}</h4>
+    <p>
+        {% if person.local_party.is_local %}
+            {% blocktrans trimmed with person=person.name party_label=person.local_party.label %}{{ person }}'s local party is {{ party_label }}.{% endblocktrans %}
+        {% else %}
+            {% blocktrans trimmed with person=person.name %}{{ person }} is a {{ party }} candidate.{% endblocktrans %}
+        {% endif %}
+    </p>
+    <dl class="ds-descriptions">
+        {% if person.local_party.twitter %}
+            <div>
+                <dt>Twitter</dt>
+                <a href="https://twitter.com/{{ person.local_party.twitter }}">
+                    {{ person.local_party.twitter }}
+                </a>
+            </div>
+        {% endif %}
+        {% if person.local_party.facebook_page %}
+            <div>
+                <dt>Facebook</dt>
+                <a href="{{ person.local_party.facebook_page }}">
+                    {{ person.local_party.facebook_page }}
+                </a>
+            </div>
+        {% endif %}
+        {% if person.local_party.homepage %}
+            <div>
+                <dt>{% trans "Party Homepage" %}</dt>
+                <a href="{{ person.local_party.homepage }}">
+                    {% blocktrans trimmed %}{{ party }}'s website{% endblocktrans %}
+                </a>
+            </div>
+        {% endif %}
+        {% if person.local_party.email %}
+            <div>
+                <dt>{% trans "Email" %}</dt>
+                <a href="mailto:{{ person.local_party.email }}">
+                    {% blocktrans %}{{ party }}'s email{% endblocktrans %}
+                </a>
+            </div>
+        {% endif %}
+        {% if person.local_party.contact_page_url %}
+            <div>
+                <dt>{% trans "Contact page" %}</dt>
+                <a href="{{ person.local_party.contact_page_url }}">
+                    {% blocktrans trimmed %}{{ party }}'s contact page{% endblocktrans %}
+                </a>
+            </div>
+        {% endif %}
+        {% if person.local_party.youtube_profile_url %}
+            <div>
+                <dt>{% trans "Youtube page" %}</dt>
+                <a href="{{ person.local_party.youtube_profile_url }}">
+                    {% blocktrans trimmed %}{{ party }}'s Youtube profile{% endblocktrans %}
+                </a>
+            </div>
+        {% endif %}
+    </dl>
 {% endif %}
