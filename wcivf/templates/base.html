@@ -91,59 +91,24 @@
     {% endblock page_content %}
 {% endblock content %}
 
-{% block footer_base %}
-    <footer class="ds-footer">
-        <div class="ds-block-centered ds-text-centered ds-stack">
-            <div class="ds-dark">
-                <a class="ds-cta ds-cta-blue" href="https://mailinglist.democracyclub.org.uk/subscription/form">
-                    Join our mailing list
-                </a>
-            </div>
-            <div class="ds-cluster-center">
-                <ul>
-                    <li><a href="{% url 'home_view' %}">{% trans "Home" %}</a></li>
-                    <li><a href="{% url 'elections_view' %}">{% trans "All Elections" %}</a></li>
-                    <li><a href="{% url 'parties_view' %}">{% trans "All Parties" %}</a></li>
-                    <li><a href="{% url 'standing_as_a_candidate' %}">{% trans "Standing as a candidate?" %}</a></li>
-                    <li><a href="{% url 'about_view' %}">{% blocktrans %}About {{ SITE_TITLE }}{% endblocktrans %}</a></li>
-                    <li><a href="https://democracyclub.org.uk/privacy/">{% trans "Privacy" %}</a></li>
-                    <li><a href="https://github.com/DemocracyClub/WhoCanIVoteFor">{% trans "Source code" %}</a></li>
-                    <li><a href="https://democracyclub.org.uk/about/">{% trans "About Democracy Club" %}</a></li>
-                    <li><a href="https://democracyclub.org.uk/contact/">{% trans "Contact Us" %}</a></li>
-                    <li><a href="https://democracyclub.org.uk/blog/">{% trans "Blog" %}</a></li>
-                    <li><a href="https://twitter.com/democlub">{% trans "Twitter" %}</a></li>
-                    <li><a href="https://github.com/DemocracyClub">{% trans "GitHub" %}</a></li>
-                    <li><a href="{% url "ppc_2024:home" %}">Browse the list of people and parties standing in the next general election</a>.</li>
-
-                </ul>
-            </div>
-            <div class="ds-copyright">
-                <a class="ds-logo" href="/">
-                    <img src="{% static 'images/logo_icon.svg' %}" width="{{ SITE_LOGO_WIDTH|default:'80' }}" alt="Democracy Club" />
-                    <span class="ds-text-left">
-                        {% trans "democracy" %}<br>{% trans "club" %}
-                    </span>
-                </a>
-                <p>
-                    {% get_current_language as LANGUAGE_CODE %}
-                    {% if LANGUAGE_CODE != "en" %}
-                        <em lang="cy">{% language "cy" %}{% trans "Who Can I Vote For?" %}{% endlanguage %}</em>
-                    {% endif %}
-                </p>
-                {% now "Y" as current_year %}
-                <p>{% blocktrans trimmed %}Copyright &copy; {{ current_year }}{% endblocktrans %}</p>
-                <p>{% trans "Democracy Club Community Interest Company" %}</p>
-                <p>{% blocktrans trimmed %}Company No: <a href="https://beta.companieshouse.gov.uk/company/09461226">09461226</a>{% endblocktrans %}</p>
-                <p class="ds-text-centered">
-                    {% blocktrans trimmed %}
-                        Democracy Club is a UK-based Community Interest Company that builds
-                        the digital infrastructure needed for a 21st century democracy
-                    {% endblocktrans %}
-                </p>
-            </div>
-        </div>
-    </footer>
-{% endblock footer_base %}
+{% block footer_menu %}
+    <div class="ds-cluster-center">
+        <ul>
+            <li><a href="{% url 'home_view' %}">{% trans "Home" %}</a></li>
+            <li><a href="{% url 'elections_view' %}">{% trans "All Elections" %}</a></li>
+            <li><a href="{% url 'parties_view' %}">{% trans "All Parties" %}</a></li>
+            <li><a href="{% url 'standing_as_a_candidate' %}">{% trans "Standing as a candidate?" %}</a></li>
+            <li><a href="{% url 'about_view' %}">{% blocktrans %}About {{ SITE_TITLE }}{% endblocktrans %}</a></li>
+            <li><a href="https://democracyclub.org.uk/privacy/">{% trans "Privacy" %}</a></li>
+            <li><a href="https://github.com/DemocracyClub/WhoCanIVoteFor">{% trans "Source code" %}</a></li>
+            <li><a href="https://democracyclub.org.uk/about/">{% trans "About Democracy Club" %}</a></li>
+            <li><a href="https://democracyclub.org.uk/contact/">{% trans "Contact Us" %}</a></li>
+            <li><a href="https://democracyclub.org.uk/blog/">{% trans "Blog" %}</a></li>
+            <li><a href="https://twitter.com/democlub">{% trans "Twitter" %}</a></li>
+            <li><a href="https://github.com/DemocracyClub">{% trans "GitHub" %}</a></li>
+        </ul>
+    </div>
+{% endblock footer_menu %}
 
 {% block extra_site_js %}
     {% block extra_javascript %}

@@ -234,7 +234,6 @@ EMAIL_SIGNUP_BACKEND_KWARGS = {
 
 # DC Base Theme settings
 SITE_TITLE = "Who Can I Vote For?"
-SITE_LOGO_WIDTH = "80"
 
 AKISMET_API_KEY = os.environ.get("AKISMET_API_KEY")
 
