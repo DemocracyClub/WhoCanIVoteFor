@@ -127,6 +127,10 @@ By default WhoCanIVoteFor uses PostgreSQL with the PostGIS extension. To set thi
 
     sudo apt-get install postgresql postgis
 
+Start the PostgreSQL server with:
+
+    /etc/init.d/postgresql start
+
 Then create, for example, a `wcivf` user:
 
     sudo -u postgres createuser -P wcivf
