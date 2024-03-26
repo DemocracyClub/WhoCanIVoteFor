@@ -47,6 +47,14 @@
             {% if object.election.slug == "europarl.2019-05-23"%}
                 {% include "elections/includes/eu_results.html" with card=0 %}
             {% endif %}
+            {% if postelection.election.description %}
+                <div class="ds-details">
+                    <details>
+                        <summary>{% trans "About this position" %}</summary>
+                        <p>{% blocktrans with description=postelection.election.description|markdown %} {{ description }}{% endblocktrans%}</p>
+                    </details>
+                </div>
+            {% endif %}
 
             <p>
                 {% if postelection.election.in_past %}
@@ -132,15 +140,6 @@
             <h4>
                 <a href="{% static postelection.election.election_booklet %}">{% trans "Read the official candidate booklet for this election." %}</a>
             </h4>
-        {% endif %}
-
-        {% if postelection.election.description %}
-            <div class="ds-card">
-                <div class="ds-card-body">
-                    <h3>About this position</h3>
-                    <p>{% blocktrans with description=postelection.election.description|markdown %} {{ description }}{% endblocktrans%}</p>
-                </div>
-            </div>
         {% endif %}
 
         {% if postelection.election.in_past and postelection.has_results %}
