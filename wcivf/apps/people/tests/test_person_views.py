@@ -592,6 +592,15 @@ class PersonViewTests(TestCase):
         )
         self.assertContains(response, "www.candidate-party-page.co.uk")
 
+        response = self.client.get(
+            f"/api/candidates_for_ballots/?ballot_ids={person_post.post_election.ballot_paper_id}"
+        )
+        self.assertTrue(response.json()[0]["candidates"][0]["deselected"])
+        self.assertEqual(
+            response.json()[0]["candidates"][0]["deselected_source"],
+            "www.candidate-party-page.co.uk",
+        )
+
 
 class TestPersonViewUnitTests:
     @pytest.fixture
