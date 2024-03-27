@@ -73,6 +73,10 @@
     {% endif %}
 {% endblock base_language_menu %}
 
+{% if LANGUAGE_CODE == 'cy' %}
+    {% block language_code %}<em lang="cy">Pwy alla i bleidleisio ar gyfer?</em>{% endblock language_code %}
+{% endif %}
+
 {% block messages %}
     {% if messages %}
         <aside class="ds-status messages" aria-label="Status">
