@@ -17,48 +17,44 @@
 
 
     <div class="ds-stack-smaller">
-        <div class="ds-card">
-            <div class="ds-card-body">
-                <h1>{% trans "UK political parties" %}</h1>
-                {% blocktrans trimmed %}
-                    <p>The following is a list of all political parties represented by candidates in Democracy Club's UK election
-                        database (est. 2015). This list includes registered and deregistered parties.</p>
-                    <p>There are two party registers in the UK: a combined Great Britain register for England, Wales and Scotland, and a separate register for Northern Ireland. Parties in Great Britain can only field candidates in the nations they have specified in their entry.</p>
-                    <p>A registered party may field candidates in elections.</p>
-                    <p>A deregistered party may no longer field candidates in elections. A party can become deregistered through choice, or becuase it failed to renew its annual registration status. In some cases, parties have been deregistered and then subsequently reregistered; in these cases, the party will have an entry for each registration.</p>
-                    <p>Party names and emblems are taken from the <a href="http://www.electoralcommission.org.uk/">Electoral
-                        Commission's register of political parties.</a></p>
-                {% endblocktrans %}
-                <aside class="ds-filter" aria-labelledby="filter-label">
-                    <div class="ds-filter-cluster">
-                        <ul>
-                            <li id="filter-label" class="ds-filter-label" aria-hidden="true">Filter:</li>
-                            <li><a href="{{ photo_list_review_url }}" {% if request.get_full_path == photo_list_review_url %}aria-current="true" {% endif %}>All</a></li>
-                            {% for shortcut in shortcuts.list %}
-                                <li><a href="{{ photo_list_review_url }}?{{ shortcut.querystring }}" {% if shortcut.active %}aria-current="true" {% endif %}>{{ shortcut.label }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <form>
-                        <details {% if filter.data %}open=""{% endif %}>
-                            <summary>Advanced filters</summary>
-                            <div class="ds-advanced-filters">
-                                <div class="ds-filter-cluster">
-                                    {% for field in filter.form.visible_fields %}
-                                        <ul aria-labelledby="adv-filter-label-{{ forloop.counter }}">
-                                            <li id="adv-filter-label-{{ forloop.counter }}" class="ds-filter-label" aria-hidden="true">{{ field.label }}:</li>
-                                            {{ field }}
-                                        </ul>
-                                    {% endfor %}
-
-                                </div>
-                            </div>
-                        </details>
-                    </form>
-                </aside>
-                {% include "parties/party_list.html" with parties=queryset %}
+        <h1>{% trans "UK political parties" %}</h1>
+        {% blocktrans trimmed %}
+            <p>The following is a list of all political parties represented by candidates in Democracy Club's UK election
+                database (est. 2015). This list includes registered and deregistered parties.</p>
+            <p>There are two party registers in the UK: a combined Great Britain register for England, Wales and Scotland, and a separate register for Northern Ireland. Parties in Great Britain can only field candidates in the nations they have specified in their entry.</p>
+            <p>A registered party may field candidates in elections.</p>
+            <p>A deregistered party may no longer field candidates in elections. A party can become deregistered through choice, or becuase it failed to renew its annual registration status. In some cases, parties have been deregistered and then subsequently reregistered; in these cases, the party will have an entry for each registration.</p>
+            <p>Party names and emblems are taken from the <a href="http://www.electoralcommission.org.uk/">Electoral
+                Commission's register of political parties.</a></p>
+        {% endblocktrans %}
+        <aside class="ds-filter" aria-labelledby="filter-label">
+            <div class="ds-filter-cluster">
+                <ul>
+                    <li id="filter-label" class="ds-filter-label" aria-hidden="true">Filter:</li>
+                    <li><a href="{{ photo_list_review_url }}" {% if request.get_full_path == photo_list_review_url %}aria-current="true" {% endif %}>All</a></li>
+                    {% for shortcut in shortcuts.list %}
+                        <li><a href="{{ photo_list_review_url }}?{{ shortcut.querystring }}" {% if shortcut.active %}aria-current="true" {% endif %}>{{ shortcut.label }}</a></li>
+                    {% endfor %}
+                </ul>
             </div>
-        </div>
+            <form>
+                <details {% if filter.data %}open=""{% endif %}>
+                    <summary>Advanced filters</summary>
+                    <div class="ds-advanced-filters">
+                        <div class="ds-filter-cluster">
+                            {% for field in filter.form.visible_fields %}
+                                <ul aria-labelledby="adv-filter-label-{{ forloop.counter }}">
+                                    <li id="adv-filter-label-{{ forloop.counter }}" class="ds-filter-label" aria-hidden="true">{{ field.label }}:</li>
+                                    {{ field }}
+                                </ul>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </details>
+            </form>
+        </aside>
+        {% include "parties/party_list.html" with parties=queryset %}
     </div>
 
 {% endblock content %}

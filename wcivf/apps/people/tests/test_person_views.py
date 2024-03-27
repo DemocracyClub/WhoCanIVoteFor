@@ -359,7 +359,7 @@ class PersonViewTests(TestCase):
             votes_cast=1000,
         )
         response = self.client.get(self.person_url, follow=True)
-        self.assertContains(response, f"{self.person.name}'s Elections")
+        self.assertContains(response, f"{self.person.name}'s elections")
 
     def test_no_statement_to_voters(self):
         PersonPostWithPartyFactory(person=self.person, election=ElectionFactory())

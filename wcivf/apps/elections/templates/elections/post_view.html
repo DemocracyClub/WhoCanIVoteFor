@@ -26,19 +26,15 @@
         {% endif %}
 
         {% if postelection.next_ballot %}
-            <div class="ds-card">
-                <div class="ds-card-body">
-                    <h3>{% trans "Next election" %}</h3>
-                    <p>
-                        {% blocktrans trimmed with post_election_url=postelection.next_ballot.get_absolute_url postelection=postelection.friendly_name %}The <a href="{{ post_election_url }}">next election for {{ postelection }}</a> is{% endblocktrans %}
-                        {% if postelection.next_ballot.election.is_election_day %}
-                            <strong>{% trans "being held today" %}</strong>.
-                        {% else %}
-                            {% trans "due to take place on" %} <strong>{{ postelection.next_ballot.election.election_date|date:"l j F Y"}}</strong>.
-                        {% endif %}
-                    </p>
-                </div>
-            </div>
+            <h3>{% trans "Next election" %}</h3>
+            <p>
+                {% blocktrans trimmed with post_election_url=postelection.next_ballot.get_absolute_url postelection=postelection.friendly_name %}The <a href="{{ post_election_url }}">next election for {{ postelection }}</a> is{% endblocktrans %}
+                {% if postelection.next_ballot.election.is_election_day %}
+                    <strong>{% trans "being held today" %}</strong>.
+                {% else %}
+                    {% trans "due to take place on" %} <strong>{{ postelection.next_ballot.election.election_date|date:"l j F Y"}}</strong>.
+                {% endif %}
+            </p>
         {% endif %}
 
         {% include "elections/includes/_postcode_search_form.html" %}

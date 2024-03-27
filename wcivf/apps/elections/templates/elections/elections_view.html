@@ -13,23 +13,19 @@
 
     {% include 'elections/includes/_elections_breadcrumbs.html' %}
     <div class="ds-stack-smaller">
-        <div class="ds-card">
-            <div class="ds-card-body">
-                <h1>{% trans "All Elections" %}</h1>
-                <p>{% trans "This is a list of upcoming elections, and all elections Democracy Club has covered since 2010. The local election database was founded in 2016." %}</p>
-                <aside class="ds-filter" aria-labelledby="filter-label">
-                    <div class="ds-filter-cluster" id="election-filters">
-                        <ul style="list-style: none;" aria-labelledby="filter-label">
-                            <li id="filter-label" class="ds-filter-label" aria-hidden="true">Filter:</li>
-                            {% for field in filter.form %}
-                                {{ field }}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </aside>
-                {% include "elections/includes/_election_list.html" with elections=queryset %}
+        <h1>{% trans "All Elections" %}</h1>
+        <p>{% trans "This is a list of upcoming elections, and all elections Democracy Club has covered since 2010. The local election database was founded in 2016." %}</p>
+        <aside class="ds-filter" aria-labelledby="filter-label">
+            <div class="ds-filter-cluster" id="election-filters">
+                <ul style="list-style: none;" aria-labelledby="filter-label">
+                    <li id="filter-label" class="ds-filter-label" aria-hidden="true">Filter:</li>
+                    {% for field in filter.form %}
+                        {{ field }}
+                    {% endfor %}
+                </ul>
             </div>
-        </div>
+        </aside>
+        {% include "elections/includes/_election_list.html" with elections=queryset %}
 
         {% include "elections/includes/_postcode_search_form.html" %}
 

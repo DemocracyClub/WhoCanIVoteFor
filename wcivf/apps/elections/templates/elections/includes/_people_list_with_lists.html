@@ -8,8 +8,8 @@
     {% if person_post.list.0.party.is_independent %}
         {#  This is a special case where we don't want to group independants, but show a single card per person  #}
         {% for pp in person_post.list %}
-            <div class="ds-with-sidebar">
-                <div>
+            <div class="ds-with-sidebar ds-card">
+                <div class="ds-card-body">
                     <div class="ds-sidebar" style="flex-basis: 5rem">
                         {% if pp.person.photo_url %}
                             <img src="{{ pp.person.photo_url }}" alt="{% blocktrans trimmed %}Photo of {{ pp.person.name }}{% endblocktrans %}">
@@ -29,9 +29,9 @@
         {% endfor %}
     {% else %}
         <div>
-            <div class="ds-with-sidebar">
-                <div>
-                    <div class="ds-sidebar" style="flex-basis: 5rem">
+            <div class="ds-with-sidebar ds-card">
+                <div class="ds-card-body">
+                    <div style="flex-basis: 5rem">
                         {% if person_post.list.0.party.emblem_url %}
                             <img src="{{ person_post.list.0.party.emblem_url }}" alt="{% trans "Party emblem" %}">
                         {% endif %}

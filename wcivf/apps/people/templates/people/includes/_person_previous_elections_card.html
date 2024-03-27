@@ -2,52 +2,48 @@
 {% load i18n %}
 
 {% if object.personpost_set.exists %}
-    <section class="ds-card">
-        <div class="ds-table">
-            <table>
-                <caption style="font-style: normal;">
-                    <h3 class="ds-padded">{{ object.name }}'s {% trans "Elections" %}</h3>
-                </caption>
-                <tr>
-                    <th>{% trans "Date" %}</th>
-                    <th>{% trans "Election" %}</th>
-                    <th>{% trans "Party" %}</th>
-                    <th>{% trans "Results" %}</th>
-                    {% if object.previous_party_count %}
-                        <th>{% trans "Other party affiliations in the past 12 months" %}</th>
-                    {% endif %}
-                    <th>{% trans "Position" %}</th>
-                </tr>
+    <div class="ds-table">
+        <h2 class="ds-h3">{{ object.name }}'s {% trans "elections" %}</h2>
+        <table>
+            <tr>
+                <th>{% trans "Date" %}</th>
+                <th>{% trans "Election" %}</th>
+                <th>{% trans "Party" %}</th>
+                <th>{% trans "Results" %}</th>
+                {% if object.previous_party_count %}
+                    <th>{% trans "Other party affiliations in the past 12 months" %}</th>
+                {% endif %}
+                <th>{% trans "Position" %}</th>
+            </tr>
 
-                {% for person_post in object.personpost_set.all %}
-                    <tr>
-                        <td>{{ person_post.election.election_date|date:"Y" }}</td>
+            {% for person_post in object.personpost_set.all %}
+                <tr>
+                    <td>{{ person_post.election.election_date|date:"Y" }}</td>
+                    <td>
+                        <a href="{{ person_post.post_election.get_absolute_url }}">
+                            {{ person_post.post.label }}: {{ person_post.election }}
+                        </a>
+                    </td>
+                    <td>{{ person_post.party_name }}</td>
+                    <td>
+                        {{ person_post.get_results_text }}
+                    </td>
+                    {% if object.previous_party_count %}
                         <td>
-                            <a href="{{ person_post.post_election.get_absolute_url }}">
-                                {{ person_post.post.label}}: {{ person_post.election }}
-                            </a>
+                            {% for previous_party_affiliation in person_post.previous_party_affiliations.all %}
+                                {{ previous_party_affiliation.party_name }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
                         </td>
-                        <td>{{ person_post.party_name }}</td>
-                        <td>
-                            {{ person_post.get_results_text }}
-                        </td>
-                        {% if object.previous_party_count %}
-                            <td>
-                                {% for previous_party_affiliation in person_post.previous_party_affiliations.all %}
-                                    {{ previous_party_affiliation.party_name }}{% if not forloop.last %}, {% endif %}
-                                {% endfor %}
-                            </td>
+                    {% endif %}
+                    <td>
+                        {% if person_post.votes_cast %}
+                            {{ person_post.get_results_rank }}
+                        {% else %}
+                            Position not available
                         {% endif %}
-                        <td>
-                            {% if person_post.votes_cast %}
-                                {{ person_post.get_results_rank }}
-                            {% else %}
-                                Position not available
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
-        </div>
-    </section>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endif %}

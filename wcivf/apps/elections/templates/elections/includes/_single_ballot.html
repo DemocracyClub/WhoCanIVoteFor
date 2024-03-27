@@ -3,246 +3,241 @@
 {% load static %}
 {% load i18n %}
 
-<div class="ds-stack-smaller">
-    <div class="ds-card" id="election_{{ postelection.election.slug }}">
-        <div class="ds-card-body">
+<div class="ds-stack">
+    <div id="election_{{ postelection.election.slug }}" class="ds-stack">
 
-            <h2>
-                <span aria-hidden="true">🗳️</span>
-                {{ postelection.election.name_without_brackets }}
-            </h2>
+        <h2>
+            <span aria-hidden="true">🗳️</span>
+            {{ postelection.election.name_without_brackets }}
+        </h2>
 
+        {% if postelection.cancelled %}
+            {% include "elections/includes/_cancelled_election.html" with object=postelection only %}
+        {% else %}
 
-            {% if postelection.cancelled %}
-                {% include "elections/includes/_cancelled_election.html" with object=postelection only %}
-            {% else %}
+            {% if not postelection.is_pcc and not postelection.is_mayoral %}
+                <h3>{% if postelection.is_london_assembly_additional %}{% trans "Additional members" %}{% else %}{{ postelection.friendly_name }}{% endif %}</h3>
+            {% endif %}
 
-                {% if not postelection.is_pcc and not postelection.is_mayoral %}
-                    <h3>{% if postelection.is_london_assembly_additional %}{% trans "Additional members" %}{% else %}{{ postelection.friendly_name }}{% endif %}</h3>
-                {% endif %}
+            {% if postelection.metadata.coronavirus_message %}
+                <div style="border:1px solid red;margin:1em 0;padding:1em">
+                    <strong>{{ postelection.metadata.coronavirus_message|safe }}</strong>
+                </div>
+            {% endif %}
 
-                {% if postelection.metadata.coronavirus_message %}
-                    <div style="border:1px solid red;margin:1em 0;padding:1em">
-                        <strong>{{ postelection.metadata.coronavirus_message|safe }}</strong>
-                    </div>
-                {% endif %}
+            <p>
+                {% if postelection.election.is_election_day %}
+                    {% blocktrans trimmed with open_time=postelection.election.polls_open|time:"ga" close_time=postelection.election.polls_close|time:"ga" %}
+                        This election <strong>is being held today</strong>. Polls are open from {{ open_time }} till {{ close_time }}
+                    {% endblocktrans %}
 
-                <p>
-                    {% if postelection.election.is_election_day %}
-                        {% blocktrans trimmed with open_time=postelection.election.polls_open|time:"ga" close_time=postelection.election.polls_close|time:"ga" %}
-                            This election <strong>is being held today</strong>. Polls are open from {{ open_time }} till {{ close_time }}
-                        {% endblocktrans %}
-
-                    {% else %}
-                        {% if postelection.election.in_past %}
-                            {% blocktrans trimmed with election_date=postelection.election.election_date|naturalday:"\o\n l j F Y" %}
-                                This election was held <strong>{{ election_date }}</strong>.
-                            {% endblocktrans %}
-                        {% else %}
-                            {% blocktrans trimmed with election_date=postelection.election.election_date|naturalday:"\o\n l j F Y" %}
-                                This election will be held <strong> {{ election_date }}</strong>.
-                            {% endblocktrans %}
-                        {% endif %}
-                    {% endif %}
-                </p>
-
-                {% if object.election.slug == "europarl.2019-05-23"%}
-                    {% include "elections/includes/eu_results.html" with card=0 %}
-                {% endif %}
-
-                <p>
+                {% else %}
                     {% if postelection.election.in_past %}
-                        {% blocktrans trimmed with num_candidates=postelection.people|length plural=postelection.people|pluralize postelection=postelection.friendly_name %}<strong>{{ num_candidates }} candidate{{ plural }}</strong> stood in the {{ postelection }}.{% endblocktrans %}
+                        {% blocktrans trimmed with election_date=postelection.election.election_date|naturalday:"\o\n l j F Y" %}
+                            This election was held <strong>{{ election_date }}</strong>.
+                        {% endblocktrans %}
+                    {% else %}
+                        {% blocktrans trimmed with election_date=postelection.election.election_date|naturalday:"\o\n l j F Y" %}
+                            This election will be held <strong> {{ election_date }}</strong>.
+                        {% endblocktrans %}
+                    {% endif %}
+                {% endif %}
+            </p>
+
+            {% if object.election.slug == "europarl.2019-05-23"%}
+                {% include "elections/includes/eu_results.html" with card=0 %}
+            {% endif %}
+            {% if postelection.election.description %}
+                <div class="ds-details">
+                    <details>
+                        <summary>{% trans "About this position" %}</summary>
+                        <p>{% blocktrans with description=postelection.election.description|markdown %} {{ description }}{% endblocktrans%}</p>
+                    </details>
+                </div>
+            {% endif %}
+
+            <p>
+                {% if postelection.election.in_past %}
+                    {% blocktrans trimmed with num_candidates=postelection.people|length plural=postelection.people|pluralize postelection=postelection.friendly_name %}<strong>{{ num_candidates }} candidate{{ plural }}</strong> stood in the {{ postelection }}.{% endblocktrans %}
+                {% else %}
+                    {# Display different messages depending on the number of candidates #}
+                    {# Case: No candidates for a contested election #}
+                    {% if not postelection.people and postelection.contested %}
+                        {% trans "We don't know of any candidates standing yet. You can help improve this page:" %} <a href="{{ postelection.ynr_link }}">
+                            {% trans "add information about candidates to our database" %}</a>.
                     {% else %}
                         {# Display different messages depending on the number of candidates #}
                         {# Case: No candidates for a contested election #}
                         {% if not postelection.people and postelection.contested %}
-                            {% trans "We don't know of any candidates standing yet. You can help improve this page:" %} <a href="{{ postelection.ynr_link }}">
+                            {% trans "We don't know of any candidates standing yet." %}
+                            {% trans "You can help improve this page:" %} <a href="{{ postelection.ynr_link }}">
                                 {% trans "add information about candidates to our database" %}</a>.
                         {% else %}
-                            {# Display different messages depending on the number of candidates #}
-                            {# Case: No candidates for a contested election #}
-                            {% if not postelection.people and postelection.contested %}
-                                {% trans "We don't know of any candidates standing yet." %}
-                                {% trans "You can help improve this page:" %} <a href="{{ postelection.ynr_link }}">
-                                    {% trans "add information about candidates to our database" %}</a>.
-                            {% else %}
-                                {% if postelection.locked %}
-                                    {# Case: Candidates and the post is locked #}
-                                    {% if postelection.get_voting_system.slug == "PR-CL" %}
-                                        {% trans "You will have one vote, and can vote for a single party list or independent candidate." %}
-                                    {% else %}
-                                        {% if postelection.winner_count and postelection.get_voting_system.slug == 'FPTP' %}
-                                            {% blocktrans trimmed with winner_count=postelection.winner_count|apnumber plural=postelection.winner_count|pluralize num_candidates=postelection.people.count|apnumber plural_candidates=postelection.people|pluralize%}
-                                                You will have <strong>{{ winner_count }} vote{{ plural }}</strong>,
-                                                and can choose from <strong>{{ num_candidates }} candidate{{ plural_candidates }}</strong>.
+                            {% if postelection.locked %}
+                                {# Case: Candidates and the post is locked #}
+                                {% if postelection.get_voting_system.slug == "PR-CL" %}
+                                    {% trans "You will have one vote, and can vote for a single party list or independent candidate." %}
+                                {% else %}
+                                    {% if postelection.winner_count and postelection.get_voting_system.slug == 'FPTP' %}
+                                        {% blocktrans trimmed with winner_count=postelection.winner_count|apnumber plural=postelection.winner_count|pluralize num_candidates=postelection.people.count|apnumber plural_candidates=postelection.people|pluralize%}
+                                            You will have <strong>{{ winner_count }} vote{{ plural }}</strong>,
+                                            and can choose from <strong>{{ num_candidates }} candidate{{ plural_candidates }}</strong>.
+                                        {% endblocktrans %}
+                                    {% endif %}
+                                    {% if postelection.winner_count and postelection.get_voting_system.slug == 'AMS' %}
+                                        {% blocktrans trimmed with num_ballots=postelection.party_ballot_count postelection=postelection.friendly_name %}
+                                            You will have <strong>one vote</strong>, and can choose from <strong>{{ num_ballots }}</strong>
+                                            in the {{ postelection }}.{% endblocktrans %}
+                                    {% endif %}
+                                    {% if postelection.winner_count and postelection.get_voting_system.slug == 'sv' %}
+                                        {% blocktrans trimmed with num_ballots=postelection.party_ballot_count postelection=postelection.friendly_name %}
+                                            You will have <strong>two votes</strong>, and can choose from <strong>{{ num_ballots }}</strong>
+                                            in the {{ postelection}}.
+                                        {% endblocktrans %}
+                                    {% endif %}
+                                    {% if postelection.get_voting_system.slug == 'STV' %}
+                                        {% if postelection.winner_count == 1 %}
+                                            {% blocktrans trimmed with num_ballots=postelection.party_ballot_count %}
+                                                There is <strong>one seat</strong>  up for election, and you can choose from <strong>{{ num_ballots }}</strong>.
                                             {% endblocktrans %}
-                                        {% endif %}
-                                        {% if postelection.winner_count and postelection.get_voting_system.slug == 'AMS' %}
-                                            {% blocktrans trimmed with num_ballots=postelection.party_ballot_count postelection=postelection.friendly_name %}
-                                                You will have <strong>one vote</strong>, and can choose from <strong>{{ num_ballots }}</strong>
-                                                in the {{ postelection }}.{% endblocktrans %}
-                                        {% endif %}
-                                        {% if postelection.winner_count and postelection.get_voting_system.slug == 'sv' %}
-                                            {% blocktrans trimmed with num_ballots=postelection.party_ballot_count postelection=postelection.friendly_name %}
-                                                You will have <strong>two votes</strong>, and can choose from <strong>{{ num_ballots }}</strong>
-                                                in the {{ postelection}}.
+                                        {% else %}
+                                            {% blocktrans trimmed with winner_count=postelection.winner_count|apnumber num_ballots=postelection.party_ballot_count %}
+                                                There are <strong>{{ winner_count }} seats</strong>  up for election, and you can choose from <strong>{{ num_ballots }}</strong>.
                                             {% endblocktrans %}
-                                        {% endif %}
-                                        {% if postelection.get_voting_system.slug == 'STV' %}
-                                            {% if postelection.winner_count == 1 %}
-                                                {% blocktrans trimmed with num_ballots=postelection.party_ballot_count %}
-                                                    There is <strong>one seat</strong>  up for election, and you can choose from <strong>{{ num_ballots }}</strong>.
-                                                {% endblocktrans %}
-                                            {% else %}
-                                                {% blocktrans trimmed with winner_count=postelection.winner_count|apnumber num_ballots=postelection.party_ballot_count %}
-                                                    There are <strong>{{ winner_count }} seats</strong>  up for election, and you can choose from <strong>{{ num_ballots }}</strong>.
-                                                {% endblocktrans %}
-                                            {% endif %}
                                         {% endif %}
                                     {% endif %}
-
-                                    {% include "elections/includes/_how-to-vote.html" with voting_system=postelection.get_voting_system %}
-
-                                {% else %}
-                                    {# Case: Candidates and the post is NOT locked (add CTA) #}
-                                    {% blocktrans trimmed with expected_sopn_date=postelection.expected_sopn_date|date:"j F Y"  count counter=postelection.people.count %}
-                                        This candidate will not be confirmed until the council publishes
-                                        the official candidate list on {{ expected_sopn_date }}.
-                                    {% plural %}
-                                        These candidates will not be confirmed until the council publishes
-                                        the official candidate list on {{ expected_sopn_date }}.
-                                    {% endblocktrans %}
-
-
-                                    {% blocktrans trimmed with ynr_link=postelection.ynr_link %}
-                                        Once nomination papers are published, we will manually verify each candidate.
-                                        You can help improve this page: <a href="{{ ynr_link }}">
-                                            add information about candidates to our database</a>.
-                                    {% endblocktrans %}
-
-
                                 {% endif %}
 
+                                {% include "elections/includes/_how-to-vote.html" with voting_system=postelection.get_voting_system %}
+
+                            {% else %}
+                                {# Case: Candidates and the post is NOT locked (add CTA) #}
+                                {% blocktrans trimmed with expected_sopn_date=postelection.expected_sopn_date|date:"j F Y"  count counter=postelection.people.count %}
+                                    This candidate will not be confirmed until the council publishes
+                                    the official candidate list on {{ expected_sopn_date }}.
+                                {% plural %}
+                                    These candidates will not be confirmed until the council publishes
+                                    the official candidate list on {{ expected_sopn_date }}.
+                                {% endblocktrans %}
+
+
+                                {% blocktrans trimmed with ynr_link=postelection.ynr_link %}
+                                    Once nomination papers are published, we will manually verify each candidate.
+                                    You can help improve this page: <a href="{{ ynr_link }}">
+                                        add information about candidates to our database</a>.
+                                {% endblocktrans %}
+
+
                             {% endif %}
+
                         {% endif %}
                     {% endif %}
-                </p>
-            {% endif %}
-            {% if postelection.election.election_booklet %}
-                <h4>
-                    <a href="{% static postelection.election.election_booklet %}">{% trans "Read the official candidate booklet for this election." %}</a>
-                </h4>
-            {% endif %}
+                {% endif %}
+            </p>
+        {% endif %}
 
-            {% if postelection.election.description %}
-                <div class="ds-card">
-                    <div class="ds-card-body">
-                        <h3>About this position</h3>
-                        <p>{% blocktrans with description=postelection.election.description|markdown %} {{ description }}{% endblocktrans%}</p>
-                    </div>
+        {% if postelection.election.election_booklet %}
+            <h4>
+                <a href="{% static postelection.election.election_booklet %}">{% trans "Read the official candidate booklet for this election." %}</a>
+            </h4>
+        {% endif %}
+
+        {% if postelection.election.in_past and postelection.has_results %}
+            <section class="ds-card ds-width-half-text">
+                <div class="ds-table">
+                    <table id="results-table">
+                        {% if postelection.electorate %}
+                            <tr>
+                                <th>{% trans "Electorate" %}</th>
+                                <td>{{ postelection.electorate | intcomma }}</td>
+                            </tr>
+                        {% endif %}
+
+                        {% if postelection.ballot_papers_issued %}
+                            <tr>
+                                <th>{% trans "Ballot Papers Issued" %}</th>
+                                <td>{{ postelection.ballot_papers_issued | intcomma }}</td>
+                            </tr>
+                        {% endif %}
+
+                        {% if postelection.spoilt_ballots %}
+                            <tr>
+                                <th>{% trans "Spoilt Ballots" %}</th>
+                                <td>{{ postelection.spoilt_ballots | intcomma}}</td>
+                            </tr>
+                        {% endif %}
+
+                        {% if postelection.turnout %}
+                            <tr>
+                                <th>{% trans "Turnout" %}</th>
+                                <td>{{ postelection.turnout|stringformat:"d%%" }}</td>
+                            </tr>
+                        {% endif %}
+
+                    </table>
                 </div>
+            </section>
+        {% endif %}
+
+        {% if postelection.people and postelection.should_show_candidates %}
+            {% if postelection.display_as_party_list %}
+                {% include "elections/includes/_people_list_with_lists.html" with people=postelection.people %}
+            {% else %}
+                {% include "elections/includes/_people_list.html" with people=postelection.people %}
             {% endif %}
+        {% endif %}
 
-            {% if postelection.election.in_past and postelection.has_results %}
-                <section class="ds-card ds-width-half-text">
-                    <div class="ds-table">
-                        <table id="results-table">
-                            {% if postelection.electorate %}
-                                <tr>
-                                    <th>{% trans "Electorate" %}</th>
-                                    <td>{{ postelection.electorate | intcomma }}</td>
-                                </tr>
-                            {% endif %}
-
-                            {% if postelection.ballot_papers_issued %}
-                                <tr>
-                                    <th>{% trans "Ballot Papers Issued" %}</th>
-                                    <td>{{ postelection.ballot_papers_issued | intcomma }}</td>
-                                </tr>
-                            {% endif %}
-
-                            {% if postelection.spoilt_ballots %}
-                                <tr>
-                                    <th>{% trans "Spoilt Ballots" %}</th>
-                                    <td>{{ postelection.spoilt_ballots | intcomma}}</td>
-                                </tr>
-                            {% endif %}
-
-                            {% if postelection.turnout %}
-                                <tr>
-                                    <th>{% trans "Turnout" %}</th>
-                                    <td>{{ postelection.turnout|stringformat:"d%%" }}</td>
-                                </tr>
-                            {% endif %}
-
-                        </table>
-                    </div>
-                </section>
-            {% endif %}
-            {% if postelection.people and postelection.should_show_candidates %}
-                {% if postelection.display_as_party_list %}
-                    {% include "elections/includes/_people_list_with_lists.html" with people=postelection.people %}
+        {% if postelection.should_display_sopn_info and not postelection.should_show_candidates %}
+            <p>
+                {% if postelection.locked %}
+                    {% blocktrans trimmed with sopn_url=postelection.ynr_sopn_link %}
+                        The <a href="{{ sopn_url }}">official candidate list</a> has been published.
+                    {% endblocktrans%}
                 {% else %}
-                    {% include "elections/includes/_people_list.html" with people=postelection.people  %}
-
-                {% endif %}
-            {% endif %}
-
-            {% if postelection.should_display_sopn_info and not postelection.should_show_candidates %}
-                <p>
-                    {% if postelection.locked %}
-                        {% blocktrans trimmed with sopn_url=postelection.ynr_sopn_link %}
-                            The <a href="{{ sopn_url }}">official candidate list</a> has been published.
-                        {% endblocktrans%}
+                    {% if postelection.past_expected_sopn_day %}
+                        {% trans "The official candidate list should have been published on" %}
                     {% else %}
-                        {% if postelection.past_expected_sopn_day %}
-                            {% trans "The official candidate list should have been published on" %}
-                        {% else %}
-                            {% trans "The official candidate list should be published on" %}
-                        {% endif %}
-                        {{ postelection.expected_sopn_date|date:"j F Y" }}.
+                        {% trans "The official candidate list should be published on" %}
                     {% endif %}
-                </p>
-
-                {%  if not postelection.cancelled %}
-                    {% if postelection.election.voter_age %}
-                        <ul class="ds-details">
-                            <li>
-                                <details>
-                                    <summary>{% trans "Can you vote in this election?" %}</summary>
-                                    <h5>{% trans "Age" %}</h5>
-                                    <p>
-                                        {% blocktrans trimmed with voter_age=postelection.election.voter_age voter_age_date=postelection.election.election_date|date:"jS" election_date=postelection.election.election_date|date:"F Y" %}
-                                            You need to be over {{ voter_age }} on the {{ voter_age_date }} of {{ election_date }} in order to vote in this election.
-                                        {% endblocktrans %}
-                                    </p>
-                                    {% if postelection.election.voter_citizenship %}
-                                        <h5>{% trans "Citizenship" %}</h5>
-                                        {{ postelection.election.voter_citizenship|markdown }}
-                                    {% endif %}
-                                </details>
-                            </li>
-                        </ul>
-                    {% endif %}
+                    {{ postelection.expected_sopn_date|date:"j F Y" }}.
                 {% endif %}
-            {% endif %}
+            </p>
 
-            {% if postelection.ballotnewsarticle_set.exists %}
-                {% include "news_mentions/news_articles.html" with news_articles=postelection.ballotnewsarticle_set.all %}
-            {% endif %}
+            {%  if not postelection.cancelled %}
+                {% if postelection.election.voter_age %}
+                    <details>
+                        <summary>{% trans "Can you vote in this election?" %}</summary>
+                        <h5>{% trans "Age" %}</h5>
+                        <p>
+                            {% blocktrans trimmed with voter_age=postelection.election.voter_age voter_age_date=postelection.election.election_date|date:"jS" election_date=postelection.election.election_date|date:"F Y" %}
+                                You need to be over {{ voter_age }} on the {{ voter_age_date }} of {{ election_date }} in order to vote in this election.
+                            {% endblocktrans %}
+                        </p>
+                        {% if postelection.election.voter_citizenship %}
+                            <h5>{% trans "Citizenship" %}</h5>
+                            {{ postelection.election.voter_citizenship|markdown }}
+                        {% endif %}
+                    </details>
+                {% endif %}
 
-            {% if postelection.wikipedia_bio %}
-                <div class="ds-card">
-                    <div class="ds-card-body">
-                        <h3>{% trans "Wikipedia" %}</h3>
-                        <p>{{ postelection.wikipedia_bio }}</p>
-                        <p><a href="{{ postelection.wikipedia_url }}">{% trans "Read more on Wikipedia" %}</a></p>
+
+                {% if postelection.ballotnewsarticle_set.exists %}
+                    {% include "news_mentions/news_articles.html" with news_articles=postelection.ballotnewsarticle_set.all %}
+                {% endif %}
+
+                {% if postelection.wikipedia_bio %}
+                    <div class="ds-card">
+                        <div class="ds-card-body">
+                            <h3>{% trans "Wikipedia" %}</h3>
+                            <p>{{ postelection.wikipedia_bio }}</p>
+                            <p><a href="{{ postelection.wikipedia_url }}">{% trans "Read more on Wikipedia" %}</a></p>
+                        </div>
                     </div>
-                </div>
+                {% endif %}
+
+                {% include "elections/includes/_ld_election.html" with election=postelection %}
             {% endif %}
-            {% include "elections/includes/_ld_election.html" with election=postelection %}
-        </div>
+        {% endif %}
     </div>
     {% if postelection.husting_set.displayable %}
         {% include "hustings/includes/_ballot.html" with hustings=postelection.husting_set.displayable %}
