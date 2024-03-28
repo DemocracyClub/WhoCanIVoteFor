@@ -516,6 +516,38 @@ class PersonViewTests(TestCase):
         self.assertEqual(response.template_name, ["people/person_detail.html"])
         self.assertNotContains(response, "<dt>Email</dt>")
 
+    def test_tiktok(self):
+        self.person.tiktok_url = "https://www.tiktok.com/@voteforme"
+        self.person.save()
+        PersonPostWithPartyFactory(person=self.person, election=ElectionFactory())
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.template_name, ["people/person_detail.html"])
+        self.assertContains(response, "TikTok")
+
+    def test_bluesky(self):
+        self.person.blue_sky_url = "https://www.bluesky.com/voteforme"
+        self.person.save()
+        PersonPostWithPartyFactory(person=self.person, election=ElectionFactory())
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.template_name, ["people/person_detail.html"])
+        self.assertContains(response, "BlueSky")
+
+    def test_threads(self):
+        self.person.threads_url = "https://www.threads.com/voteforme"
+        self.person.save()
+        PersonPostWithPartyFactory(person=self.person, election=ElectionFactory())
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.template_name, ["people/person_detail.html"])
+        self.assertContains(response, "Threads")
+
+    def test_other_url(self):
+        self.person.other_url = "https://www.other.com/voteforme"
+        self.person.save()
+        PersonPostWithPartyFactory(person=self.person, election=ElectionFactory())
+        response = self.client.get(self.person_url, follow=True)
+        self.assertEqual(response.template_name, ["people/person_detail.html"])
+        self.assertContains(response, "other contact info")
+
     def test_local_party_for_local_election(self):
         party = PartyFactory(party_name="Labour Party", party_id="party:53")
         local_party = LocalPartyFactory(

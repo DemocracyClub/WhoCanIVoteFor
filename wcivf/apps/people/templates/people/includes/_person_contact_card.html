@@ -4,134 +4,172 @@
         <h2 class="ds-candidate-name ds-h3">
             {{ object.name }} {% trans "online" %}
         </h2>
-        <dl class="ds-descriptions">
-            {% if object.facebook_page_url or object.facebook_personal_url %}
-                <div>
-                    <dt>{% trans "Facebook" %}</dt>
+        {% if object.has_any_contact_info %}
+            <dl class="ds-descriptions">
+
+                {% if object.facebook_page_url or object.facebook_personal_url %}
                     <div>
-                        {% if object.facebook_personal_url %}
-                            <dd>
-                                <a href="{{ object.facebook_personal_url }}" title="{% blocktrans trimmed with person_name=object.name%}{{ person_name }}'s personal Facebook{% endblocktrans%}">
-                                    {{ object.facebook_personal_username }}
-                                </a><br />
-                            </dd>
-                        {% endif %}
-                        {% if object.facebook_page_url %}
-                            <dd>
-                                <a href="{{ object.facebook_page_url }}" title="{% blocktrans with person_name=object.name%}{{ person_name }}'s Facebook page{% endblocktrans%}">
-                                    {{ object.facebook_username}}
-                                </a>
-                            </dd>
-                        {% endif %}
+                        <dt>{% trans "Facebook" %}</dt>
+                        <div>
+                            {% if object.facebook_personal_url %}
+                                <dd>
+                                    <a href="{{ object.facebook_personal_url }}" title="{% blocktrans trimmed with person_name=object.name%}{{ person_name }}'s personal Facebook{% endblocktrans%}">
+                                        {{ object.facebook_personal_username }}
+                                    </a><br />
+                                </dd>
+                            {% endif %}
+                            {% if object.facebook_page_url %}
+                                <dd>
+                                    <a href="{{ object.facebook_page_url }}" title="{% blocktrans with person_name=object.name%}{{ person_name }}'s Facebook page{% endblocktrans%}">
+                                        {{ object.facebook_username}}
+                                    </a>
+                                </dd>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
-            {% endif %}
-            {% if object.twitter_username %}
-                <div>
-                    <dt>{% trans "Twitter" %}</dt>
-                    <dd>
-                        <a href="https://twitter.com/{{ object.twitter_username }}" title="{% blocktrans trimmed with person_name=object.name%}{{ person_name }}'s Twitter profile{% endblocktrans%}">
-                            {{ object.twitter_username}}
-                        </a>
-                    </dd>
-                </div>
-            {% endif %}
-            {% if object.mastodon_username %}
-                <div>
-                    <dt>{% trans "Mastodon" %}</dt>
-                    <dd>
-                        <a href="{{ object.mastodon_username}}" title="{% blocktrans trimmed with person_name=object.name%}{{ person_name }}'s Mastodon profile{% endblocktrans%}">
-                            {{ object.mastodon_username}}
-                        </a>
-                    </dd>
-                </div>
-            {% endif %}
+                {% endif %}
 
-
-            {% if object.linkedin_url %}
-                <div>
-                    <dt>{% trans "LinkedIn" %}</dt>
-                    <dd>
-                        <a href="{{ object.linkedin_url }}" title="{% blocktrans trimmed with person_name=object.name%}{{ person_name }}'s LinkedIn profile{% endblocktrans%}">
-                            {{ object.linkedin_username}}
-                        </a>
-                    </dd>
-                </div>
-            {% endif %}
-
-            {% if object.homepage_url %}
-                <div>
-                    <dt>{% trans "Home page" %}</dt>
-                    <dd>
-                        <a href="{{ object.homepage_url }}" title="{% blocktrans trimmed with person_name=object.name%}{{ person_name }}'s home page{% endblocktrans%}">
-                            {{ object.homepage_url }}
-                        </a>
-                    </dd>
-                </div>
-            {% endif %}
-
-            {% if object.blog_url %}
-                <div>
-                    <dt>{% trans "Blog" %}</dt>
-                    <dd>
-                        <a href="{{ object.blog_url }}" title="{% blocktrans with person_name=object.name%}{{ person_name }}'s blog{% endblocktrans%}">
-                            {% blocktrans trimmed with person_name=object.name%}{{ person_name }}'s blog{% endblocktrans%}
-                        </a>
-                    </dd>
-                </div>
-            {% endif %}
-
-            {% if object.instagram_url %}
-                <div>
-                    <dt>{% trans "Instagram" %}</dt>
-                    <dd>
-                        <a href="{{ object.instagram_url }}" title="{% blocktrans trimmed with person_name=object.name%}{{ person_name }}'s Instagram{% endblocktrans%}">
-                            {{ object.instagram_username }}
-                        </a>
-                    </dd>
-                </div>
-            {% endif %}
-
-            {% if object.youtube_profile %}
-                <div>
-                    <dt>{% trans "YouTube" %}</dt>
-                    <dd>
-                        <a href="{{ object.youtube_profile }}" title="{% blocktrans trimmed with person_name=object.name%}{{ person_name }}'s YouTube{% endblocktrans%}">
-                            {{ object.youtube_username }}
-                        </a>
-                    </dd>
-                </div>
-            {% endif %}
-
-            {% if object.party_ppc_page_url %}
-                <div>
-                    <dt>{% trans "The party's candidate page for this person" %}</dt>
-                    <dd>
-                        <a href="{{ object.party_ppc_page_url }}" title="{% blocktrans trimmed with person_name=object.name%}Party page for {{ person_name }}{% endblocktrans%}">
-                            {{ object.party_ppc_page_url }}
-                        </a>
-                    </dd>
-                </div>
-            {% endif %}
-
-            {% if object.current_or_future_candidacies %}
-                {% if object.email %}
+                {% if object.twitter_username %}
                     <div>
-                        <dt>{% trans "Email" %}</dt>
+                        <dt>{% trans "Twitter" %}</dt>
                         <dd>
-                            <a href="mailto:{{ object.email }}" title="{% blocktrans trimmed with person_name=object.name%}{{ person_name }}'s email{% endblocktrans%}">{{ object.email }}</a>
-                        </dd>
-                    </div>
-                {% else %}
-                    <div>
-                        {% blocktrans trimmed with person_name=object.name %}<dt>We don't know {{ person_name }}'s email address.</dt>{% endblocktrans %}
-                        <dd>
-                            <a href="{{ object.get_ynr_url }}">{% trans "Can you add it?" %}</a>
+                            <a href="https://twitter.com/{{ object.twitter_username }}" title="{% blocktrans trimmed with person_name=object.name%}{{ person_name }}'s Twitter profile{% endblocktrans%}">
+                                {{ object.twitter_username}}
+                            </a>
                         </dd>
                     </div>
                 {% endif %}
-            {% endif %}
 
-        </dl>
+                {% if object.mastodon_username %}
+                    <div>
+                        <dt>{% trans "Mastodon" %}</dt>
+                        <dd>
+                            <a href="{{ object.mastodon_username}}" title="{% blocktrans trimmed with person_name=object.name%}{{ person_name }}'s Mastodon profile{% endblocktrans%}">
+                                {{ object.mastodon_username}}
+                            </a>
+                        </dd>
+                    </div>
+                {% endif %}
+
+                {% if object.linkedin_url %}
+                    <div>
+                        <dt>{% trans "LinkedIn" %}</dt>
+                        <dd>
+                            <a href="{{ object.linkedin_url }}" title="{% blocktrans trimmed with person_name=object.name%}{{ person_name }}'s LinkedIn profile{% endblocktrans%}">
+                                {{ object.linkedin_username}}
+                            </a>
+                        </dd>
+                    </div>
+                {% endif %}
+
+                {% if object.homepage_url %}
+                    <div>
+                        <dt>{% trans "Home page" %}</dt>
+                        <dd>
+                            <a href="{{ object.homepage_url }}" title="{% blocktrans trimmed with person_name=object.name%}{{ person_name }}'s home page{% endblocktrans%}">
+                                {{ object.homepage_url }}
+                            </a>
+                        </dd>
+                    </div>
+                {% endif %}
+
+                {% if object.blog_url %}
+                    <div>
+                        <dt>{% trans "Blog" %}</dt>
+                        <dd>
+                            <a href="{{ object.blog_url }}" title="{% blocktrans with person_name=object.name%}{{ person_name }}'s blog{% endblocktrans%}">
+                                {% blocktrans trimmed with person_name=object.name%}{{ person_name }}'s blog{% endblocktrans%}
+                            </a>
+                        </dd>
+                    </div>
+                {% endif %}
+
+                {% if object.instagram_url %}
+                    <div>
+                        <dt>{% trans "Instagram" %}</dt>
+                        <dd>
+                            <a href="{{ object.instagram_url }}" title="{% blocktrans trimmed with person_name=object.name%}{{ person_name }}'s Instagram{% endblocktrans%}">
+                                {{ object.instagram_username }}
+                            </a>
+                        </dd>
+                    </div>
+                {% endif %}
+
+                {% if object.youtube_profile %}
+                    <div>
+                        <dt>{% trans "YouTube" %}</dt>
+                        <dd>
+                            <a href="{{ object.youtube_profile }}" title="{% blocktrans trimmed with person_name=object.name%}{{ person_name }}'s YouTube{% endblocktrans%}">
+                                {{ object.youtube_username }}
+                            </a>
+                        </dd>
+                    </div>
+                {% endif %}
+
+                {% if object.party_ppc_page_url %}
+                    <div>
+                        <dt>{% trans "The party's candidate page for this person" %}</dt>
+                        <dd>
+                            <a href="{{ object.party_ppc_page_url }}" title="{% blocktrans trimmed with person_name=object.name%}Party page for {{ person_name }}{% endblocktrans%}">
+                                {{ object.party_ppc_page_url }}
+                            </a>
+                        </dd>
+                    </div>
+                {% endif %}
+
+                {% if object.tiktok_url %}
+                    <div>
+                        <dt>{% trans "TikTok" %}</dt>
+                        <dd>
+                            <a href="{{ object.tiktok_url }}" title="{% blocktrans trimmed with person_name=object.tiktok_url%}{{ person_name }}'s TikTok{% endblocktrans%}">{{ object.tiktok_url}}</a>
+                        </dd>
+                    </div>
+                {% endif %}
+
+                {% if object.threads_url %}
+                    <div>
+                        <dt>{% trans "Threads" %}</dt>
+                        <dd>
+                            <a href="{{ object.threads_url }}" title="{% blocktrans trimmed with person_name=object.threads_url %}{{ person_name }}'s Threads{% endblocktrans%}">{{ object.threads_url }}</a>
+                        </dd>
+                    </div>
+                {% endif %}
+
+                {% if object.blue_sky_url %}
+                    <div>
+                        <dt>{% trans "BlueSky" %}</dt>
+                        <dd>
+                            <a href="{{ object.blue_sky_url }}" title="{% blocktrans trimmed with person_name=object.blue_sky_url %}{{ person_name }}BlueSky'{% endblocktrans%}">{{ object.blue_sky_url }}</a>
+                        </dd>
+                    </div>
+                {% endif %}
+
+                {% if object.other_url %}
+                    <div>
+                        <dt>{% trans "Other contact info" %}</dt>
+                        <dd>
+                            <a href="{{ object.other_url }}" title="{% blocktrans trimmed with person_name=object.other_url %}{{ person_name }}other contact info{% endblocktrans%}">{{ object.other_url }}</a>
+                        </dd>
+                    </div>
+                {% endif %}
+
+
+                {% if object.current_or_future_candidacies %}
+                    {% if object.email %}
+                        <div>
+                            <dt>{% trans "Email" %}</dt>
+                            <dd>
+                                <a href="mailto:{{ object.email }}" title="{% blocktrans trimmed with person_name=object.name%}{{ person_name }}'s email{% endblocktrans%}">{{ object.email }}</a>
+                            </dd>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </dl>
+        {% else %}
+            <div>
+                {% blocktrans trimmed with person_name=object.name %}<dt>We don't have {{ person_name }}'s contact info.</dt>{% endblocktrans %}
+                <a href="{{ object.get_ynr_url }}">{% trans "Can you add it?" %}</a>
+            </div>
+        {% endif %}
     </div>
 </section>
