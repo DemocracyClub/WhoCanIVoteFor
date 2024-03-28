@@ -55,6 +55,7 @@ class Election(models.Model):
     election_weight = models.IntegerField(default=10)
     metadata = JSONField(null=True)
     any_non_by_elections = models.BooleanField(default=False)
+    ee_last_updated = models.DateTimeField(blank=True, null=True)
 
     objects = ElectionManager()
 

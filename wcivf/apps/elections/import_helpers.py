@@ -62,15 +62,11 @@ class YNRElectionImporter:
         ballot_paper_id = ballot_dict["ballot_paper_id"]
 
         # Look up the dict of possible weights for this election type
-        weights = charisma_map.get(
-            ballot_paper_id.split(".")[0], {"default": 30}
-        )
+        weights = charisma_map.get(ballot_paper_id.split(".")[0], {"default": 30})
 
         organisation_type = ballot_paper_id.split(".")[0]
         default_weight_for_election_type = weights.get("default")
-        base_charisma = weights.get(
-            organisation_type, default_weight_for_election_type
-        )
+        base_charisma = weights.get(organisation_type, default_weight_for_election_type)
 
         # Look up `r` and `a` subtypes
         subtype = re.match(r"^[^.]+\.([ar])\.", ballot_paper_id)
@@ -90,7 +86,9 @@ class YNRElectionImporter:
         election_weight = self.ballot_order(ballot_dict)
         if slug not in self.election_cache:
             election_type = slug.split(".")[0]
+            import pdb
 
+            pdb.set_trace()
             election, created = Election.objects.update_or_create(
                 slug=slug,
                 election_type=election_type,
@@ -115,6 +113,11 @@ class YNRElectionImporter:
         ee_data = self.ee_helper.get_data(election.slug)
         if ee_data:
             updated = False
+            ee_last_updated = ee_data["modified"]
+            if ee_last_updated:
+                election.ee_last_updated = ee_last_updated
+                updated = True
+
             metadata = ee_data["metadata"]
             if metadata:
                 election.metadata = metadata
@@ -266,12 +269,8 @@ class YNRBallotImporter:
         """
         Use cached data if a full import, unless base_url is using locahost
         """
-        if self.is_full_import and not self.base_url.startswith(
-            "http://localhost"
-        ):
-            return (
-                f"{self.base_url}/media/cached-api/latest/ballots-000001.json"
-            )
+        if self.is_full_import and not self.base_url.startswith("http://localhost"):
+            return f"{self.base_url}/media/cached-api/latest/ballots-000001.json"
 
         querystring = urlencode(self.params)
         return f"{self.base_url}/api/next/ballots/?{querystring}"
@@ -342,9 +341,7 @@ class YNRBallotImporter:
                 ballot_dict
             )
 
-            post = self.post_importer.update_or_create_from_ballot_dict(
-                ballot_dict
-            )
+            post = self.post_importer.update_or_create_from_ballot_dict(ballot_dict)
             if not post:
                 # cant create a ballot without a post so skip to the next one
                 continue
@@ -375,9 +372,7 @@ class YNRBallotImporter:
                     ],
                     "electorate": ballot_dict["results"]["total_electorate"],
                     "turnout": ballot_dict["results"]["turnout_percentage"],
-                    "spoilt_ballots": ballot_dict["results"][
-                        "num_spoilt_ballots"
-                    ],
+                    "spoilt_ballots": ballot_dict["results"]["num_spoilt_ballots"],
                 }
 
                 defaults = {**defaults, **results_defaults}
@@ -419,9 +414,7 @@ class YNRBallotImporter:
                         person=person,
                         party_id=candidate["party"]["legacy_slug"],
                         party_name=candidate["party_name"],
-                        party_description_text=candidate[
-                            "party_description_text"
-                        ],
+                        party_description_text=candidate["party_description_text"],
                         list_position=candidate["party_list_position"],
                         deselected=candidate["deselected"],
                         deselected_source=candidate["deselected_source"],
@@ -430,9 +423,7 @@ class YNRBallotImporter:
                         post=ballot.post,
                         election=ballot.election,
                     )
-                    for party in candidate.get(
-                        "previous_party_affiliations", []
-                    ):
+                    for party in candidate.get("previous_party_affiliations", []):
                         # if the previous party affiliation is the
                         # same as the party on the candidacy skip it
                         party_id = party["legacy_slug"]
@@ -522,9 +513,7 @@ class YNRBallotImporter:
             return
         ee_data = self.ee_helper.get_data(ballot.ballot_paper_id)
         if ee_data:
-            ballot.post.organization_type = ee_data["organisation"][
-                "organisation_type"
-            ]
+            ballot.post.organization_type = ee_data["organisation"]["organisation_type"]
             ballot.post.save()
 
     def set_division_type(self, ballot):
