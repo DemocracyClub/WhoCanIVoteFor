@@ -126,11 +126,18 @@ class PersonManager(models.Manager):
             "last_updated": last_updated,
             "delisted": person.get("delisted", False),
             "statement_to_voters": person["statement_to_voters"] or None,
-            "statement_to_voters_last_updated": person[
-                "statement_to_voters_last_updated"
-            ]
-            or None,
         }
+
+        if defaults["statement_to_voters"] is not None:
+            try:
+                defaults += {
+                    "statement_to_voters_last_updated": person[
+                        "statement_to_voters_last_updated"
+                    ]
+                }
+            except KeyError:
+                print("No statement_to_voters_last_updated field found")
+                pass
 
         for value_type in VALUE_TYPES_TO_IMPORT:
             defaults[value_type] = None
