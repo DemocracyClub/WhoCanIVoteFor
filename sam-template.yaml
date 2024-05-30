@@ -148,6 +148,15 @@ Resources:
             Input: '{"command": "import_parties"}'
             RetryPolicy:
               MaximumRetryAttempts: 0
+        ImportNationalParties:
+          Type: Schedule
+          Properties:
+            Schedule: rate(1 day)
+            Name: import-national-parties
+            Description: Import national parties
+            Input: '{"command": "import_national_parties"}'
+            RetryPolicy:
+              MaximumRetryAttempts: 0
         BatchFeedbackToSlack:
           Type: Schedule
           Properties:
