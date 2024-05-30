@@ -837,16 +837,13 @@ msgstr ""
 #, python-format
 msgid ""
 "The official candidate list will be published by %(expected_sopn_date)s, "
-"when this page will be updated. Once nomination papers are published, we "
-"will manually verify each candidate. You can help improve this page: <a "
+"when this page will be updated. You can help improve this page: <a "
 "href=\"%(ynr_link)s\"> add information about candidates to our database</a>."
 msgstr ""
-"Bydd y rhestr ymgeiswyr swyddogol yn cael ei chyhoeddi gan "
-"%(expected_sopn_date)s, pryd y bydd y dudalen hon yn cael ei diweddaru. "
-"Unwaith y bydd papurau enwebu wedi'u cyhoeddi, rydym yn yn dilysu pob "
-"ymgeisydd â llaw. Gallwch helpu i wella'r dudalen hon: <a "
-"href=\"%(ynr_link)s\"> ychwanegu gwybodaeth am ymgeiswyr i'n cronfa ddata</"
-"a>."
+"Bydd y rhestr ymgeiswyr swyddogol yn cael ei chyhoeddi gan %(expected_sopn_date)s,"
+"pryd fydd y dudalen hon yn cael ei diweddaru. Gallwch helpu i wella'r dudalen hon: <a "
+"href=\"%(ynr_link)s\"> ychwanegu gwybodaeth ymgeisydd i'n cronfa ddata</a>."
+
 
 #: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:145
 msgid "Read the official candidate booklet for this election."
