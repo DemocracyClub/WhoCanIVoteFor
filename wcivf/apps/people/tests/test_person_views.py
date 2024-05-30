@@ -12,7 +12,11 @@ from elections.tests.factories import (
     PostFactory,
 )
 from freezegun import freeze_time
-from parties.tests.factories import PartyFactory
+from parties.tests.factories import (
+    LocalPartyFactory,
+    NationalPartyFactory,
+    PartyFactory,
+)
 from people.tests.factories import (
     PersonFactory,
     PersonPostFactory,
@@ -736,6 +740,34 @@ class PersonViewTests(TestCase):
     #     response = self.client.get(self.person_url, follow=True)
     #     expected = f"{self.person.name} is a {local_party.label} candidate."
     #     self.assertContains(response, expected)
+
+    def test_general_election_party_for_general_election(self):
+        party = PartyFactory(party_name="Labour Party", party_id="party:53")
+        national_party = NationalPartyFactory(
+            name="Labour Party", parent=party, is_national=True
+        )
+        PersonPostFactory(
+            person=self.person,
+            election=ElectionFactory(),
+            party=party,
+        )
+        response = self.client.get(self.person_url, follow=True)
+        expected = f"{self.person.name}'s party is {national_party.label}."
+        self.assertContains(response, expected)
+
+    def test_party(self):
+        party = PartyFactory(party_name="Labour Party", party_id="party:53")
+        national_party = NationalPartyFactory(
+            name="Labour Party", parent=party, is_national=False
+        )
+        PersonPostFactory(
+            person=self.person,
+            election=ElectionFactory(),
+            party=party,
+        )
+        response = self.client.get(self.person_url, follow=True)
+        expected = f"{self.person.name} is a {national_party.name} candidate."
+        self.assertContains(response, expected)
 
     def test_person_detail_404_with_string_pk(self):
         """

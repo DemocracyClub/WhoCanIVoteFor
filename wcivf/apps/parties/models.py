@@ -263,6 +263,44 @@ class PartyEmblem(TimeStampedModel):
         ordering = ("-default", "-active", "ec_emblem_id")
 
 
+class NationalParty(models.Model):
+    parent = models.ForeignKey(
+        Party, related_name="general_election_parties", on_delete=models.CASCADE
+    )
+    post_election = models.ForeignKey(
+        "elections.PostElection", on_delete=models.CASCADE
+    )
+    name = models.CharField(blank=True, max_length=100)
+    facebook_page = models.URLField(blank=True, max_length=800)
+    instagram = models.URLField(blank=True, max_length=100)
+    homepage = models.URLField(blank=True, max_length=800)
+    email = models.EmailField(blank=True)
+    youtube_profile_url = models.URLField(blank=True, max_length=800)
+    contact_page_url = models.URLField(blank=True, max_length=800)
+    party_political_broadcast = models.URLField(blank=True, max_length=800)
+    file_url = models.URLField(
+        blank=True,
+        max_length=800,
+        help_text="The url to the google sheet the object was imported from. Not to be displayed.",
+    )
+    is_national = models.BooleanField(
+        default=True,
+        help_text="Used to identify if obj is related to a national election",
+    )
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def label(self):
+        """
+        Return a string with 'the' added if the name ends with 'Party'
+        """
+        if self.name.lower().endswith("party"):
+            return f"the {self.name}"
+        return self.name
+
+
 class LocalParty(TimeStampedModel):
     parent = models.ForeignKey(
         Party, related_name="local_parties", on_delete=models.CASCADE
