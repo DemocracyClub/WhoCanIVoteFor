@@ -696,8 +696,7 @@ msgstr ""
 #, python-format
 msgid ""
 "The official candidate list will be published by %(expected_sopn_date)s, "
-"when this page will be updated. Once nomination papers are published, we "
-"will manually verify each candidate. You can help improve this page: <a "
+"when this page will be updated. You can help improve this page: <a "
 "href=\"%(ynr_link)s\"> add information about candidates to our database</a>."
 msgstr ""
 
