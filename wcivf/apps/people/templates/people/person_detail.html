@@ -50,7 +50,7 @@
             {% include "people/includes/_person_about_card.html" %}
         {% endif %}
 
-        {% include "people/includes/_person_local_party_card.html" with party=person.local_party.name %}
+        {% comment %} {% include "people/includes/_person_local_party_card.html" with party=person.local_party.name %} {% endcomment %}
 
         {% include "people/includes/_person_hustings_card.html" %}
 
