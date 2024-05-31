@@ -168,6 +168,78 @@ class LocalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
         """
         self.delete_parties()
         self.delete_manifestos()
+        if not self.current_elections():
+            self.write(
+                f"No current elections for {self.election.date}, skipping"
+            )
+            return
+
+        for file_url in self.election.csv_files:
+            rows = self.read_from(file_url)
+            for row in rows:
+                name = self.get_name(row=row)
+                party_id = (row["party_id"] or "").strip()
+                if not party_id or not name:
+                    self.write("Missing data, skipping row")
+                    continue
+
+                parties = self.get_parties(party_id=party_id)
+                if not parties:
+                    self.write(f"Parent party not found with IDs {party_id}")
+                    continue
+
+                ballots = self.get_ballots(
+                    election_id=row["election_id"].strip(), parties=parties
+                )
+                if not ballots:
+                    self.write("Skipping as no ballots to use")
+                    continue
+
+                # store the PK's in a list as something strange is
+                # happening later on - when trying to access
+                # objects from the 'ballots' queryset after the
+                # add_local_party method has been called, None is
+                # returned instead of the object.
+                # This resulted in the 'elections' queryset also
+                # being empty. Storing the PK's in a list gets round
+                # this but unclear why this is happening
+                ballot_pks = list(ballots.values_list("pk", flat=True))
+                elections = Election.objects.filter(
+                    postelection__in=ballot_pks
+                ).distinct()
+                for party in parties:
+                    self.add_local_party(row, party, ballots, file_url)
+                    manifesto_web = row.get("Manifesto Website URL", "").strip()
+                    manifesto_pdf = row.get("Manifesto PDF URL", "").strip()
+                    if not any([manifesto_web, manifesto_pdf]):
+                        self.write("No links to create Manifesto, skipping")
+                        continue
+
+                    for election in elections:
+                        self.add_manifesto(row, party, election, file_url)
+
+    def add_manifesto(self, row, party, election, file_url):
+        manifesto_web = row.get("Manifesto Website URL", "").strip()
+        manifesto_pdf = row.get("Manifesto PDF URL", "").strip()
+        country = self.get_country(election_type="local")
+        language = row.get("Manifesto Language", "English").strip()
+        easy_read_url = row.get("Manifesto Easy Read PDF", "").strip()
+        if any([manifesto_web, manifesto_pdf]):
+            defaults = {
+                "web_url": manifesto_web,
+                "pdf_url": manifesto_pdf,
+                "easy_read_url": easy_read_url,
+                "file_url": file_url,
+            }
+            manifesto_obj, created = Manifesto.objects.update_or_create(
+                election=election,
+                party=party,
+                country=country,
+                language=language or "English",
+                defaults=defaults,
+            )
+            manifesto_obj.save()
+            self.write(f"{'Created' if created else 'Updated'} {manifesto_obj}")
 
 
 class NationalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
@@ -335,6 +407,7 @@ class NationalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
             self.write(
                 f"No current elections for {self.election.date}, skipping"
             )
+
             return
 
         for file_url in self.election.csv_files:
