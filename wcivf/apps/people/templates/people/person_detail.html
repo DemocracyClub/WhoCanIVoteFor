@@ -60,6 +60,10 @@
             {% include "people/includes/_person_national_party_card.html" with person=object.featured_candidacy.person party=object.national_party.name %}
         {% endif %}
 
+        {% if object.current_or_future_candidacies %}
+            {% include "people/includes/_person_national_party_card.html" with party=person.national_party.name %}
+        {% endif %}
+
         {% include "people/includes/_person_hustings_card.html" %}
 
         {% include "people/includes/_person_previous_elections_card.html" %}

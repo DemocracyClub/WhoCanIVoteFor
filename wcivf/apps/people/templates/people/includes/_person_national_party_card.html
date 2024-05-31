@@ -1,0 +1,61 @@
+{% load i18n %}
+{% if person.national_party %}
+    <h4 class="ds-h3">{{ party}}</h4>
+    <p>
+        {% if person.national_party %}
+            {% blocktrans trimmed with person=person.name party_label=person.national_party.label %}{{ person }}'s local party is {{ party_label }}.{% endblocktrans %}
+        {% else %}
+            {% blocktrans trimmed with person=person.name %}{{ person }} is a {{ party }} candidate.{% endblocktrans %}
+        {% endif %}
+    </p>
+    <dl class="ds-descriptions">
+        {% if person.national_party.homepage %}
+            <div>
+                <dt>{% trans "Party Homepage" %}</dt>
+                <a href="{{ person.national_party.homepage }}">
+                    {% blocktrans trimmed %}{{ party }}'s website{% endblocktrans %}
+                </a>
+            </div>
+        {% endif %}
+        {% if person.national_party.facebook_page %}
+            <div>
+                <dt>Facebook</dt>
+                <a href="{{ person.national_party.facebook_page }}">
+                    {{ person.national_party.facebook_page }}
+                </a>
+            </div>
+        {% endif %}
+        {% if person.national_party.instagram %}
+            <div>
+                <dt>instagram</dt>
+                <a href="{{ person.national_party.instagram}}">
+                    {{ person.national_party.instagram }}
+                </a>
+            </div>
+        {% endif %}
+        {% if person.national_party.email %}
+            <div>
+                <dt>{% trans "Email" %}</dt>
+                <a href="mailto:{{ person.national_party.email }}">
+                    {% blocktrans %}{{ party }}'s email{% endblocktrans %}
+                </a>
+            </div>
+        {% endif %}
+        {% if person.national_party.contact_page_url %}
+            <div>
+                <dt>{% trans "Contact page" %}</dt>
+                <a href="{{ person.national_party.contact_page_url }}">
+                    {% blocktrans trimmed %}{{ party }}'s contact page{% endblocktrans %}
+                </a>
+            </div>
+        {% endif %}
+        {% if person.national_party.youtube_profile_url %}
+            <div>
+                <dt>{% trans "Youtube page" %}</dt>
+                <a href="{{ person.national_party.youtube_profile_url }}">
+                    {% blocktrans trimmed %}{{ party }}'s Youtube profile{% endblocktrans %}
+                </a>
+            </div>
+        {% endif %}
+    </dl>
+{% endif %}
