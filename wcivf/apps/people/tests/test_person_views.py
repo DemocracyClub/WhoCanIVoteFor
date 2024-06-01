@@ -713,35 +713,35 @@ class PersonViewTests(TestCase):
         self.assertEqual(response.template_name, ["people/person_detail.html"])
         self.assertContains(response, "other contact info")
 
-    # def test_local_party_for_local_election(self):
-    #     party = PartyFactory(party_name="Labour Party", party_id="party:53")
-    #     local_party = LocalPartyFactory(
-    #         name="Derbyshire Labour", is_local=True, parent=party
-    #     )
-    #     PersonPostFactory(
-    #         person=self.person,
-    #         election=ElectionFactory(),
-    #         party=party,
-    #     )
-    #     response = self.client.get(self.person_url, follow=True)
-    #     expected = f"{self.person.name}'s local party is {local_party.label}."
-    #     self.assertContains(response, expected)
+    def test_local_party_for_local_election(self):
+        party = PartyFactory(party_name="Labour Party", party_id="party:53")
+        local_party = LocalPartyFactory(
+            name="Derbyshire Labour", is_local=True, parent=party
+        )
+        PersonPostFactory(
+            person=self.person,
+            election=ElectionFactory(),
+            party=party,
+        )
+        response = self.client.get(self.person_url, follow=True)
+        expected = f"{self.person.name}'s local party is {local_party.label}."
+        self.assertContains(response, expected)
 
-    # def test_local_party_for_non_local_election(self):
-    #     party = PartyFactory(party_name="Labour Party", party_id="party:53")
-    #     local_party = LocalPartyFactory(
-    #         name="Welsh Labour | Llafur Cymru", is_local=False, parent=party
-    #     )
-    #     PersonPostFactory(
-    #         person=self.person,
-    #         election=ElectionFactory(),
-    #         party=party,
-    #     )
-    #     response = self.client.get(self.person_url, follow=True)
-    #     expected = f"{self.person.name} is a {local_party.label} candidate."
-    #     self.assertContains(response, expected)
+    def test_local_party_for_non_local_election(self):
+        party = PartyFactory(party_name="Labour Party", party_id="party:53")
+        local_party = LocalPartyFactory(
+            name="Welsh Labour | Llafur Cymru", is_local=False, parent=party
+        )
+        PersonPostFactory(
+            person=self.person,
+            election=ElectionFactory(),
+            party=party,
+        )
+        response = self.client.get(self.person_url, follow=True)
+        expected = f"{self.person.name} is a {local_party.label} candidate."
+        self.assertContains(response, expected)
 
-    def test_general_election_party_for_general_election(self):
+    def test_national_party_for_general_election(self):
         party = PartyFactory(party_name="Labour Party", party_id="party:53")
         national_party = NationalPartyFactory(
             name="Labour Party", parent=party, is_national=True
@@ -753,20 +753,6 @@ class PersonViewTests(TestCase):
         )
         response = self.client.get(self.person_url, follow=True)
         expected = f"{self.person.name}'s party is {national_party.label}."
-        self.assertContains(response, expected)
-
-    def test_party(self):
-        party = PartyFactory(party_name="Labour Party", party_id="party:53")
-        national_party = NationalPartyFactory(
-            name="Labour Party", parent=party, is_national=False
-        )
-        PersonPostFactory(
-            person=self.person,
-            election=ElectionFactory(),
-            party=party,
-        )
-        response = self.client.get(self.person_url, follow=True)
-        expected = f"{self.person.name} is a {national_party.name} candidate."
         self.assertContains(response, expected)
 
     def test_person_detail_404_with_string_pk(self):

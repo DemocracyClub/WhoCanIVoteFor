@@ -3,7 +3,7 @@ from django.http import Http404, HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import DetailView, RedirectView
 from elections.dummy_models import DummyPostElection
-from parties.models import LocalParty, Manifesto
+from parties.models import LocalParty, Manifesto, NationalParty
 
 from .models import Person, PersonPost, PersonRedirect
 
@@ -106,8 +106,21 @@ class PersonView(DetailView, PersonMixin):
                 )
             )
 
+            national_party_qs = NationalParty.objects.filter(
+                post_election__in=obj.current_or_future_candidacies.all().values(
+                    "post_election"
+                )
+            ).filter(
+                parent__in=obj.current_or_future_candidacies.all().values(
+                    "party"
+                )
+            )
+
             if local_party_qs.exists():
                 obj.local_party = local_party_qs.first()
+
+            if national_party_qs.exists():
+                obj.national_party = national_party_qs.first()
 
         return obj
 

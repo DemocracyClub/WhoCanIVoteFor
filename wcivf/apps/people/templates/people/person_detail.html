@@ -52,16 +52,13 @@
             {% include "people/includes/_person_about_card.html" %}
         {% endif %}
 
-        {% if object.current_or_future_candidacies and object.local_party %}
+        {% if object.current_or_future_candidacies and object.local_party and not object.national_party %}
             {% include "people/includes/_person_local_party_card.html" with person=object.featured_candidacy.person party=object.local_party.name %}
         {% endif %}
 
-        {% if object.current_or_future_candidacies and object.national_party %}
-            {% include "people/includes/_person_national_party_card.html" with person=object.featured_candidacy.person party=object.national_party.name %}
-        {% endif %}
 
-        {% if object.current_or_future_candidacies %}
-            {% include "people/includes/_person_national_party_card.html" with party=person.national_party.name %}
+        {% if object.current_or_future_candidacies and object.national_party and not object.local_party %}
+            {% include "people/includes/_person_national_party_card.html" with person=object.featured_candidacy.person party=object.national_party.name %}
         {% endif %}
 
         {% include "people/includes/_person_hustings_card.html" %}

@@ -17,35 +17,69 @@
                     {{ ballot.election.nice_election_name }}
                     {% if not ballot.is_pcc and not ballot.is_mayoral %}: {{ ballot.friendly_name }}{% endif %}
                 </h4>
+                {% if local_party %}
+                    <dl class="ds-descriptions" style="border-style:none;">
+                        <div>
 
-                <dl class="ds-descriptions" style="border-style:none;">
-                    <div>
-                        {% if local_party.facebook_page %}
-                            <dt>Facebook</dt>
-                            <dd>
-                                {% if local_party.facebook_page %}
-                                    <a href="{{ local_party.facebook_page }}" title="{% blocktrans trimmed with party_name=local_party.name %}{{ party_name }}'s Facebook profile{% endblocktrans %}">
-                                        {{ local_party.facebook_page }}
+                            {% if local_party.facebook_page %}
+                                <dt>Facebook</dt>
+                                <dd>
+                                    {% if local_party.facebook_page %}
+                                        <a href="{{ local_party.facebook_page }}" title="{% blocktrans trimmed with party_name=local_party.name %}{{ party_name }}'s Facebook profile{% endblocktrans %}">
+                                            {{ local_party.facebook_page }}
+                                        </a>
+                                    {% endif %}
+                                </dd>
+                            {% endif %}
+
+                            {% if local_party.homepage %}
+                                <dt>{% trans "Home page" %}</dt>
+                                <dd>
+                                    <a href="{{ local_party.homepage }}" title="{% blocktrans trimmed with party_name=local_party.name %}{{ party_name }}'s home page{% endblocktrans %}">
+                                        {{ local_party.homepage }}
                                     </a>
-                                {% endif %}
-                            </dd>
-                        {% endif %}
+                                </dd>
+                            {% endif %}
 
-                        {% if local_party.homepage %}
-                            <dt>{% trans "Home page" %}</dt>
-                            <dd>
-                                <a href="{{ local_party.homepage }}" title="{% blocktrans trimmed with party_name=local_party.name %}{{ party_name }}'s home page{% endblocktrans %}">
-                                    {{ local_party.homepage }}
-                                </a>
-                            </dd>
-                        {% endif %}
+                            {% if local_party.email %}
+                                <dt>{% trans "Email" %}</dt>
+                                <dd><a href="mailto:{{ local_party.email }}">{{ local_party.email }}</a></dd>
+                            {% endif %}
+                        </div>
+                    </dl>
+                {% endif %}
 
-                        {% if local_party.email %}
-                            <dt>{% trans "Email" %}</dt>
-                            <dd><a href="mailto:{{ local_party.email }}">{{ local_party.email }}</a></dd>
-                        {% endif %}
-                    </div>
-                </dl>
+                {% if national_party %}
+                    <dl class="ds-descriptions" style="border-style:none;">
+                        <div>
+
+                            {% if national_party.homepage %}
+                                <dt>{% trans "Home page" %}</dt>
+                                <dd>
+                                    <a href="{{ national_party.homepage }}" title="{% blocktrans trimmed with party_name=local_party.name %}{{ party_name }}'s home page{% endblocktrans %}">
+                                        {{national_party.homepage }}
+                                    </a>
+                                </dd>
+                            {% endif %}
+
+                            {% if national_party.email %}
+                                <dt>{% trans "Email" %}</dt>
+                                <dd><a href="mailto:{{ national_party.email }}">{{ local_party.email }}</a></dd>
+                            {% endif %}
+
+                            {% if national_party.facebook_page %}
+                                <dt>Facebook</dt>
+                                <dd>
+                                    {% if national_party.facebook_page %}
+                                        <a href="{{ national_party.facebook_page }}" title="{% blocktrans trimmed with party_name=local_party.name %}{{ party_name }}'s Facebook profile{% endblocktrans %}">
+                                            {{ national_party.facebook_page }}
+                                        </a>
+                                    {% endif %}
+                                </dd>
+                            {% endif %}
+                        </div>
+                    </dl>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -59,13 +93,15 @@
         </p>
 
     {% endif %}
-    {% if local_party.twitter %}
-        <h3>{% trans "Latest tweets" %}</h3>
-        <div class="twitter_container">
-            <a data-width="100%" data-height="500" class="twitter-timeline" href="https://twitter.com/{{ object.twitter_username }}">
-                {% trans "Tweets by" %} @{{ object.twitter_username }}</a>
-            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-        </div>
+    {% if local_party %}
+        {% if local_party.twitter %}
+            <h3>{% trans "Latest tweets" %}</h3>
+            <div class="twitter_container">
+                <a data-width="100%" data-height="500" class="twitter-timeline" href="https://twitter.com/{{ object.twitter_username }}">
+                    {% trans "Tweets by" %} @{{ object.twitter_username }}</a>
+                <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
+        {% endif %}
     {% endif %}
 
     <h3>{% trans "Candidates" %}</h3>
@@ -74,7 +110,5 @@
             {% include "elections/includes/_person_card.html" with person_post=person lists=True %}
         {% endfor %}
     </ul>
-
-
 
 {% endblock %}

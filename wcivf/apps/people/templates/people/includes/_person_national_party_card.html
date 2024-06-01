@@ -2,11 +2,7 @@
 {% if person.national_party %}
     <h4 class="ds-h3">{{ party}}</h4>
     <p>
-        {% if person.national_party %}
-            {% blocktrans trimmed with person=person.name party_label=person.national_party.label %}{{ person }}'s local party is {{ party_label }}.{% endblocktrans %}
-        {% else %}
-            {% blocktrans trimmed with person=person.name %}{{ person }} is a {{ party }} candidate.{% endblocktrans %}
-        {% endif %}
+        {% blocktrans trimmed with person=person.name party_label=person.national_party.label %}{{ person }}'s party is {{ party_label }}.{% endblocktrans %}
     </p>
     <dl class="ds-descriptions">
         {% if person.national_party.homepage %}
@@ -27,7 +23,7 @@
         {% endif %}
         {% if person.national_party.instagram %}
             <div>
-                <dt>instagram</dt>
+                <dt>Instagram</dt>
                 <a href="{{ person.national_party.instagram}}">
                     {{ person.national_party.instagram }}
                 </a>
@@ -54,6 +50,14 @@
                 <dt>{% trans "Youtube page" %}</dt>
                 <a href="{{ person.national_party.youtube_profile_url }}">
                     {% blocktrans trimmed %}{{ party }}'s Youtube profile{% endblocktrans %}
+                </a>
+            </div>
+        {% endif %}
+        {% if person.national_party.party_political_broadcast %}
+            <div>
+                <dt>{% trans "Party Political Broadcast" %}</dt>
+                <a href="{{ person.national_party.party_political_broadcast }}">
+                    {% blocktrans trimmed %}{{ party }}'s Party Political Broadcast{% endblocktrans %}
                 </a>
             </div>
         {% endif %}

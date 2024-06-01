@@ -9,7 +9,7 @@ from elections.views.mixins import (
     NewSlugsRedirectMixin,
     PostelectionsToPeopleMixin,
 )
-from parties.models import LocalParty, Party
+from parties.models import LocalParty, NationalParty, Party
 from people.models import PersonPost
 
 
@@ -124,11 +124,17 @@ class PartyListVew(TemplateView):
             post_election=context["ballot"], parent=context["party"]
         )
 
+        national_party_qs = NationalParty.objects.select_related(
+            "parent"
+        ).filter(post_election=context["ballot"], parent=context["party"])
+
+        context["party_name"] = context["party"].party_name
         if local_party_qs.exists():
             context["local_party"] = local_party_qs.get()
             context["party_name"] = context["local_party"].name
-        else:
-            context["party_name"] = context["party"].party_name
+        if national_party_qs.exists():
+            context["national_party"] = national_party_qs.get()
+            context["party_name"] = context["national_party"].name
 
         manifestos = context["party"].manifesto_set.filter(
             election=context["ballot"].election

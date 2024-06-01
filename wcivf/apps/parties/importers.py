@@ -373,7 +373,7 @@ class NationalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
             )
             msg = "Created" if created else "Updated"
             self.write(
-                f"{msg} Local Party object for {party.party_name} in {post_election.ballot_paper_id}"
+                f"{msg} National Party object for {party.party_name} in {post_election.ballot_paper_id}"
             )
 
         self.write(f"Imported National Party objects for {name}")
