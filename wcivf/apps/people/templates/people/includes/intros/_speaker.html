@@ -2,14 +2,14 @@
 {% load i18n %}
 {% block intro_line %}
     {% if verb == "is" %}
-        {% blocktrans trimmed%}
-            {{ person_name }} is the Speaker seeking re-election in
+        {% blocktrans trimmed %}
+            {{ person_name }} is the <a href="{{ party_url }}">Speaker seeking re-election</a> in
             <a href="{{ post_url }}">{{ post_label }}</a> constituency in the
             <a href="{{ election_url }}" title="{{ election_name }}">{{ election_name }}</a>.
         {% endblocktrans %}
     {% else %}
-        {% blocktrans trimmed%}
-            {{ person_name }} was the Speaker seeking re-election in
+        {% blocktrans trimmed %}
+            {{ person_name }} was the <a href="{{ party_url }}">Speaker seeking re-election</a> in
             <a href="{{ post_url }}">{{ post_label }}</a> constituency in the
             <a href="{{ election_url }}" title="{{ election_name }}">{{ election_name }}</a>.
         {% endblocktrans %}
