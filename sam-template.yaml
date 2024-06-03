@@ -178,15 +178,15 @@ Resources:
             Input: '{"command": "import_wikipedia_bios", "args": ["--current"]}'
             RetryPolicy:
               MaximumRetryAttempts: 0
-        Import2024PPCs:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-2024-ppcs
-            Description: Import 2024 PPCs
-            Input: '{"command": "import_2024_ppcs"}'
-            RetryPolicy:
-              MaximumRetryAttempts: 0
+        # Import2024PPCs:
+        #   Type: Schedule
+        #   Properties:
+        #     Schedule: rate(1 hour)
+        #     Name: import-2024-ppcs
+        #     Description: Import 2024 PPCs
+        #     Input: '{"command": "import_2024_ppcs"}'
+        #     RetryPolicy:
+        #       MaximumRetryAttempts: 0
         # ILPGlobal:
         #   Type: Schedule
         #   Properties:
