@@ -62,8 +62,6 @@ class TestHtml:
             reverse("fptp_voting_system_view"),
             reverse("ams_voting_system_view"),
             reverse("stv_voting_system_view"),
-            reverse("ppc_2024:home"),
-            reverse("ppc_2024:details"),
         ]
 
     @vcr.use_cassette("fixtures/vcr_cassettes/test_mayor_elections.yaml")
@@ -75,6 +73,19 @@ class TestHtml:
                 assert resp.status_code == 200
                 _, errors = validate_html_str(resp.content)
                 assert errors == ""
+
+    def test_redirects(self, client):
+        urls = [
+            reverse("ppc_2024:home"),
+            reverse("ppc_2024:details"),
+        ]
+        for url in urls:
+            resp = client.get(url)
+            assert resp.status_code == 302
+            assert (
+                resp.url
+                == "https://whocanivotefor.co.uk/elections/parl.2024-07-04/uk-parliament-elections/"
+            )
 
 
 class TestBaseTemplate(TestCase):

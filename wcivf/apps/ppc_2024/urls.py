@@ -1,16 +1,19 @@
 from django.urls import path
-
-from .views import PCC2024DetailView, PCC2024HomeView
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path(
         "",
-        PCC2024HomeView.as_view(),
+        RedirectView.as_view(
+            url="https://whocanivotefor.co.uk/elections/parl.2024-07-04/uk-parliament-elections/"
+        ),
         name="home",
     ),
     path(
         "details/",
-        PCC2024DetailView.as_view(),
+        RedirectView.as_view(
+            url="https://whocanivotefor.co.uk/elections/parl.2024-07-04/uk-parliament-elections/"
+        ),
         name="details",
     ),
 ]
