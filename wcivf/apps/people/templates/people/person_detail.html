@@ -42,9 +42,9 @@
 
         {% include "people/includes/_person_policy_card.html" %}
 
-        {% if object.current_or_future_candidacies %}
+        {% comment %} {% if object.current_or_future_candidacies %}
             {% include "people/includes/_person_manifesto_card.html" with party=object.featured_candidacy.party party_name=object.featured_candidacy.party.name %}
-        {% endif %}
+        {% endif %} {% endcomment %}
 
         {% include "people/includes/_person_contact_card.html" %}
 
