@@ -42,9 +42,9 @@
 
         {% include "people/includes/_person_policy_card.html" %}
 
-        {% comment %} {% if object.current_or_future_candidacies %}
+        {% if object.show_national_manifesto %}
             {% include "people/includes/_person_manifesto_card.html" with party=object.featured_candidacy.party party_name=object.featured_candidacy.party.name %}
-        {% endif %} {% endcomment %}
+        {% endif %}
 
         {% include "people/includes/_person_contact_card.html" %}
 
@@ -54,11 +54,11 @@
 
 
         {% comment %} TODO: Hide until GE parties sheet is populated {% endcomment %}
-        {% comment %} {% if object.current_or_future_candidacies and object.local_party %}
+        {% comment %} {% if object.current_or_future_candidacies and object.local_party and not object.national_party %}
             {% include "people/includes/_person_local_party_card.html" with person=object.featured_candidacy.person party=object.local_party.name %}
         {% endif %} {% endcomment %}
 
-        {% if object.current_or_future_candidacies and object.national_party %}
+        {% if object.current_or_future_candidacies and object.national_party and not object.local_party %}
             {% include "people/includes/_person_national_party_card.html" with person=object.featured_candidacy.person party=object.national_party.name %}
         {% endif %}
 

@@ -456,6 +456,26 @@ class Person(models.Model):
         intro = intro.strip()
         return " ".join(intro.split())
 
+    @property
+    def show_national_manifesto(self):
+        """
+        Return the national party manifesto for the featured candidacy
+        """
+        try:
+            if (
+                self.current_or_future_candidacies
+                and self.featured_candidacy
+                and (
+                    self.featured_candidacy.party.party_name
+                    == self.national_party.name
+                )
+                and self.manifestos
+            ):
+                return True
+            return False
+        except AttributeError:
+            return False
+
 
 class PersonRedirect(models.Model):
     old_person_id = models.IntegerField()
