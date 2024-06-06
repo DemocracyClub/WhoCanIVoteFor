@@ -200,7 +200,7 @@ class ElectionPostViewTests(TestCase):
         pre_sopn_text_1 = (
             """We are currently aware of one candidate for this position."""
         )
-        pre_sopn_text_2 = """The official candidate list will be published by 10 April 2024, when this page will be updated."""
+        pre_sopn_text_2 = """The official candidate list will be published after 10 April 2024, when this page will be updated."""
         self.assertContains(response, pre_sopn_text_1)
         self.assertContains(response, pre_sopn_text_2)
         self.assertContains(

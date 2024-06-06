@@ -76,7 +76,7 @@
                         {% if not postelection.people and postelection.contested %}
                             {% blocktrans trimmed with expected_sopn_date=postelection.expected_sopn_date|date:"j F Y" %}
                                 We don't know of any candidates standing yet.
-                                The official candidate list will be published by {{ expected_sopn_date }}, when this page will be updated.
+                                The official candidate list will be published after {{ expected_sopn_date }}, when this page will be updated.
                                 You can help improve this page:
                             {% endblocktrans %}
                             <a href="{{ postelection.ynr_link }}">
@@ -127,7 +127,7 @@
                                 {% endblocktrans %}
 
                                 {% blocktrans trimmed with expected_sopn_date=postelection.expected_sopn_date|date:"j F Y" ynr_link=postelection.ynr_link %}
-                                    The official candidate list will be published by {{expected_sopn_date}}, when this page will be updated.
+                                    The official candidate list will be published after {{expected_sopn_date}}, when this page will be updated.
                                     Once nomination papers are published, we will manually verify each candidate.
                                     You can help improve this page: <a href="{{ ynr_link }}">
                                         add information about candidates to our database</a>.
@@ -196,9 +196,9 @@
             <p>
                 {% if not postelection.locked %}
                     {% if postelection.past_expected_sopn_day %}
-                        {% trans "The official candidate list should have been published on" %}
+                        {% trans "The official candidate list should have been published after" %}
                     {% else %}
-                        {% trans "The official candidate list should be published on" %}
+                        {% trans "The official candidate list should be published after" %}
                     {% endif %}
                     {{ postelection.expected_sopn_date|date:"j F Y" }}.
                 {% endif %}

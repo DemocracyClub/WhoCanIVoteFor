@@ -761,11 +761,11 @@ msgstr "ychwanegwch wybodaeth am ymgeiswyr i'n cronfa ddata"
 #, python-format
 msgid ""
 "We don't know of any candidates standing yet. The official candidate list "
-"will be published by %(expected_sopn_date)s, when this page will be updated. "
+"will be published after %(expected_sopn_date)s, when this page will be updated. "
 "You can help improve this page:"
 msgstr ""
 "Gallwch helpu i wella'r dudalen hon:Ni wyddwn am unrhyw ymgeiswyr sy'n "
-"sefyll eto. Bydd y rhestr swyddogol o ymgeiswyr yn cael ei chyhoeddi erbyn "
+"sefyll eto. Bydd y rhestr swyddogol o ymgeiswyr yn cael ei chyhoeddi ar ôl "
 "%(expected_sopn_date)s, pan fydd y dudalen hon yn cael ei diweddaru."
 
 #: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:89
@@ -836,11 +836,11 @@ msgstr ""
 #: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:129
 #, python-format
 msgid ""
-"The official candidate list will be published by %(expected_sopn_date)s, "
+"The official candidate list will be published after %(expected_sopn_date)s, "
 "when this page will be updated. You can help improve this page: <a "
 "href=\"%(ynr_link)s\"> add information about candidates to our database</a>."
 msgstr ""
-"Bydd y rhestr ymgeiswyr swyddogol yn cael ei chyhoeddi gan %(expected_sopn_date)s,"
+"Bydd y rhestr ymgeiswyr swyddogol yn cael ei chyhoeddi ar ôl %(expected_sopn_date)s,"
 "pryd fydd y dudalen hon yn cael ei diweddaru. Gallwch helpu i wella'r dudalen hon: <a "
 "href=\"%(ynr_link)s\"> ychwanegu gwybodaeth ymgeisydd i'n cronfa ddata</a>."
 
