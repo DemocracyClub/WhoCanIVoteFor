@@ -33,7 +33,15 @@
             {% endif %}
         </div>
     </div>
-    <p>{% trans "The Speaker of the House of Commons stands in general elections under the banner" %} "{{ object.format_name }}"</p>
+    <p>
+        {% trans "The Speaker of the House of Commons stands in general elections under the banner" %}
+        {% get_current_language as LANGUAGE_CODE %}
+        {% if LANGUAGE_CODE == 'en' %}
+            "{{ object.format_name }}"
+        {% else %}
+            "Y Llefarydd yn ailymgeisio”"
+        {% endif %}
+    </p>
     <p>{% trans "They are not affiliated with any political party, nor do they campaign on any political issues." %}</p>
     <p>{% trans "The Speaker generally runs unopposed by the major parties." %}</p>
     <p>{% blocktrans trimmed %} Find out more about <a href="https://www.parliament.uk/mps-lords-and-offices/offices/commons/speakers-office/">The Speaker</a> and <a href="https://www.parliament.uk/about/living-heritage/evolutionofparliament/parliamentwork/offices-and-ceremonies/overview/the-speaker/elections/">their role in elections</a> on the parliament.uk website.{% endblocktrans %}</p>
