@@ -110,7 +110,6 @@ class PostcodeView(
         context["parish_council_election"] = self.get_parish_council_election()
         context["num_ballots"] = self.num_ballots()
         context["requires_voter_id"] = self.get_voter_id_status()
-
         return context
 
     def future_postelections(self, postelections):
@@ -164,7 +163,10 @@ class PostcodeView(
             return False
 
         if not any(
-            ballot for ballot in ballots if ballot.election.is_city_of_london
+            ballot
+            for ballot in ballots
+            if ballot.election.is_city_of_london_local_election
+            or ballot.election.is_city_of_london_parl_election
         ):
             return False
 

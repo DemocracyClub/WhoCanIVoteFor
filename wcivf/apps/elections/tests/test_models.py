@@ -32,8 +32,8 @@ class TestElectionModel:
         assert election.in_past is True
 
     def test_is_city_of_london(self, election, city_of_london_election):
-        assert election.is_city_of_london is False
-        assert city_of_london_election.is_city_of_london is True
+        assert election.is_city_of_london_local_election is False
+        assert city_of_london_election.is_city_of_london_local_election is True
 
     def test_polls_close(self, election, city_of_london_election):
         assert election.polls_close == datetime.time(22, 00)

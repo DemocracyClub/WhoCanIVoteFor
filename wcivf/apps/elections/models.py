@@ -76,7 +76,7 @@ class Election(models.Model):
         return self.election_date < datetime.date.today()
 
     @property
-    def is_city_of_london(self):
+    def is_city_of_london_local_election(self):
         """
         Returns boolean for if the election is within City of London district.
         The city often has different rules to other UK elections so it's useful
@@ -87,6 +87,17 @@ class Election(models.Model):
         return "local.city-of-london" in self.slug
 
     @property
+    def is_city_of_london_parl_election(self):
+        """
+        Returns boolean for if the election is within City of London district.
+        The city often has different rules to other UK elections so it's useful
+        to know when we need to special case. For further details:
+        https://www.cityoflondon.gov.uk/about-us/voting-elections/elections/ward-elections
+        https://democracyclub.org.uk/blog/2017/03/22/eight-weird-things-about-tomorrows-city-london-elections/
+        """
+        return "parl.cities-of-london-and-westminster" in self.slug
+
+    @property
     def polls_close(self):
         """
         Return a time object for the time the polls close.
@@ -94,7 +105,7 @@ class Election(models.Model):
         https://www.cityoflondon.gov.uk/about-us/voting-elections/elections/ward-elections
         https://democracyclub.org.uk/blog/2017/03/22/eight-weird-things-about-tomorrows-city-london-elections/
         """
-        if self.is_city_of_london:
+        if self.is_city_of_london_local_election:
             return datetime.time(20, 0)
 
         return datetime.time(22, 0)
@@ -107,7 +118,7 @@ class Election(models.Model):
         https://www.cityoflondon.gov.uk/about-us/voting-elections/elections/ward-elections
         https://democracyclub.org.uk/blog/2017/03/22/eight-weird-things-about-tomorrows-city-london-elections/
         """
-        if self.is_city_of_london:
+        if self.is_city_of_london_local_election:
             return datetime.time(8, 0)
 
         return datetime.time(7, 0)

@@ -9,7 +9,7 @@
                 <span aria-hidden="true">{% trans "Where to vote" %}</span>
             </h2>
         </summary>
-        {% if polling_station.polling_station_known %}
+        {% if polling_station.polling_station_known and not multiple_city_of_london_elections_today %}
             {% if advance_voting_station and advance_voting_station.open_in_future %}
                 <p>
                     {% blocktrans trimmed %}
@@ -54,7 +54,11 @@
                 <address>{{ polling_station_address }}</address>
             {% endblocktrans %}
             <p>
-                {% blocktrans trimmed %}It will be open from <strong>7am to 10pm</strong>.{% endblocktrans %}
+                {% if city_of_london_local_election %}
+                    {% blocktrans trimmed %}It will be open from <strong>8am to 8pm</strong>.{% endblocktrans %}
+                {% else %}
+                    {% blocktrans trimmed %}It will be open from <strong>7am to 10pm</strong>.{% endblocktrans %}
+                {% endif %}
 
                 {% for election in elections_by_date %}
                     {{ election.grouper|naturalday:"\o\n l j F Y" }}
@@ -66,6 +70,7 @@
                     {% endif %}
                 {% endfor %}
             </p>
+
             {% if not voter_id_required %}
                 <p>
                     {% trans "You don't need to take your poll card with you." %}
@@ -92,7 +97,21 @@
                 <p>{% blocktrans trimmed %}Postal votes cannot be accepted at polling stations in Northern Ireland.{% endblocktrans%}</p>
             {% endif %}
             <p><a href="https://www.electoralcommission.org.uk/voting-and-elections/ways-vote/how-vote-post">{% trans "Learn more about voting by post" %}</a>.</p>
+        {% elif multiple_city_of_london_elections_today and not polling_station.polling_station_known %}
+            {% for pe in postelections %}
+                <p><a href="{{ pe.get_absolute_url }}">{{ pe.election.name }}: {{pe.post.label}}</a></p>
+            {% endfor %}
+            {% for election in elections_by_date %}
+                {% for polling_station in election.grouper.polling_stations.all %}
+                    {% trans "Your polling station is" %}:
+                    </p>
+                    {% blocktrans trimmed with polling_station_address=polling_station.station.properties.address|linebreaksbr %}
+                        <address>{{ polling_station_address }}</address>
 
+                    {% endblocktrans %}
+                    <p>
+                {% endfor %}
+            {% endfor %}
         {% else %}
             {% if polling_station.custom_finder %}
                 {% blocktrans trimmed with custom_finder=polling_station.custom_finder %}
