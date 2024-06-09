@@ -12,8 +12,9 @@ from elections.tests.factories import (
     PostFactory,
 )
 from freezegun import freeze_time
+from parties.models import Manifesto
 from parties.tests.factories import (
-    # LocalPartyFactory,
+    LocalPartyFactory,
     NationalPartyFactory,
     PartyFactory,
 )
@@ -754,6 +755,77 @@ class PersonViewTests(TestCase):
         response = self.client.get(self.person_url, follow=True)
         expected = f"{self.person.name}'s party is {national_party.label}."
         self.assertContains(response, expected)
+
+    def test_national_party_manifesto(self):
+        # the manifesto is not displayed for local elections
+        # the manifesto is displayed for general elections
+        party = PartyFactory(party_name="Labour Party", party_id="party:53")
+
+        local_election = ElectionFactory(
+            name="Local Election",
+            current=False,
+            election_date="2024-05-01",
+            slug="local.2024-05-01",
+        )
+        local_post = PostFactory(
+            label="Derbyshire County Council", ynr_id="local.2024-05-01"
+        )
+        le = PostElectionFactory(
+            election=local_election,
+            post=local_post,
+            ballot_paper_id="local.2024-05-01",
+        )
+
+        national_election = ElectionFactory(
+            name="General Election",
+            current=True,
+            election_date="2024-07-01",
+            slug="parl.2024-07-01",
+        )
+        national_post = PostFactory(
+            label="UK Parliament", ynr_id="parl.2024-07-01"
+        )
+        ge = PostElectionFactory(
+            election=national_election,
+            post=national_post,
+            ballot_paper_id="parl.2024-07-01",
+        )
+
+        PersonPostFactory(
+            person=self.person,
+            election=local_election,
+            party=party,
+        )
+        LocalPartyFactory(
+            name="Derbyshire Labour",
+            is_local=True,
+            parent=party,
+            post_election=le,
+        )
+        Manifesto.objects.create(
+            party=party,
+            election=local_election,
+            web_url="https://www.derbyshirelabour.com",
+        )
+
+        PersonPostFactory(
+            person=self.person,
+            election=national_election,
+            party=party,
+        )
+        NationalPartyFactory(
+            name="Rejoin EU", parent=party, is_national=True, post_election=ge
+        )
+        Manifesto.objects.create(
+            party=party,
+            election=national_election,
+            web_url="https://www.rejoineu.com",
+        )
+
+        response = self.client.get(self.person_url, follow=True)
+        self.assertContains(response, "Party manifesto")
+        self.assertContains(response, "UK manifesto website")
+        self.assertNotContains(response, "Local manifesto website")
 
     def test_person_detail_404_with_string_pk(self):
         """

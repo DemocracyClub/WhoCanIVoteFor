@@ -43,7 +43,7 @@
         {% include "people/includes/_person_policy_card.html" %}
 
         {% if object.show_national_manifesto %}
-            {% include "people/includes/_person_manifesto_card.html" with party=object.national_party party_name=object.national_party.name %}
+            {% include "people/includes/_person_manifesto_card.html" with person=object.featured_candidacy.person %}
         {% endif %}
 
         {% include "people/includes/_person_contact_card.html" %}

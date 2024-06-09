@@ -9,7 +9,7 @@ from django.utils.html import strip_tags
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from elections.models import Election, Post
-from parties.models import NationalParty, Party
+from parties.models import Manifesto, NationalParty, Party
 
 from wcivf import settings
 
@@ -461,22 +461,30 @@ class Person(models.Model):
         """
         Return True if there is a national party manifesto for the featured candidacy
         """
-        national_party_qs = NationalParty.objects.filter(
-            post_election__in=self.current_or_future_candidacies.all().values(
+        self.person = self
+        manifestos = Manifesto.objects.filter(
+            election__in=self.person.current_or_future_candidacies.values(
+                "election"
+            ),
+        )
+        national_parties = NationalParty.objects.filter(
+            post_election__in=self.person.current_or_future_candidacies.all().values(
                 "post_election"
             )
         ).filter(
-            parent__in=self.current_or_future_candidacies.all().values("party")
+            parent__in=self.person.current_or_future_candidacies.all().values(
+                "party"
+            )
         )
 
-        if national_party_qs.exists():
-            national_manifestos = (
-                national_party_qs.get()
-                .manifesto_set.filter(election=self.featured_candidacy.election)
-                .exists()
-            )
-            if national_manifestos:
+        if manifestos and national_parties:
+            if (
+                manifestos[0].country == "UK"
+                and self.person.featured_candidacy.party.party_name
+                == national_parties[0].name
+            ):
                 return True
+            return True
         return False
 
 
