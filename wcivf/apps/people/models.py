@@ -9,7 +9,7 @@ from django.utils.html import strip_tags
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from elections.models import Election, Post
-from parties.models import Party
+from parties.models import NationalParty, Party
 
 from wcivf import settings
 
@@ -459,23 +459,25 @@ class Person(models.Model):
     @property
     def show_national_manifesto(self):
         """
-        Return the national party manifesto for the featured candidacy
+        Return True if there is a national party manifesto for the featured candidacy
         """
-        try:
-            if (
-                self.current_or_future_candidacies
-                and self.featured_candidacy
-                and self.national_party
-                and (
-                    self.featured_candidacy.party.party_name
-                    == self.national_party.name
-                )
-                and self.manifestos
-            ):
+        national_party_qs = NationalParty.objects.filter(
+            post_election__in=self.current_or_future_candidacies.all().values(
+                "post_election"
+            )
+        ).filter(
+            parent__in=self.current_or_future_candidacies.all().values("party")
+        )
+
+        if national_party_qs.exists():
+            national_manifestos = (
+                national_party_qs.get()
+                .manifesto_set.filter(election=self.featured_candidacy.election)
+                .exists()
+            )
+            if national_manifestos:
                 return True
-            return False
-        except AttributeError:
-            return False
+        return False
 
 
 class PersonRedirect(models.Model):
