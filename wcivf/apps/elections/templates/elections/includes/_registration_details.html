@@ -36,8 +36,9 @@
             {% if registration %}
                 {% include "elections/includes/_council_contact_details.html" with contact_details=registration %}
             {% endif %}
-
-            {% include "elections/includes/_council_contact_details.html" with contact_details=council %}
+            {% if council %}
+                {% include "elections/includes/_council_contact_details.html" with contact_details=council %}
+            {% endif %}
         {% endif %}
 
     </details>
