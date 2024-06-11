@@ -108,11 +108,12 @@ $scope: false;
 }
 
 input[type=radio] {
-    visibility: hidden;
+    display: none;
 }
 
 .link-button {
-    display: inline-block;
+    display: inline-flex;
+    min-width: fit-content;
     border: 2px solid #00AEEF;
     color: #00AEEF;
     font-size: 1rem;
@@ -136,9 +137,9 @@ input[type=radio] {
 
   button {
     font-family: Montserrat, sans-serif;
-    background: none!important;
+    background: none !important;
     border: none;
-    padding: 0!important;
+    padding: 0 !important;
     text-decoration: underline;
     cursor: pointer;
   }

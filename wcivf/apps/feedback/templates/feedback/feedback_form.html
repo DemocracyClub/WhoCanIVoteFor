@@ -5,6 +5,10 @@
     .link-button {
         color: #403F41;
         border-color: #E6007C;
+        @media (max-width: 576px) {
+            display: block;
+            margin-bottom: 10px;
+        }
     }
 
     #feedback_form input[data-toggle]:checked + label, #feedback_form input[data-toggle]:checked + label:active {
@@ -22,31 +26,36 @@
             <span aria-hidden="true">🔎</span>
             {% trans "Did you find what you were looking for?" %}
         </h5>
-        <div id="feedback_choices_container">
-            {% for choice in feedback_form.found_useful %}
-                {{ choice.tag }}
-                <label class="link-button" for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
-            {% endfor %}
+
+        <div id="feedback_choices_container" class="ds-cluster">
+            <div>
+                {% for choice in feedback_form.found_useful %}
+                    {{ choice.tag }}
+                    <label class="link-button" for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                {% endfor %}
+            </div>
         </div>
 
         <h5>
             <span aria-hidden="true">🗳️</span>
             {% trans "Has this service changed your likelihood of voting?" %}
         </h5>
-        <div id="voting_choices_container">
-            {% for choice in feedback_form.vote %}
-                {{ choice.tag }}
-                <label class="link-button" for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
-            {% endfor %}
+
+        <div id="voting_choices_container" class="ds-cluster">
+            <div>
+                {% for choice in feedback_form.vote %}
+                    {{ choice.tag }}
+                    <label class="link-button" for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                {% endfor %}
+
+            </div>
         </div>
 
         <div id="comments" class="ds-field">
             <label
                 for="{{ feedback_form.comments.id_for_label }}"
                 data-problem-label="{% trans "Please describe the problem you encountered" %}"
-                data-feedback-label="{% trans "Can you tell us anything more?" %}"
-            >
-
+                data-feedback-label="{% trans "Can you tell us anything more?" %}">
             </label>
             {{ feedback_form.comments }}
         </div>
