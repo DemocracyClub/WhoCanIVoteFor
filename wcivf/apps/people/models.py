@@ -467,8 +467,8 @@ class Person(models.Model):
                 and self.featured_candidacy
                 and self.national_party
                 and (
-                    self.featured_candidacy.party.party_name
-                    == self.national_party.name
+                    self.featured_candidacy.party
+                    == self.national_party.parent
                 )
                 and self.manifestos
             ):
