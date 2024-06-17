@@ -177,7 +177,7 @@ Resources:
            Schedule: rate(1 hour)
            Name: import-leaflets
            Description: Import leaflets
-           Input: '{"command": "import_leaflets", "args": ["--recently-uploaded", "--uploaded-since=2022-4-1"]}'
+           Input: '{"command": "import_leaflets", "args": ["--recently-uploaded", "--uploaded-since=2024-05-22"]}'
         ImportWikipediaBios:
           Type: Schedule
           Properties:

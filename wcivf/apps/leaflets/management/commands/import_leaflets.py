@@ -52,7 +52,7 @@ class Command(BaseCommand):
                     datetime.strptime(options["uploaded_since"], "%Y-%m-%d")
                 )
 
-            params = urlencode({"date_uploaded__gt": last_uploaded})
+            params = urlencode({"modified__gt": last_uploaded})
             url = f"{base_url}/?{params}"
             req = requests.get(url)
             while url:
