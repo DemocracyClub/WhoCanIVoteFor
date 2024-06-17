@@ -1,5 +1,6 @@
 from typing import Optional
 
+from administrations.helpers import AdministrationsHelper
 from core.helpers import clean_postcode
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
@@ -110,6 +111,14 @@ class PostcodeView(
         context["parish_council_election"] = self.get_parish_council_election()
         context["num_ballots"] = self.num_ballots()
         context["requires_voter_id"] = self.get_voter_id_status()
+
+        context["administrations"] = AdministrationsHelper(
+            [
+                "D::BST::2016-04-13::gss:E05010906::local",
+                "O::BST::mayor",
+                "D::parl-hoc::2010-05-06::gss:E14000602::parl",
+            ]
+        )
 
         return context
 

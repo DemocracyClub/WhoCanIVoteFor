@@ -20,6 +20,12 @@
         {% endif %}
 
         {% if not address_picker %}
+            {% for administration in administrations.administrations %}
+                <h2>{{ administration.friendly_name }}</h2>
+                <p>{{ administration.friendly_description }}</p>
+            {% endfor %}
+
+
             {% regroup postelections by election.election_date as elections_by_date %}
             {% for election_group in elections_by_date %}
                 {% for postelection in election_group.list %}
