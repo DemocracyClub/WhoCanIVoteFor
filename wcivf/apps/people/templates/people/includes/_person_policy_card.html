@@ -33,11 +33,6 @@
             {% endblocktrans %}</p>
     {% endif %}
 
-    <!-- leaflets -->
-    {% if object.leaflet_set.exists %}
-        {% include "people/includes/_person_leaflets.html" %}
-    {% endif %}
-
     <!-- TWFY  -->
     {% if object.twfy_id %}
         <h4>{% trans "Record in office" %}</h4>

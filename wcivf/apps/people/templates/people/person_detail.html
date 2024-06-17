@@ -65,6 +65,11 @@
 
         {% include "people/includes/_person_previous_elections_card.html" %}
 
+        <!-- leaflets -->
+        {% if object.leaflet_set.exists %}
+            {% include "people/includes/_person_leaflets.html" %}
+        {% endif %}
+
         {% include "people/includes/_person_edit_details_card.html" %}
 
         {% if referer_postcode %}
