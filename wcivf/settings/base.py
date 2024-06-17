@@ -83,6 +83,7 @@ INSTALLED_APPS = (
     "referendums",
     "parishes",
     "ppc_2024",
+    "administrations",
 )
 
 MIDDLEWARE = (

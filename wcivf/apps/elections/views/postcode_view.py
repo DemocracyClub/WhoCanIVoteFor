@@ -113,6 +113,7 @@ class PostcodeView(
         context["parish_council_election"] = self.get_parish_council_election()
         context["num_ballots"] = self.num_ballots()
         context["requires_voter_id"] = self.get_voter_id_status()
+
         return context
 
     def future_postelections(self, postelections):
