@@ -171,13 +171,13 @@ Resources:
             Name: import-hustings
             Description: Import hustings from google spreadsheets
             Input: '{"command": "import_hustings"}'
-#        ImportLeaflets:
-#          Type: Schedule
-#          Properties:
-#            Schedule: rate(1 hour)
-#            Name: import-leaflets
-#            Description: Import leaflets
-#            Input: '{"command": "import_leaflets", "args": ["--recently-uploaded", "--uploaded-since=2022-4-1"]}'
+        ImportLeaflets:
+         Type: Schedule
+         Properties:
+           Schedule: rate(1 hour)
+           Name: import-leaflets
+           Description: Import leaflets
+           Input: '{"command": "import_leaflets", "args": ["--recently-uploaded", "--uploaded-since=2022-4-1"]}'
         ImportWikipediaBios:
           Type: Schedule
           Properties:
