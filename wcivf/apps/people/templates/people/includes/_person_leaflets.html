@@ -1,0 +1,41 @@
+{% load humanize %}
+{% load markdown_filter %}
+{% load i18n %}
+
+
+<details class="ds-stack">
+    <summary>
+        <h4>
+            {% blocktrans with person_name=object.name %}Recent leaflets from {{ person_name }}{% endblocktrans %}
+        </h4>
+    </summary>
+    <ul class="ds-grid">
+        {% for leaflet in object.leaflet_set.latest_four %}
+            <li>
+                {% if leaflet.thumb_url %}
+                    <a href="https://electionleaflets.org/leaflets/{{ leaflet.leaflet_id }}">
+                        <img src="{{ leaflet.thumb_url }}"
+                             alt="{% blocktrans with person_name=object.name %}Thumbnail of leaflet from {{ person_name }}{% endblocktrans %}"/>
+                    </a>
+                {% endif %}
+                <p>
+                    {% blocktrans trimmed with leaflet_id=leaflet.leaflet_id date=leaflet.date_uploaded_to_electionleaflets|naturalday:"j M Y" %}
+                        Uploaded {{ date }}<br/>
+                        <a href="https://electionleaflets.org/leaflets/{{ leaflet_id }}" class="cta">See leaflet</a>
+                    {% endblocktrans %}
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="ds-cluster-left">
+        <div>
+            {% blocktrans trimmed with person_name=object.name person_id=object.ynr_id %}
+                <a class="ds-cta" href="https://electionleaflets.org/person/{{ person_id }}">
+                    More leaflets from {{ person_name }}</a>
+                <a class="ds-cta" href="https://electionleaflets.org/leaflets/add/">
+                    Upload a leaflet
+                </a>
+            {% endblocktrans %}
+        </div>
+    </div>
+</details>
