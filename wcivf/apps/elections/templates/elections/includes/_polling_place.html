@@ -97,19 +97,23 @@
                 <p>{% blocktrans trimmed %}Postal votes cannot be accepted at polling stations in Northern Ireland.{% endblocktrans%}</p>
             {% endif %}
             <p><a href="https://www.electoralcommission.org.uk/voting-and-elections/ways-vote/how-vote-post">{% trans "Learn more about voting by post" %}</a>.</p>
-        {% elif multiple_city_of_london_elections_today and not polling_station.polling_station_known %}
+        {% elif polling_station.polling_station_known and multiple_city_of_london_elections_today %}
             {% for pe in postelections %}
                 <p><a href="{{ pe.get_absolute_url }}">{{ pe.election.name }}: {{pe.post.label}}</a></p>
-            {% endfor %}
-            {% for election in elections_by_date %}
-                {% for polling_station in election.grouper.polling_stations.all %}
-                    {% trans "Your polling station is" %}:
-                    </p>
-                    {% blocktrans trimmed with polling_station_address=polling_station.station.properties.address|linebreaksbr %}
-                        <address>{{ polling_station_address }}</address>
-
-                    {% endblocktrans %}
-                    <p>
+                {% for election in elections_by_date %}
+                    {% for polling_station in election.grouper.polling_stations.all %}
+                        {% trans "Your polling station is" %}:
+                        </p>
+                        {% blocktrans trimmed with polling_station_address=polling_station.station.properties.address|linebreaksbr %}
+                            <address>{{ polling_station_address }}</address>
+                        {% endblocktrans %}
+                        <p>
+                            {% if city_of_london_local_election %}
+                                {% blocktrans trimmed %}It will be open from <strong>8am to 8pm</strong>.{% endblocktrans %}
+                            {% else %}
+                                {% blocktrans trimmed %}It will be open from <strong>7am to 10pm</strong>.{% endblocktrans %}
+                            {% endif %}
+                    {% endfor %}
                 {% endfor %}
             {% endfor %}
         {% else %}
@@ -157,6 +161,7 @@
                                     {{ registration.email }}<br>
                                 </address>
                             {% endif %}
+
                         {% elif council %}
                             {% blocktrans trimmed with council_name=council.name council_phone=council.phone %}
                                 If you haven't got one, or aren't sure where to vote, you should call {{ council_name }}
