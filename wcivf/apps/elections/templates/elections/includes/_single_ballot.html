@@ -117,7 +117,22 @@
                                         {% endif %}
                                     {% endif %}
                                 {% endif %}
+                                {% if show_polling_card or requires_voter_id %}
+                                    <p>{% trans "Get ready to vote" %}:</p>
+                                    <ul>
+                                        {% if show_polling_card %}
+                                            <li><a href="#where">{% trans "Where to vote" %}</a></li>
+                                        {% endif %}
 
+                                        {% if requires_voter_id %}
+                                            <li><a href="#requirements">{% trans "Voter ID requirements" %}</a></li>
+                                        {% endif %}
+
+                                        {% if is_before_registration_deadline %}
+                                            <li><a href="#register">{% trans "Register to vote" %}</a></li>
+                                        {% endif %}
+                                    </ul>
+                                {% endif %}
                                 {% include "elections/includes/_how-to-vote.html" with voting_system=postelection.get_voting_system %}
 
                             {% else %}
