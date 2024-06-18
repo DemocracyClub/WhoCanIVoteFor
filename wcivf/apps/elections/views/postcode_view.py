@@ -106,6 +106,9 @@ class PostcodeView(
         context["multiple_city_of_london_elections_today"] = (
             self.multiple_city_of_london_elections_today()
         )
+        context["multiple_city_of_london_elections_on_the_same_date"] = (
+            self.multiple_city_of_london_elections_on_the_same_date()
+        )
         context["referendums"] = list(self.get_referendums())
         context["parish_council_election"] = self.get_parish_council_election()
         context["num_ballots"] = self.num_ballots()
@@ -157,6 +160,31 @@ class PostcodeView(
         more info https://github.com/DemocracyClub/WhoCanIVoteFor/issues/441
         """
         ballots = self.get_todays_ballots()
+
+        # if only one ballot can return early
+        if len(ballots) <= 1:
+            return False
+
+        if not any(
+            ballot
+            for ballot in ballots
+            if ballot.election.is_city_of_london_local_election
+            or ballot.election.is_city_of_london_parl_election
+        ):
+            return False
+
+        # get unique elections and return whether more than 1
+        return len({ballot.election.slug for ballot in ballots}) > 1
+
+    def multiple_city_of_london_elections_on_the_same_date(self):
+        """
+        Checks if there are multiple elections taking place on the same date in the City
+        of London. This is used to determine if it is safe to display polling
+        station open/close times in the template. As if there are multiple then
+        it is unclear what time the polls would be open. See this issue for
+        more info https://github.com/DemocracyClub/WhoCanIVoteFor/issues/441
+        """
+        ballots = self.get_ballot_dict().get("ballots")
 
         # if only one ballot can return early
         if len(ballots) <= 1:

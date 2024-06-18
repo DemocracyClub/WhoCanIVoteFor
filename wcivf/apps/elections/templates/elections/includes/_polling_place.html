@@ -9,7 +9,7 @@
                 <span aria-hidden="true">{% trans "Where to vote" %}</span>
             </h2>
         </summary>
-        {% if polling_station.polling_station_known and not multiple_city_of_london_elections_today %}
+        {% if polling_station.polling_station_known and not multiple_city_of_london_elections_on_the_same_date %}
             {% if advance_voting_station and advance_voting_station.open_in_future %}
                 <p>
                     {% blocktrans trimmed %}
@@ -54,7 +54,7 @@
                 <address>{{ polling_station_address }}</address>
             {% endblocktrans %}
             <p>
-                {% if city_of_london_local_election %}
+                {% if is_city_of_london_local_election %}
                     {% blocktrans trimmed %}It will be open from <strong>8am to 8pm</strong>.{% endblocktrans %}
                 {% else %}
                     {% blocktrans trimmed %}It will be open from <strong>7am to 10pm</strong>.{% endblocktrans %}
@@ -97,24 +97,21 @@
                 <p>{% blocktrans trimmed %}Postal votes cannot be accepted at polling stations in Northern Ireland.{% endblocktrans%}</p>
             {% endif %}
             <p><a href="https://www.electoralcommission.org.uk/voting-and-elections/ways-vote/how-vote-post">{% trans "Learn more about voting by post" %}</a>.</p>
-        {% elif polling_station.polling_station_known and multiple_city_of_london_elections_today %}
+        {% elif polling_station.polling_station_known and multiple_city_of_london_elections_on_the_same_date %}
             {% for pe in postelections %}
                 <p><a href="{{ pe.get_absolute_url }}">{{ pe.election.name }}: {{pe.post.label}}</a></p>
-                {% for election in elections_by_date %}
-                    {% for polling_station in election.grouper.polling_stations.all %}
-                        {% trans "Your polling station is" %}:
-                        </p>
-                        {% blocktrans trimmed with polling_station_address=polling_station.station.properties.address|linebreaksbr %}
-                            <address>{{ polling_station_address }}</address>
-                        {% endblocktrans %}
-                        <p>
-                            {% if city_of_london_local_election %}
-                                {% blocktrans trimmed %}It will be open from <strong>8am to 8pm</strong>.{% endblocktrans %}
-                            {% else %}
-                                {% blocktrans trimmed %}It will be open from <strong>7am to 10pm</strong>.{% endblocktrans %}
-                            {% endif %}
-                    {% endfor %}
-                {% endfor %}
+                {% trans "Your polling station is" %}:
+                </p>
+                {% blocktrans trimmed with polling_station_address=polling_station.station.properties.address|linebreaksbr %}
+                    <address>{{ polling_station_address }}</address>
+                {% endblocktrans %}
+                <p>
+                    {% if pe.election.is_city_of_london_local_election %}
+                        {% blocktrans trimmed %}It will be open from <strong>8am to 8pm</strong>.{% endblocktrans %}
+                    {% else %}
+                        {% blocktrans trimmed %}It will be open from <strong>7am to 10pm</strong>.{% endblocktrans %}
+                    {% endif %}
+                </p>
             {% endfor %}
         {% else %}
             {% if polling_station.custom_finder %}
