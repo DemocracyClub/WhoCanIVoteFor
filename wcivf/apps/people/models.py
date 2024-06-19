@@ -477,6 +477,14 @@ class Person(models.Model):
         except AttributeError:
             return False
 
+    @property
+    def has_additional_manifesto(self) -> PersonPost:
+        if self.featured_candidacy.post_election.ballot_paper_id in [
+            "parl.aberdeenshire-north-and-moray-east.2024-07-04"
+        ]:
+            return True
+        return False
+
 
 class PersonRedirect(models.Model):
     old_person_id = models.IntegerField()
