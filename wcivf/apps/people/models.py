@@ -1,3 +1,5 @@
+from urllib.parse import urlparse
+
 from django.contrib.humanize.templatetags.humanize import intcomma, ordinal
 from django.db import models
 from django.db.models import JSONField
@@ -283,8 +285,7 @@ class Person(models.Model):
     @property
     def linkedin_username(self):
         linkedin_url = self.linkedin_url
-        linkedin_split = list(filter(None, linkedin_url.split("/")))
-        return linkedin_split[-1]
+        return urlparse(linkedin_url).path.split("/")[-2]
 
     @property
     def youtube_username(self):

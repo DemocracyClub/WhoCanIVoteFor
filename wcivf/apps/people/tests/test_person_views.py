@@ -572,7 +572,7 @@ class PersonViewTests(TestCase):
         self.assertNotContains(response, "LinkedIn")
 
     def test_linkedin(self):
-        self.person.linkedin_url = "https://www.linkedin.com/yo"
+        self.person.linkedin_url = "https://www.linkedin.com/in/yo"
         self.person.save()
         PersonPostWithPartyFactory(
             person=self.person, election=ElectionFactory()
