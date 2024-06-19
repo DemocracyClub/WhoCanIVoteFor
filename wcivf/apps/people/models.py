@@ -478,11 +478,18 @@ class Person(models.Model):
             return False
 
     @property
-    def has_additional_manifesto(self) -> PersonPost:
-        if self.featured_candidacy.post_election.ballot_paper_id in [
-            "parl.aberdeenshire-north-and-moray-east.2024-07-04"
-        ]:
-            return True
+    def has_additional_manifesto(self):
+        file_path = (
+            "wcivf/apps/parties/templates/parties/regional_manifesto_ids.txt"
+        )
+        regional_manifesto_ids = []
+        with open(file_path) as f:
+            regional_manifesto_ids = [line.strip() for line in f.readlines()]
+            if (
+                self.featured_candidacy.post_election.ballot_paper_id
+                in regional_manifesto_ids
+            ):
+                return True
         return False
 
 

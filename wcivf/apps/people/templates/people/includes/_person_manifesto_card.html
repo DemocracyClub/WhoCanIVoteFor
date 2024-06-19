@@ -24,23 +24,7 @@
                         {% include "parties/single_manifesto.html" %}
                     {% endfor %}
                     {% if object.has_additional_manifesto %}
-                        <li>
-                            {% if object.featured_candidacy.party_name == "Labour Party" %}
-                                {% blocktrans trimmed with party=party.party_name %}
-                                    The {{ party }} have also released a <a href="">manifesto for Scotland</a>.
-                                {% endblocktrans %}
-                            {% endif %}
-                            {% if object.featured_candidacy.party_name == "Conservative Party" %}
-                                {% blocktrans trimmed with party=party.party_name %}
-                                    The {{ party }} have also released a <a href="">manifesto for Scotland</a>.
-                                {% endblocktrans %}
-                            {% endif %}
-                            {% if object.featured_candidacy.party_name == "Liberal Democrat Party"  %}
-                                {% blocktrans trimmed with party=party.party_name %}
-                                    The {{ party }} have also released a <a href="">manifesto for Scotland</a>.
-                                {% endblocktrans %}
-                            {% endif %}
-                        </li>
+                        {% include "parties/regional_manifesto.html" with party_name=object.featured_candidacy.party_name %}
                     {% endif %}
                 </ul>
             </div>

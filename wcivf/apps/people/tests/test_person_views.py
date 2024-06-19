@@ -654,7 +654,7 @@ class PersonViewTests(TestCase):
         )
         response = self.client.get(self.person_url, follow=True)
         self.assertEqual(response.template_name, ["people/person_detail.html"])
-        self.assertContains(response, "YouTube")
+        self.assertIn("YouTube", response.content.decode("utf8"))
 
     def test_email(self):
         self.person.email = "me@voteforme.com"
@@ -755,6 +755,57 @@ class PersonViewTests(TestCase):
         response = self.client.get(self.person_url, follow=True)
         expected = f"{self.person.name}'s party is {national_party.label}."
         self.assertContains(response, expected)
+
+    def test_additional_manifesto(self):
+        # write a test for `has_additional_manifesto`
+        # ensure the featured candidacy for the self.person is in the future
+        # ensure the featured candidacy has a ballot_paper_id="parl.aberdeenshire-north-and-moray-east.2024-07-04"
+        # ensure the featured candidacy is for a national election
+        # ensure the featured candidacy is for a post with a territory of "SCT"
+        # ensure the featured candidacy is for a party with a parent party
+        # ensure there is a manifesto for the parent party
+        # ensure the response contains the expected text
+        # ensure the response has the additional_manifesto text
+        election = ElectionFactory(
+            name="UK Parliamentary general Election",
+            current=True,
+            election_date="2024-07-04",
+            slug="parl.aberdeenshire-north-and-moray-east.2024-07-04",
+        )
+        post = PostFactory(
+            territory="SCT", label="Aberdeenshire North and Moray East"
+        )
+        pe = PostElectionFactory(
+            election=election,
+            post=post,
+            ballot_paper_id="parl.aberdeenshire-north-and-moray-east.2024-07-04",
+        )
+        party = PartyFactory(party_name="Labour Party", party_id="party:53")
+        NationalPartyFactory(
+            name="Labour Party", parent=party, is_national=True
+        )
+
+        PersonPostFactory(
+            person=self.person,
+            election=election,
+            post=post,
+            party=party,
+            party_name=party.party_name,
+            post_election=pe,
+        )
+        assert self.person.has_additional_manifesto
+
+        call_command("import_national_parties")
+
+        response = self.client.get(self.person_url, follow=True, html=True)
+
+        primary_manifesto = f"{self.person.name} is the Labour Party candidate. Find out more about their policies in the Labour Party manifesto."
+        additional_manifesto = "The Labour Party have also released a"
+        manifesto_for_scotland = "manifesto for Scotland"
+        self.assertContains(response, "Party manifesto")
+        self.assertContains(response, primary_manifesto)
+        self.assertContains(response, additional_manifesto)
+        self.assertContains(response, manifesto_for_scotland)
 
     def test_person_detail_404_with_string_pk(self):
         """
