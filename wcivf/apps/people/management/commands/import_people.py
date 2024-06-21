@@ -252,7 +252,7 @@ class Command(BaseCommand):
         while url:
             req = requests.get(url)
             page = req.json()
-            for result in page["results"]:
+            for result in page.get("results", []):
                 merged_ids.append(result["old_person_id"])
                 PersonRedirect.objects.get_or_create(
                     old_person_id=result["old_person_id"],

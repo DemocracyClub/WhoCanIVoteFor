@@ -368,7 +368,7 @@ class YNRBallotImporter:
             if self.recently_updated:
                 defaults["ynr_modified"] = ballot_dict["last_updated"]
 
-            if ballot_dict["results"]:
+            if ballot_dict.get("results"):
                 results_defaults = {
                     "ballot_papers_issued": ballot_dict["results"][
                         "num_turnout_reported"
@@ -423,8 +423,8 @@ class YNRBallotImporter:
                             "party_description_text"
                         ],
                         list_position=candidate["party_list_position"],
-                        deselected=candidate["deselected"],
-                        deselected_source=candidate["deselected_source"],
+                        deselected=candidate.get("deselected", False),
+                        deselected_source=candidate.get("deselected_source"),
                         elected=elected,
                         votes_cast=result.get("num_ballots", None),
                         post=ballot.post,
