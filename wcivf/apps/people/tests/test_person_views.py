@@ -1,6 +1,7 @@
 from unittest.mock import MagicMock
 
 import pytest
+from django.core.management import call_command
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils.html import strip_tags
@@ -774,13 +775,13 @@ class PersonViewTests(TestCase):
         response = self.client.get(self.person_url, follow=True)
         self.assertInHTML(noindex_string, response.content.decode("utf8"))
 
-    @freeze_time("2024-04-15")
+    @freeze_time("2024-07-04")
     def test_deselected(self):
         future_election = ElectionWithPostFactory(
-            name="Welsh Local Election",
+            name="UK Parliamentary general election",
             current=True,
-            election_date="2024-05-01",
-            slug="local.welsh.assembly.2024-05-01",
+            election_date="2024-07-04",
+            slug="parl.cardiff-south-and-penarth.2024-07-04",
         )
         person_post = PersonPostWithPartyFactory(
             person=self.person,
@@ -788,6 +789,8 @@ class PersonViewTests(TestCase):
             deselected=True,
             deselected_source="www.candidate-party-page.co.uk",
         )
+
+        call_command("import_national_parties")
 
         response = self.client.get(self.person_url, follow=True)
         self.assertContains(
@@ -804,6 +807,7 @@ class PersonViewTests(TestCase):
             "This candidate has been deselected by their party, but their original party description will remain on the ballot paper.",
         )
         self.assertContains(response, "www.candidate-party-page.co.uk")
+        self.assertNotContains(response, "Party manifesto")
 
 
 class TestPersonViewUnitTests:
