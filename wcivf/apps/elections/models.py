@@ -37,10 +37,6 @@ class ElectionCancellationReason(models.TextChoices):
     CANDIDATE_DEATH = "CANDIDATE_DEATH", "Death of a candidate"
 
 
-def utc_to_local(utc_dt):
-    return utc_dt.replace(tzinfo=pytz.utc).astimezone(LOCAL_TZ)
-
-
 class Election(models.Model):
     slug = models.CharField(max_length=128, unique=True)
     election_date = models.DateField()
@@ -187,12 +183,12 @@ class Election(models.Model):
     @property
     def start_time(self):
         election_datetime = self._election_datetime_tz()
-        return utc_to_local(election_datetime.replace(hour=7))
+        return election_datetime.replace(hour=7)
 
     @property
     def end_time(self):
         election_datetime = self._election_datetime_tz()
-        return utc_to_local(election_datetime.replace(hour=22))
+        return election_datetime.replace(hour=22)
 
     def get_absolute_url(self):
         return reverse(
