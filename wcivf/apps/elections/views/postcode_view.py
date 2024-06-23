@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.views.generic import TemplateView, View
 from elections.dummy_models import DummyPostElection, dummy_polling_station
-from elections.models import InvalidPostcodeError, LOCAL_TZ
+from elections.models import LOCAL_TZ, InvalidPostcodeError
 from icalendar import Calendar, Event, vText
 from parishes.models import ParishCouncilElection
 
