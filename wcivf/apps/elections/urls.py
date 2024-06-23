@@ -1,6 +1,9 @@
 from core.views import TranslatedTemplateView
 from django.urls import re_path
-from elections.views.postcode_view import DummyPostcodeView
+from elections.views.postcode_view import (
+    DummyPostcodeiCalView,
+    DummyPostcodeView,
+)
 
 from .helpers import ElectionIDSwitcher
 from .views import (
@@ -72,6 +75,11 @@ urlpatterns = [
             extra_context={"voting_sytem": "Single Transferable Vote"},
         ),
         name="stv_voting_system_view",
+    ),
+    re_path(
+        r"^TE1 1ST.ics$",
+        DummyPostcodeiCalView.as_view(),
+        name="dummy_postcode_ical_view",
     ),
     re_path(
         r"^(?P<postcode>[^/]+)/(?P<uprn>[^/]+)/$",

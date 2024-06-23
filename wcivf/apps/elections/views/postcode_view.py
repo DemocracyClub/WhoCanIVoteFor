@@ -5,7 +5,7 @@ from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.views.generic import TemplateView, View
-from elections.dummy_models import DummyPostElection
+from elections.dummy_models import DummyPostElection, dummy_polling_station
 from elections.models import InvalidPostcodeError
 from icalendar import Calendar, Event, vText
 from parishes.models import ParishCouncilElection
@@ -363,6 +363,18 @@ class PostcodeiCalView(
         return HttpResponse(cal.to_ical(), content_type="text/calendar")
 
 
+class DummyPostcodeiCalView(PostcodeiCalView):
+    def get(self, request, *args, **kwargs):
+        kwargs["postcode"] = "TE1 1ST"
+        return super().get(request, *args, **kwargs)
+
+    def postcode_to_ballots(self, postcode, uprn=None, compact=False):
+        return {
+            "ballots": [DummyPostElection()],
+            "polling_station": dummy_polling_station,
+        }
+
+
 class DummyPostcodeView(PostcodeView):
     postcode = None
     uprn = None
@@ -421,26 +433,4 @@ class DummyPostcodeView(PostcodeView):
         }
 
     def get_polling_station(self):
-        return {
-            "polling_station_known": True,
-            "custom_finder": False,
-            "report_problem_url": "http://wheredoivote.co.uk/report_problem/?source=testing&source_url=testing",
-            "station": {
-                "id": "w06000015.QK",
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [-3.119229, 51.510885],
-                },
-                "properties": {
-                    "address": "1 Made Up Street\nMade Up Town\nMade Up County",
-                    "postcode": "MA1 1AA",
-                },
-            },
-            "geometry": {
-                "coordinates": [-0.127758, 51.507351],
-            },
-            "properties": {
-                "address": "1 Made Up Street\nMade Up Town\nMade Up County",
-            },
-        }
+        return dummy_polling_station

@@ -83,3 +83,28 @@ class DummyPostElection(PostElection):
                 party_name="Independent",
             ),
         ]
+
+
+dummy_polling_station = {
+    "polling_station_known": True,
+    "custom_finder": False,
+    "report_problem_url": "http://wheredoivote.co.uk/report_problem/?source=testing&source_url=testing",
+    "station": {
+        "id": "w06000015.QK",
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-3.119229, 51.510885],
+        },
+        "properties": {
+            "address": "1 Made Up Street\nMade Up Town\nMade Up County",
+            "postcode": "MA1 1AA",
+        },
+    },
+    "geometry": {
+        "coordinates": [-0.127758, 51.507351],
+    },
+    "properties": {
+        "address": "1 Made Up Street\nMade Up Town\nMade Up County",
+    },
+}
