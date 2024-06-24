@@ -1052,6 +1052,27 @@ msgid ""
 "'hustings'). Here are some events that are taking place:"
 msgstr ""
 
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:12
+msgid "Events are reported by users, if you spot an error, please"
+msgstr ""
+
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:13
+msgid "get in touch"
+msgstr ""
+
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:17
+msgid "Do you know about any other events in the area? If so, please"
+msgstr ""
+
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:18
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:26
+msgid "tell us about them"
+msgstr ""
+
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:24
+msgid "Do you know about any events (often known as 'hustings')? If so, please"
+msgstr ""
+
 #: wcivf/apps/hustings/templates/hustings/includes/_list.html:5
 msgid "(Past event)"
 msgstr ""

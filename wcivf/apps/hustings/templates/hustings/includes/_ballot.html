@@ -8,17 +8,25 @@
         {% if postelection.husting_set.displayable.exists %}
             <p>{% trans "You can meet candidates and question them at events (often known as 'hustings'). Here are some events that are taking place:" %}</p>
             {% include "hustings/includes/_list.html" with hustings=postelection.husting_set.displayable %}
-            <p><small>Events are reported by users, if you spot an error, please <a
-                href="https://democracyclub.org.uk/contact/">get in touch</a></small></p>
+            <p><small>
+                {% trans "Events are reported by users, if you spot an error, please" %} <a
+                    href="https://democracyclub.org.uk/contact/">{% trans "get in touch" %}</a>
+            </small></p>
             <hr>
-            <p>Do you know about any other events in the area? If so, please <a
-                href="{% url "hustings:add-husting" ballot_paper_id=postelection.ballot_paper_id %}">tell us about
-                them</a></p>
+            <p>
+                {% trans "Do you know about any other events in the area? If so, please" %} <a
+                    href="{% url 'hustings:add-husting' ballot_paper_id=postelection.ballot_paper_id %}">{% trans "tell us about them" %}</a>.
+            </p>
+
 
         {% else %}
-            <p>Do you know about any events (often known as 'hustings')? If so, please <a
-                href="{% url "hustings:add-husting" ballot_paper_id=postelection.ballot_paper_id %}">tell us about
-                them</a></p>
+            <p>
+                {% trans "Do you know about any events (often known as 'hustings')? If so, please" %}
+                <a href="{% url 'hustings:add-husting' ballot_paper_id=postelection.ballot_paper_id %}">
+                    {% trans "tell us about them" %}
+                </a>.
+            </p>
+            </p>
         {% endif %}
 
     </div>
