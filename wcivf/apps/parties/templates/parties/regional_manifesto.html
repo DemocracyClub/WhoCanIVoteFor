@@ -27,18 +27,18 @@
         {% endif %}
     {% endif %}
 
-    {% comment %} {% if party_name == "Conservative and Unionist Party" %}
+    {% if party_name == "Conservative and Unionist Party" %}
         {% if object.featured_candidacy.post_election.post.nice_territory == "Scotland" %}
             {% blocktrans trimmed with party_name=party_name %}
-                The {{ party_name }} have also released a <a href="">manifesto for Scotland</a>.
+                The {{ party_name }} have also released a <a href="https://www.scottishconservatives.com/manifestos/2024-general-election-manifesto/">manifesto for Scotland</a>.
             {% endblocktrans %}
         {% endif %}
-        {% if object.featured_candidacy.post_election.post.nice_territory == "Wales" %}
+        {% comment %} {% if object.featured_candidacy.post_election.post.nice_territory == "Wales" %}
             {% blocktrans trimmed with party_name=party_name %}
                 The {{ party_name }} have also released a <a href="">manifesto for Wales</a>.
             {% endblocktrans %}
-        {% endif %}
-    {% endif %} {% endcomment %}
+        {% endif %} {% endcomment %}
+    {% endif %}
 
     {% if object.featured_candidacy.party_name == "Liberal Democrats" %}
         {% if object.featured_candidacy.post_election.post.nice_territory == "Scotland" %}
