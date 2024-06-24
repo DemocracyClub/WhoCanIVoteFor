@@ -29,7 +29,7 @@ class AddHustingForm(forms.ModelForm):
         help_text="The date and time the event starts",
     )
     url = forms.URLField(
-        required=False,
+        required=True,
         label="URL",
         help_text="A webpage where people can find more information and/or sign up to attend",
     )
