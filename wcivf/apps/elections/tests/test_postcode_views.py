@@ -789,13 +789,14 @@ class TestPostcodeiCalView:
             "postcode_to_ballots",
             side_effect=InvalidPostcodeError,
         )
-        url = reverse("postcode_ical_view", kwargs={"postcode": "TE1 1ST"})
+        # TE1 1ST is a known (fake) postcode, TE1 2ST is not.
+        url = reverse("postcode_ical_view", kwargs={"postcode": "TE1 2ST"})
         response = client.get(url)
 
         assert response.status_code == 302
-        assert response.url == "/?invalid_postcode=1&postcode=TE1%201ST"
+        assert response.url == "/?invalid_postcode=1&postcode=TE1%202ST"
 
-    def test_ical_with_no_polling_station(self, mocker, client):
+    def test_ical_with_election(self, mocker, client):
         mocker.patch.object(
             PostcodeToPostsMixin,
             "postcode_to_ballots",
@@ -804,5 +805,32 @@ class TestPostcodeiCalView:
         url = reverse("postcode_ical_view", kwargs={"postcode": "TE1 1ST"})
         response = client.get(url)
 
-        assert response.status_code == 302
-        assert response.url == "/?invalid_postcode=1&postcode=TE1%201ST"
+        assert response.status_code == 200
+        content_without_ephemeral_datestamp = "\n".join(
+            line
+            for line in response.content.decode("utf-8")
+            .replace("\r\n", "\n")
+            .split("\n")
+            if "DTSTAMP" not in line
+        )
+        assert (
+            content_without_ephemeral_datestamp
+            == """BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Elections in TE1 1ST//mxm.dk//
+SUMMARY:Elections in TE1 1ST
+X-WR-CALNAME:Elections in TE1 1ST
+X-WR-TIMEZONE:Europe/London
+BEGIN:VEVENT
+SUMMARY:Llantalbot local election - Made-Up-Ward
+DTSTART;TZID=Europe/London:20240704T070000
+DTEND;TZID=Europe/London:20240704T220000
+UID:-local.faketown.2024-07-04
+DESCRIPTION:Find out more at https://whocanivotefor.co.uk/elections/TE11ST
+ /
+GEO:-3.119229\;51.510885
+LOCATION:1 Made Up Street\\, Made Up Town\\, Made Up County\\, MA1 1AA
+END:VEVENT
+END:VCALENDAR
+"""
+        )
