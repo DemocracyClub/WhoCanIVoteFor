@@ -157,7 +157,7 @@
 
         {% if postelection.election.election_booklet %}
             <p><b>
-                <a href="{% static postelection.election.election_booklet %}">{% trans "Read the official candidate booklet for this election." %}</a>
+                <a href="{{ postelection.election.election_booklet }}">{% trans "Read the official candidate booklet for this election." %}</a>
             </b></p>
         {% endif %}
 
