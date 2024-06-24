@@ -4,7 +4,7 @@ boto3==1.28.5
 psycopg2-binary==2.9.6
 requests==2.31.0
 django-filter==24.2
-django-model-utils==4.3.1
+django-model-utils==4.5.1
 Markdown==3.5.1
 django-localflavor==4.0
 django-extensions==3.2.3
