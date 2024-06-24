@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.views.generic import TemplateView, View
 from elections.dummy_models import DummyPostElection, dummy_polling_station
-from elections.models import InvalidPostcodeError
+from elections.models import LOCAL_TZ, InvalidPostcodeError
 from icalendar import Calendar, Event, vText
 from parishes.models import ParishCouncilElection
 
@@ -284,7 +284,7 @@ class PostcodeiCalView(
         cal = Calendar()
         cal["summary"] = "Elections in {}".format(postcode)
         cal["X-WR-CALNAME"] = "Elections in {}".format(postcode)
-        cal["X-WR-TIMEZONE"] = "Europe/London"
+        cal["X-WR-TIMEZONE"] = LOCAL_TZ.zone
 
         cal.add("version", "2.0")
         cal.add("prodid", "-//Elections in {}//mxm.dk//".format(postcode))
@@ -298,8 +298,12 @@ class PostcodeiCalView(
             event["uid"] = f"{postcode}-address-picker"
             event["summary"] = "You may have upcoming elections"
             event.add("dtstamp", timezone.now())
-            event.add("dtstart", timezone.now().date())
-            event.add("dtend", timezone.now().date())
+            PostcodeiCalView.add_local_timestamp(
+                event, "dtstart", timezone.now().date()
+            )
+            PostcodeiCalView.add_local_timestamp(
+                event, "dtend", timezone.now().date()
+            )
             event.add(
                 "DESCRIPTION",
                 (
@@ -323,8 +327,12 @@ class PostcodeiCalView(
                 post_election.election.name, post_election.post.label
             )
             event.add("dtstamp", timezone.now())
-            event.add("dtstart", post_election.election.start_time)
-            event.add("dtend", post_election.election.end_time)
+            PostcodeiCalView.add_local_timestamp(
+                event, "dtstart", post_election.election.start_time
+            )
+            PostcodeiCalView.add_local_timestamp(
+                event, "dtend", post_election.election.end_time
+            )
             event.add(
                 "DESCRIPTION",
                 "Find out more at {}/elections/{}/".format(
@@ -354,13 +362,21 @@ class PostcodeiCalView(
                 event["uid"] = husting.uuid
                 event["summary"] = husting.title
                 event.add("dtstamp", timezone.now())
-                event.add("dtstart", husting.starts)
+                PostcodeiCalView.add_local_timestamp(
+                    event, "dtstart", husting.starts
+                )
                 if husting.ends:
-                    event.add("dtend", husting.ends)
+                    PostcodeiCalView.add_local_timestamp(
+                        event, "dtend", husting.ends
+                    )
                 event.add("DESCRIPTION", f"Find out more at {husting.url}")
                 cal.add_component(event)
 
         return HttpResponse(cal.to_ical(), content_type="text/calendar")
+
+    @staticmethod
+    def add_local_timestamp(event, name, value):
+        event.add(name, value, {"TZID": LOCAL_TZ.zone})
 
 
 class DummyPostcodeiCalView(PostcodeiCalView):
