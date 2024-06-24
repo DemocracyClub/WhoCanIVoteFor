@@ -1,78 +1,93 @@
 {% load i18n %}
-<li>
-    {% if party_name == "Labour Party" %}
-        {% if object.featured_candidacy.post_election.post.nice_territory == "Scotland" %}
+
+{% if party_name == "Labour Party" %}
+    {% if object.featured_candidacy.post_election.post.nice_territory == "Scotland" %}
+        <li>
             {% blocktrans trimmed with party_name=party_name %}
                 The {{ party_name }} have also released a <a href="https://labour.org.uk/change/scotland/">manifesto for Scotland</a>.
             {% endblocktrans %}
-        {% endif %}
+        </li>
+    {% endif %}
 
-        {% comment %} {% if object.featured_candidacy.post_election.post.nice_territory == "Wales" %}
+    {% comment %} {% if object.featured_candidacy.post_election.post.nice_territory == "Wales" %}
+        <li>
             {% blocktrans trimmed with party_name=party_name %}
                 The {{ party_name }} have also released a <a href="">manifesto for Wales</a>.
             {% endblocktrans %}
-        {% endif %} {% endcomment %}
-    {% endif %}
-
-    {% if party_name == "Conservative Party" %}
-        {% if object.featured_candidacy.post_election.post.nice_territory == "Scotland" %}
+        </li>
+    {% endif %} {% endcomment %}
+{% endif %}
+{% if party_name == "Conservative Party" %}
+    {% if object.featured_candidacy.post_election.post.nice_territory == "Scotland" %}
+        <li>
             {% blocktrans trimmed with party_name=party_name %}
                 The {{ party_name }} have also released a <a href="">manifesto for Scotland</a>.
             {% endblocktrans %}
-        {% endif %}
-        {% if object.featured_candidacy.post_election.post.nice_territory == "Wales" %}
+        </li>
+    {% endif %}
+    {% comment %} {% if object.featured_candidacy.post_election.post.nice_territory == "Wales" %}
+        <li>
             {% blocktrans trimmed with party_name=party_name %}
                 The {{ party_name }} have also released a <a href="">manifesto for Wales</a>.
             {% endblocktrans %}
-        {% endif %}
-    {% endif %}
-
-    {% if party_name == "Conservative and Unionist Party" %}
-        {% if object.featured_candidacy.post_election.post.nice_territory == "Scotland" %}
+        </li>
+    {% endif %} {% endcomment %}
+{% endif %}
+{% if party_name == "Conservative and Unionist Party" %}
+    {% if object.featured_candidacy.post_election.post.nice_territory == "Scotland" %}
+        <li>
             {% blocktrans trimmed with party_name=party_name %}
                 The {{ party_name }} have also released a <a href="https://www.scottishconservatives.com/manifestos/2024-general-election-manifesto/">manifesto for Scotland</a>.
             {% endblocktrans %}
-        {% endif %}
-        {% comment %} {% if object.featured_candidacy.post_election.post.nice_territory == "Wales" %}
+        </li>
+    {% endif %}
+    {% comment %} {% if object.featured_candidacy.post_election.post.nice_territory == "Wales" %}
+        <li>
             {% blocktrans trimmed with party_name=party_name %}
                 The {{ party_name }} have also released a <a href="">manifesto for Wales</a>.
             {% endblocktrans %}
-        {% endif %} {% endcomment %}
-    {% endif %}
-
-    {% if object.featured_candidacy.party_name == "Liberal Democrats" %}
-        {% if object.featured_candidacy.post_election.post.nice_territory == "Scotland" %}
+        </li>
+    {% endif %} {% endcomment %}
+{% endif %}
+{% if object.featured_candidacy.party_name == "Liberal Democrats" %}
+    {% if object.featured_candidacy.post_election.post.nice_territory == "Scotland" %}
+        <li>
             {% blocktrans trimmed with party_name=party_name %}
                 The {{ party_name }} have also released a <a href="https://www.scotlibdems.org.uk/fairdeal">manifesto for Scotland</a>.
             {% endblocktrans %}
-        {% endif %}
+        </li>
+    {% endif %}
 
-        {% comment %} {% if object.featured_candidacy.post_election.post.nice_territory == "Wales" %}
+    {% comment %} {% if object.featured_candidacy.post_election.post.nice_territory == "Wales" %}
+        <li>
             {% blocktrans trimmed with party_name=party_name %}
                 The {{ party_name }} have also released a <a href="">manifesto for Wales</a>.
             {% endblocktrans %}
-        {% endif %} {% endcomment %}
-    {% endif %}
-
-    {% if object.featured_candidacy.party_name == "Green Party" %}
-        {% if object.featured_candidacy.post_election.post.nice_territory == "Wales" %}
+        </li>
+    {% endif %} {% endcomment %}
+{% endif %}
+{% if object.featured_candidacy.party_name == "Green Party" %}
+    {% if object.featured_candidacy.post_election.post.nice_territory == "Wales" %}
+        <li>
             {% blocktrans trimmed with party_name=party_name %}
                 The {{ party_name }} have also released a <a href="https://wales.greenparty.org.uk/manifesto-2024-2/">manifesto for Wales</a>.
             {% endblocktrans %}
-        {% endif %}
+        </li>
     {% endif %}
-
-    {% if object.featured_candidacy.party_name == "Labour and Co-operative Party" %}
-        {% if object.featured_candidacy.post_election.post.nice_territory == "Scotland" %}
+{% endif %}
+{% if object.featured_candidacy.party_name == "Labour and Co-operative Party" %}
+    {% if object.featured_candidacy.post_election.post.nice_territory == "Scotland" %}
+        <li>
             {% blocktrans trimmed with party_name=party_name %}
                 The {{ party_name }} have also released a <a href="https://labour.org.uk/change/scotland/">manifesto for Wales</a>.
             {% endblocktrans %}
-        {% endif %}
-        {% comment %} {% if object.featured_candidacy.post_election.post.nice_territory == "Wales" %}
+        </li>
+    {% endif %}
+    {% comment %} {% if object.featured_candidacy.post_election.post.nice_territory == "Wales" %}
+        <li>
             {% blocktrans trimmed with party_name=party_name %}
                 The {{ party_name }} have also released a <a href="">manifesto for Wales</a>.
             {% endblocktrans %}
-        {% endif %} {% endcomment %}
-    {% endif %}
-
-</li>
+        </li>
+    {% endif %} {% endcomment %}
+{% endif %}
