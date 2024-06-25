@@ -478,7 +478,7 @@ class Person(models.Model):
             return False
 
     @property
-    def has_additional_manifesto(self):
+    def has_regional_manifesto(self):
         file_path = (
             "wcivf/apps/parties/templates/parties/regional_manifesto_ids.txt"
         )
@@ -488,7 +488,13 @@ class Person(models.Model):
             if (
                 self.featured_candidacy.post_election.ballot_paper_id
                 in regional_manifesto_ids
-            ):
+            ) and self.featured_candidacy.party.party_id in [
+                "party:53",
+                "party:52",
+                "party:90",
+                "party:63",
+                "joint-party:53-119",
+            ]:
                 return True
         return False
 
