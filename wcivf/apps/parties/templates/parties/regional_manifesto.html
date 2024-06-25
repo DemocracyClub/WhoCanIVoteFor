@@ -1,6 +1,6 @@
 {% load i18n %}
 
-{% if party_name == "Labour Party" %}
+{% if party_name == "Labour Party" or "Labour and Co-operative Party" %}
     {% if object.featured_candidacy.post_election.post.nice_territory == "Scotland" %}
         <li>
             {% blocktrans trimmed with party_name=party_name %}
@@ -9,31 +9,16 @@
         </li>
     {% endif %}
 
-    {% comment %} {% if object.featured_candidacy.post_election.post.nice_territory == "Wales" %}
+    {% if object.featured_candidacy.post_election.post.nice_territory == "Wales" %}
         <li>
             {% blocktrans trimmed with party_name=party_name %}
-                The {{ party_name }} have also released a <a href="">manifesto for Wales</a>.
-            {% endblocktrans %}
-        </li>
-    {% endif %} {% endcomment %}
-{% endif %}
-{% if party_name == "Conservative Party" %}
-    {% if object.featured_candidacy.post_election.post.nice_territory == "Scotland" %}
-        <li>
-            {% blocktrans trimmed with party_name=party_name %}
-                The {{ party_name }} have also released a <a href="">manifesto for Scotland</a>.
+                The {{ party_name }} have also released a <a href="https://labour.org.uk/change/wales/">manifesto for Wales</a>.
             {% endblocktrans %}
         </li>
     {% endif %}
-    {% comment %} {% if object.featured_candidacy.post_election.post.nice_territory == "Wales" %}
-        <li>
-            {% blocktrans trimmed with party_name=party_name %}
-                The {{ party_name }} have also released a <a href="">manifesto for Wales</a>.
-            {% endblocktrans %}
-        </li>
-    {% endif %} {% endcomment %}
 {% endif %}
-{% if party_name == "Conservative and Unionist Party" %}
+
+{% if party_name == "Conservative and Unionist Party" or "Conservative Party" %}
     {% if object.featured_candidacy.post_election.post.nice_territory == "Scotland" %}
         <li>
             {% blocktrans trimmed with party_name=party_name %}
@@ -49,6 +34,7 @@
         </li>
     {% endif %} {% endcomment %}
 {% endif %}
+
 {% if object.featured_candidacy.party_name == "Liberal Democrats" %}
     {% if object.featured_candidacy.post_election.post.nice_territory == "Scotland" %}
         <li>
@@ -58,13 +44,13 @@
         </li>
     {% endif %}
 
-    {% comment %} {% if object.featured_candidacy.post_election.post.nice_territory == "Wales" %}
+    {% if object.featured_candidacy.post_election.post.nice_territory == "Wales" %}
         <li>
             {% blocktrans trimmed with party_name=party_name %}
-                The {{ party_name }} have also released a <a href="">manifesto for Wales</a>.
+                The {{ party_name }} have also released a <a href="https://www.libdems.wales/fairdeal">manifesto for Wales</a>.
             {% endblocktrans %}
         </li>
-    {% endif %} {% endcomment %}
+    {% endif %}
 {% endif %}
 {% if object.featured_candidacy.party_name == "Green Party" %}
     {% if object.featured_candidacy.post_election.post.nice_territory == "Wales" %}
@@ -74,20 +60,4 @@
             {% endblocktrans %}
         </li>
     {% endif %}
-{% endif %}
-{% if object.featured_candidacy.party_name == "Labour and Co-operative Party" %}
-    {% if object.featured_candidacy.post_election.post.nice_territory == "Scotland" %}
-        <li>
-            {% blocktrans trimmed with party_name=party_name %}
-                The {{ party_name }} have also released a <a href="https://labour.org.uk/change/scotland/">manifesto for Wales</a>.
-            {% endblocktrans %}
-        </li>
-    {% endif %}
-    {% comment %} {% if object.featured_candidacy.post_election.post.nice_territory == "Wales" %}
-        <li>
-            {% blocktrans trimmed with party_name=party_name %}
-                The {{ party_name }} have also released a <a href="">manifesto for Wales</a>.
-            {% endblocktrans %}
-        </li>
-    {% endif %} {% endcomment %}
 {% endif %}
