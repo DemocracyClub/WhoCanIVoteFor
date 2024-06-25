@@ -756,47 +756,95 @@ class PersonViewTests(TestCase):
         expected = f"{self.person.name}'s party is {national_party.label}."
         self.assertContains(response, expected)
 
-    # def test_additional_manifesto(self):
-    #     election = ElectionFactory(
-    #         name="UK Parliamentary general Election",
-    #         current=True,
-    #         election_date="2024-07-04",
-    #         slug="parl.aberdeenshire-north-and-moray-east.2024-07-04",
-    #     )
-    #     post = PostFactory(
-    #         territory="SCT", label="Aberdeenshire North and Moray East"
-    #     )
-    #     pe = PostElectionFactory(
-    #         election=election,
-    #         post=post,
-    #         ballot_paper_id="parl.aberdeenshire-north-and-moray-east.2024-07-04",
-    #     )
-    #     party = PartyFactory(party_name="Labour Party", party_id="party:53")
-    #     NationalPartyFactory(
-    #         name="Labour Party", parent=party, is_national=True
-    #     )
+    def test_additional_manifesto(self):
+        election = ElectionFactory(
+            name="UK Parliamentary general Election",
+            current=True,
+            election_date="2024-07-04",
+            slug="parl.aberdeenshire-north-and-moray-east.2024-07-04",
+        )
+        post = PostFactory(
+            territory="SCT", label="Aberdeenshire North and Moray East"
+        )
+        pe = PostElectionFactory(
+            election=election,
+            post=post,
+            ballot_paper_id="parl.aberdeenshire-north-and-moray-east.2024-07-04",
+        )
+        party = PartyFactory(party_name="Labour Party", party_id="party:53")
+        NationalPartyFactory(
+            name="Labour Party", parent=party, is_national=True
+        )
 
-    #     PersonPostFactory(
-    #         person=self.person,
-    #         election=election,
-    #         post=post,
-    #         party=party,
-    #         party_name=party.party_name,
-    #         post_election=pe,
-    #     )
-    #     assert self.person.has_additional_manifesto
+        PersonPostFactory(
+            person=self.person,
+            election=election,
+            post=post,
+            party=party,
+            party_name=party.party_name,
+            post_election=pe,
+        )
+        assert self.person.has_regional_manifesto
 
-    #     call_command("import_national_parties")
+        call_command("import_national_parties")
 
-    #     response = self.client.get(self.person_url, follow=True, html=True)
+        response = self.client.get(self.person_url, follow=True, html=True)
 
-    #     primary_manifesto = f"{self.person.name} is the Labour Party candidate. Find out more about their policies in the Labour Party manifesto."
-    #     additional_manifesto = "The Labour Party have also released a"
-    #     manifesto_for_scotland = "manifesto for Scotland"
-    #     self.assertContains(response, "Party manifesto")
-    #     self.assertContains(response, primary_manifesto)
-    #     self.assertContains(response, additional_manifesto)
-    #     self.assertContains(response, manifesto_for_scotland)
+        primary_manifesto = f"{self.person.name} is the Labour Party candidate. Find out more about their policies in the Labour Party manifesto."
+        additional_manifesto = "The Labour Party have also released a"
+        manifesto_for_scotland = "manifesto for Scotland"
+        self.assertContains(response, "Party manifesto")
+        self.assertContains(response, primary_manifesto)
+        self.assertContains(response, additional_manifesto)
+        self.assertContains(response, manifesto_for_scotland)
+
+    def test_no_additional_manifesto(self):
+        election = ElectionFactory(
+            name="UK Parliamentary general Election",
+            current=True,
+            election_date="2024-07-04",
+            slug="parl.aberafan-maesteg.2024-07-04",
+        )
+        post = PostFactory(territory="WLS", label="Aberafan Maesteg")
+        pe = PostElectionFactory(
+            election=election,
+            post=post,
+            ballot_paper_id="parl.aberafan-maesteg.2024-07-04",
+        )
+        party = PartyFactory(
+            party_name="Plaid Cymru - The Party of Wales",
+            party_id="party:77",
+        )
+
+        PersonPostFactory(
+            person=self.person,
+            election=election,
+            post=post,
+            party=party,
+            party_name=party.party_name,
+            post_election=pe,
+        )
+
+        NationalPartyFactory(
+            name="Plaid Cymru - The Party of Wales",
+            parent=party,
+            is_national=True,
+        )
+
+        call_command("import_national_parties")
+
+        response = self.client.get(self.person_url, follow=True, html=True)
+
+        self.assertEqual(self.person.has_regional_manifesto, False)
+        primary_manifesto = f"{self.person.name} is the Plaid Cymru - The Party of Wales candidate. Find out more about their policies in the Plaid Cymru - The Party of Wales manifesto."
+        additional_manifesto = (
+            "The Plaid Cymru - The Party of Wales have also released a"
+        )
+        manifesto_for_wales = "manifesto for Wales"
+        self.assertContains(response, "Party manifesto")
+        self.assertContains(response, primary_manifesto)
+        self.assertNotContains(response, additional_manifesto)
+        self.assertNotContains(response, manifesto_for_wales)
 
     def test_person_detail_404_with_string_pk(self):
         """

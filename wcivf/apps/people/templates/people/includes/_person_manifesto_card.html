@@ -23,9 +23,9 @@
                     {% for manifesto in object.manifestos %}
                         {% include "parties/single_manifesto.html" %}
                     {% endfor %}
-                    {% comment %} {% if object.has_additional_manifesto %}
+                    {% if object.has_regional_manifesto %}
                         {% include "parties/regional_manifesto.html" with party_name=object.featured_candidacy.party_name %}
-                    {% endif %} {% endcomment %}
+                    {% endif %}
                 </ul>
             </div>
             {% if party.emblem_url %}
