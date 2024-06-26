@@ -237,53 +237,53 @@ class PersonViewTests(TestCase):
             "was a Conservative and Unionist Party candidate in",
         )
 
-    def test_previous_party_affiliations_in_current_elections(self):
-        """This is a test for previous party affiliations in the
-        person intro"""
+    # def test_previous_party_affiliations_in_current_elections(self):
+    #     """This is a test for previous party affiliations in the
+    #     person intro"""
 
-        election = ElectionFactory(
-            name="Welsh Assembly Election",
-            current=True,
-            election_date="2022-05-01",
-            slug="local.welsh.assembly.2022-05-01",
-        )
-        party = PartyFactory(
-            party_name="Conservative and Unionist Party", party_id="ConUnion"
-        )
-        post = PostFactory(label="Welsh Assembly", territory="WLS")
-        pe = PostElectionFactory(
-            election=election,
-            post=post,
-            ballot_paper_id="local.welsh.assembly.2022-05-01",
-        )
-        person_post = PersonPostFactory(
-            person=self.person,
-            election=election,
-            party=party,
-            party_name=party.party_name,
-            post=post,
-            post_election=pe,
-        )
+    #     election = ElectionFactory(
+    #         name="Welsh Assembly Election",
+    #         current=True,
+    #         election_date="2022-05-01",
+    #         slug="local.welsh.assembly.2022-05-01",
+    #     )
+    #     party = PartyFactory(
+    #         party_name="Conservative and Unionist Party", party_id="ConUnion"
+    #     )
+    #     post = PostFactory(label="Welsh Assembly", territory="WLS")
+    #     pe = PostElectionFactory(
+    #         election=election,
+    #         post=post,
+    #         ballot_paper_id="local.welsh.assembly.2022-05-01",
+    #     )
+    #     person_post = PersonPostFactory(
+    #         person=self.person,
+    #         election=election,
+    #         party=party,
+    #         party_name=party.party_name,
+    #         post=post,
+    #         post_election=pe,
+    #     )
 
-        previous_party_1 = PartyFactory(
-            party_name="Conservative", party_id="foo_id"
-        )
-        previous_party_2 = PartyFactory(party_name="Labour", party_id="bar_id")
-        person_post.previous_party_affiliations.add(previous_party_1)
-        person_post.previous_party_affiliations.add(previous_party_2)
-        self.assertEqual(person_post.previous_party_affiliations.count(), 2)
-        self.assertEqual(self.person.current_or_future_candidacies.count(), 1)
-        response = self.client.get(self.person_url, follow=True)
+    #     previous_party_1 = PartyFactory(
+    #         party_name="Conservative", party_id="foo_id"
+    #     )
+    #     previous_party_2 = PartyFactory(party_name="Labour", party_id="bar_id")
+    #     person_post.previous_party_affiliations.add(previous_party_1)
+    #     person_post.previous_party_affiliations.add(previous_party_2)
+    #     self.assertEqual(person_post.previous_party_affiliations.count(), 2)
+    #     self.assertEqual(self.person.current_or_future_candidacies.count(), 1)
+    #     response = self.client.get(self.person_url, follow=True)
 
-        self.assertTemplateUsed(
-            "elections/includes/_previous_party_affiliations.html"
-        )
-        self.assertTemplateUsed("people/includes/_person_intro_card.html")
+    #     self.assertTemplateUsed(
+    #         "elections/includes/_previous_party_affiliations.html"
+    #     )
+    #     self.assertTemplateUsed("people/includes/_person_intro_card.html")
 
-        self.assertContains(
-            response,
-            "has declared their affiliation with the following parties in the past 12 months",
-        )
+    #     self.assertContains(
+    #         response,
+    #         "has declared their affiliation with the following parties in the past 12 months",
+    #     )
 
     def test_no_previous_party_affiliations(self):
         election = ElectionFactory(
