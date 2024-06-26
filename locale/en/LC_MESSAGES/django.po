@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-24 14:26+0100\n"
+"POT-Creation-Date: 2024-06-26 12:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,19 +22,19 @@ msgstr ""
 msgid "Enter your postcode"
 msgstr ""
 
-#: wcivf/apps/elections/models.py:760
+#: wcivf/apps/elections/models.py:756
 msgid "First-past-the-post"
 msgstr ""
 
-#: wcivf/apps/elections/models.py:762
+#: wcivf/apps/elections/models.py:758
 msgid "Additional Member System"
 msgstr ""
 
-#: wcivf/apps/elections/models.py:764
+#: wcivf/apps/elections/models.py:760
 msgid "Supplementary Vote"
 msgstr ""
 
-#: wcivf/apps/elections/models.py:766
+#: wcivf/apps/elections/models.py:762
 msgid "Single Transferable Vote"
 msgstr ""
 
@@ -361,7 +361,7 @@ msgstr ""
 
 #: wcivf/apps/elections/templates/elections/includes/_polling_place.html:9
 #: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:124
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:82
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:85
 msgid "Where to vote"
 msgstr ""
 
@@ -579,7 +579,7 @@ msgstr[1] ""
 
 #: wcivf/apps/elections/templates/elections/includes/_registration_details.html:10
 #: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:132
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:90
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:93
 msgid "Register to vote"
 msgstr ""
 
@@ -696,12 +696,12 @@ msgid ""
 msgstr ""
 
 #: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:121
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:79
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:82
 msgid "Get ready to vote"
 msgstr ""
 
 #: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:128
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:86
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:89
 msgid "Voter ID requirements"
 msgstr ""
 
@@ -830,34 +830,44 @@ msgstr ""
 msgid "Select your address"
 msgstr ""
 
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:12
+msgid ""
+"The postcode you have entered is split across more than one administrative "
+"or electoral boundary."
+msgstr ""
+
 #: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:13
+msgid "Please select your address to get the correct information."
+msgstr ""
+
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:16
 msgid "Elections in your area"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:31
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:34
 msgid "Recently past elections"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:44
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:47
 #, python-format
 msgid ""
 "You will have %(num_ballots)s ballot paper%(ballots_pluralised)s to fill out."
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:60
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:63
 #, python-format
 msgid "%(ballot.short_cancelled_message_html)s"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:70
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:73
 msgid "(uncontested)"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:71
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:74
 msgid "(may be contested)"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:102
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:105
 msgid ""
 "There may also be parish, town or community council elections in some areas."
 msgstr ""
@@ -959,34 +969,40 @@ msgstr ""
 msgid "I always vote (no change)"
 msgstr ""
 
-#: wcivf/apps/feedback/templates/feedback/feedback_form.html:27
+#: wcivf/apps/feedback/templates/feedback/feedback_form.html:25
+msgid ""
+"The data on this website is crowd-sourced and may not be complete (or may "
+"contain inaccuracies). If you find an error, please report the problem below."
+msgstr ""
+
+#: wcivf/apps/feedback/templates/feedback/feedback_form.html:28
 msgid "Did you find what you were looking for?"
 msgstr ""
 
-#: wcivf/apps/feedback/templates/feedback/feedback_form.html:41
+#: wcivf/apps/feedback/templates/feedback/feedback_form.html:42
 msgid "Has this service changed your likelihood of voting?"
 msgstr ""
 
-#: wcivf/apps/feedback/templates/feedback/feedback_form.html:57
+#: wcivf/apps/feedback/templates/feedback/feedback_form.html:58
 msgid "Please describe the problem you encountered"
 msgstr ""
 
-#: wcivf/apps/feedback/templates/feedback/feedback_form.html:58
+#: wcivf/apps/feedback/templates/feedback/feedback_form.html:59
 msgid "Can you tell us anything more?"
 msgstr ""
 
-#: wcivf/apps/feedback/templates/feedback/feedback_form.html:64
+#: wcivf/apps/feedback/templates/feedback/feedback_form.html:65
 msgid "(Optional) Email address"
 msgstr ""
 
-#: wcivf/apps/feedback/templates/feedback/feedback_form.html:74
+#: wcivf/apps/feedback/templates/feedback/feedback_form.html:75
 msgid ""
 "If you provide an email address, we may contact you to request more "
 "information or notify you of improvements related to this report. It will "
 "not be used for email marketing purposes."
 msgstr ""
 
-#: wcivf/apps/feedback/templates/feedback/feedback_form.html:79
+#: wcivf/apps/feedback/templates/feedback/feedback_form.html:80
 msgid "Send feedback"
 msgstr ""
 
@@ -1330,45 +1346,54 @@ msgid ""
 "cannot be used:"
 msgstr ""
 
-#: wcivf/apps/parties/templates/parties/regional_manifesto.html:5
+#: wcivf/apps/parties/templates/parties/regional_manifesto.html:6
 #, python-format
 msgid ""
 "The %(party_name)s have also released a <a href=\"https://labour.org.uk/"
 "change/scotland/\">manifesto for Scotland</a>."
 msgstr ""
 
-#: wcivf/apps/parties/templates/parties/regional_manifesto.html:20
+#: wcivf/apps/parties/templates/parties/regional_manifesto.html:13
 #, python-format
 msgid ""
-"The %(party_name)s have also released a <a href=\"\">manifesto for Scotland</"
-"a>."
+"The %(party_name)s have also released a <a href=\"https://labour.org.uk/"
+"change/wales/\">manifesto for Wales</a>."
 msgstr ""
 
-#: wcivf/apps/parties/templates/parties/regional_manifesto.html:25
+#: wcivf/apps/parties/templates/parties/regional_manifesto.html:23
 #, python-format
 msgid ""
-"The %(party_name)s have also released a <a href=\"\">manifesto for Wales</a>."
+"The %(party_name)s have also released a <a href=\"https://www."
+"scottishconservatives.com/manifestos/2024-general-election-manifesto/"
+"\">manifesto for Scotland</a>."
 msgstr ""
 
-#: wcivf/apps/parties/templates/parties/regional_manifesto.html:47
+#: wcivf/apps/parties/templates/parties/regional_manifesto.html:30
+#, python-format
+msgid ""
+"The %(party_name)s have also released a <a href=\"https://www.conservatives."
+"wales/manifesto24\">manifesto for Wales</a>."
+msgstr ""
+
+#: wcivf/apps/parties/templates/parties/regional_manifesto.html:40
 #, python-format
 msgid ""
 "The %(party_name)s have also released a <a href=\"https://www.scotlibdems."
 "org.uk/fairdeal\">manifesto for Scotland</a>."
 msgstr ""
 
-#: wcivf/apps/parties/templates/parties/regional_manifesto.html:62
+#: wcivf/apps/parties/templates/parties/regional_manifesto.html:48
+#, python-format
+msgid ""
+"The %(party_name)s have also released a <a href=\"https://www.libdems.wales/"
+"fairdeal\">manifesto for Wales</a>."
+msgstr ""
+
+#: wcivf/apps/parties/templates/parties/regional_manifesto.html:57
 #, python-format
 msgid ""
 "The %(party_name)s have also released a <a href=\"https://wales.greenparty."
 "org.uk/manifesto-2024-2/\">manifesto for Wales</a>."
-msgstr ""
-
-#: wcivf/apps/parties/templates/parties/regional_manifesto.html:70
-#, python-format
-msgid ""
-"The %(party_name)s have also released a <a href=\"https://labour.org.uk/"
-"change/scotland/\">manifesto for Wales</a>."
 msgstr ""
 
 #: wcivf/apps/parties/templates/parties/single_manifesto.html:5
@@ -1641,7 +1666,7 @@ msgstr ""
 msgid "%(election)s for"
 msgstr ""
 
-#: wcivf/apps/people/templates/people/includes/_person_intro_card.html:56
+#: wcivf/apps/people/templates/people/includes/_person_intro_card.html:57
 #, python-format
 msgid "profile photo of %(person)s"
 msgstr ""
