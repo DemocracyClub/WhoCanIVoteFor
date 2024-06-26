@@ -10,11 +10,11 @@
 
         {% if election.election.election_type == 'parl' %}
 
-            "name": "UK Parliament Election - {{ election.post.area_name }}",
-            "description": "Election of the Member of Parliament for {{ election.post.area_name }}",
+            "name": "UK Parliament Election - {{ election.post.label }}",
+            "description": "Election of the Member of Parliament for {{ election.post.label }}",
             "location": {
                 "@type": "Place",
-                "address": "{{ election.post.area_name }}, UK"
+                "address": "{{ election.post.label }}, UK"
             }
 
         {% else %}
