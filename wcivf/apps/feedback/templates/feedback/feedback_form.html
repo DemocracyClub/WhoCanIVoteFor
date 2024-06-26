@@ -22,6 +22,7 @@
         {% csrf_token %}
         {{ feedback_form.token }}
         {{ feedback_form.source_url }}
+        <small>{% trans "The data on this website is crowd-sourced and may not be complete (or may contain inaccuracies). If you find an error, please report the problem below." %}</small>
         <h5>
             <span aria-hidden="true">🔎</span>
             {% trans "Did you find what you were looking for?" %}
