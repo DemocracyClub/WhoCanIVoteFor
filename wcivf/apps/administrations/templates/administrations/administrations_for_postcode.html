@@ -1,0 +1,48 @@
+{% load humanize %}
+{% load static %}
+<div class="ds-stack-larger">
+    {% for administration in administrations.administrations %}
+        <div class="ds-stack">
+            {% ifchanged %}
+                <h2>{{ administration.friendly_name }}</h2>
+            {% endifchanged %}
+
+
+            <h3>{{ administration.role_name|capfirst }}</h3>
+
+            {% if administration.seats_total > 1 %}
+                <p>There are {{ administration.seats_total|apnumber }} {{ administration.role_name }} representing you.</p>
+            {% endif %}
+            {% if administration.should_show_people %}
+                <ul class="ds-grid">
+                    {% for candidacy in administration.elected_people %}
+                        <li class="ds-candidate">
+                            <div class="ds-candidate-body ds-stack-smallest">
+                                <h3 class="ds-candidate-name ds-h5">
+                                    <a href="{{ candidacy.person.get_absolute_url }}">{{ candidacy.person.name }}</a>
+                                </h3>
+                                <div class="ds-h6">{{ candidacy.party.party_name }}</div>
+                            </div>
+                            <div class="ds-candidate-image">
+                                {% if candidacy.person.photo_url %}
+                                    <img src="{{ candidacy.person.photo_url }}"
+                                         alt="Photo of {{ candidacy.person.name }}">
+                                {% else %}
+                                    <img src="{% static '/people/images/blank-avatar.png' %}"
+                                         alt=""
+                                         style="background-color: #ddd;">
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% include administration.responsibilities_template %}
+        </div>
+
+
+
+
+
+    {% endfor %}
+</div>

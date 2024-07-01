@@ -112,13 +112,7 @@ class PostcodeView(
         context["num_ballots"] = self.num_ballots()
         context["requires_voter_id"] = self.get_voter_id_status()
 
-        context["administrations"] = AdministrationsHelper(
-            [
-                "D::BST::2016-04-13::gss:E05010906::local",
-                "O::BST::mayor",
-                "D::parl-hoc::2010-05-06::gss:E14000602::parl",
-            ]
-        )
+        context["administrations"] = AdministrationsHelper(self.postcode)
 
         return context
 
