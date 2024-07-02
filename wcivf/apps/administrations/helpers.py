@@ -1,5 +1,6 @@
 from functools import cached_property
-from typing import List
+from typing import List, Optional
+from urllib.parse import urljoin
 
 import requests
 from administrations.constants import (
@@ -9,6 +10,7 @@ from administrations.constants import (
     PostTypes,
 )
 from core.utils import LastWord
+from django.conf import settings
 from django.db.models.functions import Coalesce
 from django.template.loader import select_template
 from elections.models import PostElection
@@ -181,9 +183,17 @@ class Administration:
 
 
 class AdministrationsHelper:
-    def __init__(self, postcode: str):
+    def __init__(self, postcode: str, uprn: Optional[str] = None):
         self.postcode = postcode
-        self.administration_ids = self.lookup_administration_ids(self.postcode)
+        self.address_picker = False
+        self.addresses = []
+
+        self.api_response = self.get_api_response(postcode, uprn=uprn)
+        if self.api_response["address_picker"]:
+            self.address_picker = True
+            self.addresses = self.api_response["addresses"]
+            return
+        self.administration_ids = self.api_response["admin_ids"]
         self.administrations: List[Administration] = []
         IGNORE_IDS = [
             "O::LIV::mayor",
@@ -199,37 +209,15 @@ class AdministrationsHelper:
             self.administrations, key=lambda admin: admin.weight
         )
 
-    def lookup_administration_ids(self, postcode):
-        if postcode == "GL5 1NA":
-            return [
-                "D::GLS::2021-05-06::unit_id:42821::local",
-                "D::STO::2016-04-13::gss:E05010988::local",
-                "D::parl-hoc::2024-07-04::gss:E14001529::parl",
-                "O::gloucestershire::pcc",
-            ]
-        if postcode == "DG8 8NH":
-            return [
-                "D::DGY::2017-05-04::gss:S13002881::local",
-                "D::parl-hoc::2024-07-04::gss:S14000073::parl",
-                "D::sp::2016-04-13::gss:S16000114::sp::c",
-                "D::sp::2016-04-13::gss:S17000015::sp::r",
-            ]
-        if postcode == "SE22 8DJ":
-            return [
-                "D::SWK::2018-05-03::gss:E05011097::local",
-                "D::gla::2004-12-02::gss:E32000010::gla::c",
-                "D::parl-hoc::2024-07-04::gss:E14001205::parl",
-                "O::gla::gla::a",
-                "O::london::mayor",
-            ]
+    def get_api_response(self, postcode, uprn=None):
+        params = {"auth_token": 1}
 
-        return []
-        # TODO: clean up
-        # req = requests.get(
-        #     f"http://localhost:3000/rpc/get_identifiers_by_postcode?postcode={postcode}"
-        # )
-        # ids = []
-        #
-        # for obj in req.json():
-        #     ids.append(obj["identifier"])
-        # return ids
+        url = urljoin(settings.LAYERS_OF_STATE_URL, f"postcode/{postcode}/")
+        if uprn:
+            url = urljoin(
+                settings.LAYERS_OF_STATE_URL, f"postcode/{postcode}/{uprn}/"
+            )
+
+        req = requests.get(url, params=params)
+        req.raise_for_status()
+        return req.json()
