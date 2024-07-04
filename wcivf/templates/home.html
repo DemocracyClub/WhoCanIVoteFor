@@ -1,13 +1,20 @@
 {% extends "base.html" %}
 {% load dc_forms %}
 {% load i18n %}
+{% load static %}
 
 {% block base_title %}{% trans "Who Can I Vote For?" %}{% endblock base_title %}
 {% block og_title_content %}{% trans "Who Can I Vote For?" %}{% endblock og_title_content %}
 
 {% block content %}
 
-    <h1 class="ds-h2 ds-text-centered">{% trans "Find out about candidates in your area" %}</h1>
+    <h1 class="ds-h2 ds-text-centered" style="text-wrap: balance">
+        {% if latest_winners %}
+            Find out about candidates and results in your area
+        {% else %}
+            {% trans "Find out about candidates in your area" %}
+        {% endif %}
+    </h1>
     <div class="ds-field ds-text-centered">
         <form method="post">
             {% csrf_token %}
@@ -20,17 +27,45 @@
                 </p>
             {% endif %}
             <button class="ds-button-pink" type="submit">{% trans "Find your candidates" %}</button>
-            <p>{% trans "A parliamentary general election has been called for 4 July. Enter your postcode to find your constituency and candidates." %}</p>
-            <p>{% trans "A new set of constituency boundaries will be used for the 2024 election. This means that your constituency may have changed since the last election." %}</p>
-            <p>{% trans "You will need to show photo ID to vote at a polling station in these elections." %}</p>
+            {#            <p>{% trans "A parliamentary general election has been called for 4 July. Enter your postcode to find your constituency and candidates." %}</p>#}
+            {#            <p>{% trans "A new set of constituency boundaries will be used for the 2024 election. This means that your constituency may have changed since the last election." %}</p>#}
+            {#            <p>{% trans "You will need to show photo ID to vote at a polling station in these elections." %}</p>#}
 
         </form>
     </div>
-    {% if show_results_chart %}
-        <div class="flourish-embed flourish-chart" data-src="visualisation/13653636">
-            <script src="https://public.flourish.studio/resources/embed.js"></script>
-        </div>
+    {% include "parl_24_hex_map.html" %}
+
+    {% if latest_winners %}
+
+        <h2>Latest winners</h2>
+        <ul class="ds-stack">
+            {% for latest_winner in latest_winners %}
+                <div class="ds-candidate">
+                    <div class="ds-candidate-body ds-stack-smallest">
+                        <h3 class="ds-candidate-name ds-h5">
+                            <a href="{{ latest_winner.person.get_absolute_url }}">{{ latest_winner.person.name }}</a>
+                        </h3>
+                        <div class="ds-h6">{{ latest_winner.party_name }}</div>
+                        <div class="ds-h6">{{ latest_winner.post.label }}</div>
+                    </div>
+                    <div class="ds-candidate-image" style="min-width:10em">
+                        {% if latest_winner.person.photo_url %}
+                            <img src="{{ latest_winner.person.photo_url }}"
+                                 alt="{% blocktrans trimmed with person_name=latest_winner.person.name %}Photo of {{ latest_winner.person.name }}{% endblocktrans %}">
+                        {% else %}
+                            <img src="{% static '/people/images/blank-avatar.png' %}"
+                                 alt="Blank Head icons created by Freepik - Flaticon" style="background-color: #ddd;">
+                        {% endif %}
+                    </div>
+                </div>
+
+            {% endfor %}
+        </ul>
+        <a href="{% url "parl_24_winners_full" %}" class="ds-cta">See all </a>
     {% endif %}
+
+
+
     {% if show_gb_id_messaging %}
         <h2>
             <span aria-hidden="true">ℹ️</span>
