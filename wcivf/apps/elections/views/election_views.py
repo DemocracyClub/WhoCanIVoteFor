@@ -1,5 +1,5 @@
 from django.apps import apps
-from django.db.models import Prefetch
+from django.db.models import Count, Prefetch
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, RedirectView, TemplateView
@@ -145,4 +145,31 @@ class PartyListVew(TemplateView):
         context["person_posts"] = PersonPost.objects.filter(
             party=context["party"], post_election=context["ballot"]
         ).order_by("list_position")
+        return context
+
+
+class Parl24ElectedView(TemplateView):
+    template_name = "parl_24_winners_full.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["winners"] = (
+            PersonPost.objects.filter(
+                post_election__election__slug="parl.2024-07-04", elected=True
+            )
+            .select_related("person")
+            .select_related("post")
+            .order_by("-person__last_updated")
+        )
+
+        context["table_data"] = (
+            PersonPost.objects.filter(
+                post_election__election__slug="parl.2024-07-04",
+                elected=True,
+            )
+            .annotate(party_count=Count("party_id"))
+            .values("party_name", "party_count", "party_id")
+            .order_by("-party_count")
+        )
+
         return context

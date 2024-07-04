@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+    {% if table_data %}
+        <table class="ds-table" style="width:100%;">
+            <caption>Number of winners by political party</caption>
+            <tr>
+                <th>Party</th>
+                <th>Winners</th>
+            </tr>
+            {% for party in table_data %}
+                <tr>
+                    <td>{{ party.party_name }}</td>
+                    <td>{{ party.party_count }}</td>
+                </tr>
+            {% endfor %}
+
+
+        </table>
+    {% endif %}
+
+    <h2>Winners</h2>
+    <ul class="ds-stack">
+        {% for latest_winner in winners %}
+            <div class="ds-candidate">
+                <div class="ds-candidate-body ds-stack-smallest">
+                    <h3 class="ds-candidate-name ds-h5">
+                        <a href="{{ latest_winner.person.get_absolute_url }}">{{ latest_winner.person.name }}</a>
+                    </h3>
+                    <div class="ds-h6">{{ latest_winner.party_name }}</div>
+                    <div class="ds-h6">{{ latest_winner.post.label }}</div>
+                </div>
+                <div class="ds-candidate-image" style="min-width:10em">
+                    {% if latest_winner.person.photo_url %}
+                        <img src="{{ latest_winner.person.photo_url }}"
+                             alt="{% blocktrans trimmed with person_name=latest_winner.person.name %}Photo of {{ latest_winner.person.name }}{% endblocktrans %}">
+                    {% else %}
+                        <img src="{% static '/people/images/blank-avatar.png' %}"
+                             alt="Blank Head icons created by Freepik - Flaticon" style="background-color: #ddd;">
+                    {% endif %}
+                </div>
+            </div>
+
+        {% endfor %}
+    </ul>
+
+{% endblock %}

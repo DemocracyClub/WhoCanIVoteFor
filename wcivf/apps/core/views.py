@@ -3,9 +3,12 @@ import os
 
 from django import http
 from django.conf import settings
+from django.db.models import OuterRef, Subquery
 from django.urls import reverse
 from django.utils import timezone, translation
 from django.views.generic import FormView, TemplateView, View
+from elections.models import PostElection
+from people.models import PersonPost
 
 from .forms import PostcodeLookupForm
 
@@ -100,8 +103,42 @@ class HomePageView(PostcodeFormView):
         context["show_gb_id_messaging"] = getattr(
             settings, "SHOW_GB_ID_MESSAGING", False
         )
-        context["show_results_chart"] = getattr(
-            settings, "SHOW_RESULTS_CHART", False
+
+        context["latest_winners"] = (
+            PersonPost.objects.filter(
+                post_election__election__slug="parl.2024-07-04",
+                # elected=True
+            )
+            .select_related("person")
+            .select_related("post")
+            .order_by("-person__last_updated")[:10]
+        )
+
+        elected_person_post_id_subquery = PersonPost.objects.filter(
+            post_election=OuterRef("pk"), elected=True
+        ).values("id")[:1]
+        elected_person_post_party_subquery = PersonPost.objects.filter(
+            post_election=OuterRef("pk"), elected=True
+        ).values("party__ec_id")[:1]
+        elected_person_post_party__name_subquery = PersonPost.objects.filter(
+            post_election=OuterRef("pk"), elected=True
+        ).values("party_name")[:1]
+
+        context["hex_data"] = (
+            PostElection.objects.filter(election__slug="parl.2024-07-04")
+            .select_related("post")
+            .annotate(
+                elected_person_post_id=Subquery(
+                    elected_person_post_id_subquery
+                ),
+                elected_person_post_party=Subquery(
+                    elected_person_post_party_subquery
+                ),
+                elected_person_post_party_name=Subquery(
+                    elected_person_post_party__name_subquery
+                ),
+            )
+            .all()
         )
 
         return context
