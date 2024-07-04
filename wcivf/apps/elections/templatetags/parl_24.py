@@ -3345,17 +3345,22 @@ gss_to_hex = {
     },
 }
 
-
 party_colour_map = {
-    "PP53": "#E4003B",
-    "PP52": "#0087DC",
-    "PP90": "#FAA61A",
-    "PP7931": "#00B1DA",
-    "JOINT-PARTY53-119": "#E4003B",
-    "PP102": "#FDF38E",
-    "PP130": "#00B140",
-    "PP12700": "#005EB8",
-    "PP63": "#00643B",
+    "PP53": "#E4003B",  # Lab
+    "joint-party53-119": "#E4003B",  # Lab/Co-op
+    "PP52": "#0087DC",  # Con
+    "PP90": "#FAA61A",  # LibDem
+    "PP7931": "#00B1DA",  # Reform
+    "PP102": "#FDF38E",  # SNP
+    "PP130": "#00B140",  # Scottish Green Party
+    "PP12700": "#005EB8",  # Alba
+    "PP63": "#00643B",  # Green
+    "PP77": "#005b54",  # Plaid Cymru
+    "PP70": "#D46A4C",  # Democratic Unionist Party (DUP)
+    "PP39": "#00623F",  # Sinn Féin
+    "PP103": "#F6CB2F",  # Alliance Party of Northern Ireland
+    "PP55": "#2AA82C",  # Social Democratic and Labour Party (SDLP)
+    "PP83": "#48A5EE",  # Ulster Unionist Party (UUP)
 }
 
 
