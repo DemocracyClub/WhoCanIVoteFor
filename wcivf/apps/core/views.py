@@ -106,8 +106,7 @@ class HomePageView(PostcodeFormView):
 
         context["latest_winners"] = (
             PersonPost.objects.filter(
-                post_election__election__slug="parl.2024-07-04",
-                # elected=True
+                post_election__election__slug="parl.2024-07-04", elected=True
             )
             .select_related("person")
             .select_related("post")
