@@ -5,21 +5,32 @@
 {% load postcode_tags %}
 
 {% block page_title %}{% include "elections/includes/_postcode_meta_title.html" %}{% endblock page_title %}
-{% block page_description %}{% include "elections/includes/_postcode_meta_description.html" %}{% endblock page_description %}
-{% block og_title_content  %}{% include "elections/includes/_postcode_meta_title.html" %}{% endblock og_title_content  %}
-{% block og_description_content %}{% include "elections/includes/_postcode_meta_description.html" %}{% endblock og_description_content %}
+{% block page_description %}
+    {% include "elections/includes/_postcode_meta_description.html" %}{% endblock page_description %}
+{% block og_title_content %}{% include "elections/includes/_postcode_meta_title.html" %}{% endblock og_title_content %}
+{% block og_description_content %}
+    {% include "elections/includes/_postcode_meta_description.html" %}{% endblock og_description_content %}
 {% block og_url_content %}{{ CANONICAL_URL }}{% endblock og_url_content %}
-{% block twitter_title_content %}{% include "elections/includes/_postcode_meta_title.html" %}{% endblock twitter_title_content %}
-{% block twitter_description_content %}{% include "elections/includes/_postcode_meta_title.html" %}{% endblock twitter_description_content %}
+{% block twitter_title_content %}
+    {% include "elections/includes/_postcode_meta_title.html" %}{% endblock twitter_title_content %}
+{% block twitter_description_content %}
+    {% include "elections/includes/_postcode_meta_title.html" %}{% endblock twitter_description_content %}
 
 {% block content %}
-    <div class="ds-stack-larger">
+    <style>
+        h2, h3, h4 {
+            text-wrap: balance;
+        }
+    </style>
+    <div class="ds-stack">
         {% if postelections.count != 1 %}
             {#  Inline nav of elections #}
             {% include "elections/includes/inline_elections_nav_list.html" %}
         {% endif %}
 
         {% if not address_picker %}
+
+
             {% regroup postelections by election.election_date as elections_by_date %}
             {% for election_group in elections_by_date %}
                 {% for postelection in election_group.list %}
@@ -30,6 +41,20 @@
                     {% endif %}
                 {% endfor %}
             {% endfor %}
+
+            {% if administrations %}
+                <h3>Your area</h3>
+                <p>As well as your new MP, there are others who represent you in your area.
+                    We're working on a new experimental feature to explain who these people are and how everything
+                    from your council to your
+                    police force works.</p>
+                {% if uprn %}
+                    <a href="{% url "your_area_view" postcode uprn %}" class="ds-cta">Find out more</a>
+                {% else %}
+                    <a href="{% url "your_area_view" postcode %}" class="ds-cta">Find out more</a>
+                {% endif %}
+            {% endif %}
+
 
             {% for referendum in referendums %}
                 {% include "referendums/includes/_card.html" %}
@@ -69,9 +94,91 @@
 
 {% block in_page_javascript %}
     <script>
-        fallback.ready(['jQuery'], function() {
+        fallback.ready(['jQuery'], function () {
             /*! http://mths.be/details v0.1.0 by @mathias | includes http://mths.be/noselect v1.0.3 */
-            ;(function(a,f){var e=f.fn,d,c=Object.prototype.toString.call(window.opera)=='[object Opera]',g=(function(l){var j=l.createElement('details'),i,h,k;if(!('open' in j)){return false}h=l.body||(function(){var m=l.documentElement;i=true;return m.insertBefore(l.createElement('body'),m.firstElementChild||m.firstChild)}());j.innerHTML='<summary>a</summary>b';j.style.display='block';h.appendChild(j);k=j.offsetHeight;j.open=true;k=k!=j.offsetHeight;h.removeChild(j);if(i){h.parentNode.removeChild(h)}return k}(a)),b=function(i,l,k,h){var j=i.prop('open'),m=j&&h||!j&&!h;if(m){i.removeClass('open').prop('open',false).triggerHandler('close.details');l.attr('aria-expanded',false);k.hide()}else{i.addClass('open').prop('open',true).triggerHandler('open.details');l.attr('aria-expanded',true);k.show()}};e.noSelect=function(){var h='none';return this.bind('selectstart dragstart mousedown',function(){return false}).css({MozUserSelect:h,msUserSelect:h,webkitUserSelect:h,userSelect:h})};if(g){d=e.details=function(){return this.each(function(){var i=f(this),h=f('summary',i).first();h.attr({role:'button','aria-expanded':i.prop('open')}).on('click',function(){var j=i.prop('open');h.attr('aria-expanded',!j);i.triggerHandler((j?'close':'open')+'.details')})})};d.support=g}else{d=e.details=function(){return this.each(function(){var h=f(this),j=f('summary',h).first(),i=h.children(':not(summary)'),k=h.contents(':not(summary)');if(!j.length){j=f('<summary>').text('Details').prependTo(h)}if(i.length!=k.length){k.filter(function(){return this.nodeType==3&&/[^ \t\n\f\r]/.test(this.data)}).wrap('<span>');i=h.children(':not(summary)')}h.prop('open',typeof h.attr('open')=='string');b(h,j,i);j.attr('role','button').noSelect().prop('tabIndex',0).on('click',function(){j.focus();b(h,j,i,true)}).keyup(function(l){if(32==l.keyCode||(13==l.keyCode&&!c)){l.preventDefault();j.click()}})})};d.support=g}}(document,jQuery));
+            ;(function (a, f) {
+                var e = f.fn, d, c = Object.prototype.toString.call(window.opera) == '[object Opera]',
+                    g = (function (l) {
+                    var j = l.createElement('details'), i, h, k;
+                    if (!('open' in j)) {
+                        return false
+                    }
+                    h = l.body || (function () {
+                        var m = l.documentElement;
+                        i = true;
+                        return m.insertBefore(l.createElement('body'), m.firstElementChild || m.firstChild)
+                    }());
+                    j.innerHTML = '<summary>a</summary>b';
+                    j.style.display = 'block';
+                    h.appendChild(j);
+                    k = j.offsetHeight;
+                    j.open = true;
+                    k = k != j.offsetHeight;
+                    h.removeChild(j);
+                    if (i) {
+                        h.parentNode.removeChild(h)
+                    }
+                    return k
+                }(a)), b = function (i, l, k, h) {
+                    var j = i.prop('open'), m = j && h || !j && !h;
+                    if (m) {
+                        i.removeClass('open').prop('open', false).triggerHandler('close.details');
+                        l.attr('aria-expanded', false);
+                        k.hide()
+                    } else {
+                        i.addClass('open').prop('open', true).triggerHandler('open.details');
+                        l.attr('aria-expanded', true);
+                        k.show()
+                    }
+                };
+                e.noSelect = function () {
+                    var h = 'none';
+                    return this.bind('selectstart dragstart mousedown', function () {
+                        return false
+                    }).css({MozUserSelect: h, msUserSelect: h, webkitUserSelect: h, userSelect: h})
+                };
+                if (g) {
+                    d = e.details = function () {
+                        return this.each(function () {
+                            var i = f(this), h = f('summary', i).first();
+                            h.attr({role: 'button', 'aria-expanded': i.prop('open')}).on('click', function () {
+                                var j = i.prop('open');
+                                h.attr('aria-expanded', !j);
+                                i.triggerHandler((j ? 'close' : 'open') + '.details')
+                            })
+                        })
+                    };
+                    d.support = g
+                } else {
+                    d = e.details = function () {
+                        return this.each(function () {
+                            var h = f(this), j = f('summary', h).first(), i = h.children(':not(summary)'),
+                                k = h.contents(':not(summary)');
+                            if (!j.length) {
+                                j = f('<summary>').text('Details').prependTo(h)
+                            }
+                            if (i.length != k.length) {
+                                k.filter(function () {
+                                    return this.nodeType == 3 && /[^ \t\n\f\r]/.test(this.data)
+                                }).wrap('<span>');
+                                i = h.children(':not(summary)')
+                            }
+                            h.prop('open', typeof h.attr('open') == 'string');
+                            b(h, j, i);
+                            j.attr('role', 'button').noSelect().prop('tabIndex', 0).on('click', function () {
+                                j.focus();
+                                b(h, j, i, true)
+                            }).keyup(function (l) {
+                                if (32 == l.keyCode || (13 == l.keyCode && !c)) {
+                                    l.preventDefault();
+                                    j.click()
+                                }
+                            })
+                        })
+                    };
+                    d.support = g
+                }
+            }(document, jQuery));
 
             $('details').details();
         });

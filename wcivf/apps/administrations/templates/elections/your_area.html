@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <aside class="ds-status" aria-label="Status">
+        <ul>
+            <li class="ds-status-message"><strong style="color: white;">Alpha</strong>: This is an experimental feature.
+                Please <a href="https://democracyclub.org.uk/contact/">
+                    get in touch</a> with feedback or bug reports
+            </li>
+        </ul>
+    </aside>
+
+    <h2>Your area</h2>
+    <p>This page lists all the parts of government that look after your area. Each of these organisations
+        have different responsibilities and representatives.</p>
+
+    {% include "administrations/administrations_for_postcode.html" %}
+    <hr>
+    <p>Note: you may also have a parish, town or community council in your area. We're working on adding them to this
+        page</p>
+
+
+    <p>Something wrong? Please <a href="https://democracyclub.org.uk/contact/">
+        get in touch</a> with feedback or bug reports</p>
+{% endblock %}

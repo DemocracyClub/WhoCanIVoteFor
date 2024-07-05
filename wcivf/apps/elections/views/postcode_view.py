@@ -1,5 +1,6 @@
 from typing import Optional
 
+from administrations.helpers import AdministrationsHelper
 from core.helpers import clean_postcode
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
@@ -70,6 +71,22 @@ class PostcodeView(
         except (InvalidPostcodeError, DevsDCAPIException) as exception:
             raise exception
 
+        if (
+            not context["address_picker"]
+            and settings.ENABLE_LAYERS_OF_STATE_FEATURE
+        ):
+            try:
+                administrations = AdministrationsHelper(
+                    self.postcode, uprn=self.uprn
+                )
+                context["administrations"] = administrations
+                if administrations.address_picker:
+                    context["address_picker"] = True
+                    context["addresses"] = administrations.addresses
+            except Exception:
+                # Just catch any error at the moment, as we don't want this to break anything
+                pass
+
         self.log_postcode(self.postcode)
 
         if context["address_picker"]:
@@ -113,6 +130,7 @@ class PostcodeView(
         context["parish_council_election"] = self.get_parish_council_election()
         context["num_ballots"] = self.num_ballots()
         context["requires_voter_id"] = self.get_voter_id_status()
+
         return context
 
     def future_postelections(self, postelections):

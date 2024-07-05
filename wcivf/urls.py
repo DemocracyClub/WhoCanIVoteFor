@@ -22,6 +22,7 @@ urlpatterns = (
         re_path(r"^i18n/", include("django.conf.urls.i18n")),
         path("", include("core.urls")),
         path("elections/", include("elections.urls")),
+        path("your_area/", include("administrations.urls")),
         path("parties/", include("parties.urls")),
         path("person/", include("people.urls")),
         path("feedback/", include("feedback.urls")),

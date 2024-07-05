@@ -83,6 +83,7 @@ INSTALLED_APPS = (
     "referendums",
     "parishes",
     "ppc_2024",
+    "administrations",
 )
 
 MIDDLEWARE = (
@@ -295,6 +296,12 @@ firehose_args = {"function_arn": LOGGER_ARN} if LOGGER_ARN else {"fake": True}
 POSTCODE_LOGGER = DCWidePostcodeLoggingClient(**firehose_args)
 
 SHOW_PARL_BOUNDARY_CHANGES = os.environ.get("SHOW_PARL_BOUNDARY_CHANGES", False)
+ENABLE_LAYERS_OF_STATE_FEATURE = os.environ.get(
+    "ENABLE_LAYERS_OF_STATE_FEATURE", False
+)
+LAYERS_OF_STATE_URL = (
+    "https://developers.environments.womblelabs.co.uk/api/v1/layers_of_state/"
+)
 
 with contextlib.suppress(ImportError):
     # .local.py overrides all the common settings.
