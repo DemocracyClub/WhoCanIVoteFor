@@ -167,8 +167,8 @@ class Parl24ElectedView(TemplateView):
                 post_election__election__slug="parl.2024-07-04",
                 elected=True,
             )
+            .values("party_name", "party_id")
             .annotate(party_count=Count("party_id"))
-            .values("party_name", "party_count", "party_id")
             .order_by("-party_count")
         )
 
