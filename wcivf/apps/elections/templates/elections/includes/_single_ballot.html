@@ -259,5 +259,8 @@
         {% endif %}
         {% include "elections/includes/_ld_election.html" with election=postelection %}
     </div>
-    {% include "hustings/includes/_ballot.html" with hustings=postelection.husting_set.displayable %}
+    {% if not postelection.election.in_past %}
+        {% include "hustings/includes/_ballot.html" with hustings=postelection.husting_set.displayable %}
+    {% endif %}
+
 </div>

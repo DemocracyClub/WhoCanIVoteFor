@@ -29,7 +29,7 @@
         {% endif %}
 
         {% if not address_picker %}
-            {% include "administrations/administrations_for_postcode.html" %}
+
 
             {% regroup postelections by election.election_date as elections_by_date %}
             {% for election_group in elections_by_date %}
@@ -41,6 +41,20 @@
                     {% endif %}
                 {% endfor %}
             {% endfor %}
+
+            {% if administrations %}
+                <h3>Your area</h3>
+                <p>As well as your new MP, there are others who represent you in your area.
+                    We're working on a new experimental feature to explain who these people are and how everything
+                    from your council to your
+                    police force works.</p>
+                {% if uprn %}
+                    <a href="{% url "your_area_view" postcode uprn %}" class="ds-cta">Find out more</a>
+                {% else %}
+                    <a href="{% url "your_area_view" postcode %}" class="ds-cta">Find out more</a>
+                {% endif %}
+            {% endif %}
+
 
             {% for referendum in referendums %}
                 {% include "referendums/includes/_card.html" %}
