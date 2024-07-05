@@ -3347,7 +3347,7 @@ gss_to_hex = {
 
 party_colour_map = {
     "PP53": "#E4003B",  # Lab
-    "joint-party53-119": "#E4003B",  # Lab/Co-op
+    "joint-party:53-119": "#E4003B",  # Lab/Co-op
     "PP52": "#0087DC",  # Con
     "PP90": "#FAA61A",  # LibDem
     "PP7931": "#00B1DA",  # Reform
