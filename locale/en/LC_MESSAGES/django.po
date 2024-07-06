@@ -1330,47 +1330,6 @@ msgid ""
 "cannot be used:"
 msgstr ""
 
-#: wcivf/apps/parties/templates/parties/regional_manifesto.html:5
-#, python-format
-msgid ""
-"The %(party_name)s have also released a <a href=\"https://labour.org.uk/"
-"change/scotland/\">manifesto for Scotland</a>."
-msgstr ""
-
-#: wcivf/apps/parties/templates/parties/regional_manifesto.html:20
-#, python-format
-msgid ""
-"The %(party_name)s have also released a <a href=\"\">manifesto for Scotland</"
-"a>."
-msgstr ""
-
-#: wcivf/apps/parties/templates/parties/regional_manifesto.html:25
-#, python-format
-msgid ""
-"The %(party_name)s have also released a <a href=\"\">manifesto for Wales</a>."
-msgstr ""
-
-#: wcivf/apps/parties/templates/parties/regional_manifesto.html:47
-#, python-format
-msgid ""
-"The %(party_name)s have also released a <a href=\"https://www.scotlibdems."
-"org.uk/fairdeal\">manifesto for Scotland</a>."
-msgstr ""
-
-#: wcivf/apps/parties/templates/parties/regional_manifesto.html:62
-#, python-format
-msgid ""
-"The %(party_name)s have also released a <a href=\"https://wales.greenparty."
-"org.uk/manifesto-2024-2/\">manifesto for Wales</a>."
-msgstr ""
-
-#: wcivf/apps/parties/templates/parties/regional_manifesto.html:70
-#, python-format
-msgid ""
-"The %(party_name)s have also released a <a href=\"https://labour.org.uk/"
-"change/scotland/\">manifesto for Wales</a>."
-msgstr ""
-
 #: wcivf/apps/parties/templates/parties/single_manifesto.html:5
 #, python-format
 msgid "%(manifesto_country)s manifesto"
