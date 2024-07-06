@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-24 14:27+0100\n"
+"POT-Creation-Date: 2024-07-06 12:21+0100\n"
 "PO-Revision-Date: 2022-03-24 09:04+0000\n"
 "Last-Translator: Sym Roe <sym@talusdesign.co.uk>, 2022\n"
 "Language-Team: Welsh (https://www.transifex.com/democracy-club/teams/61326/"
@@ -29,19 +29,19 @@ msgstr ""
 msgid "Enter your postcode"
 msgstr "Rhowch eich côd post"
 
-#: wcivf/apps/elections/models.py:760
+#: wcivf/apps/elections/models.py:756
 msgid "First-past-the-post"
 msgstr "Y Cyntaf i’r Felin"
 
-#: wcivf/apps/elections/models.py:762
+#: wcivf/apps/elections/models.py:758
 msgid "Additional Member System"
 msgstr "Y System Aelodau Ychwanegol"
 
-#: wcivf/apps/elections/models.py:764
+#: wcivf/apps/elections/models.py:760
 msgid "Supplementary Vote"
 msgstr "Pleidlais Atodol"
 
-#: wcivf/apps/elections/models.py:766
+#: wcivf/apps/elections/models.py:762
 msgid "Single Transferable Vote"
 msgstr "Pleidlais Sengl Drosglwyddadwy"
 
@@ -1205,16 +1205,16 @@ msgstr ""
 "chwilio amdano</p> <p>Cesglir y wybodaeth y gwelwch chi yma'n gyhoeddus, gan "
 "bobl fel chi.</p> <p>Helpwch ni i wneud yn well yn y dyfodol!</p>"
 
-#: wcivf/apps/hustings/templates/hustings/husting_form.html:6
+#: wcivf/apps/hustings/templates/hustings/husting_form.html:7
 #, python-format
 msgid "Tell us about a husting in %(location)s"
 msgstr ""
 
-#: wcivf/apps/hustings/templates/hustings/husting_form.html:9
+#: wcivf/apps/hustings/templates/hustings/husting_form.html:10
 msgid "We will review your suggestion before adding it to the site."
 msgstr ""
 
-#: wcivf/apps/hustings/templates/hustings/husting_form.html:10
+#: wcivf/apps/hustings/templates/hustings/husting_form.html:11
 msgid ""
 "\n"
 "            If you know about a lot of hustings, <a href=\"https://"
@@ -1222,21 +1222,21 @@ msgid ""
 "        "
 msgstr ""
 
-#: wcivf/apps/hustings/templates/hustings/husting_form.html:15
+#: wcivf/apps/hustings/templates/hustings/husting_form.html:16
 msgid ""
 "We will only accept hustings that are open to the public and invite all "
 "candidate."
 msgstr ""
 
-#: wcivf/apps/hustings/templates/hustings/husting_form.html:16
+#: wcivf/apps/hustings/templates/hustings/husting_form.html:17
 msgid "We require a url to verify the husting details."
 msgstr ""
 
-#: wcivf/apps/hustings/templates/hustings/husting_form.html:17
+#: wcivf/apps/hustings/templates/hustings/husting_form.html:18
 msgid "Single party or paid-for events will not be accepted."
 msgstr ""
 
-#: wcivf/apps/hustings/templates/hustings/husting_form.html:24
+#: wcivf/apps/hustings/templates/hustings/husting_form.html:25
 msgid "Submit event"
 msgstr ""
 
@@ -1588,47 +1588,6 @@ msgid ""
 msgstr ""
 "Nid yw'r symbolau hyn bellach wedi'u cofrestru gyda'r Comisiwn Etholiadol ac "
 "ni ellir eu defnyddio:"
-
-#: wcivf/apps/parties/templates/parties/regional_manifesto.html:5
-#, python-format
-msgid ""
-"The %(party_name)s have also released a <a href=\"https://labour.org.uk/"
-"change/scotland/\">manifesto for Scotland</a>."
-msgstr ""
-
-#: wcivf/apps/parties/templates/parties/regional_manifesto.html:20
-#, python-format
-msgid ""
-"The %(party_name)s have also released a <a href=\"\">manifesto for Scotland</"
-"a>."
-msgstr ""
-
-#: wcivf/apps/parties/templates/parties/regional_manifesto.html:25
-#, python-format
-msgid ""
-"The %(party_name)s have also released a <a href=\"\">manifesto for Wales</a>."
-msgstr ""
-
-#: wcivf/apps/parties/templates/parties/regional_manifesto.html:47
-#, python-format
-msgid ""
-"The %(party_name)s have also released a <a href=\"https://www.scotlibdems."
-"org.uk/fairdeal\">manifesto for Scotland</a>."
-msgstr ""
-
-#: wcivf/apps/parties/templates/parties/regional_manifesto.html:62
-#, python-format
-msgid ""
-"The %(party_name)s have also released a <a href=\"https://wales.greenparty."
-"org.uk/manifesto-2024-2/\">manifesto for Wales</a>."
-msgstr ""
-
-#: wcivf/apps/parties/templates/parties/regional_manifesto.html:70
-#, python-format
-msgid ""
-"The %(party_name)s have also released a <a href=\"https://labour.org.uk/"
-"change/scotland/\">manifesto for Wales</a>."
-msgstr ""
 
 #: wcivf/apps/parties/templates/parties/single_manifesto.html:5
 #, python-format
@@ -2037,7 +1996,7 @@ msgstr ""
 "%(person_name)s oedd ymgeisydd y %(party_name)s. Dysgwch fwy am eu polisïau "
 "ym maniffesto'r %(party_name)s."
 
-#: wcivf/apps/people/templates/people/includes/_person_manifesto_card.html:33
+#: wcivf/apps/people/templates/people/includes/_person_manifesto_card.html:30
 #, fuzzy, python-format
 #| msgid "'%(party_name)s' emblem "
 msgid "'%(party_name)s' emblem"

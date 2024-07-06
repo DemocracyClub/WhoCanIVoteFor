@@ -477,27 +477,6 @@ class Person(models.Model):
         except AttributeError:
             return False
 
-    @property
-    def has_regional_manifesto(self):
-        file_path = (
-            "wcivf/apps/parties/templates/parties/regional_manifesto_ids.txt"
-        )
-        regional_manifesto_ids = []
-        with open(file_path) as f:
-            regional_manifesto_ids = [line.strip() for line in f.readlines()]
-            if (
-                self.featured_candidacy.post_election.ballot_paper_id
-                in regional_manifesto_ids
-            ) and self.featured_candidacy.party.party_id in [
-                "party:53",
-                "party:52",
-                "party:90",
-                "party:63",
-                "joint-party:53-119",
-            ]:
-                return True
-        return False
-
 
 class PersonRedirect(models.Model):
     old_person_id = models.IntegerField()
