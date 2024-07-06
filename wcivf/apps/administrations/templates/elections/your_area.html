@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load dc_forms %}
 {% block content %}
     <aside class="ds-status" aria-label="Status">
         <ul>
@@ -9,17 +9,44 @@
             </li>
         </ul>
     </aside>
+    {% if administrations.administrations %}
+        <h2>Your area</h2>
 
-    <h2>Your area</h2>
-    <p>This page lists all the parts of government that look after your area. Each of these organisations
-        have different responsibilities and representatives.</p>
+        <p>This page lists all the parts of government that look after your area. Each of these organisations
+            have different responsibilities and representatives.</p>
 
-    {% include "administrations/administrations_for_postcode.html" %}
-    <hr>
-    <p>Note: you may also have a parish, town or community council in your area. We're working on adding them to this
-        page</p>
+        {% include "administrations/administrations_for_postcode.html" %}
+        <hr>
+        <p>Note: you may also have a parish, town or community council in your area. We're working on adding them to
+            this
+            page</p>
 
+        <p>Something wrong? Please <a href="https://democracyclub.org.uk/contact/">
+            get in touch</a> with feedback or bug reports</p>
 
-    <p>Something wrong? Please <a href="https://democracyclub.org.uk/contact/">
-        get in touch</a> with feedback or bug reports</p>
+    {% else %}
+        {% if postcode %}
+            <p>Sorry, we don't have any information for your postcode, or something else has gone wrong. Please try a
+                different postcode</p>
+        {% endif %}
+
+    {% endif %}
+    <div class="ds-text-centered ds-stack">
+        <h3 style="text-wrap: balance;">Find out about local government in your area</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ your_area_postcode_form|dc_form }}
+            <button class="ds-button-pink" type="submit">Search</button>
+
+        </form>
+        {% if not postcode %}
+            <p>
+                As well as your new MP, there are others who represent you in your area.
+                We're working on a new experimental feature to explain who these people are and how everything
+                from your council to your
+                police force works.
+            </p>
+        {% endif %}
+    </div>
+
 {% endblock %}

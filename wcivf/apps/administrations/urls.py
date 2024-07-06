@@ -13,4 +13,9 @@ urlpatterns = [
         YourArea.as_view(),
         name="your_area_view",
     ),
+    re_path(
+        r"^$",
+        YourArea.as_view(),
+        name="your_area_view",
+    ),
 ]
