@@ -9,6 +9,9 @@
         {% regroup postelections by election.election_date as header_elections_by_date %}
         {% if address_picker %}
             <h2>{% trans "Select your address" %}</h2>
+            <small>{% trans "The postcode you have entered is split across more than one administrative or electoral boundary." %}
+                <br>{% trans "Please select your address to get the correct information." %}
+            </small>
         {% else %}
             <h2>{% trans "Elections in your area" %}</h2>
         {% endif %}
