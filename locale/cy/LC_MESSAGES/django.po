@@ -669,7 +669,7 @@ msgstr ""
 "bleidleisio"
 
 #: wcivf/apps/elections/templates/elections/includes/_postcode_search_form.html:11
-#: wcivf/templates/home.html:22
+#: wcivf/templates/home.html:33
 msgid "Find your candidates"
 msgstr "Dod o hyd i'ch ymgeiswyr"
 
@@ -1121,6 +1121,12 @@ msgstr "heddiw"
 #: wcivf/apps/elections/templates/elections/post_view.html:35
 msgid "due to take place on"
 msgstr "Mae disgwyl iddo gael ei gynnal ar"
+
+#: wcivf/apps/elections/templates/parl_24_winners_full.html:37
+#, fuzzy, python-format
+#| msgid "Photo of %(pp.person.name)s"
+msgid "Photo of %(latest_winner.person.name)s"
+msgstr "Llun o %(pp.person.name)s"
 
 #: wcivf/apps/feedback/models.py:9
 msgid "Yes"
@@ -2666,15 +2672,15 @@ msgstr "Cysylltwch â Ni"
 msgid "GitHub"
 msgstr "GitHub"
 
-#: wcivf/templates/home.html:5 wcivf/templates/home.html:6
+#: wcivf/templates/home.html:6 wcivf/templates/home.html:7
 msgid "Who Can I Vote For?"
 msgstr "Pwy alla i bleidleisio ar gyfer?"
 
-#: wcivf/templates/home.html:10
+#: wcivf/templates/home.html:18
 msgid "Find out about candidates in your area"
 msgstr "Cael gwybod am ymgeiswyr yn eich ardal chi"
 
-#: wcivf/templates/home.html:17
+#: wcivf/templates/home.html:28
 #, python-format
 msgid ""
 "Sorry, we don't know the postcode %(postcode)s. Is there another one you can "
@@ -2683,71 +2689,69 @@ msgstr ""
 "Mae'n flin gennym, ond nid ydym yn gwybod y côd post %(postcode)s . A oes un "
 "arall y gallwch chi ei ddefnyddio?"
 
-#: wcivf/templates/home.html:23
-msgid ""
-"A parliamentary general election has been called for 4 July. Enter your "
-"postcode to find your constituency and candidates."
-msgstr ""
-"Mae etholiad cyffredinol seneddol wedi ei alw ar gyfer 4 Gorffennaf. Rhowch "
-"eich côd post i ddod o hyd i'ch etholaeth a'ch ymgeiswyr."
-
-#: wcivf/templates/home.html:24
-msgid ""
-"A new set of constituency boundaries will be used for the 2024 election. "
-"This means that your constituency may have changed since the last election."
-msgstr ""
-"Bydd set newydd o ffiniau etholaethau yn cael eu defnyddio ar gyfer etholiad "
-"2024. Mae hyn yn golygu y gallai eich etholaeth fod wedi newid ers yr "
-"etholiad diwethaf."
-
-#: wcivf/templates/home.html:25
-msgid ""
-"You will need to show photo ID to vote at a polling station in these "
-"elections."
-msgstr ""
-"Bydd angen i chi dynnu llun ID i bleidleisio mewn gorsaf bleidleisio yn yr "
-"etholiad hwn."
-
-#: wcivf/templates/home.html:37
+#: wcivf/templates/home.html:78
 #, fuzzy
 #| msgid "You will need photographic identification."
 msgid "Photographic identification"
 msgstr "Bydd angen dull adnabod ffotograffig arnoch."
 
-#: wcivf/templates/home.html:39
+#: wcivf/templates/home.html:80
 msgid ""
 "Photographic identification will be required to vote in English local "
 "elections, and parliamentary elections across the UK, on and after 4 May "
 "2023."
 msgstr ""
 
-#: wcivf/templates/home.html:41
+#: wcivf/templates/home.html:82
 msgid ""
 "Learn more about photographic identification for voters on the website of "
 "the Electoral Commission."
 msgstr ""
 
-#: wcivf/templates/home.html:41
+#: wcivf/templates/home.html:82
 msgid "Learn more on the website of the Electoral Commission."
 msgstr ""
 
-#: wcivf/templates/home.html:44
+#: wcivf/templates/home.html:85
 msgid ""
 "You can apply for a free 'Voter Authority Certificate' if you do not already "
 "possess a valid ID."
 msgstr ""
 
-#: wcivf/templates/home.html:46
+#: wcivf/templates/home.html:87
 msgid "Apply for free voter ID."
 msgstr ""
 
-#: wcivf/templates/home.html:48
+#: wcivf/templates/home.html:89
 msgid "You do not need photo ID to vote by post."
 msgstr ""
 
-#: wcivf/templates/home.html:52
+#: wcivf/templates/home.html:93
 msgid "Upcoming Elections"
 msgstr "Etholiadau i ddod"
+
+#~ msgid ""
+#~ "A parliamentary general election has been called for 4 July. Enter your "
+#~ "postcode to find your constituency and candidates."
+#~ msgstr ""
+#~ "Mae etholiad cyffredinol seneddol wedi ei alw ar gyfer 4 Gorffennaf. "
+#~ "Rhowch eich côd post i ddod o hyd i'ch etholaeth a'ch ymgeiswyr."
+
+#~ msgid ""
+#~ "A new set of constituency boundaries will be used for the 2024 election. "
+#~ "This means that your constituency may have changed since the last "
+#~ "election."
+#~ msgstr ""
+#~ "Bydd set newydd o ffiniau etholaethau yn cael eu defnyddio ar gyfer "
+#~ "etholiad 2024. Mae hyn yn golygu y gallai eich etholaeth fod wedi newid "
+#~ "ers yr etholiad diwethaf."
+
+#~ msgid ""
+#~ "You will need to show photo ID to vote at a polling station in these "
+#~ "elections."
+#~ msgstr ""
+#~ "Bydd angen i chi dynnu llun ID i bleidleisio mewn gorsaf bleidleisio yn "
+#~ "yr etholiad hwn."
 
 #~ msgid ""
 #~ "Democracy Club’s volunteers are collecting information on each candidate "
