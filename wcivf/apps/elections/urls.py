@@ -9,7 +9,6 @@ from .helpers import ElectionIDSwitcher
 from .views import (
     ElectionsView,
     ElectionView,
-    Parl24ElectedView,
     PartyListVew,
     PostcodeiCalView,
     PostcodeView,
@@ -99,10 +98,5 @@ urlpatterns = [
     ),
     re_path(
         r"^(?P<postcode>[^/]+)/$", PostcodeView.as_view(), name="postcode_view"
-    ),
-    re_path(
-        r"^ge24_winners",
-        Parl24ElectedView.as_view(),
-        name="parl_24_winners_full",
     ),
 ]
