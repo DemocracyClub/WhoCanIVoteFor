@@ -26,18 +26,12 @@ class YourArea(TemplateView):
 
         self.uprn = self.kwargs.get("uprn")
 
-        try:
-            administrations = AdministrationsHelper(
-                self.postcode, uprn=self.uprn
-            )
-            context["administrations"] = administrations
-            if administrations.address_picker:
-                context["address_picker"] = True
-                context["addresses"] = administrations.addresses
-        except Exception as e:
-            print(str(e))
-            # Just catch any error at the moment, as we don't want this to break anything
-            pass
+        administrations = AdministrationsHelper(self.postcode, uprn=self.uprn)
+        context["administrations"] = administrations
+        if administrations.address_picker:
+            context["address_picker"] = True
+            context["addresses"] = administrations.addresses
+            print(administrations.addresses)
         return context
 
     def post(self, request, *args, **kwargs):

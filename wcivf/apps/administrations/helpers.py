@@ -1,3 +1,4 @@
+import re
 from functools import cached_property
 from typing import List, Optional
 from urllib.parse import urljoin
@@ -182,6 +183,17 @@ class Administration:
         return weight + weight_modifier
 
 
+def sort_address(address_dict):
+    address = address_dict["address"]
+    match = re.match(r"(\d+)", address)
+    if match:
+        return int(match.group(1)), address_dict
+    return (
+        float("inf"),
+        address_dict,
+    )
+
+
 class AdministrationsHelper:
     def __init__(self, postcode: str, uprn: Optional[str] = None):
         self.postcode = postcode
@@ -191,7 +203,9 @@ class AdministrationsHelper:
         self.api_response = self.get_api_response(postcode, uprn=uprn)
         if self.api_response["address_picker"]:
             self.address_picker = True
-            self.addresses = self.api_response["addresses"]
+            self.addresses = sorted(
+                self.api_response["addresses"], key=sort_address
+            )
             return
         self.administration_ids = self.api_response["admin_ids"]
         self.administrations: List[Administration] = []
