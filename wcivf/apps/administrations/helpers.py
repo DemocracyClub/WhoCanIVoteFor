@@ -75,7 +75,10 @@ class Administration:
         div_name = self.data["division"]["name"]
 
         if self.role_type == "local":
-            div_name = f"{div_name} ward"
+            if self.post_type.value == "CED":
+                div_name = f"{div_name} division"
+            else:
+                div_name = f"{div_name} ward"
 
         if self.role_type == "parl":
             return f"{div_name} parliamentary constituency"
