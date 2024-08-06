@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% load dc_forms %}
+{% block page_title %}
+    Your area
+{% endblock %}
 {% block content %}
     <aside class="ds-status" aria-label="Status">
         <ul>
@@ -24,6 +27,18 @@
         <p>Something wrong? Please <a href="https://democracyclub.org.uk/contact/">
             get in touch</a> with feedback or bug reports</p>
 
+    {% elif administrations.address_picker %}
+        <h2>Please pick your address</h2>
+        <p>This postcode spans more than one area, so we need to know the address to provide information about your
+            area</p>
+        <ul>
+            {% for address in administrations.addresses %}
+                <li>
+                    <a href="{% url "your_area_view" postcode=address.postcode uprn=address.slug %}">{{ address.address }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+
     {% else %}
         {% if postcode %}
             <p>Sorry, we don't have any information for your postcode, or something else has gone wrong. Please try a
@@ -31,22 +46,27 @@
         {% endif %}
 
     {% endif %}
-    <div class="ds-text-centered ds-stack">
-        <h3 style="text-wrap: balance;">Find out about local government in your area</h3>
-        <form method="post">
-            {% csrf_token %}
-            {{ your_area_postcode_form|dc_form }}
-            <button class="ds-button-pink" type="submit">Search</button>
 
-        </form>
-        {% if not postcode %}
-            <p>
-                As well as your new MP, there are others who represent you in your area.
-                We're working on a new experimental feature to explain who these people are and how everything
-                from your council to your
-                police force works.
-            </p>
-        {% endif %}
+    {% if not address_picker %}
+
+
+        <div class="ds-text-centered ds-stack">
+            <h3 style="text-wrap: balance;">Find out about local government in your area</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{ your_area_postcode_form|dc_form }}
+                <button class="ds-button-pink" type="submit">Search</button>
+
+            </form>
+    {% endif %}
+    {% if not postcode %}
+        <p>
+            As well as your new MP, there are others who represent you in your area.
+            We're working on a new experimental feature to explain who these people are and how everything
+            from your council to your
+            police force works.
+        </p>
+    {% endif %}
     </div>
 
 {% endblock %}
