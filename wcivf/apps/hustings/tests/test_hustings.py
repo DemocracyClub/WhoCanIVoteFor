@@ -1,5 +1,4 @@
 from datetime import timezone
-from unittest import skip
 
 import vcr
 from django.test import TestCase
@@ -15,7 +14,16 @@ from hustings.models import Husting, HustingStatus
 
 class TestHustings(TestCase):
     def setUp(self):
-        self.election = ElectionFactory(slug="mayor.tower-hamlets.2018-05-03")
+        self.election_date = datetime(2017, 3, 23)
+        self.husting_start = datetime(2017, 3, 22, 19, 00, tzinfo=timezone.utc)
+        self.husting_end = datetime(2017, 3, 22, 22, 00, tzinfo=timezone.utc)
+
+        self.election = ElectionFactory(
+            slug="mayor.tower-hamlets."
+            + self.election_date.strftime("%Y-%m-%d"),
+            election_date=self.election_date,
+        )
+
         self.post = PostFactory(
             ynr_id="tower-hamlets",
             label="Tower Hamlets",
@@ -30,13 +38,12 @@ class TestHustings(TestCase):
             post_election=self.ballot,
             title="Local Election Hustings",
             url="https://example.com/hustings",
-            starts=datetime(2017, 3, 23, 19, 00, tzinfo=timezone.utc),
-            ends=datetime(2017, 3, 23, 21, 00, tzinfo=timezone.utc),
+            starts=self.husting_start,
+            ends=self.husting_end,
             location="St George's Church",
             status=HustingStatus.published,
         )
 
-    @skip
     @freeze_time("2017-3-22")
     @vcr.use_cassette("fixtures/vcr_cassettes/test_mayor_elections.yaml")
     def test_hustings_display_on_postcode_page(self):
@@ -45,7 +52,6 @@ class TestHustings(TestCase):
         self.assertContains(response, self.hust.title)
         self.assertContains(response, self.hust.url)
 
-    @skip
     @freeze_time("2017-3-22")
     def test_hustings_display_on_ballot_page(self):
         response = self.client.get(self.ballot.get_absolute_url(), follow=True)
