@@ -96,6 +96,7 @@ MIDDLEWARE = (
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "core.middleware.UTMTrackerMiddleware",
+    "dc_utils.middleware.BasicAuthMiddleware",
 )
 
 MIDDLEWARE = whitenoise_add_middleware(MIDDLEWARE)
@@ -164,7 +165,6 @@ if int(os.environ.get("FEEDBACK_DB_ENABLED", "0")):
     if os.environ.get("DC_ENVIRONMENT") in ["production"]:
         DATABASE_ROUTERS.append("core.db_routers.FeedbackRouter")
 
-
 if not os.environ.get("IGNORE_ROUTERS") and os.environ.get(
     "RDS_DB_NAME", False
 ):
@@ -210,7 +210,6 @@ PIPELINE = get_pipeline_settings(
     extra_css=["scss/style.scss"],
     extra_js=["feedback/js/feedback_form.js"],
 )
-
 
 PIPELINE["SASS_ARGUMENTS"] += (
     " -I " + dc_design_system.DC_SYSTEM_PATH + "/system"
@@ -303,6 +302,8 @@ LAYERS_OF_STATE_URL = (
     "https://developers.environments.womblelabs.co.uk/api/v1/layers_of_state/"
 )
 
+BASIC_AUTH_ALLOWLIST = ["/_status_check/"]
+
 with contextlib.suppress(ImportError):
     # .local.py overrides all the common settings.
     from .local import *  # noqa
@@ -310,7 +311,6 @@ with contextlib.suppress(ImportError):
     if DEBUG:
         INSTALLED_APPS += ("debug_toolbar",)
         MIDDLEWARE += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
-
 
 if os.environ.get("CIRCLECI"):
     with contextlib.suppress(ImportError):
