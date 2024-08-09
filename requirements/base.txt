@@ -2,7 +2,7 @@ Django==4.2.11
 botocore>=1.31.4
 boto3==1.28.5
 psycopg2-binary==2.9.6
-requests==2.31.0
+requests==2.32.2
 django-filter==24.2
 django-model-utils==4.3.1
 Markdown==3.5.1
