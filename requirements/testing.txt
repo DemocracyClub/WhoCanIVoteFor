@@ -10,7 +10,7 @@ pytest-freezegun
 pytest-mock
 pytest-subtests
 tomlkit
-freezegun==1.2.2
+freezegun==1.5.1
 django-debug-toolbar==4.3.0
 curlylint==0.13.1
 ruff==0.1.15
