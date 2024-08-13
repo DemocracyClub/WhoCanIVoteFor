@@ -106,9 +106,9 @@ class BaseCandidatesAndElectionsViewSet(
                 ),
             }
             if postelection.replaced_by:
-                election["replaced_by"] = (
-                    postelection.replaced_by.ballot_paper_id
-                )
+                election[
+                    "replaced_by"
+                ] = postelection.replaced_by.ballot_paper_id
             else:
                 election["replaced_by"] = None
 
