@@ -114,6 +114,7 @@ jobs:
       - run:
           name: sam build
           command: |
+            pip install setuptools wheel
             make build clean
       - persist_to_workspace:
           root: ~/repo/
