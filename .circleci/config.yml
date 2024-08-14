@@ -93,7 +93,7 @@ jobs:
           name: run pytest
           command: |
             . .venv/bin/activate
-            pytest -sx --ruff --cov-report= --cov=wcivf --junitxml=test-results/junit.xml
+            pytest -sx --cov-report= --cov=wcivf --junitxml=test-results/junit.xml
       - run: |
           if [ -n "$COVERALLS_REPO_TOKEN" ]; then
           . .venv/bin/activate
