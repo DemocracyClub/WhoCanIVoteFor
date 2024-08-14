@@ -114,6 +114,8 @@ jobs:
       - run:
           name: sam build
           command: |
+            dnf install -y postgresql-devel
+            pip install setuptools wheel
             make build clean
       - persist_to_workspace:
           root: ~/repo/
