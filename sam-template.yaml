@@ -91,7 +91,7 @@ Resources:
       CodeUri: .
       Handler: wcivf.lambda_handler.handler
       MemorySize: 256
-      Runtime: python3.10
+      Runtime: python3.12
       Timeout: 360
       Environment:
         Variables:
