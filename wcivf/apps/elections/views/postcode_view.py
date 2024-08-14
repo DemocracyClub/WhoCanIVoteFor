@@ -99,9 +99,9 @@ class PostcodeView(
         context["show_polling_card"] = self.show_polling_card(
             context["postelections"]
         )
-        context["is_before_registration_deadline"] = (
-            self.is_before_registration_deadline(context["postelections"])
-        )
+        context[
+            "is_before_registration_deadline"
+        ] = self.is_before_registration_deadline(context["postelections"])
         context["people_for_post"] = {}
         for postelection in context["postelections"]:
             postelection.people = self.people_for_ballot(postelection)
@@ -115,14 +115,14 @@ class PostcodeView(
             "postcode_location", None
         )
 
-        context["advance_voting_station"] = (
-            self.get_advance_voting_station_info(context["polling_station"])
-        )
+        context[
+            "advance_voting_station"
+        ] = self.get_advance_voting_station_info(context["polling_station"])
 
         context["ballots_today"] = self.get_todays_ballots()
-        context["multiple_city_of_london_elections_today"] = (
-            self.multiple_city_of_london_elections_today()
-        )
+        context[
+            "multiple_city_of_london_elections_today"
+        ] = self.multiple_city_of_london_elections_today()
         context["referendums"] = list(self.get_referendums())
         context["parish_council_election"] = self.get_parish_council_election()
         context["num_ballots"] = self.num_ballots()
@@ -405,8 +405,10 @@ class DummyPostcodeView(PostcodeView):
         )
         context["show_polling_card"] = True
         context["polling_station"] = self.get_polling_station()
-        context["is_before_registration_deadline"] = (
-            PostcodeView().is_before_registration_deadline(context["postelections"])
+        context[
+            "is_before_registration_deadline"
+        ] = PostcodeView().is_before_registration_deadline(
+            context["postelections"]
         )
         context["registration"] = self.get_registration()
         context["council"] = self.get_electoral_services()

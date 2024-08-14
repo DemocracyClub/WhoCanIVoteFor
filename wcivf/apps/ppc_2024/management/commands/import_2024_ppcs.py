@@ -17,7 +17,8 @@ from people.models import Person
 from ppc_2024.models import PPCPerson
 
 
-class BlankRowException(ValueError): ...
+class BlankRowException(ValueError):
+    ...
 
 
 def clean_party_id(party_id):
