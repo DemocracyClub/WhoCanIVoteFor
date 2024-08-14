@@ -1,6 +1,6 @@
 ## Installation requirements on ubuntu
 
-WCIVF requires Python 3.
+WCIVF requires Python 3.12
 
 To install:
 
@@ -22,7 +22,7 @@ Pyenv is recommended to install python versions. You can find installation instr
 
 The python version that we are using for this project is specified in the `.python-version` file in the root of the directory.You can install this version with:
 
-    pyenv install 3.10.4
+    pyenv install 3.12
 
 The presence of a `.python-version` file means that pyenv will activate this version whenever in this directory. This means that whenever running a `python` command, the version specified in `.python-version` is used. You can check this with the below command:
 
@@ -32,7 +32,7 @@ The output should match the version in `.python-version`. If the version is not 
 
 If there is no `.python-version` file you can use the following command to create one and activate that version for this project:
 
-    pyenv local 3.10.4
+    pyenv local 3.12
 
 When you are happy that you are using the correct python version, you are ready to create a [virtual environment](https://docs.python.org/3/tutorial/venv.html) with the command:
 
@@ -81,17 +81,14 @@ GEOS_LIBRARY_PATH= '{YOUR PATH}/libgeos_c.1.17.0.dylib'
 
 ## Code formatting
 
-The project uses [Black](https://black.readthedocs.io/en/stable/) for code formatting. You can run it with:
+Additionally, this project uses [ruff](https://beta.ruff.rs/docs/) for code formatting and linting. You can run it with:
 
-    black .
-
-Additionally, this project uses [ruff](https://beta.ruff.rs/docs/) for linting. You can run it with:
-
-    ruff . 
+    ruff format .
+    ruff check .
 
 ruff has in-built functionality to fix common linting errors. Use the `--fix` option to do this.
 
-Both Black and ruff are both automatically called as part of pytest in this project.
+Ruff is automatically called as part of pytest in this project.
 
 A pre-commit hook is defined in the project to run it automatically before each commit. See the [pre-commit docs](https://pre-commit.com/#quick-start) for more information, or simply run the below command to setup:
 
