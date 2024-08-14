@@ -4,7 +4,7 @@
 #
 version: 2.1
 orbs:
-  slack: circleci/slack@4.13.2
+  slack: circleci/slack@4.13.3
 
 executors:
   py310:
