@@ -86,10 +86,10 @@ jobs:
             . .venv/bin/activate
             pip check
       - run:
-          name: CurlyLint
+          name: Djhtml
           command: |
             . .venv/bin/activate
-            curlylint wcivf/**/*.html
+            git ls-files '*.html' | xargs djhtml --check
       - run:
           name: Compile Messages
           command: |

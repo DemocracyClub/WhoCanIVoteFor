@@ -12,7 +12,7 @@ pytest-subtests
 tomlkit
 freezegun==1.2.2
 django-debug-toolbar==4.3.0
-curlylint==0.13.1
+djhtml==3.0.6
 ruff==0.1.15
 pytest-ruff==0.2.1
 pytidylib
