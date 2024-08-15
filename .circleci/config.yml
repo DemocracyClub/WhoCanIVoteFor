@@ -79,6 +79,12 @@ jobs:
           command: |
             . .venv/bin/activate
             ruff format . --check
+            ruff check .
+      - run:
+          name: Pip Check
+          command: |
+            . .venv/bin/activate
+            pip check
       - run:
           name: CurlyLint
           command: |
