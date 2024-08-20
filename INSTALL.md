@@ -4,7 +4,7 @@ WCIVF requires Python 3.12
 
 To install:
 
-    sudo apt-get install python3-dev libpq-dev libjpeg-dev redis-server
+    sudo apt-get install python3-dev libpq-dev libjpeg-dev redis-server libtidy-dev
     pip install -r requirements/local.txt
 
 
