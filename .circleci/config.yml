@@ -280,14 +280,14 @@ workflows:
           - build_and_test
           - sam_build
           context: [ deployment-development-wcivf, slack-secrets ]
-          filters: { branches: { only: [ main, master, staging, development ] } }
+          filters: { branches: { only: [ main, master, staging, upgrades202408 ] } }
       - post_deploy_tests:
           name: post_deploy_tests_development
           dc-environment: development
           requires:
             - sam_deploy_development
           context: [ deployment-development-wcivf, slack-secrets ]
-          filters: { branches: { only: [ main, master, staging, development ] } }
+          filters: { branches: { only: [ main, master, staging, upgrades202408 ] } }
       - code_deploy:
           name: code_deploy_development
           dc-environment: development
@@ -297,7 +297,7 @@ workflows:
           requires:
           - post_deploy_tests_development
           context: [ deployment-development-wcivf, slack-secrets ]
-          filters: { branches: { only: [ main, master, staging, development ] } }
+          filters: { branches: { only: [ main, master, staging, upgrades202408 ] } }
       - sam_deploy:
           name: sam_deploy_staging
           dc-environment: staging
