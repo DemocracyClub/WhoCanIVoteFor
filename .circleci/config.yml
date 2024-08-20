@@ -78,7 +78,7 @@ jobs:
           name: Ruff
           command: |
             . .venv/bin/activate
-            ruff format .
+            ruff format . --check
       - run:
           name: CurlyLint
           command: |
