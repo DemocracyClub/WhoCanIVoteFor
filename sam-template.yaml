@@ -363,8 +363,8 @@ Resources:
         IamInstanceProfile:
           Name: 'CodeDeploy-EC2-Instance-Profile'
         # output of
-        # https://eu-west-2.console.aws.amazon.com/imagebuilder/home?region=eu-west-2#/images/arn%3Aaws%3Aimagebuilder%3Aeu-west-2%3A743524368797%3Aimage%2Fdcbaseimage-ubuntu-24-04%2F0.0.2%2F1/details
-        ImageId: 'ami-0c40c7ef04b5ab961'
+        # https://eu-west-2.console.aws.amazon.com/imagebuilder/home?region=eu-west-2#/images/arn%3Aaws%3Aimagebuilder%3Aeu-west-2%3A732292556707%3Aimage%2Feeimage-ubuntu%2F0.0.35%2F2/details
+        ImageId: 'ami-0c8d319e3a044e7da'
         InstanceType: !Ref InstanceType
       TagSpecifications:
         - ResourceType: launch-template
