@@ -314,7 +314,9 @@ if os.environ.get("DC_ENVIRONMENT"):
         environment=os.environ.get("DC_ENVIRONMENT"),
     )
 
+if os.environ.get("DC_ENVIRONMENT") and os.environ.get("FQDN"):
     ALLOWED_HOSTS.append(get_ec2_ip())
+
 
 # DC Logging Client
 LOGGER_ARN = os.environ.get("LOGGER_ARN", None)
