@@ -4,6 +4,7 @@ import os
 import sys
 
 import dc_design_system
+import requests
 import sentry_sdk.integrations.django
 from dc_logging_client import DCWidePostcodeLoggingClient
 from dc_utils.settings.pipeline import *  # noqa
@@ -44,7 +45,28 @@ DEBUG = False
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    os.environ.get("FQDN", None),
+    "localhost",
+    "127.0.0.1",
+]
+
+
+def get_ec2_ip():
+    token_req = requests.put(
+        "http://169.254.169.254/latest/api/token",
+        headers={"X-aws-ec2-metadata-token-ttl-seconds": "21600"},
+        timeout=2,
+    )
+    token_req.raise_for_status()
+    token_req.text
+    ip_req = requests.get(
+        "http://169.254.169.254/latest/meta-data/local-ipv4",
+        headers={"X-aws-ec2-metadata-token": token_req.text},
+        timeout=2,
+    )
+    ip_req.raise_for_status()
+    return ip_req.text
 
 
 CSRF_TRUSTED_ORIGINS = [
@@ -291,6 +313,10 @@ if os.environ.get("DC_ENVIRONMENT"):
         ],
         environment=os.environ.get("DC_ENVIRONMENT"),
     )
+
+if os.environ.get("DC_ENVIRONMENT") and os.environ.get("FQDN"):
+    ALLOWED_HOSTS.append(get_ec2_ip())
+
 
 # DC Logging Client
 LOGGER_ARN = os.environ.get("LOGGER_ARN", None)
