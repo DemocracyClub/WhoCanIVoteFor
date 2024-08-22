@@ -10,7 +10,8 @@ echo "" > /var/log/db_replication/logs.log
 
 USER=${PROJECT_NAME}
 DB=${PROJECT_NAME}
-INSTANCE_ID=$(curl http://instance-data/latest/meta-data/instance-id)
+METADATA_TOKEN=$(curl -X PUT "http://instance-data/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600" --fail --silent)
+INSTANCE_ID=$(curl "http://instance-data/latest/meta-data/instance-id" -H "X-aws-ec2-metadata-token: $METADATA_TOKEN" --fail --silent)
 SUBSCRIPTION=${USER}_${INSTANCE_ID:2}
 
 # Set up DB and enable PostGIS

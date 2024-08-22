@@ -60,7 +60,7 @@ chown -R "$PROJECT_NAME"  "$PROJECT_ROOT"
 # -------------
 
 # Make sure pg_hba.conf is permissive.
-cat > /etc/postgresql/14/main/pg_hba.conf <<- EOF
+cat > /etc/postgresql/16/main/pg_hba.conf <<- EOF
 # TYPE  DATABASE        USER            ADDRESS                 METHOD
 local   all             postgres                                trust
 local   all             all                                     trust

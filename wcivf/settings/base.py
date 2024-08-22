@@ -4,6 +4,7 @@ import os
 import sys
 
 import dc_design_system
+import requests
 import sentry_sdk.integrations.django
 from dc_logging_client import DCWidePostcodeLoggingClient
 from dc_utils.settings.pipeline import *  # noqa
@@ -42,8 +43,36 @@ MANAGERS = ADMINS
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-# add to param store?
-ALLOWED_HOSTS = ["*"]
+
+def get_ec2_ip():
+    token_req = requests.put(
+        "http://169.254.169.254/latest/api/token",
+        headers={"X-aws-ec2-metadata-token-ttl-seconds": "21600"},
+        timeout=2,
+    )
+    token_req.raise_for_status()
+    token_req.text
+    ip_req = requests.get(
+        "http://169.254.169.254/latest/meta-data/local-ipv4",
+        headers={"X-aws-ec2-metadata-token": token_req.text},
+        timeout=2,
+    )
+    ip_req.raise_for_status()
+    return ip_req.text
+
+
+# Hosts/domain names that are valid for this site; required if DEBUG is False
+# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+]
+
+if os.environ.get("DC_ENVIRONMENT") and os.environ.get("FQDN"):
+    ALLOWED_HOSTS.append(os.environ.get("FQDN"))
+    ALLOWED_HOSTS.append(get_ec2_ip())
+
+
 CSRF_TRUSTED_ORIGINS = [
     f"https://{os.environ.get('FQDN')}",
 ]
@@ -154,7 +183,7 @@ DATABASES = {
 DATABASE_ROUTERS = []
 if int(os.environ.get("FEEDBACK_DB_ENABLED", "0")):
     DATABASES["feedback"] = {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": os.environ.get("FEEDBACK_DB_NAME", "wcivf_feedback_production"),
         "USER": "postgres",
         "PASSWORD": os.environ.get("FEEDBACK_DB_PASSWORD"),
@@ -170,7 +199,7 @@ if not os.environ.get("IGNORE_ROUTERS") and os.environ.get(
 ):
     DATABASE_ROUTERS.append("core.db_routers.PrincipalRDSRouter")
     DATABASES["principal"] = {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": os.environ.get("RDS_DB_NAME"),
         "USER": "wcivf",
         "PASSWORD": os.environ.get("RDS_DB_PASSWORD"),
@@ -288,6 +317,7 @@ if os.environ.get("DC_ENVIRONMENT"):
         ],
         environment=os.environ.get("DC_ENVIRONMENT"),
     )
+
 
 # DC Logging Client
 LOGGER_ARN = os.environ.get("LOGGER_ARN", None)
