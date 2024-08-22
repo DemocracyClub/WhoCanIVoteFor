@@ -183,7 +183,7 @@ DATABASES = {
 DATABASE_ROUTERS = []
 if int(os.environ.get("FEEDBACK_DB_ENABLED", "0")):
     DATABASES["feedback"] = {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": os.environ.get("FEEDBACK_DB_NAME", "wcivf_feedback_production"),
         "USER": "postgres",
         "PASSWORD": os.environ.get("FEEDBACK_DB_PASSWORD"),
@@ -199,7 +199,7 @@ if not os.environ.get("IGNORE_ROUTERS") and os.environ.get(
 ):
     DATABASE_ROUTERS.append("core.db_routers.PrincipalRDSRouter")
     DATABASES["principal"] = {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": os.environ.get("RDS_DB_NAME"),
         "USER": "wcivf",
         "PASSWORD": os.environ.get("RDS_DB_PASSWORD"),

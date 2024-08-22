@@ -124,7 +124,7 @@ Then, create a file `wcivf/settings/local.py` with the following contents, assum
 
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'wcivf',
             'USER': 'wcivf',
             'PASSWORD': 'wcivf',
