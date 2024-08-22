@@ -91,7 +91,7 @@ Resources:
       CodeUri: .
       Handler: wcivf.lambda_handler.handler
       MemorySize: 256
-      Runtime: python3.10
+      Runtime: python3.12
       Timeout: 360
       Environment:
         Variables:
@@ -362,7 +362,9 @@ Resources:
         # TODO create new role without packer permissions
         IamInstanceProfile:
           Name: 'CodeDeploy-EC2-Instance-Profile'
-        ImageId: 'ami-014a706cddda2a79a' # AMI number
+        # output of
+        # https://eu-west-2.console.aws.amazon.com/imagebuilder/home?region=eu-west-2#/images/arn%3Aaws%3Aimagebuilder%3Aeu-west-2%3A732292556707%3Aimage%2Feeimage-ubuntu%2F0.0.35%2F2/details
+        ImageId: 'ami-0c8d319e3a044e7da'
         InstanceType: !Ref InstanceType
       TagSpecifications:
         - ResourceType: launch-template

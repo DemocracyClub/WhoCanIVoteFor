@@ -1,7 +1,7 @@
 Django==4.2.11
 botocore>=1.31.4
 boto3==1.28.5
-psycopg2-binary==2.9.6
+psycopg2-binary==2.9.9
 requests==2.31.0
 django-filter==24.2
 django-model-utils==4.3.1
@@ -17,7 +17,7 @@ dealer==2.1.0
 
 git+https://github.com/DemocracyClub/design-system.git@0.5.0
 git+https://github.com/DemocracyClub/dc_django_utils.git@6.1.0
-https://github.com/DemocracyClub/dc_logging/archive/refs/tags/1.0.1.tar.gz
+https://github.com/DemocracyClub/dc_logging/archive/refs/tags/1.1.0.tar.gz
 
 djangorestframework-jsonp==1.0.2
 feedparser==6.0.10

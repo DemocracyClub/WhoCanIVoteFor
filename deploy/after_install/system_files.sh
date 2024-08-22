@@ -3,7 +3,8 @@ set -xeE
 
 set -a
 source /var/www/wcivf/code/.env
-INSTANCE_ID=$(curl http://instance-data/latest/meta-data/instance-id)
+METADATA_TOKEN=$(curl -X PUT "http://instance-data/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600" --fail --silent)
+INSTANCE_ID=$(curl "http://instance-data/latest/meta-data/instance-id" -H "X-aws-ec2-metadata-token: $METADATA_TOKEN" --fail --silent)
 set +a
 
 SYSTEMD_SRC="${PROJECT_ROOT}/code/deploy/files/systemd"

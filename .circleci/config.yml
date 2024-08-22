@@ -4,16 +4,16 @@
 #
 version: 2.1
 orbs:
-  slack: circleci/slack@4.13.2
+  slack: circleci/slack@4.13.3
 
 executors:
-  py310:
+  py312:
     docker:
-      - image: cimg/python:3.10
+      - image: cimg/python:3.12
         environment:
           CIRCLECI: true
           PGHOST: 127.0.0.1
-      - image: cimg/postgres:14.7
+      - image: cimg/postgres:16.3
         environment:
           POSTGRES_USER: postgres
           POSTGRES_DB: test
@@ -27,11 +27,11 @@ jobs:
     docker:
       # specify the version you desire here
       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
-      - image: cimg/python:3.10.4
+      - image: cimg/python:3.12.4
         environment:
           CIRCLECI: true
           PGHOST: 127.0.0.1
-      - image: cimg/postgres:14.7
+      - image: cimg/postgres:16.3
         environment:
           POSTGRES_USER: wcivf
           POSTGRES_DB: wcivf
@@ -93,7 +93,7 @@ jobs:
           name: run pytest
           command: |
             . .venv/bin/activate
-            pytest -sx --ruff --cov-report= --cov=wcivf --junitxml=test-results/junit.xml
+            pytest -sx --cov-report= --cov=wcivf --junitxml=test-results/junit.xml
       - run: |
           if [ -n "$COVERALLS_REPO_TOKEN" ]; then
           . .venv/bin/activate
@@ -107,13 +107,14 @@ jobs:
 
   sam_build:
     docker:
-      - image: public.ecr.aws/sam/build-python3.10:latest
+      - image: public.ecr.aws/sam/build-python3.12:latest
     working_directory: ~/repo
     steps:
       - checkout
       - run:
           name: sam build
           command: |
+            pip install setuptools wheel
             make build clean
       - persist_to_workspace:
           root: ~/repo/
@@ -121,7 +122,7 @@ jobs:
 
   sam_deploy:
     docker:
-      - image: public.ecr.aws/sam/build-python3.10:latest
+      - image: public.ecr.aws/sam/build-python3.12:latest
     working_directory: ~/repo
     parameters:
       dc-environment:
@@ -173,7 +174,7 @@ jobs:
                   "
   post_deploy_tests:
     docker:
-      - image: cimg/python:3.10.4
+      - image: cimg/python:3.12.4
     working_directory: ~/repo
     parameters:
       dc-environment:
@@ -207,7 +208,7 @@ jobs:
           
   code_deploy:
     docker:
-      - image: cimg/python:3.10.4
+      - image: cimg/python:3.12.4
     working_directory: ~/repo
     parameters:
       min-size:
@@ -261,7 +262,7 @@ workflows:
       - build_and_test:
           matrix:
             parameters:
-              python_version: [ py310 ]
+              python_version: [ py312 ]
       - sam_build:
           requires:
           - build_and_test

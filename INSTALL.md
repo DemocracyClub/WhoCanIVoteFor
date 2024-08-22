@@ -1,10 +1,10 @@
 ## Installation requirements on ubuntu
 
-WCIVF requires Python 3.
+WCIVF requires Python 3.12
 
 To install:
 
-    sudo apt-get install python3-dev libpq-dev libjpeg-dev redis-server
+    sudo apt-get install python3-dev libpq-dev libjpeg-dev redis-server libtidy-dev
     pip install -r requirements/local.txt
 
 
@@ -12,7 +12,7 @@ To install:
 
 Use homebrew to install the following dependencies:
 
-    brew install postgresql jpeg postgis
+    brew install postgresql jpeg
 
 If you want to use redis, this can also be installed with homebrew:
     
@@ -22,7 +22,7 @@ Pyenv is recommended to install python versions. You can find installation instr
 
 The python version that we are using for this project is specified in the `.python-version` file in the root of the directory.You can install this version with:
 
-    pyenv install 3.10.4
+    pyenv install 3.12
 
 The presence of a `.python-version` file means that pyenv will activate this version whenever in this directory. This means that whenever running a `python` command, the version specified in `.python-version` is used. You can check this with the below command:
 
@@ -32,7 +32,7 @@ The output should match the version in `.python-version`. If the version is not 
 
 If there is no `.python-version` file you can use the following command to create one and activate that version for this project:
 
-    pyenv local 3.10.4
+    pyenv local 3.12
 
 When you are happy that you are using the correct python version, you are ready to create a [virtual environment](https://docs.python.org/3/tutorial/venv.html) with the command:
 
@@ -67,31 +67,16 @@ Check that your env has correctly installed and project is working by running th
 
     pytest
 
-Gotcha: If you're using an M1 Mac, you may run into errors concerning GDAL and GEOS when you try to run the tests for the first time. 
-If this affects you, you'll need to set the path for both of these libs in a local config. 
-
-You can find your paths by running:
-`geos-config --libs` and `gdal-config --libs`. 
-
-In your local config, set the following:
-```
-GDAL_LIBRARY_PATH = "{YOUR PATH}/libgdal.dylib"
-GEOS_LIBRARY_PATH= '{YOUR PATH}/libgeos_c.1.17.0.dylib'
-```
-
 ## Code formatting
 
-The project uses [Black](https://black.readthedocs.io/en/stable/) for code formatting. You can run it with:
+Additionally, this project uses [ruff](https://beta.ruff.rs/docs/) for code formatting and linting. You can run it with:
 
-    black .
-
-Additionally, this project uses [ruff](https://beta.ruff.rs/docs/) for linting. You can run it with:
-
-    ruff . 
+    ruff format .
+    ruff check .
 
 ruff has in-built functionality to fix common linting errors. Use the `--fix` option to do this.
 
-Both Black and ruff are both automatically called as part of pytest in this project.
+Ruff is automatically called as part of pytest in this project.
 
 A pre-commit hook is defined in the project to run it automatically before each commit. See the [pre-commit docs](https://pre-commit.com/#quick-start) for more information, or simply run the below command to setup:
 
@@ -100,7 +85,7 @@ A pre-commit hook is defined in the project to run it automatically before each 
 
 ## Database setup
 
-Create a Postgres database as detailed [below](#setting-up-postgresql-and-postgis), then:
+Create a Postgres database as detailed [below](#setting-up-postgresql), then:
 
     python manage.py migrate
     python manage.py import_parties
@@ -121,11 +106,11 @@ the cache backend with a file at `./wcivf/settings/local.py` with the following:
     }
 
 
-## Setting up PostgreSQL and PostGIS
+## Setting up PostgreSQL
 
-By default WhoCanIVoteFor uses PostgreSQL with the PostGIS extension. To set this up locally, first install the packages:
+WhoCanIVoteFor uses PostgreSQL. To set this up locally, first install the packages:
 
-    sudo apt-get install postgresql postgis
+    sudo apt-get install postgresql
 
 Then create, for example, a `wcivf` user:
 
@@ -135,15 +120,11 @@ Set the password to, for example, `wcivf`. Then create the database, owned by th
 
     sudo -u postgres createdb -O wcivf wcivf
 
-Finally, add the PostGIS extension to the database:
-
-    sudo -u postgres psql -d wcivf -c "CREATE EXTENSION postgis;"
-
 Then, create a file `wcivf/settings/local.py` with the following contents, assuming you used the same username, password and database name as above:
 
     DATABASES = {
         'default': {
-            'ENGINE': 'django.contrib.gis.db.backends.postgis',
+            'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'wcivf',
             'USER': 'wcivf',
             'PASSWORD': 'wcivf',
@@ -152,7 +133,7 @@ Then, create a file `wcivf/settings/local.py` with the following contents, assum
         }
     }
 
-See the local.example file for other suggested settings to use for local development.
+See the local.example.py file for other suggested settings to use for local development.
 
 ## Creating inline CSS
 
