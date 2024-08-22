@@ -9,8 +9,8 @@ DATABASES = {
 
 
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    "default": {
+        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
     }
 }
 
@@ -20,7 +20,7 @@ YNR_BASE = "https://candidates.democracyclub.org.uk"
 
 EE_BASE = "https://elections.democracyclub.org.uk"
 
-INTERNAL_IPS = ['127.0.0.1']
+INTERNAL_IPS = ["127.0.0.1"]
 
 SECRET_KEY = "not_for_production"
 
