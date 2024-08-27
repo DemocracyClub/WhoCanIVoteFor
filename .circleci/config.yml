@@ -79,11 +79,17 @@ jobs:
           command: |
             . .venv/bin/activate
             ruff format . --check
+            ruff check .
       - run:
-          name: CurlyLint
+          name: Pip Check
           command: |
             . .venv/bin/activate
-            curlylint wcivf/**/*.html
+            pip check
+      - run:
+          name: Djhtml
+          command: |
+            . .venv/bin/activate
+            git ls-files '*.html' | xargs djhtml --check
       - run:
           name: Compile Messages
           command: |

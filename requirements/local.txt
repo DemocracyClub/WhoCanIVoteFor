@@ -2,4 +2,3 @@
 
 ipdb
 pre-commit
-djhtml

@@ -69,10 +69,11 @@ Check that your env has correctly installed and project is working by running th
 
 ## Code formatting
 
-Additionally, this project uses [ruff](https://beta.ruff.rs/docs/) for code formatting and linting. You can run it with:
+Additionally, this project uses [ruff](https://beta.ruff.rs/docs/) and [djhtml](https://github.com/rtts/djhtml) for code formatting and linting:
 
-    ruff format .
-    ruff check .
+* `ruff check .` (lint with ruff)
+* `ruff format .` (auto-format with ruff)
+*  `git ls-files '*.html' | xargs djhtml` (auto-format templates with djhtml)
 
 ruff has in-built functionality to fix common linting errors. Use the `--fix` option to do this.
 

@@ -1,7 +1,7 @@
 repos:
--   repo: https://github.com/rtts/djhtml
-    rev: 3.0.6
-    hooks:
+- repo: https://github.com/rtts/djhtml
+  rev: 3.0.6
+  hooks:
     - id: djhtml
 - repo: https://github.com/charliermarsh/ruff-pre-commit
   # Ruff version.
@@ -10,3 +10,10 @@ repos:
     - id: ruff
       args: [--fix, --exit-non-zero-on-fix, --extend-exclude, TCH]
     - id: ruff-format
+- repo: local
+  hooks:
+    - id: pip-check
+      name: pip-check
+      entry: pip check
+      files: ^requirements\S*\.txt$
+      language: system
