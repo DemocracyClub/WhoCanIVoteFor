@@ -10,3 +10,10 @@ repos:
     - id: ruff
       args: [--fix, --exit-non-zero-on-fix, --extend-exclude, TCH]
     - id: ruff-format
+- repo: local
+  hooks:
+    - id: pip-check
+      name: pip-check
+      entry: pip check
+      files: ^requirements\S*\.txt$
+      language: system
