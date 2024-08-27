@@ -1,7 +1,7 @@
 repos:
--   repo: https://github.com/rtts/djhtml
-    rev: 3.0.6
-    hooks:
+- repo: https://github.com/rtts/djhtml
+  rev: 3.0.6
+  hooks:
     - id: djhtml
 - repo: https://github.com/charliermarsh/ruff-pre-commit
   # Ruff version.
