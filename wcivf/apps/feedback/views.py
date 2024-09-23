@@ -28,7 +28,11 @@ class FeedbackFormView(UpdateView):
         akismet_client = akismet.SyncClient.validated_client(config=config)
 
         return akismet_client.comment_check(
-            user_ip=self.request.META["REMOTE_ADDR"],
+            # The IP address of the client that connected to CloudFront,
+            # not the IP of the connecting client (ALB or CloudFront).
+            user_ip=self.request.META["HTTP_X_FORWARDED_FOR"]
+            .split(",")[0]
+            .strip(),
             comment_content=self.request.POST.get("comments"),
             comment_type="feedback",
             comment_author=self.request.META.get("HTTP_USER_AGENT"),
