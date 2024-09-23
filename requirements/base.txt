@@ -26,4 +26,4 @@ sentry-sdk==1.27.1
 uk-election-timetables==3.0.0
 uk-election-ids==0.8.0
 django-dotenv==1.4.2
-python-akismet==0.4.3
+akismet==24.5.1
