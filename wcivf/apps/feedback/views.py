@@ -1,4 +1,4 @@
-from akismet import Akismet
+import akismet
 from django.conf import settings
 from django.contrib import messages
 from django.http import HttpResponse
@@ -20,13 +20,18 @@ class FeedbackFormView(UpdateView):
         if not settings.AKISMET_API_KEY:
             return False
 
-        akismet = Akismet(
-            settings.AKISMET_API_KEY, blog=settings.AKISMET_BLOG_URL
+        config = akismet.Config(
+            key=settings.AKISMET_API_KEY,
+            url=settings.AKISMET_BLOG_URL,
         )
-        return akismet.check(
-            self.request.META["REMOTE_ADDR"],
+
+        akismet_client = akismet.SyncClient.validated_client(config=config)
+
+        return akismet_client.comment_check(
+            user_ip=self.request.META["REMOTE_ADDR"],
             comment_content=self.request.POST.get("comments"),
-            user_agent=self.request.META.get("HTTP_USER_AGENT"),
+            comment_type="feedback",
+            comment_author=self.request.META.get("HTTP_USER_AGENT"),
         )
 
     def get_object(self, queryset=None):
