@@ -100,24 +100,50 @@
     {% endblock page_content %}
 {% endblock content %}
 
+<!-- FOOTER -->
 {% block footer_menu %}
-    <div class="ds-cluster-center">
-        <ul>
-            <li><a href="{% url 'home_view' %}">{% trans "Home" %}</a></li>
-            <li><a href="{% url 'elections_view' %}">{% trans "All Elections" %}</a></li>
-            <li><a href="{% url 'parties_view' %}">{% trans "All Parties" %}</a></li>
-            <li><a href="{% url 'standing_as_a_candidate' %}">{% trans "Standing as a candidate?" %}</a></li>
-            <li><a href="{% url 'about_view' %}">{% blocktrans %}About {{ SITE_TITLE }}{% endblocktrans %}</a></li>
-            <li><a href="https://democracyclub.org.uk/privacy/">{% trans "Privacy" %}</a></li>
-            <li><a href="https://github.com/DemocracyClub/WhoCanIVoteFor">{% trans "Source code" %}</a></li>
-            <li><a href="https://democracyclub.org.uk/about/">{% trans "About Democracy Club" %}</a></li>
-            <li><a href="https://democracyclub.org.uk/contact/">{% trans "Contact Us" %}</a></li>
-            <li><a href="https://democracyclub.org.uk/blog/">{% trans "Blog" %}</a></li>
-            <li><a href="https://twitter.com/democlub">{% trans "Twitter" %}</a></li>
-            <li><a href="https://github.com/DemocracyClub">{% trans "GitHub" %}</a></li>
-        </ul>
-    </div>
+    {% block footer_links %}
+        <div class="ds-footer-links">
+            <nav>
+                <h2 class="ds-h6">Who Can I Vote For?</h2>
+                <ul>
+                    <li><a href="{% url 'home_view' %}">{% trans "Home" %}</a></li>
+                    <li><a href="{% url 'elections_view' %}">{% trans "All Elections" %}</a></li>
+                    <li><a href="{% url 'parties_view' %}">{% trans "All Parties" %}</a></li>
+                    <li><a href="{% url 'standing_as_a_candidate' %}">{% trans "Standing as a candidate?" %}</a></li>
+                    <li><a href="{% url 'about_view' %}">{% blocktrans %}About {{ SITE_TITLE }}{% endblocktrans %}</a></li>
+                    <li><a href="https://democracyclub.org.uk/privacy/">{% trans "Privacy" %}</a></li>
+                </ul>
+            </nav>
+            <nav>
+                <h2 class="ds-h6">About Democracy Club</h2>
+                <ul>
+                    <li><a href="https://democracyclub.org.uk/about/">About</a></li>
+                    <li><a href="https://democracyclub.org.uk/donate/">Donate</a></li>
+                    <li><a href="https://democracyclub.org.uk/jobs/">Jobs</a></li>
+                    <li><a href="https://democracyclub.org.uk/blog/">Blog</a></li>
+                    <li><a href="https://democracyclub.org.uk/blog/feed">Blog RSS/Atom feed</a></li>
+                    <li><a href="https://democracyclub.org.uk/privacy/">Privacy &amp; Terms</a></li>
+                    <li><a href="https://democracyclub.org.uk/code-of-conduct/">Code of Conduct</a></li>
+                </ul>
+            </nav>
+            <nav>
+                <h2 class="ds-h6">Connect with us</h2>
+                <ul>
+                    <li><a href="https://democracyclub.org.uk/contact/">Contact Us</a></li>
+                    <li><a rel="me" href="https://mastodon.me.uk/@DemocracyClub">Mastodon</a></li>
+                    <li><a href="https://twitter.com/democlub">X</a></li>
+                    <li><a href="https://github.com/DemocracyClub">GitHub</a></li>
+                    <li><a href="https://www.linkedin.com/company/democracy-club-cic">LinkedIn</a></li>
+                    <li><a href="https://mailinglist.democracyclub.org.uk/subscription/form">Join our Mailing List</a></li>
+                    <li><a href="https://mailinglist.democracyclub.org.uk/archive">Newsletter Archive</a></li>
+                </ul>
+            </nav>
+        </div>
+    {% endblock footer_links %}
 {% endblock footer_menu %}
+<!-- FOOTER -->
+
 
 {% block extra_site_js %}
     {% block extra_javascript %}
