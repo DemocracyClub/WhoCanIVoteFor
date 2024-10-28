@@ -178,10 +178,18 @@ class PollingStationInfoMixin(object):
         return advance_voting_station
 
     def show_global_registration_card(self, post_elections):
-        if not post_elections:
+        # City of London local elections have different
+        # registration rules to every other election
+        non_city_of_london_ballots = [
+            ballot
+            for ballot in post_elections
+            if not ballot.election.is_city_of_london_local_election
+        ]
+
+        if not non_city_of_london_ballots:
             return False
-        election = post_elections[0].election
-        country = post_elections[0].post.territory
+        election = non_city_of_london_ballots[0].election
+        country = non_city_of_london_ballots[0].post.territory
 
         if not country:
             country = Country.ENGLAND
