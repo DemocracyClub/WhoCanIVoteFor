@@ -75,8 +75,8 @@
                         {% include "elections/includes/_voter_id.html" %}
                     {% endif %}
 
-                    {% if show_global_registration_card %}
-                        {% include "elections/includes/_registration_details.html" with postelection=postelections.0 council=council %}
+                    {% if global_registration_card.show %}
+                        {% include "elections/includes/_registration_details.html" with card=global_registration_card council=council %}
                     {% endif %}
 
                     {% if not messages %}

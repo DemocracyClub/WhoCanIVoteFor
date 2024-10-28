@@ -612,27 +612,31 @@ class TestPostcodeViewMethods:
 
     @freeze_time("2020-01-01")
     @pytest.mark.django_db
-    def test_show_global_registration_card(self, view_obj):
+    def test_global_registration_card(self, view_obj):
         post_elections = [
             PostElectionFactory(
+                ballot_paper_id="local.croydon.wardname1.2020-05-06",
                 election__slug="local.croydon.2020-05-06",
                 election__election_date="2020-05-06",
                 contested=True,
                 cancelled=False,
+                post__territory="ENG",
             ),
             PostElectionFactory(
+                ballot_paper_id="local.croydon.wardname2.2020-05-06",
                 election__slug="local.croydon.2020-05-06",
                 election__election_date="2020-05-06",
                 contested=False,
                 cancelled=True,
+                post__territory="ENG",
             ),
         ]
-        assert (
-            view_obj.show_global_registration_card(
-                post_elections=post_elections
-            )
-            is True
+        card = view_obj.get_global_registration_card(
+            post_elections=post_elections
         )
+        assert card["show"] is True
+        assert card["registration_deadline"] == "20 April 2020"
+        assert card["election_date"] == "2020-05-06"
 
     def test_num_ballots_no_parish_election(self, view_obj, mocker):
         future_post_election = mocker.MagicMock(spec=PostElection, past_date=0)

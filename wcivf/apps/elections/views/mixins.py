@@ -177,7 +177,7 @@ class PollingStationInfoMixin(object):
         advance_voting_station["open_in_future"] = open_in_future
         return advance_voting_station
 
-    def show_global_registration_card(self, post_elections):
+    def get_global_registration_card(self, post_elections):
         # City of London local elections have different
         # registration rules to every other election
         non_city_of_london_ballots = [
@@ -188,8 +188,9 @@ class PollingStationInfoMixin(object):
 
         if not non_city_of_london_ballots:
             return False
-        election = non_city_of_london_ballots[0].election
-        country = non_city_of_london_ballots[0].post.territory
+        next_ballot = non_city_of_london_ballots[0]
+        election = next_ballot.election
+        country = next_ballot.post.territory
 
         if not country:
             country = Country.ENGLAND
@@ -202,7 +203,11 @@ class PollingStationInfoMixin(object):
             }.get(country)
         election = from_election_id(election_id=election.slug, country=country)
         event = TimetableEvent.REGISTRATION_DEADLINE
-        return election.is_before(event)
+        return {
+            "show": election.is_before(event),
+            "registration_deadline": next_ballot.registration_deadline,
+            "election_date": next_ballot.election.election_date,
+        }
 
 
 class LogLookUpMixin(object):

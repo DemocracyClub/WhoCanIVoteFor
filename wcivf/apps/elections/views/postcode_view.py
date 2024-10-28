@@ -99,9 +99,9 @@ class PostcodeView(
         context["show_polling_card"] = self.show_polling_card(
             context["postelections"]
         )
-        context[
-            "show_global_registration_card"
-        ] = self.show_global_registration_card(context["postelections"])
+        context["global_registration_card"] = self.get_global_registration_card(
+            context["postelections"]
+        )
         context["people_for_post"] = {}
         for postelection in context["postelections"]:
             postelection.people = self.people_for_ballot(postelection)
@@ -406,8 +406,8 @@ class DummyPostcodeView(PostcodeView):
         context["show_polling_card"] = True
         context["polling_station"] = self.get_polling_station()
         context[
-            "show_global_registration_card"
-        ] = PostcodeView().show_global_registration_card(
+            "global_registration_card"
+        ] = PostcodeView().get_global_registration_card(
             context["postelections"]
         )
         context["registration"] = self.get_registration()
