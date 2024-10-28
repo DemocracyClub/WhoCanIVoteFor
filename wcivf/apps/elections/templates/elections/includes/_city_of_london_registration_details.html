@@ -1,0 +1,40 @@
+{% load i18n %}
+
+<li>
+    <details open>
+        <summary>
+            <h2>
+                <span aria-hidden="true"></span>
+                {% blocktrans trimmed %}Register to vote{% endblocktrans %}
+            </h2>
+        </summary>
+        <p>
+            {% blocktrans trimmed %}
+                City of London council elections do not use the same electoral register as other elections.
+            {% endblocktrans %}
+        </p>
+        <p>
+            {% blocktrans trimmed %}
+                Both residents and city workers are eligible to vote. There is one register
+                published annually, and the deadline to apply is 30 November each year.
+                The new register comes into force on 16 February each year,
+                and cannot be modified after that date. For more information, visit the
+                <a href="https://www.speakforthecity.com/">Speak for the City</a>
+                website or contact City of London electoral services.
+            {% endblocktrans %}
+        </p>
+        {% if council.council_id %}
+            <p>
+                {% blocktrans trimmed %}
+                    For questions about your poll card, polling place, or about returning your postal voting ballot, contact your council.
+                {% endblocktrans %}
+            </p>
+            {% if registration %}
+                {% include "elections/includes/_council_contact_details.html" with contact_details=registration %}
+            {% endif %}
+            {% if council %}
+                {% include "elections/includes/_council_contact_details.html" with contact_details=council %}
+            {% endif %}
+        {% endif %}
+    </details>
+</li>

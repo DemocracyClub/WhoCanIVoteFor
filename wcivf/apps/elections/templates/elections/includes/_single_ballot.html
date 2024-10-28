@@ -47,19 +47,26 @@
             {% if object.election.slug == "europarl.2019-05-23"%}
                 {% include "elections/includes/eu_results.html" with card=0 %}
             {% endif %}
-            {% if postelection.election.description %}
-                <div class="ds-details">
-                    <details>
-                        <summary>
-                            <h2>
-                                <span aria-hidden="true">{% trans "About this position" %}
-                                </span>
-                            </h2>
-                        </summary>
-                        <p>{% blocktrans with description=postelection.election.description|markdown %} {{ description }}{% endblocktrans%}</p>
-                    </details>
-                </div>
-            {% endif %}
+
+            <ul class="ds-details">
+                {% if postelection.election.description %}
+                    <li>
+                        <details>
+                            <summary>
+                                <h2>
+                                    <span aria-hidden="true">{% trans "About this position" %}
+                                    </span>
+                                </h2>
+                            </summary>
+                            <p>{% blocktrans with description=postelection.election.description|markdown %} {{ description }}{% endblocktrans%}</p>
+                        </details>
+                    </li>
+                {% endif %}
+
+                {% if postelection.election.is_city_of_london_local_election and not postelection.past_registration_deadline %}
+                    {% include "elections/includes/_city_of_london_registration_details.html" %}
+                {% endif %}
+            </ul>
 
             <p>
                 {% if postelection.election.in_past %}
