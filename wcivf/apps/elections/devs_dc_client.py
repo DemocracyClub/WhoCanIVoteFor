@@ -32,7 +32,7 @@ class DevsDCClient:
         default_params = {"auth_token": self.API_KEY, "include_current": 1}
         if extra_params:
             default_params.update(**extra_params)
-        req = requests.get(url, params=default_params)
-        if req.status_code >= 400:
-            raise DevsDCAPIException(response=req)
-        return req.json()
+        resp = requests.get(url, params=default_params)
+        if resp.status_code >= 400:
+            raise DevsDCAPIException(response=resp)
+        return resp.json()
