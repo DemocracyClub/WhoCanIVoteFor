@@ -184,6 +184,7 @@ class PollingStationInfoMixin(object):
             ballot
             for ballot in post_elections
             if not ballot.election.is_city_of_london_local_election
+            and not ballot.cancelled
         ]
 
         if not non_city_of_london_ballots:
