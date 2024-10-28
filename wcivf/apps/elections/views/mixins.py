@@ -51,6 +51,7 @@ class PostcodeToPostsMixin(object):
             "address_picker": results_json["address_picker"],
             "polling_station": {},
             "electoral_services": results_json["electoral_services"],
+            "registration": results_json["registration"],
             "postcode_location": json.dumps(
                 results_json.get("postcode_location", "")
             ),
