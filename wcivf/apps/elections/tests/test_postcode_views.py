@@ -254,8 +254,6 @@ class TestPostcodeViewPolls:
             election__election_date="2024-05-06",
             election__name="Cities of London and Westminster by-election",
         )
-        parl_london.is_before_registration_deadline = True
-        local_london.is_before_registration_deadline = True
 
         mock_response.json.return_value["dates"].extend(
             [
@@ -374,8 +372,6 @@ class TestPostcodeViewPolls:
             post__territory="ENG",
         )
 
-        local.is_before_registration_deadline = True
-
         mock_response.json.return_value["dates"].extend(
             [
                 {
@@ -426,8 +422,6 @@ class TestPostcodeViewPolls:
             election__election_date="2021-05-06",
             post__territory="ENG",
         )
-
-        local.is_before_registration_deadline = True
 
         mock_response.json.return_value["dates"].extend(
             [
@@ -618,7 +612,7 @@ class TestPostcodeViewMethods:
 
     @freeze_time("2020-01-01")
     @pytest.mark.django_db
-    def test_is_before_registration_deadline(self, view_obj):
+    def test_show_global_registration_card(self, view_obj):
         post_elections = [
             PostElectionFactory(
                 election__slug="local.croydon.2020-05-06",
@@ -634,7 +628,7 @@ class TestPostcodeViewMethods:
             ),
         ]
         assert (
-            view_obj.is_before_registration_deadline(
+            view_obj.show_global_registration_card(
                 post_elections=post_elections
             )
             is True

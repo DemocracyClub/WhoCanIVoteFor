@@ -100,8 +100,8 @@ class PostcodeView(
             context["postelections"]
         )
         context[
-            "is_before_registration_deadline"
-        ] = self.is_before_registration_deadline(context["postelections"])
+            "show_global_registration_card"
+        ] = self.show_global_registration_card(context["postelections"])
         context["people_for_post"] = {}
         for postelection in context["postelections"]:
             postelection.people = self.people_for_ballot(postelection)
@@ -406,8 +406,8 @@ class DummyPostcodeView(PostcodeView):
         context["show_polling_card"] = True
         context["polling_station"] = self.get_polling_station()
         context[
-            "is_before_registration_deadline"
-        ] = PostcodeView().is_before_registration_deadline(
+            "show_global_registration_card"
+        ] = PostcodeView().show_global_registration_card(
             context["postelections"]
         )
         context["registration"] = self.get_registration()

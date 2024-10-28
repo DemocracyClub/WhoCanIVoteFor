@@ -177,7 +177,7 @@ class PollingStationInfoMixin(object):
         advance_voting_station["open_in_future"] = open_in_future
         return advance_voting_station
 
-    def is_before_registration_deadline(self, post_elections):
+    def show_global_registration_card(self, post_elections):
         if not post_elections:
             return False
         election = post_elections[0].election

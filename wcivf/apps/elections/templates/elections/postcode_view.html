@@ -75,7 +75,7 @@
                         {% include "elections/includes/_voter_id.html" %}
                     {% endif %}
 
-                    {% if is_before_registration_deadline %}
+                    {% if show_global_registration_card %}
                         {% include "elections/includes/_registration_details.html" with postelection=postelections.0 council=council %}
                     {% endif %}
 
