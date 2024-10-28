@@ -621,13 +621,13 @@ class TestPostcodeViewMethods:
     def test_is_before_registration_deadline(self, view_obj):
         post_elections = [
             PostElectionFactory(
-                election__slug="local.city-of-london.2020-05-06",
+                election__slug="local.croydon.2020-05-06",
                 election__election_date="2020-05-06",
                 contested=True,
                 cancelled=False,
             ),
             PostElectionFactory(
-                election__slug="local.city-of-london.2020-05-06",
+                election__slug="local.croydon.2020-05-06",
                 election__election_date="2020-05-06",
                 contested=False,
                 cancelled=True,
