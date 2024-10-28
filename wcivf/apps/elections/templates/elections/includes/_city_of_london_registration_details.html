@@ -29,12 +29,7 @@
                     For questions about your poll card, polling place, or about returning your postal voting ballot, contact your council.
                 {% endblocktrans %}
             </p>
-            {% if registration %}
-                {% include "elections/includes/_council_contact_details.html" with contact_details=registration %}
-            {% endif %}
-            {% if council %}
-                {% include "elections/includes/_council_contact_details.html" with contact_details=council %}
-            {% endif %}
+            {% include "elections/includes/_contact_details_registration.html" %}
         {% endif %}
     </details>
 </li>

@@ -120,49 +120,14 @@
                                 postal voting ballot, contact the Electoral Office for Northern Ireland <a href="tel:{{ council_phone }}">{{ council_phone }}</a>.
                             {% endblocktrans %}
                             </p>
-                            <p>
-                                <address>
-                                    Electoral Office for Northern Ireland<br>
-                                    {{ council.address|linebreaksbr }}<br>
-                                    {{ council.postcode }}<br>
-                                    {{ council.phone }}<br>
-                                    {{ council.email }}<br>
-                                </address>
-                            </p>
-                            {% if council.address != registration.address %}
-                                <address>
-                                    {{ registration.name }}<br>
-                                    {{ registration.address|linebreaksbr }}<br>
-                                    {{ registration.postcode }}<br>
-                                    {{ registration.phone }}<br>
-                                    {{ registration.email }}<br>
-                                </address>
-                            {% endif %}
-
+                            {% include "elections/includes/_contact_details_polling_station.html" %}
                         {% elif council %}
                             {% blocktrans trimmed with council_name=council.name council_phone=council.phone %}
                                 If you haven't got one, or aren't sure where to vote, you should call {{ council_name }}
                                 on <a href="tel:{{ council_phone }}">{{ council_phone }}</a>.
                             {% endblocktrans %}
                             </p>
-                            <p>
-                                <address>
-                                    {{ council.name }}<br>
-                                    {{ council.address|linebreaksbr }}<br>
-                                    {{ council.postcode }}<br>
-                                    {{ council.phone }}<br>
-                                    {{ council.email }}<br>
-                                </address>
-                            </p>
-                            {% if council.address != registration.address %}
-                                <address>
-                                    {{ registration.name }}<br>
-                                    {{ registration.address|linebreaksbr }}<br>
-                                    {{ registration.postcode }}<br>
-                                    {{ registration.phone }}<br>
-                                    {{ registration.email }}<br>
-                                </address>
-                            {% endif %}
+                            {% include "elections/includes/_contact_details_polling_station.html" %}
                         {% else %}
                             {% blocktrans trimmed %}
                                 If you haven't got one, or aren't sure where to vote, you should call your local council.

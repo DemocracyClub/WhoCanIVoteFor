@@ -1,0 +1,8 @@
+{% if registration %}
+    {% include "elections/includes/_council_contact_details.html" with contact_details=registration %}
+{% endif %}
+{% if council and registration and council.address != registration.address %}
+    {% include "elections/includes/_council_contact_details.html" with contact_details=council %}
+{% elif council and not registration %}
+    {% include "elections/includes/_council_contact_details.html" with contact_details=council %}
+{% endif %}
