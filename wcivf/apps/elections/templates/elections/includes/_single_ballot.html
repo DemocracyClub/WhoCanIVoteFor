@@ -64,7 +64,9 @@
                 {% endif %}
 
                 {% if postelection.election.is_city_of_london_local_election and not postelection.past_registration_deadline and not postelection.cancelled %}
-                    {% include "elections/includes/_city_of_london_registration_details.html" %}
+                    <li>
+                        {% include "elections/includes/_city_of_london_registration_details.html" %}
+                    </li>
                 {% endif %}
             </ul>
 
