@@ -58,7 +58,7 @@
                                     </span>
                                 </h2>
                             </summary>
-                            <p>{% blocktrans with description=postelection.election.description|markdown %} {{ description }}{% endblocktrans%}</p>
+                            {% blocktrans with description=postelection.election.description|markdown %} {{ description }}{% endblocktrans%}
                         </details>
                     </li>
                 {% endif %}
