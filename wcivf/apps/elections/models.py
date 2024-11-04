@@ -457,30 +457,39 @@ class PostElection(TimeStampedModel):
             return get_election_timetable(
                 self.ballot_paper_id, self.post.territory
             ).sopn_publish_date
-
         except AttributeError:
             return None
 
     @property
     def registration_deadline(self):
-        date = get_election_timetable(
-            self.ballot_paper_id, self.post.territory
-        ).registration_deadline
+        try:
+            date = get_election_timetable(
+                self.ballot_paper_id, self.post.territory
+            ).registration_deadline
+        except AttributeError:
+            return None
 
         return date.strftime("%d %B %Y")
 
     @property
     def past_registration_deadline(self):
-        registration_deadline = get_election_timetable(
-            self.ballot_paper_id, self.post.territory
-        ).registration_deadline
+        try:
+            registration_deadline = get_election_timetable(
+                self.ballot_paper_id, self.post.territory
+            ).registration_deadline
+        except AttributeError:
+            return None
+
         return registration_deadline < datetime.date.today()
 
     @property
     def postal_vote_application_deadline(self):
-        return get_election_timetable(
-            self.ballot_paper_id, self.post.territory
-        ).postal_vote_application_deadline
+        try:
+            return get_election_timetable(
+                self.ballot_paper_id, self.post.territory
+            ).postal_vote_application_deadline
+        except AttributeError:
+            return None
 
     @property
     def postal_vote_requires_form(self):

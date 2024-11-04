@@ -20,13 +20,11 @@
                 </a>
             {% endblocktrans %}
         </p>
-        {% if postelection %}
-            <p>
-                {% blocktrans trimmed with registration_deadline=postelection.registration_deadline|naturalday:"j F Y" election_date=postelection.election.election_date|naturalday:"j F Y" %}
-                    Register before midnight on {{ registration_deadline }} to vote on {{ election_date }}.
-                {% endblocktrans %}
-            </p>
-        {% endif %}
+        <p>
+            {% blocktrans trimmed with registration_deadline=card.registration_deadline|naturalday:"j F Y" election_date=card.election_date|naturalday:"j F Y" %}
+                Register before midnight on {{ registration_deadline }} to vote on {{ election_date }}.
+            {% endblocktrans %}
+        </p>
         {% if council.council_id %}
             <p>
                 {% blocktrans trimmed %}

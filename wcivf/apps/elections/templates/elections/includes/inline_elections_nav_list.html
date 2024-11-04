@@ -86,7 +86,7 @@
                             <li><a href="#requirements">{% trans "Voter ID requirements" %}</a></li>
                         {% endif %}
 
-                        {% if is_before_registration_deadline %}
+                        {% if global_registration_card.show %}
                             <li><a href="#register">{% trans "Register to vote" %}</a></li>
                         {% endif %}
                     </ul>
