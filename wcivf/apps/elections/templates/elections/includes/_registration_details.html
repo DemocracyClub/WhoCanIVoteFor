@@ -27,9 +27,15 @@
         </p>
         {% if council.council_id %}
             <p>
-                {% blocktrans trimmed %}
-                    For questions about your poll card, polling place, or about returning your postal voting ballot, contact your council.
-                {% endblocktrans %}
+                {% if postcode|ni_postcode %}
+                    {% blocktrans trimmed %}
+                        For questions about your poll card, polling place, or about returning your postal voting ballot, contact the Electoral Office for Northern Ireland.
+                    {% endblocktrans %}
+                {% else %}
+                    {% blocktrans trimmed %}
+                        For questions about your poll card, polling place, or about returning your postal voting ballot, contact your council.
+                    {% endblocktrans %}
+                {% endif %}
             </p>
             {% include "elections/includes/_contact_details_registration.html" %}
         {% endif %}
