@@ -120,14 +120,14 @@
                                 postal voting ballot, contact the Electoral Office for Northern Ireland <a href="tel:{{ council_phone }}">{{ council_phone }}</a>.
                             {% endblocktrans %}
                             </p>
-                            {% include "elections/includes/_contact_details_polling_station.html" %}
+                            {% include "elections/includes/_council_contact_details.html" with contact_details=council with_address=False %}
                         {% elif council %}
                             {% blocktrans trimmed with council_name=council.name council_phone=council.phone %}
                                 If you haven't got one, or aren't sure where to vote, you should call {{ council_name }}
                                 on <a href="tel:{{ council_phone }}">{{ council_phone }}</a>.
                             {% endblocktrans %}
                             </p>
-                            {% include "elections/includes/_contact_details_polling_station.html" %}
+                            {% include "elections/includes/_council_contact_details.html" with contact_details=council with_address=False %}
                         {% else %}
                             {% blocktrans trimmed %}
                                 If you haven't got one, or aren't sure where to vote, you should call your local council.
