@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-06 11:14+0000\n"
+"POT-Creation-Date: 2024-11-06 16:32+0000\n"
 "PO-Revision-Date: 2022-03-24 09:04+0000\n"
 "Last-Translator: Sym Roe <sym@talusdesign.co.uk>, 2022\n"
 "Language-Team: Welsh (https://www.transifex.com/democracy-club/teams/61326/"
@@ -326,6 +326,14 @@ msgstr ""
 "Ar gyfer cwestiynau ynghylch eich cerdyn pleidleisio, eich gorsaf "
 "bleidleisio, neu ynghylch dychwelyd eich pleidlais drwy'r post, cysylltwch "
 "â'ch cyngor."
+
+#: wcivf/apps/elections/templates/elections/includes/_contact_details_registration.html:5
+msgid "Electoral Registration"
+msgstr ""
+
+#: wcivf/apps/elections/templates/elections/includes/_contact_details_registration.html:7
+msgid "Your Local Council"
+msgstr ""
 
 #: wcivf/apps/elections/templates/elections/includes/_elections_breadcrumbs.html:3
 #: wcivf/apps/parties/templates/parties/parties_view.html:9
