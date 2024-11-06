@@ -3,7 +3,7 @@
 {% load i18n %}
 
 <li>
-    <details {% if polling_station.polling_station_known %}open{% endif %}>
+    <details {% if polling_station.polling_station_known %}open{% endif %} class="ds-stack-smaller">
         <summary>
             <h2 id='where'>
                 <span aria-hidden="true">{% trans "Where to vote" %}</span>
