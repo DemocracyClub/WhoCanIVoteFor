@@ -27,15 +27,9 @@
         </p>
         {% if council.council_id %}
             <p>
-                {% if postcode|ni_postcode %}
-                    {% blocktrans trimmed %}
-                        For questions about your poll card, polling place, or about returning your postal voting ballot, contact the Electoral Office for Northern Ireland.
-                    {% endblocktrans %}
-                {% else %}
-                    {% blocktrans trimmed %}
-                        For questions about your poll card, polling place, or about returning your postal voting ballot, contact your council.
-                    {% endblocktrans %}
-                {% endif %}
+                {% blocktrans trimmed %}
+                    Send your postal and proxy vote applications to your local electoral registration team. You can also contact them to find out if you’re on the electoral register, and if you already have a postal or proxy vote.
+                {% endblocktrans %}
             </p>
             {% include "elections/includes/_contact_details_registration.html" %}
         {% endif %}

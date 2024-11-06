@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-05 10:02+0000\n"
+"POT-Creation-Date: 2024-11-06 11:14+0000\n"
 "PO-Revision-Date: 2022-03-24 09:04+0000\n"
 "Last-Translator: Sym Roe <sym@talusdesign.co.uk>, 2022\n"
 "Language-Team: Welsh (https://www.transifex.com/democracy-club/teams/61326/"
@@ -319,7 +319,6 @@ msgid ""
 msgstr ""
 
 #: wcivf/apps/elections/templates/elections/includes/_city_of_london_registration_details.html:27
-#: wcivf/apps/elections/templates/elections/includes/_registration_details.html:35
 msgid ""
 "For questions about your poll card, polling place, or about returning your "
 "postal voting ballot, contact your council."
@@ -727,18 +726,12 @@ msgstr ""
 "Cofrestrwch cyn hanner nos ar %(registration_deadline)s i bleidleisio ar "
 "%(election_date)s."
 
-#: wcivf/apps/elections/templates/elections/includes/_registration_details.html:31
-#, fuzzy
-#| msgid ""
-#| "For questions about your poll card, polling place, or about returning "
-#| "your postal voting ballot, contact your council."
+#: wcivf/apps/elections/templates/elections/includes/_registration_details.html:30
 msgid ""
-"For questions about your poll card, polling place, or about returning your "
-"postal voting ballot, contact the Electoral Office for Northern Ireland."
+"Send your postal and proxy vote applications to your local electoral "
+"registration team. You can also contact them to find out if you’re on the "
+"electoral register, and if you already have a postal or proxy vote."
 msgstr ""
-"Ar gyfer cwestiynau ynghylch eich cerdyn pleidleisio, eich gorsaf "
-"bleidleisio, neu ynghylch dychwelyd eich pleidlais drwy'r post, cysylltwch "
-"â'ch cyngor."
 
 #: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:19
 msgid "Additional members"
@@ -2750,6 +2743,19 @@ msgstr ""
 #: wcivf/templates/home.html:47
 msgid "Upcoming Elections"
 msgstr "Etholiadau i ddod"
+
+#, fuzzy
+#~| msgid ""
+#~| "For questions about your poll card, polling place, or about returning "
+#~| "your postal voting ballot, contact your council."
+#~ msgid ""
+#~ "For questions about your poll card, polling place, or about returning "
+#~ "your postal voting ballot, contact the Electoral Office for Northern "
+#~ "Ireland."
+#~ msgstr ""
+#~ "Ar gyfer cwestiynau ynghylch eich cerdyn pleidleisio, eich gorsaf "
+#~ "bleidleisio, neu ynghylch dychwelyd eich pleidlais drwy'r post, "
+#~ "cysylltwch â'ch cyngor."
 
 #, fuzzy
 #~| msgid "It will be open from <strong>7am to 10pm</strong>."
