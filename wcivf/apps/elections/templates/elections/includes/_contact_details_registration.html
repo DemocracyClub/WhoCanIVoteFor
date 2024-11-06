@@ -1,8 +1,13 @@
-{% if registration %}
+{% load postcode_tags %}
+{% load i18n %}
+
+{% if council and registration and council.address != registration.address and not postcode|ni_postcode %}
+    <h4>{% trans "Electoral Registration" %}</h4>
     {% include "elections/includes/_council_contact_details.html" with contact_details=registration with_address=True %}
-{% endif %}
-{% if council and registration and council.address != registration.address %}
+    <h4>{% trans "Your Local Council" %}</h4>
     {% include "elections/includes/_council_contact_details.html" with contact_details=council with_address=True %}
-{% elif council and not registration %}
+{% elif council %}
     {% include "elections/includes/_council_contact_details.html" with contact_details=council with_address=True %}
+{% elif registration %}
+    {% include "elections/includes/_council_contact_details.html" with contact_details=registration with_address=True %}
 {% endif %}
