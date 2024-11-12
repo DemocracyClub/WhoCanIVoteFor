@@ -76,7 +76,7 @@
                     {% endif %}
 
                     {% if global_registration_card.show %}
-                        {% include "elections/includes/_registration_details.html" with card=global_registration_card council=council %}
+                        {% include "elections/includes/_registration_details.html" with card=global_registration_card council=council postcode=postcode %}
                     {% endif %}
 
                     {% if not messages %}

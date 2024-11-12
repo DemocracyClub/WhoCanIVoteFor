@@ -1,11 +1,16 @@
 <p>
     <address class="ds-stack-smallest">
         {{ contact_details.name }}
-        {% if contact_details.address %}
-            {{ contact_details.address|linebreaksbr }}
-        {% endif %}
-        {% if contact_details.postcode %}
-            <br>{{ contact_details.postcode  }}
+
+        {% if with_address %}
+            {% if contact_details.address %}
+                {{ contact_details.address|linebreaksbr }}
+            {% endif %}
+            {% if contact_details.postcode %}
+                <br>{{ contact_details.postcode  }}
+            {% endif %}
+            <br>
+        {% else %}
             <br>
         {% endif %}
 
