@@ -28,7 +28,8 @@ lambda-migrate:  ## Invoke lambda to migrate the database
 	aws lambda invoke \
 	--function-name WCIVFControllerFunction \
 	--payload '{ "command": "migrate" }' \
-	/dev/stdout
+	--cli-binary-format raw-in-base64-out \
+	/dev/stdout | grep --invert-match 'FunctionError'
 
 
 lib/dc_utils:
@@ -42,4 +43,3 @@ makemessages: lib/dc_utils
 .PHONY: compilemessages
 compilemessages:
 	${VIRTUAL_ENV}/bin/python manage.py compilemessages --ignore='env*'
-
