@@ -308,6 +308,9 @@ if os.environ.get("DC_ENVIRONMENT"):
 
     import sentry_sdk
     from sentry_sdk.integrations import aws_lambda, django
+    from sentry_sdk.integrations.logging import ignore_logger
+
+    ignore_logger("django.security.DisallowedHost")
 
     sentry_sdk.init(
         dsn=os.environ.get("SENTRY_DSN"),
