@@ -5,6 +5,7 @@
 version: 2.1
 orbs:
   slack: circleci/slack@4.13.3
+  aws-cli: circleci/aws-cli@5.1.1
 
 executors:
   py312:
@@ -196,7 +197,7 @@ jobs:
       - attach_workspace:
           at: ~/repo/
       - run: printenv DC_ENVIRONMENT
-      - run: pip install awscli==1.29.5
+      - aws-cli/setup
       - run:
           name: post deploy tests
           command: |
