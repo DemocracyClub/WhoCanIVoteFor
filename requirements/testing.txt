@@ -13,6 +13,6 @@ tomlkit
 freezegun==1.2.2
 django-debug-toolbar==4.3.0
 djhtml==3.0.6
-ruff==0.1.15
+ruff==0.8.0
 pytest-ruff==0.2.1
 pytidylib
