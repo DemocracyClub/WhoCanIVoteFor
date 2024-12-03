@@ -331,9 +331,6 @@ SHOW_PARL_BOUNDARY_CHANGES = os.environ.get("SHOW_PARL_BOUNDARY_CHANGES", False)
 ENABLE_LAYERS_OF_STATE_FEATURE = os.environ.get(
     "ENABLE_LAYERS_OF_STATE_FEATURE", False
 )
-LAYERS_OF_STATE_URL = (
-    "https://developers.environments.womblelabs.co.uk/api/v1/layers_of_state/"
-)
 
 BASIC_AUTH_ALLOWLIST = ["/_status_check/"]
 

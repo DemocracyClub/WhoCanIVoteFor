@@ -227,12 +227,16 @@ class AdministrationsHelper:
         )
 
     def get_api_response(self, postcode, uprn=None):
-        params = {"auth_token": 1}
+        params = {"auth_token": settings.DEVS_DC_API_KEY}
 
-        url = urljoin(settings.LAYERS_OF_STATE_URL, f"postcode/{postcode}/")
+        url = urljoin(
+            settings.DEVS_DC_BASE,
+            f"/api/v1/layers_of_state/postcode/{postcode}/",
+        )
         if uprn:
             url = urljoin(
-                settings.LAYERS_OF_STATE_URL, f"postcode/{postcode}/{uprn}/"
+                settings.DEVS_DC_BASE,
+                f"/api/v1/layers_of_state/postcode/{postcode}/{uprn}/",
             )
 
         req = requests.get(url, params=params)
