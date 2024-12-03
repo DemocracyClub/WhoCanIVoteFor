@@ -108,9 +108,6 @@ class PostcodeView(
         context["polling_station"] = self.ballot_dict.get("polling_station")
         context["council"] = self.ballot_dict.get("electoral_services")
         context["registration"] = self.ballot_dict.get("registration")
-        context["parl_boundary_changes"] = self.ballot_dict.get(
-            "parl_boundary_changes", None
-        )
         context["postcode_location"] = self.ballot_dict.get(
             "postcode_location", None
         )

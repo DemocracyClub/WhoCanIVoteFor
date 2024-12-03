@@ -40,11 +40,7 @@ class PostcodeToPostsMixin(object):
         kwargs = {"postcode": postcode}
         if uprn:
             kwargs["uprn"] = uprn
-        parl_boundary_changes = getattr(
-            settings, "SHOW_PARL_BOUNDARY_CHANGES", False
-        )
-        if parl_boundary_changes:
-            kwargs["parl_boundaries"] = 1
+
         results_json = DEVS_DC_CLIENT.make_request(**kwargs)
         all_ballots = []
         ret = {
@@ -56,11 +52,6 @@ class PostcodeToPostsMixin(object):
                 results_json.get("postcode_location", "")
             ),
         }
-
-        if parl_boundary_changes:
-            ret["parl_boundary_changes"] = results_json.get(
-                "parl_boundary_changes", None
-            )
 
         if ret["address_picker"]:
             ret["addresses"] = results_json["addresses"]

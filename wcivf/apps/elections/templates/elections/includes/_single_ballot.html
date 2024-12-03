@@ -254,9 +254,6 @@
         {% if postelection.ballotnewsarticle_set.exists %}
             {% include "news_mentions/news_articles.html" with news_articles=postelection.ballotnewsarticle_set.all %}
         {% endif %}
-        {% if parl_boundary_changes and postelection.election.slug == "parl.2024-07-04" %}
-            {% include "elections/includes/parl_boundary_changes.html" %}
-        {% endif %}
         {% if postelection.wikipedia_bio %}
             <div class="ds-card">
                 <div class="ds-card-body">
