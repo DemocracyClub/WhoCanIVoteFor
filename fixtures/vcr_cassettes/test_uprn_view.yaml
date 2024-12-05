@@ -21,8 +21,7 @@ interactions:
         Council","email":"elections@shropshire.gov.uk","phone":"0345 678 9015","website":"http://www.shropshire.gov.uk/","postcode":"SY2
         6ND","address":"Electoral Registration Officer\nShirehall\nAbbey Foregate\nShrewsbury","identifiers":["E06000051"],"nation":"England"},"registration":{"council_id":"SHR","name":"Shropshire
         Council","email":"elections@shropshire.gov.uk","phone":"0345 678 9015","website":"http://www.shropshire.gov.uk/","postcode":"SY2
-        6ND","address":"Electoral Registration Officer\nShirehall\nAbbey Foregate\nShrewsbury","identifiers":["E06000051"],"nation":"England"},"postcode_location":{"type":"Feature","properties":null,"geometry":{"type":"Point","coordinates":[-2.326615276923077,52.49552346923076]}},"parl_boundary_changes":{"current_constituencies_official_identifier":"gss:E14000799","current_constituencies_name":"Ludlow","new_constituencies_official_identifier":"gss:E14001493","new_constituencies_name":"South
-        Shropshire","CHANGE_TYPE":"NAME_CHANGE_BOUNDARY_CHANGE"}}'
+        6ND","address":"Electoral Registration Officer\nShirehall\nAbbey Foregate\nShrewsbury","identifiers":["E06000051"],"nation":"England"},"postcode_location":{"type":"Feature","properties":null,"geometry":{"type":"Point","coordinates":[-2.326615276923077,52.49552346923076]}}}'
     headers:
       Connection:
       - keep-alive
@@ -75,8 +74,7 @@ interactions:
         Council","email":"elections@shropshire.gov.uk","phone":"0345 678 9015","website":"http://www.shropshire.gov.uk/","postcode":"SY2
         6ND","address":"Electoral Registration Officer\nShirehall\nAbbey Foregate\nShrewsbury","identifiers":["E06000051"],"nation":"England"},"registration":{"council_id":"SHR","name":"Shropshire
         Council","email":"elections@shropshire.gov.uk","phone":"0345 678 9015","website":"http://www.shropshire.gov.uk/","postcode":"SY2
-        6ND","address":"Electoral Registration Officer\nShirehall\nAbbey Foregate\nShrewsbury","identifiers":["E06000051"],"nation":"England"},"postcode_location":{"type":"Feature","properties":null,"geometry":{"type":"Point","coordinates":[-2.326615276923077,52.49552346923076]}},"parl_boundary_changes":{"current_constituencies_official_identifier":"gss:E14000799","current_constituencies_name":"Ludlow","new_constituencies_official_identifier":"gss:E14001493","new_constituencies_name":"South
-        Shropshire","CHANGE_TYPE":"NAME_CHANGE_BOUNDARY_CHANGE"}}'
+        6ND","address":"Electoral Registration Officer\nShirehall\nAbbey Foregate\nShrewsbury","identifiers":["E06000051"],"nation":"England"},"postcode_location":{"type":"Feature","properties":null,"geometry":{"type":"Point","coordinates":[-2.326615276923077,52.49552346923076]}}}'
     headers:
       Age:
       - '25'

@@ -328,7 +328,6 @@ LOGGER_ARN = os.environ.get("LOGGER_ARN", None)
 firehose_args = {"function_arn": LOGGER_ARN} if LOGGER_ARN else {"fake": True}
 POSTCODE_LOGGER = DCWidePostcodeLoggingClient(**firehose_args)
 
-SHOW_PARL_BOUNDARY_CHANGES = os.environ.get("SHOW_PARL_BOUNDARY_CHANGES", False)
 SHOW_HUSTINGS_CTA = False
 ENABLE_LAYERS_OF_STATE_FEATURE = os.environ.get(
     "ENABLE_LAYERS_OF_STATE_FEATURE", False
