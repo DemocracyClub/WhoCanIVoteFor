@@ -466,10 +466,8 @@ class YNRBallotImporter:
         if ballot.post.territory and not self.force_update:
             return
         ee_data = self.ee_helper.get_data(ballot.ballot_paper_id)
-        if ee_data and "organisation" in ee_data:
-            territory = ee_data["organisation"].get("territory_code", "-")
         if ee_data:
-            territory = ee_data.get("division", {}).get(
+            territory = (ee_data.get("division") or {}).get(
                 "territory_code",
                 ee_data["organisation"].get("territory_code", "-"),
             )
