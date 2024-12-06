@@ -570,7 +570,7 @@ class PersonViewTests(TestCase):
         )
         response = self.client.get(self.person_url, follow=True)
         self.assertEqual(response.template_name, ["people/person_detail.html"])
-        self.assertNotContains(response, "LinkedIn")
+        assert b"<dt>LinkedIn</dt>" not in response.content
 
     def test_linkedin(self):
         self.person.linkedin_url = "https://www.linkedin.com/in/yo"
@@ -580,7 +580,7 @@ class PersonViewTests(TestCase):
         )
         response = self.client.get(self.person_url, follow=True)
         self.assertEqual(response.template_name, ["people/person_detail.html"])
-        self.assertContains(response, "LinkedIn")
+        assert b"<dt>LinkedIn</dt>" in response.content
 
     def test_instagram(self):
         self.person.instagram_url = "https://www.instagram.com/yo"
