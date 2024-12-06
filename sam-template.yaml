@@ -366,6 +366,9 @@ Resources:
         # https://eu-west-2.console.aws.amazon.com/imagebuilder/home?region=eu-west-2#/images/arn%3Aaws%3Aimagebuilder%3Aeu-west-2%3A732292556707%3Aimage%2Feeimage-ubuntu%2F0.0.35%2F2/details
         ImageId: 'ami-0c8d319e3a044e7da'
         InstanceType: !Ref InstanceType
+        MetadataOptions:
+          InstanceMetadataTags: enabled
+          HttpEndpoint: enabled
       TagSpecifications:
         - ResourceType: launch-template
           Tags:
