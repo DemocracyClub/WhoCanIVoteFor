@@ -17,6 +17,13 @@ class Command(BaseCommand):
             help="Only import ballots that are'current'",
         )
         parser.add_argument(
+            "--force-update",
+            action="store_true",
+            dest="force_update",
+            default=False,
+            help="Imports all properties from EE",
+        )
+        parser.add_argument(
             "--force-all-metadata",
             action="store_true",
             dest="force_metadata",
@@ -79,6 +86,7 @@ class Command(BaseCommand):
 
     def handle(self, **options):
         importer = YNRBallotImporter(
+            force_update=options["force_update"],
             stdout=self.stdout,
             current_only=options["current"],
             force_metadata=options["force_metadata"],
