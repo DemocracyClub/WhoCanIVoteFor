@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-06 16:32+0000\n"
+"POT-Creation-Date: 2024-12-09 15:05+0000\n"
 "PO-Revision-Date: 2022-03-24 09:04+0000\n"
 "Last-Translator: Sym Roe <sym@talusdesign.co.uk>, 2022\n"
 "Language-Team: Welsh (https://www.transifex.com/democracy-club/teams/61326/"
@@ -520,18 +520,19 @@ msgid "<address>%(polling_station_address)s</address>"
 msgstr ""
 
 #: wcivf/apps/elections/templates/elections/includes/_polling_place.html:57
-msgid "It will be open from <strong>7am to 10pm</strong>."
-msgstr "Bydd ar agor o <strong>7am tan 10pm</strong>."
+#, python-format
+msgid "It will be open from <strong>%(open_time)s to %(close_time)s</strong>"
+msgstr "Bydd ar agor o <strong>%(open_time)s tan %(close_time)s</strong>"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:63
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:65
 msgid "and"
 msgstr "a"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:72
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:74
 msgid "You don't need to take your poll card with you."
 msgstr "Nid oes angen i chi ddod â'ch cerdyn pleidleisio gyda chi."
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:79
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:81
 msgid ""
 "If you have a postal vote, you can hand it in at this polling station on "
 "election day up to 10pm. When handing in postal votes, you will need to "
@@ -544,7 +545,7 @@ msgstr ""
 "faint o bleidleisiau post yr ydych yn eucyflwyno, a pham yr ydych yn "
 "cyflwyno'r pleidleisiau post hynny."
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:89
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:91
 msgid ""
 "If you have a postal vote, you can hand it in at this polling station on "
 "election day up to 10pm."
@@ -552,18 +553,18 @@ msgstr ""
 "Os oes gennych bleidlais bost, gallwch ei chyflwyno yn yr orsaf bleidleisio "
 "hondiwrnod etholiad hyd at 10pm"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:93
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:95
 msgid ""
 "Postal votes cannot be accepted at polling stations in Northern Ireland."
 msgstr ""
 "Ni ellir derbyn pleidleisiau post mewn gorsafoedd pleidleisio yng Ngogledd "
 "Iwerddon."
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:95
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:97
 msgid "Learn more about voting by post"
 msgstr "Dysgwch fwy am bleidleisio drwy'r post"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:98
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:100
 #, python-format
 msgid ""
 "<p>You can find your polling station by <a href=\"%(custom_finder)s\"> "
@@ -572,7 +573,7 @@ msgstr ""
 "<p>Gallwch ddod o hyd i'ch gorsaf bleidleisio drwy <a "
 "href=\"%(custom_finder)s\"> ddilyn y ddolen hon</a>.</p>"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:106
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:108
 #, python-format
 msgid ""
 "<strong>Polling stations are open from %(open_time)s till %(close_time)s "
@@ -581,7 +582,7 @@ msgstr ""
 "<strong>Bydd gorsafoedd pleidleisio ar agor o %(open_time)s tan "
 "%(close_time)s heddiw.</strong>"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:111
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:113
 #, python-format
 msgid ""
 "<p>Your polling station in %(postcode)s depends on your address. <a "
@@ -592,14 +593,14 @@ msgstr ""
 "<a href=\"https://wheredoivote.co.uk/postcode/%(postcode)s/\">Gwiriwch yr "
 "orsaf bleidleisio gywir ar gyfer eich cyfeiriad&raquo;</a></p>"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:115
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:117
 msgid ""
 "You should get a \"poll card\" through the post telling you where to vote."
 msgstr ""
 "Dylech dderbyn \"cerdyn pleidleisio\" drwy'r post yn dweud ble y dylech chi "
 "bleidleisio."
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:118
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:120
 #, python-format
 msgid ""
 "If you haven't got one, or for questions about your poll card, polling "
@@ -611,7 +612,7 @@ msgstr ""
 "ffonio'r Swyddfa Cofrestru Etholiadol <a href=\"tel:"
 "%(council_phone)s\">%(council_phone)s</a>."
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:125
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:127
 #, python-format
 msgid ""
 "If you haven't got one, or aren't sure where to vote, you should call "
@@ -620,7 +621,7 @@ msgstr ""
 "Os nad oes gennych chi un, neu ddim yn siŵr ble i bleidleisio, dylech ffonio "
 "%(council_name)s ar <a href=\"tel:%(council_phone)s\">%(council_phone)s</a>."
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:132
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:134
 msgid ""
 "If you haven't got one, or aren't sure where to vote, you should call your "
 "local council."
@@ -628,25 +629,25 @@ msgstr ""
 "Os nad oes gennych chi un, neu ddim yn siŵr ble i bleidleisio, dylech ffonio "
 "eich cyngor lleol."
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:140
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:142
 msgid "You will need photographic identification."
 msgstr "Bydd angen dull adnabod ffotograffig arnoch."
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:146
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:148
 msgid "Read more about how to vote in Northern Ireland"
 msgstr "Darllenwch fwy am sut i bleidleisio yng Ngogledd Iwerddon"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:150
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:152
 msgid "Read more about how to vote"
 msgstr "Darllenwch fwy am sut i bleidleisio"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:159
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:161
 #, fuzzy
 #| msgid "Get walking directions from"
 msgid "Get directions"
 msgstr "Cael cyfarwyddiadau cerdded o"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:163
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:165
 #, fuzzy
 #| msgid "Get walking directions from"
 msgid "Get directions from"
@@ -948,12 +949,12 @@ msgstr ""
 msgid "Citizenship"
 msgstr "Dinasyddiaeth"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:263
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:260
 #: wcivf/apps/people/templates/people/includes/_person_about_card.html:7
 msgid "Wikipedia"
 msgstr "Wikipedia"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:265
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:262
 #: wcivf/apps/people/templates/people/includes/_person_about_card.html:9
 msgid "Read more on Wikipedia"
 msgstr "Darllenwch fwy ar Wikipedia"
@@ -1268,12 +1269,12 @@ msgstr ""
 msgid "Submit event"
 msgstr ""
 
-#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:6
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:7
 #: wcivf/apps/hustings/templates/hustings/includes/_person.html:4
 msgid "Election events"
 msgstr "Digwyddiadau etholiadol"
 
-#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:9
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:10
 msgid ""
 "You can meet candidates and question them at events (often known as "
 "'hustings'). Here are some events that are taking place:"
@@ -1281,24 +1282,24 @@ msgstr ""
 "Gallwch gwrdd ag ymgeiswyr a'u cwestiynu mewn digwyddiadau ar-lein (fe'u "
 "gelwir yn hystingiau). Dyma rai digwyddiadau sy'n digwydd:"
 
-#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:12
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:13
 msgid "Events are reported by users, if you spot an error, please"
 msgstr ""
 
-#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:13
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:14
 msgid "get in touch"
 msgstr ""
 
-#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:17
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:18
 msgid "Do you know about any other events in the area? If so, please"
 msgstr ""
 
-#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:18
-#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:26
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:19
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:27
 msgid "tell us about them"
 msgstr ""
 
-#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:24
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:25
 msgid "Do you know about any events (often known as 'hustings')? If so, please"
 msgstr ""
 
@@ -2752,6 +2753,9 @@ msgstr ""
 msgid "Upcoming Elections"
 msgstr "Etholiadau i ddod"
 
+#~ msgid "It will be open from <strong>7am to 10pm</strong>."
+#~ msgstr "Bydd ar agor o <strong>7am tan 10pm</strong>."
+
 #, fuzzy
 #~| msgid ""
 #~| "For questions about your poll card, polling place, or about returning "
@@ -2764,11 +2768,6 @@ msgstr "Etholiadau i ddod"
 #~ "Ar gyfer cwestiynau ynghylch eich cerdyn pleidleisio, eich gorsaf "
 #~ "bleidleisio, neu ynghylch dychwelyd eich pleidlais drwy'r post, "
 #~ "cysylltwch â'ch cyngor."
-
-#, fuzzy
-#~| msgid "It will be open from <strong>7am to 10pm</strong>."
-#~ msgid "It will be open from <strong>8am to 8pm</strong>."
-#~ msgstr "Bydd ar agor o <strong>7am tan 10pm</strong>."
 
 #~ msgid ""
 #~ "A parliamentary general election has been called for 4 July. Enter your "
