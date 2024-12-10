@@ -52,7 +52,7 @@ class TestPersonModel(TestCase):
         assert self.person.instagram_username == "vickyfordmp"
 
     def test_linkedin_username(self):
-        self.person.linkedin_url = "https://www.linkedin.com/in/vicky-ford/"
+        self.person.linkedin_url = "https://www.linkedin.com/in/vicky-ford"
         assert self.person.linkedin_username == "vicky-ford"
 
     def test_youtube_username(self):
