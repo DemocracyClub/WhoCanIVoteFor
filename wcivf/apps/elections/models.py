@@ -16,7 +16,6 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from django_extensions.db.models import TimeStampedModel
 from uk_election_ids.metadata_tools import (
-    IDRequirementsMatcher,
     PostalVotingRequirementsMatcher,
 )
 
@@ -711,16 +710,6 @@ class PostElection(TimeStampedModel):
         if self.cancellation_reason in ["CANDIDATE_DEATH"]:
             return False
         return True
-
-    @property
-    def get_voter_id_requirements(self):
-        try:
-            matcher = IDRequirementsMatcher(
-                self.ballot_paper_id, nation=self.post.territory
-            )
-            return matcher.get_id_requirements()
-        except Exception:
-            return None
 
     @property
     def get_postal_voting_requirements(self):
