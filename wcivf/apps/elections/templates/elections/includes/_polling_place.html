@@ -54,7 +54,11 @@
                 <address>{{ polling_station_address }}</address>
             {% endblocktrans %}
             <p>
-                {% blocktrans trimmed %}It will be open from <strong>7am to 10pm</strong>.{% endblocktrans %}
+                {% if not multiple_city_of_london_elections_on_next_poll_date %}
+                    {% blocktrans trimmed with open_time=polling_station_opening_times.polls_open|time:"ga" close_time=polling_station_opening_times.polls_close|time:"ga" %}
+                        It will be open from <strong>{{ open_time }} to {{ close_time }}</strong>
+                    {% endblocktrans %}
+                {% endif %}
 
                 {% for election in elections_by_date %}
                     {{ election.grouper|naturalday:"\o\n l j F Y" }}
@@ -102,8 +106,8 @@
                     </p>
                 {% endblocktrans %}
             {% else %}
-                {% if ballots_today and not multiple_city_of_london_elections_today %}
-                    {% blocktrans trimmed with open_time=ballots_today.0.election.polls_open|time:"ga" close_time=ballots_today.0.election.polls_close|time:"ga" %}
+                {% if ballots_today and not multiple_city_of_london_elections_on_next_poll_date %}
+                    {% blocktrans trimmed with open_time=polling_station_opening_times.polls_open|time:"ga" close_time=polling_station_opening_times.polls_close|time:"ga" %}
                         <strong>Polling stations are open from {{ open_time }} till {{ close_time }} today.</strong>
                     {% endblocktrans %}
                 {% endif %}

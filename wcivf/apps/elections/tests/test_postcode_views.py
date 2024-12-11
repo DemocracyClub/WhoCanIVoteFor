@@ -192,6 +192,7 @@ class TestPostcodeViewPolls:
             ballot_paper_id="local.sheffield.ecclesall.2021-05-06",
             election__slug="local.sheffield.2021-05-06",
             election__election_date="2021-05-06",
+            post__territory="ENG",
         )
 
         mock_response.json.return_value["dates"].append(
@@ -208,6 +209,81 @@ class TestPostcodeViewPolls:
         )
         asserts.assertContains(
             response, "Polling stations are open from 7a.m. till 10p.m. today"
+        )
+
+    def test_polling_station_opening_times(self, mock_response, client):
+        post_election = PostElectionFactory(
+            ballot_paper_id="local.sheffield.ecclesall.2021-05-08",
+            election__slug="local.sheffield.2021-05-08",
+            election__election_date="2021-05-08",
+            post__territory="ENG",
+        )
+
+        mock_response.json.return_value["dates"].append(
+            {
+                "date": post_election.election.election_date,
+                "polling_station": {
+                    "polling_station_known": True,
+                    "custom_finder": False,
+                    "report_problem_url": "http://wheredoivote.co.uk/report_problem/?source=testing&source_url=testing",
+                    "station": {
+                        "id": "QK",
+                        "type": "Feature",
+                        "geometry": None,
+                        "properties": {
+                            "address": "1 Made Up Street\nMade Up Town\nMade Up County",
+                            "postcode": "MA1 1AA",
+                        },
+                    },
+                },
+                "ballots": [{"ballot_paper_id": post_election.ballot_paper_id}],
+            }
+        )
+
+        response = client.get(
+            reverse("postcode_view", kwargs={"postcode": "s11 8qe"}),
+            follow=True,
+        )
+        asserts.assertContains(
+            response, "It will be open from <strong>7a.m. to 10p.m.</strong>"
+        )
+
+    def test_polling_station_opening_times_city_of_london(
+        self, mock_response, client
+    ):
+        post_election = PostElectionFactory(
+            ballot_paper_id="local.city-of-london.aldgate.2021-05-08",
+            election__slug="local.city-of-london.2021-05-08",
+            election__election_date="2021-05-08",
+            post__territory="ENG",
+        )
+
+        mock_response.json.return_value["dates"].append(
+            {
+                "date": post_election.election.election_date,
+                "polling_station": {
+                    "polling_station_known": True,
+                    "custom_finder": False,
+                    "report_problem_url": "http://wheredoivote.co.uk/report_problem/?source=testing&source_url=testing",
+                    "station": {
+                        "id": "QK",
+                        "type": "Feature",
+                        "geometry": None,
+                        "properties": {
+                            "address": "1 Made Up Street\nMade Up Town\nMade Up County",
+                            "postcode": "MA1 1AA",
+                        },
+                    },
+                },
+                "ballots": [{"ballot_paper_id": post_election.ballot_paper_id}],
+            }
+        )
+
+        response = client.get(
+            reverse("postcode_view", kwargs={"postcode": "e1 2ax"}), follow=True
+        )
+        asserts.assertContains(
+            response, "It will be open from <strong>8a.m. to 8p.m.</strong>"
         )
 
     def test_not_today(self, mock_response, client):
@@ -547,11 +623,14 @@ class TestPostcodeViewMethods:
         )
         mocker.patch.object(
             view_obj,
-            "get_todays_ballots",
+            "get_ballots_for_next_date",
             return_value=list(PostElection.objects.all()),
         )
 
-        assert view_obj.multiple_city_of_london_elections_today() is True
+        assert (
+            view_obj.multiple_city_of_london_elections_on_next_poll_date()
+            is True
+        )
 
     @pytest.mark.django_db
     def test_multiple_non_london_elections_same_day(self, view_obj, mocker):
@@ -565,11 +644,14 @@ class TestPostcodeViewMethods:
         )
         mocker.patch.object(
             view_obj,
-            "get_todays_ballots",
+            "get_ballots_for_next_date",
             return_value=list(PostElection.objects.all()),
         )
 
-        assert view_obj.multiple_city_of_london_elections_today() is False
+        assert (
+            view_obj.multiple_city_of_london_elections_on_next_poll_date()
+            is False
+        )
 
     @pytest.mark.django_db
     def test_multiple_non_london_elections_same_day_single_election(
@@ -581,11 +663,14 @@ class TestPostcodeViewMethods:
         )
         mocker.patch.object(
             view_obj,
-            "get_todays_ballots",
+            "get_ballots_for_next_date",
             return_value=list(PostElection.objects.all()),
         )
 
-        assert view_obj.multiple_city_of_london_elections_today() is False
+        assert (
+            view_obj.multiple_city_of_london_elections_on_next_poll_date()
+            is False
+        )
 
     @pytest.fixture
     def post_elections(self, request):

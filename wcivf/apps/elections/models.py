@@ -73,7 +73,7 @@ class Election(models.Model):
     @property
     def is_city_of_london_local_election(self):
         """
-        Returns boolean for if the election is within City of London district.
+        Returns boolean for if the election is within City of London.
         The city often has different rules to other UK elections so it's useful
         to know when we need to special case. For further details:
         https://www.cityoflondon.gov.uk/about-us/voting-elections/elections/ward-elections
@@ -82,15 +82,18 @@ class Election(models.Model):
         return "local.city-of-london" in self.slug
 
     @property
-    def is_city_of_london_parl_election(self):
+    def election_covers_city_of_london(self):
         """
-        Returns boolean for if the election is within City of London district.
+        Returns boolean for if the election is in a parl or GLA constituency partially covering City of London.
         The city often has different rules to other UK elections so it's useful
         to know when we need to special case. For further details:
         https://www.cityoflondon.gov.uk/about-us/voting-elections/elections/ward-elections
         https://democracyclub.org.uk/blog/2017/03/22/eight-weird-things-about-tomorrows-city-london-elections/
         """
-        return "parl.cities-of-london-and-westminster" in self.slug
+        return (
+            "parl.cities-of-london-and-westminster" in self.slug
+            or "gla.c.city-and-east" in self.slug
+        )
 
     @property
     def polls_close(self):

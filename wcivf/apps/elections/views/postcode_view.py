@@ -106,6 +106,9 @@ class PostcodeView(
         for postelection in context["postelections"]:
             postelection.people = self.people_for_ballot(postelection)
         context["polling_station"] = self.ballot_dict.get("polling_station")
+        context[
+            "polling_station_opening_times"
+        ] = self.get_polling_station_opening_times()
         context["council"] = self.ballot_dict.get("electoral_services")
         context["registration"] = self.ballot_dict.get("registration")
         context["postcode_location"] = self.ballot_dict.get(
@@ -118,8 +121,8 @@ class PostcodeView(
 
         context["ballots_today"] = self.get_todays_ballots()
         context[
-            "multiple_city_of_london_elections_today"
-        ] = self.multiple_city_of_london_elections_today()
+            "multiple_city_of_london_elections_on_next_poll_date"
+        ] = self.multiple_city_of_london_elections_on_next_poll_date()
         context["referendums"] = list(self.get_referendums())
         context["parish_council_election"] = self.get_parish_council_election()
         context["num_ballots"] = self.num_ballots()
@@ -163,7 +166,36 @@ class PostcodeView(
         for ballot in self.ballot_dict.get("ballots", []):
             yield from ballot.referendums.all()
 
-    def multiple_city_of_london_elections_today(self):
+    def get_ballots_for_next_date(self):
+        ballots = (
+            self.get_ballot_dict()
+            .get("ballots")
+            .order_by("election__election_date")
+        )
+        if not ballots:
+            return ballots
+        first_ballot_date = ballots[0].election.election_date
+        return ballots.filter(election__election_date=first_ballot_date)
+
+    def get_polling_station_opening_times(self):
+        ballots = self.get_ballots_for_next_date()
+        if not ballots:
+            return {
+                "polls_open": None,
+                "polls_close": None,
+            }
+        for ballot in ballots:
+            if ballot.election.is_city_of_london_local_election:
+                return {
+                    "polls_open": ballot.election.polls_open,
+                    "polls_close": ballot.election.polls_close,
+                }
+        return {
+            "polls_open": ballots[0].election.polls_open,
+            "polls_close": ballots[0].election.polls_close,
+        }
+
+    def multiple_city_of_london_elections_on_next_poll_date(self):
         """
         Checks if there are multiple elections taking place today in the City
         of London. This is used to determine if it is safe to display polling
@@ -171,7 +203,7 @@ class PostcodeView(
         it is unclear what time the polls would be open. See this issue for
         more info https://github.com/DemocracyClub/WhoCanIVoteFor/issues/441
         """
-        ballots = self.get_todays_ballots()
+        ballots = self.get_ballots_for_next_date()
 
         # if only one ballot can return early
         if len(ballots) <= 1:
@@ -181,7 +213,7 @@ class PostcodeView(
             ballot
             for ballot in ballots
             if ballot.election.is_city_of_london_local_election
-            or ballot.election.is_city_of_london_parl_election
+            or ballot.election.election_covers_city_of_london
         ):
             return False
 
