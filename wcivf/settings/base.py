@@ -5,7 +5,6 @@ import sys
 
 import dc_design_system
 import requests
-import sentry_sdk.integrations.django
 from dc_logging_client import DCWidePostcodeLoggingClient
 from dc_utils.settings.pipeline import *  # noqa
 from dc_utils.settings.pipeline import get_pipeline_settings

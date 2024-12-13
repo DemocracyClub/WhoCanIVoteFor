@@ -43,3 +43,9 @@ makemessages: lib/dc_utils
 .PHONY: compilemessages
 compilemessages:
 	${VIRTUAL_ENV}/bin/python manage.py compilemessages --ignore='env*'
+
+
+build-WCIVFControllerFunction:
+	uv venv
+	uv export --no-hashes --no-dev > "$(ARTIFACTS_DIR)/requirements.txt"
+	uv pip install --upgrade -r "$(ARTIFACTS_DIR)/requirements.txt" --target "$(ARTIFACTS_DIR)/python/"
