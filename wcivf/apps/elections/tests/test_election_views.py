@@ -203,10 +203,6 @@ class ElectionPostViewTests(TestCase):
         pre_sopn_text_2 = """The official candidate list will be published after 10 April 2024, when this page will be updated."""
         self.assertContains(response, pre_sopn_text_1)
         self.assertContains(response, pre_sopn_text_2)
-        self.assertContains(
-            response,
-            """Once nomination papers are published, we will manually verify each candidate.""",
-        )
 
     def test_zero_candidates(self):
         response = self.client.get(

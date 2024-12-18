@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-08 10:36+0100\n"
+"POT-Creation-Date: 2024-12-18 12:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,19 +22,19 @@ msgstr ""
 msgid "Enter your postcode"
 msgstr ""
 
-#: wcivf/apps/elections/models.py:756
+#: wcivf/apps/elections/models.py:757
 msgid "First-past-the-post"
 msgstr ""
 
-#: wcivf/apps/elections/models.py:758
+#: wcivf/apps/elections/models.py:759
 msgid "Additional Member System"
 msgstr ""
 
-#: wcivf/apps/elections/models.py:760
+#: wcivf/apps/elections/models.py:761
 msgid "Supplementary Vote"
 msgstr ""
 
-#: wcivf/apps/elections/models.py:762
+#: wcivf/apps/elections/models.py:763
 msgid "Single Transferable Vote"
 msgstr ""
 
@@ -237,6 +237,43 @@ msgstr ""
 msgid "Read more"
 msgstr ""
 
+#: wcivf/apps/elections/templates/elections/includes/_city_of_london_registration_details.html:7
+#: wcivf/apps/elections/templates/elections/includes/_registration_details.html:10
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:141
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:90
+msgid "Register to vote"
+msgstr ""
+
+#: wcivf/apps/elections/templates/elections/includes/_city_of_london_registration_details.html:11
+msgid ""
+"City of London council elections do not use the same electoral register as "
+"other elections."
+msgstr ""
+
+#: wcivf/apps/elections/templates/elections/includes/_city_of_london_registration_details.html:16
+msgid ""
+"Both residents and city workers are eligible to vote. There is one register "
+"published annually, and the deadline to apply is 30 November each year. The "
+"new register comes into force on 16 February each year, and cannot be "
+"modified after that date. For more information, visit the <a href=\"https://"
+"www.speakforthecity.com/\">Speak for the City</a> website or contact City of "
+"London electoral services."
+msgstr ""
+
+#: wcivf/apps/elections/templates/elections/includes/_city_of_london_registration_details.html:27
+msgid ""
+"For questions about your poll card, polling place, or about returning your "
+"postal voting ballot, contact your council."
+msgstr ""
+
+#: wcivf/apps/elections/templates/elections/includes/_contact_details_registration.html:5
+msgid "Electoral Registration"
+msgstr ""
+
+#: wcivf/apps/elections/templates/elections/includes/_contact_details_registration.html:7
+msgid "Your Local Council"
+msgstr ""
+
 #: wcivf/apps/elections/templates/elections/includes/_elections_breadcrumbs.html:3
 #: wcivf/apps/parties/templates/parties/parties_view.html:9
 msgid "You are here"
@@ -360,7 +397,7 @@ msgid "Photo of %(person_name)s"
 msgstr ""
 
 #: wcivf/apps/elections/templates/elections/includes/_polling_place.html:9
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:124
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:133
 #: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:82
 msgid "Where to vote"
 msgstr ""
@@ -399,24 +436,17 @@ msgid "Vote on polling day"
 msgstr ""
 
 #: wcivf/apps/elections/templates/elections/includes/_polling_place.html:51
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:103
 msgid "Your polling station is"
 msgstr ""
 
 #: wcivf/apps/elections/templates/elections/includes/_polling_place.html:53
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:105
 #, python-format
 msgid "<address>%(polling_station_address)s</address>"
 msgstr ""
 
 #: wcivf/apps/elections/templates/elections/includes/_polling_place.html:58
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:110
-msgid "It will be open from <strong>8am to 8pm</strong>."
-msgstr ""
-
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:60
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:112
-msgid "It will be open from <strong>7am to 10pm</strong>."
+#, python-format
+msgid "It will be open from <strong>%(open_time)s to %(close_time)s</strong>"
 msgstr ""
 
 #: wcivf/apps/elections/templates/elections/includes/_polling_place.html:67
@@ -450,21 +480,21 @@ msgstr ""
 msgid "Learn more about voting by post"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:118
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:102
 #, python-format
 msgid ""
 "<p>You can find your polling station by <a href=\"%(custom_finder)s\"> "
 "following this link</a>. </p>"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:126
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:110
 #, python-format
 msgid ""
 "<strong>Polling stations are open from %(open_time)s till %(close_time)s "
 "today.</strong>"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:131
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:115
 #, python-format
 msgid ""
 "<p>Your polling station in %(postcode)s depends on your address. <a "
@@ -472,12 +502,12 @@ msgid ""
 "polling station for your address &raquo;</a></p>"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:135
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:119
 msgid ""
 "You should get a \"poll card\" through the post telling you where to vote."
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:138
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:122
 #, python-format
 msgid ""
 "If you haven't got one, or for questions about your poll card, polling "
@@ -486,36 +516,36 @@ msgid ""
 "%(council_phone)s\">%(council_phone)s</a>."
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:163
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:129
 #, python-format
 msgid ""
 "If you haven't got one, or aren't sure where to vote, you should call "
 "%(council_name)s on <a href=\"tel:%(council_phone)s\">%(council_phone)s</a>."
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:187
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:136
 msgid ""
 "If you haven't got one, or aren't sure where to vote, you should call your "
 "local council."
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:195
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:144
 msgid "You will need photographic identification."
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:201
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:150
 msgid "Read more about how to vote in Northern Ireland"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:205
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:154
 msgid "Read more about how to vote"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:214
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:163
 msgid "Get directions"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:218
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:167
 msgid "Get directions from"
 msgstr ""
 
@@ -562,7 +592,7 @@ msgid ""
 msgstr ""
 
 #: wcivf/apps/elections/templates/elections/includes/_postcode_search_form.html:11
-#: wcivf/templates/home.html:33
+#: wcivf/templates/home.html:25
 msgid "Find your candidates"
 msgstr ""
 
@@ -577,12 +607,6 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: wcivf/apps/elections/templates/elections/includes/_registration_details.html:10
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:132
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:90
-msgid "Register to vote"
-msgstr ""
-
 #: wcivf/apps/elections/templates/elections/includes/_registration_details.html:15
 msgid ""
 "You need to be registered in order to vote. If you aren't registered to vote "
@@ -590,17 +614,18 @@ msgid ""
 "register-to-vote </a>"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_registration_details.html:25
+#: wcivf/apps/elections/templates/elections/includes/_registration_details.html:24
 #, python-format
 msgid ""
 "Register before midnight on %(registration_deadline)s to vote on "
 "%(election_date)s."
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_registration_details.html:32
+#: wcivf/apps/elections/templates/elections/includes/_registration_details.html:30
 msgid ""
-"For questions about your poll card, polling place, or about returning your "
-"postal voting ballot, contact your council."
+"Send your postal and proxy vote applications to your local electoral "
+"registration team. You can also contact them to find out if you’re on the "
+"electoral register, and if you already have a postal or proxy vote."
 msgstr ""
 
 #: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:19
@@ -619,33 +644,33 @@ msgstr ""
 msgid "This election will be held <strong>%(election_date)s</strong>."
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:55
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:57
 msgid "About this position"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:59
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:61
 #, python-format
 msgid " %(description)s"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:66
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:75
 #, python-format
 msgid ""
 "<strong>%(num_candidates)s candidate%(plural)s</strong> stood in the "
 "%(postelection)s."
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:71
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:80
 msgid ""
 "We don't know of any candidates standing yet. You can help improve this page:"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:72
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:83
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:81
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:92
 msgid "add information about candidates to our database"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:77
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:86
 #, python-format
 msgid ""
 "We don't know of any candidates standing yet. The official candidate list "
@@ -653,13 +678,13 @@ msgid ""
 "updated. You can help improve this page:"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:89
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:98
 msgid ""
 "You will have one vote, and can vote for a single party list or independent "
 "candidate."
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:92
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:101
 #, python-format
 msgid ""
 "You will have <strong>%(winner_count)s vote%(plural)s</strong>, and can "
@@ -667,113 +692,112 @@ msgid ""
 "strong>."
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:98
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:107
 #, python-format
 msgid ""
 "You will have <strong>one vote</strong>, and can choose from "
 "<strong>%(num_ballots)s</strong> in the %(postelection)s."
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:103
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:112
 #, python-format
 msgid ""
 "You will have <strong>two votes</strong>, and can choose from "
 "<strong>%(num_ballots)s</strong> in the %(postelection)s."
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:110
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:119
 #, python-format
 msgid ""
 "There is <strong>one seat</strong>  up for election, and you can choose from "
 "<strong>%(num_ballots)s</strong>."
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:114
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:123
 #, python-format
 msgid ""
 "There are <strong>%(winner_count)s seats</strong>  up for election, and you "
 "can choose from <strong>%(num_ballots)s</strong>."
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:121
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:130
 #: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:79
 msgid "Get ready to vote"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:128
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:137
 #: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:86
 msgid "Voter ID requirements"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:140
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:149
 #, python-format
 msgid ""
 "We are currently aware of %(num_candidates)s candidate%(plural_candidates)s "
 "for this position."
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:144
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:153
 #, python-format
 msgid ""
 "The official candidate list will be published after %(expected_sopn_date)s, "
-"when this page will be updated. Once nomination papers are published, we "
-"will manually verify each candidate. You can help improve this page: <a "
+"when this page will be updated. You can help improve this page: <a "
 "href=\"%(ynr_link)s\"> add information about candidates to our database</a>."
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:160
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:168
 msgid "Read the official candidate booklet for this election."
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:170
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:178
 msgid "Electorate"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:177
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:185
 msgid "Ballot Papers Issued"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:184
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:192
 msgid "Spoilt Ballots"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:191
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:199
 msgid "Turnout"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:214
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:222
 msgid "The official candidate list should have been published after"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:216
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:224
 msgid "The official candidate list should be published after"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:227
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:235
 msgid "Can you vote in this election?"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:228
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:236
 msgid "Age"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:230
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:238
 #, python-format
 msgid ""
 "You need to be over %(voter_age)s on the %(voter_age_date)s of "
 "%(election_date)s in order to vote in this election."
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:235
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:243
 msgid "Citizenship"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:254
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:259
 #: wcivf/apps/people/templates/people/includes/_person_about_card.html:7
 msgid "Wikipedia"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:256
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:261
 #: wcivf/apps/people/templates/people/includes/_person_about_card.html:9
 msgid "Read more on Wikipedia"
 msgstr ""
@@ -1046,35 +1070,35 @@ msgstr ""
 msgid "Submit event"
 msgstr ""
 
-#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:6
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:7
 #: wcivf/apps/hustings/templates/hustings/includes/_person.html:4
 msgid "Election events"
 msgstr ""
 
-#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:9
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:10
 msgid ""
 "You can meet candidates and question them at events (often known as "
 "'hustings'). Here are some events that are taking place:"
 msgstr ""
 
-#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:12
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:13
 msgid "Events are reported by users, if you spot an error, please"
 msgstr ""
 
-#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:13
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:14
 msgid "get in touch"
 msgstr ""
 
-#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:17
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:18
 msgid "Do you know about any other events in the area? If so, please"
 msgstr ""
 
-#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:18
-#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:26
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:19
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:27
 msgid "tell us about them"
 msgstr ""
 
-#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:24
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:25
 msgid "Do you know about any events (often known as 'hustings')? If so, please"
 msgstr ""
 
@@ -1698,7 +1722,7 @@ msgid ""
 "policies in the %(party_name)s manifesto."
 msgstr ""
 
-#: wcivf/apps/people/templates/people/includes/_person_manifesto_card.html:33
+#: wcivf/apps/people/templates/people/includes/_person_manifesto_card.html:30
 #, python-format
 msgid "'%(party_name)s' emblem"
 msgstr ""
@@ -2259,52 +2283,52 @@ msgstr ""
 msgid "Who Can I Vote For?"
 msgstr ""
 
-#: wcivf/templates/home.html:18
+#: wcivf/templates/home.html:12
 msgid "Find out about candidates in your area"
 msgstr ""
 
-#: wcivf/templates/home.html:28
+#: wcivf/templates/home.html:20
 #, python-format
 msgid ""
 "Sorry, we don't know the postcode %(postcode)s. Is there another one you can "
 "try?"
 msgstr ""
 
-#: wcivf/templates/home.html:78
+#: wcivf/templates/home.html:32
 msgid "Photographic identification"
 msgstr ""
 
-#: wcivf/templates/home.html:80
+#: wcivf/templates/home.html:34
 msgid ""
 "Photographic identification will be required to vote in English local "
 "elections, and parliamentary elections across the UK, on and after 4 May "
 "2023."
 msgstr ""
 
-#: wcivf/templates/home.html:82
+#: wcivf/templates/home.html:36
 msgid ""
 "Learn more about photographic identification for voters on the website of "
 "the Electoral Commission."
 msgstr ""
 
-#: wcivf/templates/home.html:82
+#: wcivf/templates/home.html:36
 msgid "Learn more on the website of the Electoral Commission."
 msgstr ""
 
-#: wcivf/templates/home.html:85
+#: wcivf/templates/home.html:39
 msgid ""
 "You can apply for a free 'Voter Authority Certificate' if you do not already "
 "possess a valid ID."
 msgstr ""
 
-#: wcivf/templates/home.html:87
+#: wcivf/templates/home.html:41
 msgid "Apply for free voter ID."
 msgstr ""
 
-#: wcivf/templates/home.html:89
+#: wcivf/templates/home.html:43
 msgid "You do not need photo ID to vote by post."
 msgstr ""
 
-#: wcivf/templates/home.html:93
+#: wcivf/templates/home.html:47
 msgid "Upcoming Elections"
 msgstr ""
