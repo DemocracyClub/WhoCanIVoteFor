@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-09 15:05+0000\n"
+"POT-Creation-Date: 2024-12-18 12:44+0000\n"
 "PO-Revision-Date: 2022-03-24 09:04+0000\n"
 "Last-Translator: Sym Roe <sym@talusdesign.co.uk>, 2022\n"
 "Language-Team: Welsh (https://www.transifex.com/democracy-club/teams/61326/"
@@ -29,19 +29,19 @@ msgstr ""
 msgid "Enter your postcode"
 msgstr "Rhowch eich côd post"
 
-#: wcivf/apps/elections/models.py:765
+#: wcivf/apps/elections/models.py:757
 msgid "First-past-the-post"
 msgstr "Y Cyntaf i’r Felin"
 
-#: wcivf/apps/elections/models.py:767
+#: wcivf/apps/elections/models.py:759
 msgid "Additional Member System"
 msgstr "Y System Aelodau Ychwanegol"
 
-#: wcivf/apps/elections/models.py:769
+#: wcivf/apps/elections/models.py:761
 msgid "Supplementary Vote"
 msgstr "Pleidlais Atodol"
 
-#: wcivf/apps/elections/models.py:771
+#: wcivf/apps/elections/models.py:763
 msgid "Single Transferable Vote"
 msgstr "Pleidlais Sengl Drosglwyddadwy"
 
@@ -519,20 +519,20 @@ msgstr "Eich gorsaf bleidleisio yw"
 msgid "<address>%(polling_station_address)s</address>"
 msgstr ""
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:57
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:58
 #, python-format
 msgid "It will be open from <strong>%(open_time)s to %(close_time)s</strong>"
 msgstr "Bydd ar agor o <strong>%(open_time)s tan %(close_time)s</strong>"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:65
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:67
 msgid "and"
 msgstr "a"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:74
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:76
 msgid "You don't need to take your poll card with you."
 msgstr "Nid oes angen i chi ddod â'ch cerdyn pleidleisio gyda chi."
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:81
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:83
 msgid ""
 "If you have a postal vote, you can hand it in at this polling station on "
 "election day up to 10pm. When handing in postal votes, you will need to "
@@ -545,7 +545,7 @@ msgstr ""
 "faint o bleidleisiau post yr ydych yn eucyflwyno, a pham yr ydych yn "
 "cyflwyno'r pleidleisiau post hynny."
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:91
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:93
 msgid ""
 "If you have a postal vote, you can hand it in at this polling station on "
 "election day up to 10pm."
@@ -553,18 +553,18 @@ msgstr ""
 "Os oes gennych bleidlais bost, gallwch ei chyflwyno yn yr orsaf bleidleisio "
 "hondiwrnod etholiad hyd at 10pm"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:95
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:97
 msgid ""
 "Postal votes cannot be accepted at polling stations in Northern Ireland."
 msgstr ""
 "Ni ellir derbyn pleidleisiau post mewn gorsafoedd pleidleisio yng Ngogledd "
 "Iwerddon."
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:97
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:99
 msgid "Learn more about voting by post"
 msgstr "Dysgwch fwy am bleidleisio drwy'r post"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:100
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:102
 #, python-format
 msgid ""
 "<p>You can find your polling station by <a href=\"%(custom_finder)s\"> "
@@ -573,7 +573,7 @@ msgstr ""
 "<p>Gallwch ddod o hyd i'ch gorsaf bleidleisio drwy <a "
 "href=\"%(custom_finder)s\"> ddilyn y ddolen hon</a>.</p>"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:108
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:110
 #, python-format
 msgid ""
 "<strong>Polling stations are open from %(open_time)s till %(close_time)s "
@@ -582,7 +582,7 @@ msgstr ""
 "<strong>Bydd gorsafoedd pleidleisio ar agor o %(open_time)s tan "
 "%(close_time)s heddiw.</strong>"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:113
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:115
 #, python-format
 msgid ""
 "<p>Your polling station in %(postcode)s depends on your address. <a "
@@ -593,14 +593,14 @@ msgstr ""
 "<a href=\"https://wheredoivote.co.uk/postcode/%(postcode)s/\">Gwiriwch yr "
 "orsaf bleidleisio gywir ar gyfer eich cyfeiriad&raquo;</a></p>"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:117
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:119
 msgid ""
 "You should get a \"poll card\" through the post telling you where to vote."
 msgstr ""
 "Dylech dderbyn \"cerdyn pleidleisio\" drwy'r post yn dweud ble y dylech chi "
 "bleidleisio."
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:120
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:122
 #, python-format
 msgid ""
 "If you haven't got one, or for questions about your poll card, polling "
@@ -612,7 +612,7 @@ msgstr ""
 "ffonio'r Swyddfa Cofrestru Etholiadol <a href=\"tel:"
 "%(council_phone)s\">%(council_phone)s</a>."
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:127
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:129
 #, python-format
 msgid ""
 "If you haven't got one, or aren't sure where to vote, you should call "
@@ -621,7 +621,7 @@ msgstr ""
 "Os nad oes gennych chi un, neu ddim yn siŵr ble i bleidleisio, dylech ffonio "
 "%(council_name)s ar <a href=\"tel:%(council_phone)s\">%(council_phone)s</a>."
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:134
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:136
 msgid ""
 "If you haven't got one, or aren't sure where to vote, you should call your "
 "local council."
@@ -629,25 +629,25 @@ msgstr ""
 "Os nad oes gennych chi un, neu ddim yn siŵr ble i bleidleisio, dylech ffonio "
 "eich cyngor lleol."
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:142
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:144
 msgid "You will need photographic identification."
 msgstr "Bydd angen dull adnabod ffotograffig arnoch."
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:148
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:150
 msgid "Read more about how to vote in Northern Ireland"
 msgstr "Darllenwch fwy am sut i bleidleisio yng Ngogledd Iwerddon"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:152
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:154
 msgid "Read more about how to vote"
 msgstr "Darllenwch fwy am sut i bleidleisio"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:161
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:163
 #, fuzzy
 #| msgid "Get walking directions from"
 msgid "Get directions"
 msgstr "Cael cyfarwyddiadau cerdded o"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:165
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:167
 #, fuzzy
 #| msgid "Get walking directions from"
 msgid "Get directions from"
@@ -799,9 +799,10 @@ msgid ""
 "will be published after %(expected_sopn_date)s, when this page will be "
 "updated. You can help improve this page:"
 msgstr ""
-"Gallwch helpu i wella'r dudalen hon:Ni wyddwn am unrhyw ymgeiswyr sy'n "
+"Ni wyddwn am unrhyw ymgeiswyr sy'n "
 "sefyll eto. Bydd y rhestr swyddogol o ymgeiswyr yn cael ei chyhoeddi ar ôl "
-"%(expected_sopn_date)s, pan fydd y dudalen hon yn cael ei diweddaru."
+"%(expected_sopn_date)s, pan fydd y dudalen hon yn cael ei diweddaru. "
+"Gallwch helpu i wella'r dudalen hon:"
 
 #: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:98
 msgid ""
@@ -887,8 +888,7 @@ msgstr ""
 #| "candidates to our database</a>."
 msgid ""
 "The official candidate list will be published after %(expected_sopn_date)s, "
-"when this page will be updated. Once nomination papers are published, we "
-"will manually verify each candidate. You can help improve this page: <a "
+"when this page will be updated. You can help improve this page: <a "
 "href=\"%(ynr_link)s\"> add information about candidates to our database</a>."
 msgstr ""
 "Bydd y rhestr ymgeiswyr swyddogol yn cael ei chyhoeddi ar ôl "
@@ -896,47 +896,47 @@ msgstr ""
 "helpu i wella'r dudalen hon: <a href=\"%(ynr_link)s\"> ychwanegu gwybodaeth "
 "ymgeisydd i'n cronfa ddata</a>."
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:169
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:168
 msgid "Read the official candidate booklet for this election."
 msgstr "Darllenwch y llyfryn ymgeiswyr swyddogol ar gyfer yr etholiad hwn."
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:179
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:178
 msgid "Electorate"
 msgstr "Nifer etholwyr"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:186
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:185
 msgid "Ballot Papers Issued"
 msgstr "Bapurau pleidleisio"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:193
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:192
 msgid "Spoilt Ballots"
 msgstr "Nifer y bleidleisiau a ddifethwyd"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:200
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:199
 msgid "Turnout"
 msgstr "Cyfrif pleidleisiau"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:223
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:222
 #, fuzzy
 #| msgid "The official candidate list should have been published on"
 msgid "The official candidate list should have been published after"
 msgstr "Dylai'r rhestr swyddogol o ymgeiswyr fod wedi'i chyhoeddi ar "
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:225
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:224
 #, fuzzy
 #| msgid "The official candidate list should be published on"
 msgid "The official candidate list should be published after"
 msgstr "Dylai'r rhestr swyddogol o ymgeiswyr gael ei chyhoeddi ar"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:236
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:235
 msgid "Can you vote in this election?"
 msgstr "A allwch chi bleidleisio yn yr etholiad hwn?"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:237
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:236
 msgid "Age"
 msgstr "Oedran"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:239
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:238
 #, python-format
 msgid ""
 "You need to be over %(voter_age)s on the %(voter_age_date)s of "
@@ -945,16 +945,16 @@ msgstr ""
 "Mae angen i chi fod dros %(voter_age)s ar %(voter_age_date)s "
 "%(election_date)s i bleidleisio yn yr etholiad hwn."
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:244
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:243
 msgid "Citizenship"
 msgstr "Dinasyddiaeth"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:260
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:259
 #: wcivf/apps/people/templates/people/includes/_person_about_card.html:7
 msgid "Wikipedia"
 msgstr "Wikipedia"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:262
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:261
 #: wcivf/apps/people/templates/people/includes/_person_about_card.html:9
 msgid "Read more on Wikipedia"
 msgstr "Darllenwch fwy ar Wikipedia"
