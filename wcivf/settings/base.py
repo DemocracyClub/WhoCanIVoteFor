@@ -77,6 +77,8 @@ CSRF_TRUSTED_ORIGINS = [
     f"https://{os.environ.get('FQDN')}",
 ]
 
+SECURE_PROXY_SSL_HEADER = ("HTTP_CLOUDFRONT_FORWARDED_PROTO", "https")
+
 SITE_ID = 1
 
 # Application definition
