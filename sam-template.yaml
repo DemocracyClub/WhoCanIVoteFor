@@ -430,6 +430,7 @@ Resources:
               - Authorization
               - Origin
               - Referer
+              - CloudFront-Forwarded-Proto
           ViewerProtocolPolicy: "redirect-to-https"
 
         CacheBehaviors:
