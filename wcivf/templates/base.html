@@ -105,7 +105,7 @@
     {% block footer_links %}
         <div class="ds-footer-links">
             <nav>
-                <h2 class="ds-h6">Who Can I Vote For?</h2>
+                <h2 class="ds-h6">{% trans "Who Can I Vote For?" %}</h2>
                 <ul>
                     <li><a href="{% url 'home_view' %}">{% trans "Home" %}</a></li>
                     <li><a href="{% url 'elections_view' %}">{% trans "All Elections" %}</a></li>
@@ -116,26 +116,26 @@
                 </ul>
             </nav>
             <nav>
-                <h2 class="ds-h6">About Democracy Club</h2>
+                <h2 class="ds-h6">{% trans "About Democracy Club" %}</h2>
                 <ul>
-                    <li><a href="https://democracyclub.org.uk/about/">About</a></li>
-                    <li><a href="https://democracyclub.org.uk/donate/">Donate</a></li>
-                    <li><a href="https://democracyclub.org.uk/blog/">Blog</a></li>
-                    <li><a href="https://democracyclub.org.uk/blog/feed">Blog RSS/Atom feed</a></li>
-                    <li><a href="https://democracyclub.org.uk/privacy/">Privacy &amp; Terms</a></li>
-                    <li><a href="https://democracyclub.org.uk/code-of-conduct/">Code of Conduct</a></li>
+                    <li><a href="https://democracyclub.org.uk/about/">{% trans "About" %}</a></li>
+                    <li><a href="https://democracyclub.org.uk/donate/">{% trans "Donate" %}</a></li>
+                    <li><a href="https://democracyclub.org.uk/blog/">{% trans "Blog" %}</a></li>
+                    <li><a href="https://democracyclub.org.uk/blog/feed">{% trans "Blog RSS/Atom feed" %}</a></li>
+                    <li><a href="https://democracyclub.org.uk/privacy/">{% trans "Privacy &amp; Terms" %}</a></li>
+                    <li><a href="https://democracyclub.org.uk/code-of-conduct/">{% trans "Code of Conduct" %}</a></li>
                 </ul>
             </nav>
             <nav>
-                <h2 class="ds-h6">Connect with us</h2>
+                <h2 class="ds-h6">{% trans "Connect with us" %}</h2>
                 <ul>
-                    <li><a href="https://democracyclub.org.uk/contact/">Contact Us</a></li>
-                    <li><a rel="me" href="https://mastodon.me.uk/@DemocracyClub">Mastodon</a></li>
-                    <li><a href="https://twitter.com/democlub">X</a></li>
-                    <li><a href="https://github.com/DemocracyClub">GitHub</a></li>
-                    <li><a href="https://www.linkedin.com/company/democracy-club-cic">LinkedIn</a></li>
-                    <li><a href="https://mailinglist.democracyclub.org.uk/subscription/form">Join our Mailing List</a></li>
-                    <li><a href="https://mailinglist.democracyclub.org.uk/archive">Newsletter Archive</a></li>
+                    <li><a href="https://democracyclub.org.uk/contact/">{% trans "Contact Us" %}</a></li>
+                    <li><a rel="me" href="https://mastodon.me.uk/@DemocracyClub">{% trans "Mastodon" %}</a></li>
+                    <li><a href="https://twitter.com/democlub">{% trans "X" %}</a></li>
+                    <li><a href="https://github.com/DemocracyClub">{% trans "GitHub" %}</a></li>
+                    <li><a href="https://www.linkedin.com/company/democracy-club-cic">{% trans "LinkedIn" %}</a></li>
+                    <li><a href="https://mailinglist.democracyclub.org.uk/subscription/form">{% trans "Join our Mailing List" %}</a></li>
+                    <li><a href="https://mailinglist.democracyclub.org.uk/archive">{% trans "Newsletter Archive" %}</a></li>
                 </ul>
             </nav>
         </div>
