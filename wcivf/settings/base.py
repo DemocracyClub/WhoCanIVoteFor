@@ -152,8 +152,6 @@ TEMPLATES = [
                 "django.template.context_processors.i18n",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "core.context_processors.canonical_url",
-                "core.context_processors.site_title",
                 "core.context_processors.use_compress_css",
                 "core.context_processors.postcode_form",
                 "core.context_processors.referer_postcode",
@@ -161,6 +159,7 @@ TEMPLATES = [
                 "hustings.context_processors.show_hustings_cta",
                 "feedback.context_processors.feedback_form",
                 "dealer.contrib.django.context_processor",
+                "dc_utils.context_processors.dc_django_utils",
             ]
         },
     }
