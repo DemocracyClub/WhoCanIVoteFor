@@ -160,7 +160,6 @@ TEMPLATES = [
                 "core.context_processors.use_i18n",
                 "hustings.context_processors.show_hustings_cta",
                 "feedback.context_processors.feedback_form",
-                "dealer.contrib.django.context_processor",
                 "dc_utils.context_processors.dc_django_utils",
             ]
         },
