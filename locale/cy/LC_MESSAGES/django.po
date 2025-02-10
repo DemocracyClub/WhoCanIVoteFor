@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-18 12:44+0000\n"
+"POT-Creation-Date: 2025-01-22 12:15+0000\n"
 "PO-Revision-Date: 2022-03-24 09:04+0000\n"
 "Last-Translator: Sym Roe <sym@talusdesign.co.uk>, 2022\n"
 "Language-Team: Welsh (https://www.transifex.com/democracy-club/teams/61326/"
@@ -123,7 +123,7 @@ msgid "All Elections in the UK"
 msgstr "Pob Etholiad yn y DU"
 
 #: wcivf/apps/elections/templates/elections/elections_view.html:16
-#: wcivf/templates/base.html:107
+#: wcivf/templates/base.html:111
 msgid "All Elections"
 msgstr "Pob Etholiad"
 
@@ -346,7 +346,7 @@ msgstr "Rydych chi yma"
 #: wcivf/apps/parties/templates/parties/party_detail.html:17
 #: wcivf/apps/parties/templates/parties/speaker_seeking_reelection.html:17
 #: wcivf/apps/people/templates/people/person_detail.html:31
-#: wcivf/templates/base.html:106
+#: wcivf/templates/base.html:110
 msgid "Home"
 msgstr "Cartref"
 
@@ -799,10 +799,9 @@ msgid ""
 "will be published after %(expected_sopn_date)s, when this page will be "
 "updated. You can help improve this page:"
 msgstr ""
-"Ni wyddwn am unrhyw ymgeiswyr sy'n "
-"sefyll eto. Bydd y rhestr swyddogol o ymgeiswyr yn cael ei chyhoeddi ar ôl "
-"%(expected_sopn_date)s, pan fydd y dudalen hon yn cael ei diweddaru. "
-"Gallwch helpu i wella'r dudalen hon:"
+"Ni wyddwn am unrhyw ymgeiswyr sy'n sefyll eto. Bydd y rhestr swyddogol o "
+"ymgeiswyr yn cael ei chyhoeddi ar ôl %(expected_sopn_date)s, pan fydd y "
+"dudalen hon yn cael ei diweddaru. Gallwch helpu i wella'r dudalen hon:"
 
 #: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:98
 msgid ""
@@ -1741,7 +1740,6 @@ msgid "%(person_name)s's Facebook page"
 msgstr "Tudalen Facebook %(person_name)s"
 
 #: wcivf/apps/people/templates/people/includes/_person_contact_card.html:33
-#: wcivf/templates/base.html:116
 msgid "Twitter"
 msgstr "Trydar"
 
@@ -1752,6 +1750,7 @@ msgid "%(person_name)s's Twitter profile"
 msgstr "Tudalen LinkedIn %(person_name)s"
 
 #: wcivf/apps/people/templates/people/includes/_person_contact_card.html:44
+#: wcivf/templates/base.html:133
 msgid "Mastodon"
 msgstr "Mastodon"
 
@@ -1762,6 +1761,7 @@ msgid "%(person_name)s's Mastodon profile"
 msgstr "Tudalen LinkedIn %(person_name)s"
 
 #: wcivf/apps/people/templates/people/includes/_person_contact_card.html:55
+#: wcivf/templates/base.html:136
 msgid "LinkedIn"
 msgstr "LinkedIn"
 
@@ -1776,7 +1776,7 @@ msgid "%(person_name)s's home page"
 msgstr "Hafan %(person_name)s"
 
 #: wcivf/apps/people/templates/people/includes/_person_contact_card.html:77
-#: wcivf/templates/base.html:115
+#: wcivf/templates/base.html:123
 msgid "Blog"
 msgstr "Blog"
 
@@ -2662,42 +2662,77 @@ msgstr "%(short_cancelled_message)s"
 msgid "Language:"
 msgstr "Iaith:"
 
-#: wcivf/templates/base.html:108
+#: wcivf/templates/base.html:108 wcivf/templates/home.html:6
+#: wcivf/templates/home.html:7
+msgid "Who Can I Vote For?"
+msgstr "Pwy alla i bleidleisio ar gyfer?"
+
+#: wcivf/templates/base.html:112
 msgid "All Parties"
 msgstr "Pob plaid"
 
-#: wcivf/templates/base.html:109
+#: wcivf/templates/base.html:113
 msgid "Standing as a candidate?"
 msgstr "Sefyll fel ymgeisydd?"
 
-#: wcivf/templates/base.html:110
+#: wcivf/templates/base.html:114
 #, python-format
 msgid "About %(SITE_TITLE)s"
 msgstr "Ynglŷn %(SITE_TITLE)s"
 
-#: wcivf/templates/base.html:111
+#: wcivf/templates/base.html:115
 msgid "Privacy"
 msgstr "Preifatrwydd"
 
-#: wcivf/templates/base.html:112
-msgid "Source code"
-msgstr "Cod ffynhonnell"
-
-#: wcivf/templates/base.html:113
+#: wcivf/templates/base.html:119
 msgid "About Democracy Club"
 msgstr "Ynglŷn â'r Clwb Democratiaeth"
 
-#: wcivf/templates/base.html:114
+#: wcivf/templates/base.html:121
+msgid "About"
+msgstr ""
+
+#: wcivf/templates/base.html:122
+#, fuzzy
+#| msgid "Donate now"
+msgid "Donate"
+msgstr "Cyfrannwch nawr"
+
+#: wcivf/templates/base.html:124
+msgid "Blog RSS/Atom feed"
+msgstr ""
+
+#: wcivf/templates/base.html:125
+msgid "Privacy &amp; Terms"
+msgstr ""
+
+#: wcivf/templates/base.html:126
+msgid "Code of Conduct"
+msgstr ""
+
+#: wcivf/templates/base.html:130
+msgid "Connect with us"
+msgstr ""
+
+#: wcivf/templates/base.html:132
 msgid "Contact Us"
 msgstr "Cysylltwch â Ni"
 
-#: wcivf/templates/base.html:117
+#: wcivf/templates/base.html:134
+msgid "X"
+msgstr ""
+
+#: wcivf/templates/base.html:135
 msgid "GitHub"
 msgstr "GitHub"
 
-#: wcivf/templates/home.html:6 wcivf/templates/home.html:7
-msgid "Who Can I Vote For?"
-msgstr "Pwy alla i bleidleisio ar gyfer?"
+#: wcivf/templates/base.html:137
+msgid "Join our Mailing List"
+msgstr ""
+
+#: wcivf/templates/base.html:138
+msgid "Newsletter Archive"
+msgstr ""
 
 #: wcivf/templates/home.html:12
 msgid "Find out about candidates in your area"
@@ -2752,6 +2787,9 @@ msgstr ""
 #: wcivf/templates/home.html:47
 msgid "Upcoming Elections"
 msgstr "Etholiadau i ddod"
+
+#~ msgid "Source code"
+#~ msgstr "Cod ffynhonnell"
 
 #~ msgid "It will be open from <strong>7am to 10pm</strong>."
 #~ msgstr "Bydd ar agor o <strong>7am tan 10pm</strong>."
