@@ -47,7 +47,7 @@
 {% else %}
     {% if object.metadata.cancelled_election %}
         <h4>{{ object.metadata.cancelled_election.title }}</h4>
-        <p>{{ object.metadata.cancelled_election.detail }}</p>
+        {{ object.metadata.cancelled_election.detail | linebreaks }}
     {% else %}
         <h4>{% trans "Cancelled Election" %}</h4>
         <p>{% trans "This election was cancelled." %}</p>
