@@ -16,16 +16,11 @@ class FeedbackRouter(object):
 
 
 class PrincipalRDSRouter:
-    apps_that_use_principal_router = ["hustings", "admin"]
-
     def db_for_read(self, model, **hints):
         return "default"
 
     def db_for_write(self, model, **hints):
-        print(model._meta.app_label)
-        if model._meta.app_label in self.apps_that_use_principal_router:
-            return "principal"
-        return "default"
+        return "principal"
 
     def allow_relation(self, obj1, obj2, **hints):
         """
