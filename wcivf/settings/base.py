@@ -94,6 +94,7 @@ INSTALLED_APPS = (
     "django.contrib.sitemaps",
     "django.contrib.sites",
     "django_filters",
+    "django_middleware_global_request",
     "dc_utils",
     "pipeline",
     "elections",
@@ -118,6 +119,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE = (
+    "django_middleware_global_request.middleware.GlobalRequestMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
