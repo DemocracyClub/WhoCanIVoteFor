@@ -98,47 +98,38 @@
             {% endif %}
             <p><a href="https://www.electoralcommission.org.uk/voting-and-elections/ways-vote/how-vote-post">{% trans "Learn more about voting by post" %}</a>.</p>
         {% else %}
-            {% if polling_station.custom_finder %}
-                {% blocktrans trimmed with custom_finder=polling_station.custom_finder %}
-                    <p>You can find your polling station by
-                        <a href="{{ custom_finder }}">
-                            following this link</a>.
-                    </p>
+            {% if ballots_today and not multiple_city_of_london_elections_on_next_poll_date %}
+                {% blocktrans trimmed with open_time=polling_station_opening_times.polls_open|time:"ga" close_time=polling_station_opening_times.polls_close|time:"ga" %}
+                    <strong>Polling stations are open from {{ open_time }} till {{ close_time }} today.</strong>
+                {% endblocktrans %}
+            {% endif %}
+            {% if polling_station.addresses %}
+                {% blocktrans trimmed %}
+                    <p>Your polling station in {{ postcode }} depends on your address. <a href="https://wheredoivote.co.uk/postcode/{{ postcode }}/">Check the correct polling station for your address &raquo;</a></p>
                 {% endblocktrans %}
             {% else %}
-                {% if ballots_today and not multiple_city_of_london_elections_on_next_poll_date %}
-                    {% blocktrans trimmed with open_time=polling_station_opening_times.polls_open|time:"ga" close_time=polling_station_opening_times.polls_close|time:"ga" %}
-                        <strong>Polling stations are open from {{ open_time }} till {{ close_time }} today.</strong>
-                    {% endblocktrans %}
-                {% endif %}
-                {% if polling_station.addresses %}
-                    {% blocktrans trimmed %}
-                        <p>Your polling station in {{ postcode }} depends on your address. <a href="https://wheredoivote.co.uk/postcode/{{ postcode }}/">Check the correct polling station for your address &raquo;</a></p>
-                    {% endblocktrans %}
-                {% else %}
-                    <p>{% blocktrans trimmed %}You should get a "poll card" through the post telling you where to vote.{% endblocktrans %}</p>
-                    <p>
-                        {% if postcode|ni_postcode %}
-                            {% blocktrans trimmed with council_phone=council.phone %}
-                                If you haven't got one, or for questions about your poll card, polling place, or about returning your
-                                postal voting ballot, contact the Electoral Office for Northern Ireland <a href="tel:{{ council_phone }}">{{ council_phone }}</a>.
-                            {% endblocktrans %}
-                            </p>
-                            {% include "elections/includes/_council_contact_details.html" with contact_details=council with_address=False %}
-                        {% elif council %}
-                            {% blocktrans trimmed with council_name=council.name council_phone=council.phone %}
-                                If you haven't got one, or aren't sure where to vote, you should call {{ council_name }}
-                                on <a href="tel:{{ council_phone }}">{{ council_phone }}</a>.
-                            {% endblocktrans %}
-                            </p>
-                            {% include "elections/includes/_council_contact_details.html" with contact_details=council with_address=False %}
-                        {% else %}
-                            {% blocktrans trimmed %}
-                                If you haven't got one, or aren't sure where to vote, you should call your local council.
-                            {% endblocktrans %}
-                        {% endif %}
-                    </p>
-                {% endif %}
+                <p>{% blocktrans trimmed %}You should get a "poll card" through the post telling you where to vote.{% endblocktrans %}</p>
+                <p>
+                    {% if postcode|ni_postcode %}
+                        {% blocktrans trimmed with council_phone=council.phone %}
+                            If you haven't got one, or for questions about your poll card, polling place, or about returning your
+                            postal voting ballot, contact the Electoral Office for Northern Ireland <a href="tel:{{ council_phone }}">{{ council_phone }}</a>.
+                        {% endblocktrans %}
+                        </p>
+                        {% include "elections/includes/_council_contact_details.html" with contact_details=council with_address=False %}
+                    {% elif council %}
+                        {% blocktrans trimmed with council_name=council.name council_phone=council.phone %}
+                            If you haven't got one, or aren't sure where to vote, you should call {{ council_name }}
+                            on <a href="tel:{{ council_phone }}">{{ council_phone }}</a>.
+                        {% endblocktrans %}
+                        </p>
+                        {% include "elections/includes/_council_contact_details.html" with contact_details=council with_address=False %}
+                    {% else %}
+                        {% blocktrans trimmed %}
+                            If you haven't got one, or aren't sure where to vote, you should call your local council.
+                        {% endblocktrans %}
+                    {% endif %}
+                </p>
             {% endif %}
             {% if postcode|ni_postcode %}
                 <p>{% trans "You will need photographic identification." %}</p>
