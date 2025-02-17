@@ -243,6 +243,23 @@ class Person(models.Model):
         return any(getattr(self, vt, False) for vt in VALUE_TYPES_TO_IMPORT)
 
     @property
+    def has_social_media_account(self):
+        """
+        Do we have any social media accounts for this person?
+        """
+        social_media = [
+            "twitter_username",
+            "facebook_username",
+            "instagram_username",
+            "linkedin_username",
+            "mastodon_username",
+            "tiktok_url",
+            "threads_url",
+            "blue_sky_url",
+        ]
+        return any(getattr(self, sm, False) for sm in social_media)
+
+    @property
     def get_max_facebook_ad_spend(self):
         return round(
             sum(
