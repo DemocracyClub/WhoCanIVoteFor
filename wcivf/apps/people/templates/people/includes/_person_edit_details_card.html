@@ -7,9 +7,9 @@
     {% trans 'Our volunteers have been working hard to add information on as many candidates as possible, but they need help.' %}
   </p>
   <p>
-    {% trans 'If you can add information that should be on this page' %}
+    {% trans 'If you can add information to this page' %}
     {% blocktrans trimmed with person=object.name %}- such as {{ person }}'s policy statement or contact information -{% endblocktrans %}
-    {% trans 'please use our crowdsourcing website to add it.' %}
+    {% trans 'please use our crowdsourcing website.' %}
   </p>
   <a href="{{ object.get_ynr_url }}update/" class="ds-cta ds-cta-blue">{% trans 'Add or edit details &raquo;' %}</a>
 
