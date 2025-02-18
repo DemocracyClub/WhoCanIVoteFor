@@ -7,7 +7,7 @@
     <details open>
         <summary>
             <h2 id="requirements">
-                <span aria-hidden="true"></span>️
+                <span aria-hidden="true"></span>
                 {% trans "You will need to take photo ID to vote at a polling station in this election" %}
             </h2>
         </summary>
@@ -25,6 +25,21 @@
                     </li>
                 </ul>
             {% endblocktrans %}
+
+            {% if not postelections.0.past_vac_application_deadline %}
+                <p>
+                    {% blocktrans trimmed %}
+                        If you do not have a photo ID that allows you to vote, you can
+                        <a href="https://www.gov.uk/apply-for-photo-id-voter-authority-certificate">apply for a Voter Authority Certificate</a>
+                    {% endblocktrans %}
+                    {% if postelections.0.vac_application_deadline %}
+                        {% blocktrans trimmed with vac_application_deadline=postelections.0.vac_application_deadline|naturalday:"j F Y" %}
+                            before {{ vac_application_deadline }}
+                        {% endblocktrans %}
+                    {% endif %}
+                </p>
+            {% endif %}
+
         {% endif %}
 
     </details>
