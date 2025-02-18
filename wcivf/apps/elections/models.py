@@ -494,6 +494,26 @@ class PostElection(TimeStampedModel):
             return None
 
     @property
+    def past_vac_application_deadline(self):
+        try:
+            vac_application_deadline = get_election_timetable(
+                self.ballot_paper_id, self.post.territory
+            ).vac_application_deadline
+        except AttributeError:
+            return None
+
+        return vac_application_deadline < datetime.date.today()
+
+    @property
+    def vac_application_deadline(self):
+        try:
+            return get_election_timetable(
+                self.ballot_paper_id, self.post.territory
+            ).vac_application_deadline
+        except AttributeError:
+            return None
+
+    @property
     def postal_vote_requires_form(self):
         matcher = PostalVotingRequirementsMatcher(
             election_id=self.election.slug, nation=self.post.territory
