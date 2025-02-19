@@ -9,7 +9,7 @@
   <p>
     {% trans 'If you can add information to this page' %}
     {% blocktrans trimmed with person=object.name%} - such as {{ person }}'s {% endblocktrans %}
-    {% if not object.has_social_media_accounts %} {% trans "social media accounts," %}{% endif %}
+    {% if not object.has_social_media_account %} {% trans "social media accounts," %}{% endif %}
     {% trans "policy statement or contact information -"%}
     {% trans 'please use our crowdsourcing website.' %}
   </p>

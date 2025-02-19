@@ -251,7 +251,7 @@ class Person(models.Model):
             "twitter_username",
             "facebook_username",
             "instagram_username",
-            "linkedin_username",
+            "linkedin_url",
             "mastodon_username",
             "tiktok_url",
             "threads_url",
