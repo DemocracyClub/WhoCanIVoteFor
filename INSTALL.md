@@ -113,6 +113,10 @@ WhoCanIVoteFor uses PostgreSQL. To set this up locally, first install the packag
 
     sudo apt-get install postgresql
 
+Start the PostgreSQL server with:
+
+    /etc/init.d/postgresql start
+
 Then create, for example, a `wcivf` user:
 
     sudo -u postgres createuser -P wcivf
