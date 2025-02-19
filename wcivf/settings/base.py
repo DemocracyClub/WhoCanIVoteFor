@@ -5,7 +5,6 @@ import sys
 
 import dc_design_system
 import requests
-import sentry_sdk.integrations.django
 from dc_logging_client import DCWidePostcodeLoggingClient
 from dc_utils.settings.pipeline import *  # noqa
 from dc_utils.settings.pipeline import get_pipeline_settings
@@ -160,7 +159,6 @@ TEMPLATES = [
                 "core.context_processors.use_i18n",
                 "hustings.context_processors.show_hustings_cta",
                 "feedback.context_processors.feedback_form",
-                "dealer.contrib.django.context_processor",
                 "dc_utils.context_processors.dc_django_utils",
             ]
         },

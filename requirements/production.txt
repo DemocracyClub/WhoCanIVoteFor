@@ -1,4 +1,0 @@
--r base.txt
-
-gunicorn[gevent]==22.0.0
-gevent<24.10.1

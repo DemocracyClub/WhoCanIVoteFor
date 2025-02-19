@@ -85,6 +85,8 @@ Parameters:
 Resources:
   WCIVFControllerFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Metadata:
+      BuildMethod: makefile
     Properties:
       FunctionName: WCIVFControllerFunction
       Role: !Sub "arn:aws:iam::${AWS::AccountId}:role/WCIVFLambdaExecutionRole"

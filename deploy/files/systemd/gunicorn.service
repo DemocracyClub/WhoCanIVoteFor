@@ -5,7 +5,7 @@ After=network.target
 User=wcivf
 Group=wcivf
 WorkingDirectory=/var/www/wcivf/code/
-ExecStart=/bin/bash -c 'PATH=/var/www/wcivf/venv/bin/:$PATH exec /var/www/wcivf/venv/bin/gunicorn \
+ExecStart=/bin/bash -c 'PATH=/var/www/wcivf/code/.venv/bin/:$PATH exec /var/www/wcivf/code/.venv/bin/gunicorn \
   --access-logfile - \
   --workers 3 \
   --bind 0.0.0.0:8000 \

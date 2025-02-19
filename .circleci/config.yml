@@ -38,26 +38,22 @@ jobs:
           POSTGRES_DB: wcivf
       - image: cimg/redis:7.0.5
     working_directory: ~/repo
+    executor: py312
     steps:
       - checkout
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v6-dependencies-{{ checksum "requirements/base.txt" }}-{{ checksum "requirements/testing.txt" }}
+          - v7-dependencies-{{ checksum "uv.lock" }}
+      - run:
+          name: Install UV
+          command: deploy/files/scripts/install-uv.sh
       - run:
           name: install dependencies
           command: |
-            python -m venv .venv
-            . .venv/bin/activate
-            pip install --upgrade pip coveralls
-            sudo rm -rf /var/lib/apt/lists/*
             sudo apt-get update
             sudo apt install gettext
-            pip install -r requirements/testing.txt
-      - save_cache:
-          paths:
-            - ./.venv
-          key: v6-dependencies-{{ checksum "requirements/base.txt" }}-{{ checksum "requirements/testing.txt" }}
+            uv sync --dev --group deploy
 
       - run:
           name: Install HTML Tidy
@@ -66,62 +62,64 @@ jobs:
       # run tests!
       - run:
           name: Django version
-          command: |
-            . .venv/bin/activate
-            python manage.py --version
+          command: uv run python manage.py --version
       - run:
           name: Django Check
           command: |
-            . .venv/bin/activate
-            python manage.py check
-            python manage.py makemigrations --check
+            uv run python manage.py check
+            uv run python manage.py makemigrations --check
       - run:
           name: Ruff
           command: |
-            . .venv/bin/activate
-            ruff format . --check
-            ruff check .
+            uv run ruff format . --check
+            uv run ruff check .
       - run:
-          name: Pip Check
-          command: |
-            . .venv/bin/activate
-            pip check
+          name: Check lockfile is up to date
+          command: uv lock --locked
+      - run:
+          name: UV Pip Check
+          command: uv pip check
       - run:
           name: Djhtml
-          command: |
-            . .venv/bin/activate
-            git ls-files '*.html' | xargs djhtml --check
+          command: git ls-files '*.html' | xargs uv run djhtml --check
       - run:
           name: Compile Messages
-          command: |
-            . .venv/bin/activate
-            bash -ec 'cd wcivf && python ../manage.py compilemessages -l cy'
+          command: bash -ec 'cd wcivf && uv run python ../manage.py compilemessages -l cy'
       - run:
           name: run pytest
-          command: |
-            . .venv/bin/activate
-            pytest -sx --cov-report= --cov=wcivf --junitxml=test-results/junit.xml
+          command: uv run pytest -sx --cov-report= --cov=wcivf --junitxml=test-results/junit.xml
       - run: |
           if [ -n "$COVERALLS_REPO_TOKEN" ]; then
-          . .venv/bin/activate
-          coveralls
+          uv run --with coveralls coveralls
           else
           echo "skipping coverage for forked PR"
           fi
       - store_artifacts:
           path: test-results
           destination: test-results
+      - run:
+          name: Prune UV cache
+          command: uv cache prune --ci
+      - save_cache:
+          paths:
+            - ./.venv
+            - $HOME/.cache/uv
+          key: v7-dependencies-{{ checksum "uv.lock" }}
+
 
   sam_build:
     docker:
       - image: public.ecr.aws/sam/build-python3.12:latest
     working_directory: ~/repo
+    executor: py312
     steps:
       - checkout
       - run:
+          name: Install UV
+          command: deploy/files/scripts/install-uv.sh
+      - run:
           name: sam build
           command: |
-            pip install setuptools wheel
             make build clean
       - persist_to_workspace:
           root: ~/repo/
@@ -151,7 +149,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v6-dependencies-{{ checksum "requirements/base.txt" }}-{{ checksum "requirements/testing.txt" }}
+          - v7-dependencies-{{ checksum "uv.lock" }}
       - attach_workspace:
           at: ~/repo/
       - run: echo <<parameters.instance-type>>
@@ -193,21 +191,21 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v6-dependencies-{{ checksum "requirements/base.txt" }}-{{ checksum "requirements/testing.txt" }}
+            - v7-dependencies-{{ checksum "uv.lock" }}
       - attach_workspace:
           at: ~/repo/
+      - run:
+          name: Install UV
+          command: deploy/files/scripts/install-uv.sh
       - run: printenv DC_ENVIRONMENT
       - aws-cli/setup
       - run:
           name: post deploy tests
-          command: |
-            . .venv/bin/activate
-            pytest ~/repo/.circleci/
+          command: uv run pytest -sx ~/repo/.circleci/
       - run:
           name: migrate the database
           command: |
-            . .venv/bin/activate
-            make lambda-migrate
+            uv run make lambda-migrate
       # In the event the deployment has failed, alert the dev team
       - slack/notify:
           event: fail
@@ -233,28 +231,28 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v6-dependencies-{{ checksum "requirements/base.txt" }}-{{ checksum "requirements/testing.txt" }}
+          - v7-dependencies-{{ checksum "uv.lock" }}
       - attach_workspace:
           at: ~/repo/
+      - run:
+          name: Install UV
+          command: deploy/files/scripts/install-uv.sh
       - run: printenv DC_ENVIRONMENT
       - run:
           name: ensure the deployment group ready
           command: |
-            . .venv/bin/activate
-            python deploy/create_deployment_group.py
+            uv run python deploy/create_deployment_group.py
       - run:
           name: create deployment with codedeploy
           command: |
-            . .venv/bin/activate
-            COMMIT_SHA=$CIRCLE_SHA1 python deploy/create_deployment.py
+            COMMIT_SHA=$CIRCLE_SHA1 uv run python deploy/create_deployment.py
       - run:
           name: Update auto scaling group
           command: |
-            . .venv/bin/activate
             MIN_SIZE=<<parameters.min-size>> \
             MAX_SIZE=<<parameters.max-size>> \
             DESIRED_CAPACITY=<<parameters.desired-capacity>> \
-            python deploy/update_auto_scaling_group.py
+            uv run python deploy/update_auto_scaling_group.py
           no_output_timeout: 15m # TODO reduce/discuss what is suitable?
       # In the event the deployment has failed, alert the dev team
       - slack/notify:

@@ -21,7 +21,7 @@ psql "$DB" -U "$USER" -c 'create extension postgis;'
 
 
 # Activate Virtual env
-source /var/www/wcivf/venv/bin/activate
+source /var/www/wcivf/code/.venv/bin/activate
 
 # Migrate db - this builds the schema before syncing
 IGNORE_ROUTERS=True /var/www/wcivf/code/manage.py migrate --run-syncdb
