@@ -243,15 +243,21 @@ class Person(models.Model):
         return any(getattr(self, vt, False) for vt in VALUE_TYPES_TO_IMPORT)
 
     @property
-    def cta_example_details(self):
-        attrs = (
-            ("cv", "CV"),
-            ("statement_to_voters", "statement to voters"),
-            ("email", "email"),
-            ("homepage_url", "homepage"),
-            ("twitter_username", "twitter account"),
-        )
-        return [a[1] for a in attrs if not getattr(self, a[0], False)]
+    def has_social_media_account(self):
+        """
+        Do we have any social media accounts for this person?
+        """
+        social_media = [
+            "twitter_username",
+            "facebook_username",
+            "instagram_username",
+            "linkedin_username",
+            "mastodon_username",
+            "tiktok_url",
+            "threads_url",
+            "blue_sky_url",
+        ]
+        return any(getattr(self, sm, False) for sm in social_media)
 
     @property
     def get_max_facebook_ad_spend(self):
