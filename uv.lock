@@ -1276,11 +1276,11 @@ wheels = [
 
 [[package]]
 name = "uk-election-timetables"
-version = "4.2.2"
+version = "4.2.3"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/98/93/8546251a76cc7277ec188357ecf74a88d283c74a03881b47a5de587a847c/uk_election_timetables-4.2.2.tar.gz", hash = "sha256:f0f9dba01c683d3e3d3fad2d28d7c8d0e98aca9a51bc2bbf07a51baf3ba550ce", size = 18273 }
+sdist = { url = "https://files.pythonhosted.org/packages/35/9b/107225e58c5089f42d1ba9c7cf55e1193bbfe572a830cdb984d96de6b362/uk_election_timetables-4.2.3.tar.gz", hash = "sha256:3ac5e5fb22a8ff5c61c48614a542055c6e573376e7aa848f17aceab504d79d05", size = 18313 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f0/13/e672d314309b37ce9231d8ea646aad9f8c847379b1913059d095bf8641ac/uk_election_timetables-4.2.2-py3-none-any.whl", hash = "sha256:4d5754d348c4d29658883c6b19d31d674676767f26e73470897140c9423ae2b5", size = 20416 },
+    { url = "https://files.pythonhosted.org/packages/6f/15/89293000dc17c2ec037f6f8be1cbe2f0d646ce11b059a6f341c261914a21/uk_election_timetables-4.2.3-py3-none-any.whl", hash = "sha256:73d0c7becba126a92398d8e4aa17be35dcea15ecf4bcfd07e432939b58c85e6b", size = 20475 },
 ]
 
 [[package]]
@@ -1440,7 +1440,7 @@ requires-dist = [
     { name = "psycopg2-binary", specifier = "==2.9.9" },
     { name = "requests", specifier = "==2.31.0" },
     { name = "uk-election-ids", specifier = "==0.9.1" },
-    { name = "uk-election-timetables", specifier = "==4.2.2" },
+    { name = "uk-election-timetables", specifier = "==4.2.3" },
 ]
 
 [package.metadata.requires-dev]
