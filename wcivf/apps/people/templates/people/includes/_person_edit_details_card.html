@@ -15,9 +15,10 @@
   </p>
   <a href="{{ object.get_ynr_url }}update/" class="ds-cta ds-cta-blue">{% trans 'Add or edit details &raquo;' %}</a>
 
-  {# <h4>Upload your leaflets</h4> #}
-  {# <p>If you've received election leaflets from {{ object.name }}, please take a photo #}
-  {# of them and upload them to ElectionLeaflets.org</p> #}
-  {# <p><a class="ds-button ds-cta ds-cta-blue" type="button" href="https://electionleaflets.org/">Add leaflets</a> #}
-  {# </p> #}
+  <h3 class="ds-h4">{% trans 'Upload your leaflets' %}</h3>
+  <p>
+    {% blocktrans trimmed with person=object.name%} If you've received election leaflets from {{ person }}, please take a photo
+      of them and upload them to ElectionLeaflets.org {% endblocktrans %}
+  </p>
+  <a href="https://electionleaflets.org/" class="ds-cta ds-cta-blue">{% trans 'Add leaflets &raquo;' %}</a>
 {% endif %}
