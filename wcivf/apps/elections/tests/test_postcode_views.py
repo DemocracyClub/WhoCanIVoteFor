@@ -864,6 +864,27 @@ class TestPostcodeViewMethods:
         }
         assert view_obj.get_voter_id_status() is None
 
+    def test_show_parish_text_true(self, view_obj):
+        view_obj.postcode = "s11 8qe"
+        council_context = {"identifiers": ["code"]}
+        assert view_obj.show_parish_text(council_context) is True
+
+    @pytest.mark.parametrize(
+        "ni_postcodes", ["BT1 1AA", "BT93 8AD", "BT60 4PU"]
+    )
+    def test_show_parish_text_false_for_NI_postcodes(
+        self, ni_postcodes, view_obj
+    ):
+        view_obj.postcode = ni_postcodes
+        council_context = {"identifiers": ["code"]}
+        assert view_obj.show_parish_text(council_context) is False
+
+    @pytest.mark.parametrize("lnd_gss", ["E09000011", "E09000012", "E09000013"])
+    def test_show_parish_text_false_for_lnd_boroughs(self, lnd_gss, view_obj):
+        view_obj.postcode = "postcode"
+        council_context = {"identifiers": [lnd_gss]}
+        assert view_obj.show_parish_text(council_context) is False
+
 
 class TestPostcodeiCalView:
     def test_invalid_postcode_redirects(self, mocker, client):
