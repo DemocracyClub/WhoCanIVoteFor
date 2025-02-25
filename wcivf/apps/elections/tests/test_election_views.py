@@ -166,7 +166,7 @@ class ElectionPostViewTests(TestCase):
             election=self.election, post=self.post
         )
 
-    @pytest.mark.freeze_time("2024-04-10")
+    @pytest.mark.freeze_time("2024-04-09")
     def test_pre_sopn_text_with_candidates(self):
         future_election = ElectionFactory(
             name="Adur local election",
@@ -195,12 +195,12 @@ class ElectionPostViewTests(TestCase):
         self.assertFalse(future_post_election.locked)
         self.assertEqual(len(future_post_election.personpost_set.all()), 1)
         self.assertEqual(
-            future_post_election.expected_sopn_date, datetime.date(2024, 4, 10)
+            future_post_election.expected_sopn_date, datetime.date(2024, 4, 9)
         )
         pre_sopn_text_1 = (
             """We are currently aware of one candidate for this position."""
         )
-        pre_sopn_text_2 = """The official candidate list will be published after 10 April 2024, when this page will be updated."""
+        pre_sopn_text_2 = """The official candidate list will be published after 9 April 2024, when this page will be updated."""
         self.assertContains(response, pre_sopn_text_1)
         self.assertContains(response, pre_sopn_text_2)
 
