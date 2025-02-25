@@ -99,6 +99,8 @@
         {% if referendums %}
             {% include 'referendums/includes/_list.html' with referendums=referendums %}
         {% endif %}
-        <p>{% trans "There may also be parish, town or community council elections in some areas." %}</p>
+        {% if show_parish_text %}
+            <p>{% trans "There may also be parish, town or community council elections in some areas." %}</p>
+        {% endif %}
     {% endif %}
 </div>
