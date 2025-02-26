@@ -154,7 +154,7 @@ class TestPostcodeViewPolls:
         response.json.return_value = {
             "address_picker": False,
             "dates": [],
-            "electoral_services": {},
+            "electoral_services": {"identifiers": ["code"]},
             "registration": {},
         }
         mocker.patch(
