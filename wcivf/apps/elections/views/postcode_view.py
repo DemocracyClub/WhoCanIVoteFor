@@ -127,6 +127,7 @@ class PostcodeView(
         context["parish_council_election"] = self.get_parish_council_election()
         context["num_ballots"] = self.num_ballots()
         context["requires_voter_id"] = self.get_voter_id_status()
+        context["show_parish_text"] = self.show_parish_text(context["council"])
 
         return context
 
@@ -279,6 +280,22 @@ class PostcodeView(
             if not ballot.cancelled and (voter_id := ballot.requires_voter_id):
                 return voter_id
         return None
+
+    def show_parish_text(self, council):
+        """
+        Returns True if the postcode isn't in London and Northern Ireland. We don't want
+        to show the parish council text in these areas because they don't have them.
+        """
+        # all NI postcodes start with BT
+        if self.postcode.startswith("BT"):
+            return False
+        # All London borough GSS codes start with E09
+        if any(
+            identifier.startswith("E09")
+            for identifier in council["identifiers"]
+        ):
+            return False
+        return True
 
 
 class PostcodeiCalView(
