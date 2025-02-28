@@ -291,7 +291,11 @@ class Person(models.Model):
     @property
     def linkedin_username(self):
         linkedin_url = self.linkedin_url
-        return urlparse(linkedin_url).path.split("/")[-2]
+        # sometimes the url will have a trailing slash and othertimes it won't
+        # so we need to check for the trailing slash if it exists
+        if linkedin_url[-1] == "/":
+            return urlparse(linkedin_url).path.split("/")[-2]
+        return urlparse(linkedin_url).path.split("/")[-1]
 
     @property
     def youtube_username(self):
