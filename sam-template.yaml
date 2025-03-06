@@ -198,13 +198,13 @@ Resources:
         #     Input: '{"command": "import_2024_ppcs"}'
         #     RetryPolicy:
         #       MaximumRetryAttempts: 0
-        # ILPGlobal:
-        #   Type: Schedule
-        #   Properties:
-        #     Schedule: rate(1 hour)
-        #     Name: import-local-parties-global
-        #     Description: Import LocalParty objects from google spreadsheets
-        #     Input: '{"command": "import_local_parties", "args": ["--date=2025-5-1"]}'
+        ILPGlobal:
+          Type: Schedule
+          Properties:
+            Schedule: rate(1 hour)
+            Name: import-local-parties-global
+            Description: Import LocalParty objects from google spreadsheets
+            Input: '{"command": "import_local_parties", "args": ["--date=2025-5-1"]}'
 
   WCIVFCodeDeployApp:
     Type: AWS::CodeDeploy::Application
