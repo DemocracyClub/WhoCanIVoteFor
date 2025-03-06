@@ -310,6 +310,8 @@ class LocalParty(TimeStampedModel):
     )
     name = models.CharField(blank=True, max_length=100)
     twitter = models.CharField(blank=True, max_length=100)
+    bluesky = models.URLField(blank=True, max_length=100)
+    instagram = models.URLField(blank=True, max_length=100)
     facebook_page = models.URLField(blank=True, max_length=800)
     homepage = models.URLField(blank=True, max_length=800)
     email = models.EmailField(blank=True)
