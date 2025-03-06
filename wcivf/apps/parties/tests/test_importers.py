@@ -39,6 +39,8 @@ class TestLocalPartyImporter:
             "Email": "email@example.com",
             "Manifesto Website URL": "http://example.com/manifesto",
             "Manifesto PDF URL": "http://example.com/manifesto.pdf",
+            "Party broadcast": "",
+            "Contact page": "",
         }
 
     def test_init(self, local_election):
