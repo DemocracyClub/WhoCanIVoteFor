@@ -113,7 +113,7 @@ class LocalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
         Takes a row of data, a Party, and a QuerySet of at least one
         PostElection objects, and craetes a LocalParty for each of the ballots.
         """
-        twitter = twitter_username(url=row["Twitter"] or "")
+        twitter = twitter_username(url=row["X"] or "")
         name = self.get_name(row=row)
         # only create local parties for ballots where a candidate is standing
         # for the parent party
@@ -125,11 +125,13 @@ class LocalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
             defaults = {
                 "name": name,
                 "twitter": twitter,
+                "instagram": row.get("Instagram", "").strip(),
+                "bluesky": row.get("Bluesky", "").strip(),
                 "facebook_page": row["Facebook"],
                 "homepage": row["Website"],
                 "email": row["Email"],
                 "is_local": country == "Local",
-                "youtube_profile_url": row.get("Youtube profile", "").strip(),
+                "youtube_profile_url": row.get("Party broadcast", "").strip(),
                 "contact_page_url": row.get("Contact page", "").strip(),
                 "file_url": file_url,
             }
