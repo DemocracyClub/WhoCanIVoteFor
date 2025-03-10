@@ -7,18 +7,20 @@ from parties.importers import LocalElection, LocalPartyImporter
 class Command(BaseCommand):
     ELECTIONS = [
         LocalElection(
-            date="2024-05-02",
+            date="2025-05-01",
             csv_files=[
                 # LibDem
-                "https://docs.google.com/spreadsheets/d/e/2PACX-1vT7Z_xufAGGbnea8TtMI7tcsSt6IedrykKqqWSByN4HEHfiT-UOOCdUhS7Dn2m59B2R_JVSVzTMZgwj/pub?gid=1628145765&single=true&output=csv",
+                "https://docs.google.com/spreadsheets/d/e/2PACX-1vTd6sLnXiOSBEMv357NQprn5XUaWfAMvsdRlQyY10ZWkCVZl-FAQmdcxQxGgYjURbBf8g1L3501pJKy/pub?gid=0&single=true&output=csv",
                 # Con
-                "https://docs.google.com/spreadsheets/d/e/2PACX-1vT7Z_xufAGGbnea8TtMI7tcsSt6IedrykKqqWSByN4HEHfiT-UOOCdUhS7Dn2m59B2R_JVSVzTMZgwj/pub?gid=0&single=true&output=csv",
+                "https://docs.google.com/spreadsheets/d/e/2PACX-1vTd6sLnXiOSBEMv357NQprn5XUaWfAMvsdRlQyY10ZWkCVZl-FAQmdcxQxGgYjURbBf8g1L3501pJKy/pub?gid=84663404&single=true&output=csv",
                 # Lab
-                "https://docs.google.com/spreadsheets/d/e/2PACX-1vT7Z_xufAGGbnea8TtMI7tcsSt6IedrykKqqWSByN4HEHfiT-UOOCdUhS7Dn2m59B2R_JVSVzTMZgwj/pub?gid=583155279&single=true&output=csv",
+                "https://docs.google.com/spreadsheets/d/e/2PACX-1vTd6sLnXiOSBEMv357NQprn5XUaWfAMvsdRlQyY10ZWkCVZl-FAQmdcxQxGgYjURbBf8g1L3501pJKy/pub?gid=1874493069&single=true&output=csv",
                 # Green
-                "https://docs.google.com/spreadsheets/d/e/2PACX-1vT7Z_xufAGGbnea8TtMI7tcsSt6IedrykKqqWSByN4HEHfiT-UOOCdUhS7Dn2m59B2R_JVSVzTMZgwj/pub?gid=302547083&single=true&output=csv",
+                "https://docs.google.com/spreadsheets/d/e/2PACX-1vTd6sLnXiOSBEMv357NQprn5XUaWfAMvsdRlQyY10ZWkCVZl-FAQmdcxQxGgYjURbBf8g1L3501pJKy/pub?gid=818921609&single=true&output=csv",
+                # Reform
+                "https://docs.google.com/spreadsheets/d/e/2PACX-1vTd6sLnXiOSBEMv357NQprn5XUaWfAMvsdRlQyY10ZWkCVZl-FAQmdcxQxGgYjURbBf8g1L3501pJKy/pub?gid=1157694678&single=true&output=csv",
                 # Other
-                "https://docs.google.com/spreadsheets/d/e/2PACX-1vT7Z_xufAGGbnea8TtMI7tcsSt6IedrykKqqWSByN4HEHfiT-UOOCdUhS7Dn2m59B2R_JVSVzTMZgwj/pub?gid=74760747&single=true&output=csv",
+                "https://docs.google.com/spreadsheets/d/e/2PACX-1vTd6sLnXiOSBEMv357NQprn5XUaWfAMvsdRlQyY10ZWkCVZl-FAQmdcxQxGgYjURbBf8g1L3501pJKy/pub?gid=836467868&single=true&output=csv",
             ],
         ),
     ]

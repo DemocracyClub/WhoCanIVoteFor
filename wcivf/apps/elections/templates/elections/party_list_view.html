@@ -24,14 +24,27 @@
                             {% if local_party.facebook_page %}
                                 <dt>Facebook</dt>
                                 <dd>
-                                    {% if local_party.facebook_page %}
-                                        <a href="{{ local_party.facebook_page }}" title="{% blocktrans trimmed with party_name=local_party.name %}{{ party_name }}'s Facebook profile{% endblocktrans %}">
-                                            {{ local_party.facebook_page }}
-                                        </a>
-                                    {% endif %}
+                                    <a href="{{ local_party.facebook_page }}" title="{% blocktrans trimmed with party_name=local_party.name %}{{ party_name }}'s Facebook profile{% endblocktrans %}">
+                                        {{ local_party.facebook_page }}
+                                    </a>
                                 </dd>
                             {% endif %}
-
+                            {% if local_party.instagram %}
+                                <dt>Instagram</dt>
+                                <dd>
+                                    <a href="{{ local_party.instagram }}" title="{% blocktrans trimmed with party_name=local_party.name %}{{ party_name }}'s Instagram profile{% endblocktrans %}">
+                                        {{ local_party.instagram }}
+                                    </a>
+                                </dd>
+                            {% endif %}
+                            {% if local_party.bluesky %}
+                                <dt>Bluesky</dt>
+                                <dd>
+                                    <a href="{{ local_party.bluesky }}" title="{% blocktrans trimmed with party_name=local_party.name %}{{ party_name }}'s Bluesky profile{% endblocktrans %}">
+                                        {{ local_party.bluesky }}
+                                    </a>
+                                </dd>
+                            {% endif %}
                             {% if local_party.homepage %}
                                 <dt>{% trans "Home page" %}</dt>
                                 <dd>

@@ -11,7 +11,7 @@
     <dl class="ds-descriptions">
         {% if person.local_party.twitter %}
             <div>
-                <dt>Twitter</dt>
+                <dt>X</dt>
                 <a href="https://twitter.com/{{ person.local_party.twitter }}">
                     {{ person.local_party.twitter }}
                 </a>
@@ -22,6 +22,22 @@
                 <dt>Facebook</dt>
                 <a href="{{ person.local_party.facebook_page }}">
                     {{ person.local_party.facebook_page }}
+                </a>
+            </div>
+        {% endif %}
+        {% if person.local_party.instagram %}
+            <div>
+                <dt>Instagram</dt>
+                <a href="{{ person.local_party.instagram }}" title="{% blocktrans trimmed with party_name=person.local_party.name %}{{ party_name }}'s Instagram profile{% endblocktrans %}">
+                    {{ person.local_party.instagram }}
+                </a>
+            </div>
+        {% endif %}
+        {% if person.local_party.bluesky %}
+            <div>
+                <dt>Bluesky</dt>
+                <a href="{{ person.local_party.bluesky }}" title="{% blocktrans trimmed with party_name=person.local_party.name %}{{ party_name }}'s Bluesky profile{% endblocktrans %}">
+                    {{ person.local_party.bluesky }}
                 </a>
             </div>
         {% endif %}

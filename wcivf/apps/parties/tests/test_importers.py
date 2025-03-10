@@ -31,12 +31,16 @@ class TestLocalPartyImporter:
             "Local party name": "Labour Ecclesall",
             "party_id": "53",
             "election_id": "local.sheffield.2021-05-06",
-            "Twitter": "https://twitter.com/example",
+            "X": "https://twitter.com/example",
+            "Instagram": "https://www.instagram.com/example",
+            "Bluesky": "https://www.bluesky.com/example",
             "Facebook": "https://facebook.com/example",
             "Website": "https://example.com",
             "Email": "email@example.com",
             "Manifesto Website URL": "http://example.com/manifesto",
             "Manifesto PDF URL": "http://example.com/manifesto.pdf",
+            "Party broadcast": "",
+            "Contact page": "",
         }
 
     def test_init(self, local_election):
@@ -183,6 +187,8 @@ class TestLocalPartyImporter:
             defaults={
                 "name": row["Local party name"],
                 "twitter": "example",
+                "instagram": row["Instagram"],
+                "bluesky": row["Bluesky"],
                 "facebook_page": row["Facebook"],
                 "homepage": row["Website"],
                 "email": row["Email"],

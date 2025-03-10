@@ -113,7 +113,7 @@ class LocalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
         Takes a row of data, a Party, and a QuerySet of at least one
         PostElection objects, and craetes a LocalParty for each of the ballots.
         """
-        twitter = twitter_username(url=row["Twitter"] or "")
+        twitter = twitter_username(url=row["X"].strip())
         name = self.get_name(row=row)
         # only create local parties for ballots where a candidate is standing
         # for the parent party
@@ -125,12 +125,14 @@ class LocalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
             defaults = {
                 "name": name,
                 "twitter": twitter,
-                "facebook_page": row["Facebook"],
-                "homepage": row["Website"],
-                "email": row["Email"],
+                "instagram": row["Instagram"].strip(),
+                "bluesky": row["Bluesky"].strip(),
+                "facebook_page": row["Facebook"].strip(),
+                "homepage": row["Website"].strip(),
+                "email": row["Email"].strip(),
                 "is_local": country == "Local",
-                "youtube_profile_url": row.get("Youtube profile", "").strip(),
-                "contact_page_url": row.get("Contact page", "").strip(),
+                "youtube_profile_url": row["Party broadcast"].strip(),
+                "contact_page_url": row["Contact page"].strip(),
                 "file_url": file_url,
             }
 
@@ -209,8 +211,8 @@ class LocalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
                 ).distinct()
                 for party in parties:
                     self.add_local_party(row, party, ballots, file_url)
-                    manifesto_web = row.get("Manifesto Website URL", "").strip()
-                    manifesto_pdf = row.get("Manifesto PDF URL", "").strip()
+                    manifesto_web = row["Manifesto Website URL"].strip()
+                    manifesto_pdf = row["Manifesto PDF URL"].strip()
                     if not any([manifesto_web, manifesto_pdf]):
                         self.write("No links to create Manifesto, skipping")
                         continue
@@ -219,9 +221,10 @@ class LocalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
                         self.add_manifesto(row, party, election, file_url)
 
     def add_manifesto(self, row, party, election, file_url):
-        manifesto_web = row.get("Manifesto Website URL", "").strip()
-        manifesto_pdf = row.get("Manifesto PDF URL", "").strip()
+        manifesto_web = row["Manifesto Website URL"].strip()
+        manifesto_pdf = row["Manifesto PDF URL"].strip()
         country = self.get_country(election_type="local")
+        # These columns aren't guaranteed to be part of the csv so we use .get()
         language = row.get("Manifesto Language", "English").strip()
         easy_read_url = row.get("Manifesto Easy Read PDF", "").strip()
         if any([manifesto_web, manifesto_pdf]):

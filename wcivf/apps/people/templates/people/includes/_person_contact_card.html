@@ -30,9 +30,9 @@
 
             {% if object.twitter_username %}
                 <div>
-                    <dt>{% trans "Twitter" %}</dt>
+                    <dt>{% trans "X" %}</dt>
                     <dd>
-                        <a href="https://twitter.com/{{ object.twitter_username }}" title="{% blocktrans trimmed with person_name=object.name%}{{ person_name }}'s Twitter profile{% endblocktrans%}">
+                        <a href="https://twitter.com/{{ object.twitter_username }}" title="{% blocktrans trimmed with person_name=object.name%}{{ person_name }}'s X profile{% endblocktrans%}">
                             {{ object.twitter_username}}
                         </a>
                     </dd>
