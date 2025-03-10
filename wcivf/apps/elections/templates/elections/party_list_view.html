@@ -24,11 +24,9 @@
                             {% if local_party.facebook_page %}
                                 <dt>Facebook</dt>
                                 <dd>
-                                    {% if local_party.facebook_page %}
-                                        <a href="{{ local_party.facebook_page }}" title="{% blocktrans trimmed with party_name=local_party.name %}{{ party_name }}'s Facebook profile{% endblocktrans %}">
-                                            {{ local_party.facebook_page }}
-                                        </a>
-                                    {% endif %}
+                                    <a href="{{ local_party.facebook_page }}" title="{% blocktrans trimmed with party_name=local_party.name %}{{ party_name }}'s Facebook profile{% endblocktrans %}">
+                                        {{ local_party.facebook_page }}
+                                    </a>
                                 </dd>
                             {% endif %}
                             {% if local_party.instagram %}
