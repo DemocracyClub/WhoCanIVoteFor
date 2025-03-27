@@ -52,8 +52,14 @@ class TestPersonModel(TestCase):
         assert self.person.instagram_username == "vickyfordmp"
 
     def test_linkedin_username(self):
+        # Trailing slash
         self.person.linkedin_url = "https://www.linkedin.com/in/vicky-ford/"
         assert self.person.linkedin_username == "vicky-ford"
+        # No trailing slash
+        self.person.linkedin_url = (
+            "https://uk.linkedin.com/in/marianne-overton-mbe-54b88917"
+        )
+        assert self.person.linkedin_username == "marianne-overton-mbe-54b88917"
 
     def test_youtube_username(self):
         self.person.youtube_profile = (

@@ -290,8 +290,7 @@ class Person(models.Model):
 
     @property
     def linkedin_username(self):
-        linkedin_url = self.linkedin_url
-        return urlparse(linkedin_url).path.split("/")[-2]
+        return urlparse(self.linkedin_url.rstrip("/")).path.split("/")[-1]
 
     @property
     def youtube_username(self):
