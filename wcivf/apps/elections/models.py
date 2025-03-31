@@ -601,7 +601,11 @@ class PostElection(TimeStampedModel):
             label = self.post.full_label.replace(" Police", "")
             return f"{label} Police force area" + self.cancellation_suffix
 
-        return self.post.full_label + self.cancellation_suffix
+        ballot_label = self.post.full_label
+        if ".by." in self.ballot_paper_id:
+            ballot_label = _(f"{ballot_label} by-election")
+
+        return f"{ballot_label} {self.cancellation_suffix}".strip()
 
     def get_absolute_url(self):
         if self.ballot_paper_id.startswith("tmp_"):
