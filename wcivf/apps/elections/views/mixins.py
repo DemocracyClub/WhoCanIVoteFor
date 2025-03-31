@@ -88,7 +88,14 @@ class PostcodeToPostsMixin(object):
             Prefetch("husting_set", queryset=Husting.objects.published())
         )
         pes = pes.order_by(
-            "past_date", "election__election_date", "-election__election_weight"
+            "past_date",
+            "election__election_date",
+            Case(
+                *[
+                    When(ballot_paper_id=ballot_paper_id, then=pos)
+                    for pos, ballot_paper_id in enumerate(all_ballots)
+                ]
+            ),
         )
         ret["ballots"] = pes
         return ret
