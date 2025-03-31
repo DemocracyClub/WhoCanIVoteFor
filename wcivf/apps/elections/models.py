@@ -573,6 +573,18 @@ class PostElection(TimeStampedModel):
         return self.ballot_paper_id.startswith("ref.")
 
     @property
+    def is_postponed(self):
+        return self.cancellation_reason in [
+            "NO_CANDIDATES",
+            "CANDIDATE_DEATH",
+            "UNDER_CONTESTED",
+        ]
+
+    @property
+    def is_uncontested(self):
+        return self.cancellation_reason == "EQUAL_CANDIDATES"
+
+    @property
     def friendly_name(self):
         """
         Helper property used in templates to build a 'friendly' name using
@@ -580,13 +592,16 @@ class PostElection(TimeStampedModel):
         Police and Crime Commissioner elections
         """
         if self.is_mayoral:
-            return f"{self.post.full_label} mayoral election"
+            return (
+                f"{self.post.full_label} mayoral election"
+                + self.cancellation_suffix
+            )
 
         if self.is_pcc:
             label = self.post.full_label.replace(" Police", "")
-            return f"{label} Police force area"
+            return f"{label} Police force area" + self.cancellation_suffix
 
-        return self.post.full_label
+        return self.post.full_label + self.cancellation_suffix
 
     def get_absolute_url(self):
         if self.ballot_paper_id.startswith("tmp_"):
@@ -611,6 +626,25 @@ class PostElection(TimeStampedModel):
             self.ballot_paper_id,
             settings.YNR_UTM_QUERY_STRING,
         )
+
+    @property
+    def cancellation_suffix(self):
+        if not self.cancelled:
+            return ""
+        if not self.cancellation_reason:
+            # We don't really know what's going on here
+            # so let's assume it's postponed.
+            return _(" (postponed)")
+
+        if self.is_postponed:
+            return _(" (postponed)")
+
+        if self.is_uncontested:
+            return _(" (uncontested)")
+
+        # If we've got here we don't really know what's going on. Return nothing
+        # to be safe.
+        return ""
 
     @property
     def short_cancelled_message_html(self):
