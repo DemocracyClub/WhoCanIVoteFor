@@ -188,7 +188,6 @@ class YNRBallotImporter:
         current_only=False,
         exclude_candidacies=False,
         force_metadata=False,
-        force_current_metadata=False,
         recently_updated=False,
         base_url=None,
         api_key=None,
@@ -203,7 +202,6 @@ class YNRBallotImporter:
         self.current_only = current_only
         self.exclude_candidacies = exclude_candidacies
         self.force_metadata = force_metadata
-        self.force_current_metadata = force_current_metadata
         self.recently_updated = recently_updated
         self.base_url = base_url or settings.YNR_BASE
         self.api_key = api_key or settings.YNR_API_KEY
@@ -493,12 +491,6 @@ class YNRBallotImporter:
             ballot.save()
 
     def set_metadata(self, ballot):
-        if (
-            not self.force_current_metadata
-            and not self.force_update
-            and ballot.metadata
-        ):
-            return
         ee_data = self.ee_helper.get_data(ballot.ballot_paper_id)
         if ee_data:
             ballot.metadata = ee_data["metadata"]
