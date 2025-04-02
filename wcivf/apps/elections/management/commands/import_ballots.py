@@ -31,13 +31,6 @@ class Command(BaseCommand):
             help="Imports all metadata from EE for all elections",
         )
         parser.add_argument(
-            "--force-current-metadata",
-            action="store_true",
-            dest="force_current_metadata",
-            default=False,
-            help="Imports all metadata from EE for current elections",
-        )
-        parser.add_argument(
             "--recently-updated",
             action="store_true",
             dest="recently_updated",
@@ -90,7 +83,6 @@ class Command(BaseCommand):
             stdout=self.stdout,
             current_only=options["current"],
             force_metadata=options["force_metadata"],
-            force_current_metadata=options["force_current_metadata"],
             recently_updated=options["recently_updated"],
             exclude_candidacies=options["exclude_candidacies"],
         )
