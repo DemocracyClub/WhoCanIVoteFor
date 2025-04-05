@@ -361,7 +361,7 @@ workflows:
           dc-environment: production
           min-size: 1
           max-size: 20
-          desired-capacity: 1
+          desired-capacity: 4
           requires:
           - build_and_test
           - sam_deploy_staging
