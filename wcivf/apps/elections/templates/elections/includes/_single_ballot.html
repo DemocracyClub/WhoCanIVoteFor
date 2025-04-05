@@ -8,7 +8,7 @@
 
         <h2>
             <span aria-hidden="true">🗳️</span>
-            {{ postelection.election.name_without_brackets }}
+            {{ postelection.election.name_without_brackets }} {{ postelection.cancellation_suffix }}
         </h2>
 
         {% if postelection.cancelled %}

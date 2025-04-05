@@ -1,5 +1,6 @@
 {% load humanize %}
 {% load i18n %}
+{% load postcode_tags %}
 <div class="ds-stack-smaller">
     {% if postelections.count == 0 %}
         <h2>{% trans "We don't know of any upcoming elections in your area." %}</h2>
@@ -41,7 +42,7 @@
                     {{ election_group.grouper|naturalday:"l j F Y"|title }}
                 </h3>
                 <p>
-                    {% blocktrans trimmed with num_ballots=election_group.list|length|apnumber ballots_pluralised=election_group.list|pluralize %}
+                    {% blocktrans trimmed with num_ballots=election_group.list|uncancelled_ballots|length|apnumber ballots_pluralised=election_group.list|pluralize %}
                         You will have {{ num_ballots }} ballot paper{{ ballots_pluralised }} to fill out.
                     {% endblocktrans %}
                 </p>
@@ -52,9 +53,8 @@
                     <li {% if ballot.past_date %}class="past_elections" {% endif %}>
 
                         <a href="#election_{{ ballot.election.slug }}">
-                            {{ ballot.election.nice_election_name  }}
-                            {% if ballot.post.label != post.election and not ballot.is_mayoral and not ballot.is_pcc %}
-                                : {{ ballot.post.label }}
+                            {{ ballot.election.nice_election_name  }}{% if ballot.post.label != post.election and not ballot.is_mayoral and not ballot.is_pcc %}:
+                                {{ ballot.friendly_name }}
                             {% endif %}
                         </a>
                         {% blocktrans trimmed with short_cancelled_message=ballot.short_cancelled_message_html %}
