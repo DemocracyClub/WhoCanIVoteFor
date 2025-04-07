@@ -55,6 +55,8 @@
                         <a href="#election_{{ ballot.election.slug }}">
                             {{ ballot.election.nice_election_name  }}{% if ballot.post.label != post.election and not ballot.is_mayoral and not ballot.is_pcc %}:
                                 {{ ballot.friendly_name }}
+                            {% else %}
+                                {{ ballot.cancellation_suffix }}
                             {% endif %}
                         </a>
                         {% blocktrans trimmed with short_cancelled_message=ballot.short_cancelled_message_html %}
