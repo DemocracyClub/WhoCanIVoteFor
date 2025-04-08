@@ -114,6 +114,9 @@ class PostcodeView(
         context["postcode_location"] = self.ballot_dict.get(
             "postcode_location", None
         )
+        context["global_postal_vote_card"] = self.get_global_postal_vote_card(
+            context["postelections"], context["council"]
+        )
 
         context[
             "advance_voting_station"
@@ -458,6 +461,11 @@ class DummyPostcodeView(PostcodeView):
         )
         context["registration"] = self.get_registration()
         context["council"] = self.get_electoral_services()
+        context[
+            "global_postal_vote_card"
+        ] = PostcodeView().get_global_postal_vote_card(
+            context["postelections"], context["council"]
+        )
         context["requires_voter_id"] = "EA-2022"
         context["num_ballots"] = 1
         return context

@@ -21,6 +21,8 @@ from uk_election_timetables.calendars import Country
 from uk_election_timetables.election import TimetableEvent
 from uk_election_timetables.election_ids import from_election_id
 
+from ..postal_votes import get_postal_vote_dispatch_dates
+
 DEVS_DC_CLIENT = DevsDCClient()
 
 
@@ -180,7 +182,7 @@ class PollingStationInfoMixin(object):
         ]
 
         if not non_city_of_london_ballots:
-            return False
+            return {"show": False}
         next_ballot = non_city_of_london_ballots[0]
         election = next_ballot.election
         country = next_ballot.post.territory
@@ -201,6 +203,49 @@ class PollingStationInfoMixin(object):
             "registration_deadline": next_ballot.registration_deadline,
             "election_date": next_ballot.election.election_date,
         }
+
+    def get_global_postal_vote_card(self, post_elections, council):
+        if not post_elections:
+            return {"show": False}
+        next_ballot = post_elections[0]
+        election = next_ballot.election
+        country = next_ballot.post.territory
+
+        if not country:
+            country = Country.ENGLAND
+        else:
+            country = {
+                "ENG": Country.ENGLAND,
+                "SCT": Country.SCOTLAND,
+                "WLS": Country.WALES,
+                "NIR": Country.NORTHERN_IRELAND,
+            }.get(country)
+        election = from_election_id(election_id=election.slug, country=country)
+        event = TimetableEvent.POSTAL_VOTE_APPLICATION_DEADLINE
+
+        card = {
+            "show": True,
+            "before_application_deadline": election.is_before(event),
+            "application_deadline": next_ballot.postal_vote_application_deadline,
+            "election_date": next_ballot.election.election_date,
+        }
+
+        # we only hold postal votes dispatch data data for one
+        # election. TODO: remove/review after 2025-05-01
+        if next_ballot.election.election_date == date(2025, 5, 1):
+            # hard-coded for May 2025
+            # this is the date when replacement packs can be issued from
+            # for ALL councils
+            # TODO: add this to the timetable library
+            card["replacement_pack_start"] = datetime.strptime(
+                "25/04/2025", "%d/%m/%Y"
+            ).date()
+            if council and council["council_id"]:
+                card["dispatch_dates"] = get_postal_vote_dispatch_dates(
+                    council["council_id"]
+                )
+
+        return card
 
 
 class LogLookUpMixin(object):
