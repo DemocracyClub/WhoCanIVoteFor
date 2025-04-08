@@ -32,10 +32,17 @@ class PostcodeToPostsMixin(object):
 
         try:
             context = self.get_context_data(**kwargs)
-        except (InvalidPostcodeError, DevsDCAPIException):
+        except (InvalidPostcodeError, DevsDCAPIException) as e:
+            if (
+                isinstance(e, DevsDCAPIException)
+                and e.response.status_code > 400
+            ):
+                raise e
+
             return HttpResponseRedirect(
                 "/?invalid_postcode=1&postcode={}".format(self.postcode)
             )
+
         return self.render_to_response(context)
 
     def postcode_to_ballots(self, postcode, uprn=None, compact=False):
