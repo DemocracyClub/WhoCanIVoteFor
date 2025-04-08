@@ -134,6 +134,9 @@ class PostcodeViewTests(TestCase):
         assert '"utm_medium": "pytest"' in logging_message.message
         assert '"calls_devs_dc_api": true' in logging_message.message
 
+    @vcr.use_cassette(
+        "fixtures/vcr_cassettes/test_dc_logging_postcode_invalid.yaml"
+    )
     def test_dc_logging_postcode_invalid(self):
         with self.assertLogs(level="DEBUG") as captured:
             self.client.get(
