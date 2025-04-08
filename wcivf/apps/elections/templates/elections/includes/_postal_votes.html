@@ -1,0 +1,101 @@
+{% load i18n %}
+{% load postcode_tags %}
+{% load humanize %}
+
+<li>
+  <details {% if card.before_application_deadline %}open{% endif %} class="ds-stack-smaller">
+    <summary>
+      <h2 id='postal-vote'>
+        <span aria-hidden="true"></span>
+        {% blocktrans trimmed %}Voting by post{% endblocktrans %}
+      </h2>
+    </summary>
+
+    {% if card.before_application_deadline %}
+      <p>
+        {% blocktrans trimmed %}
+          If you know that you won't be able to get to the polling station on polling day, you can vote by post.
+        {% endblocktrans %}
+        {% blocktrans trimmed with application_deadline=card.application_deadline|naturalday:"j F Y" %}
+          You have until {{ application_deadline }} to
+        {% endblocktrans %}
+        <a href="https://www.gov.uk/apply-postal-vote">{% trans "Apply for a postal vote" %}</a>.
+      </p>
+      <p>
+        {% blocktrans trimmed %}
+          <a
+            href="https://www.electoralcommission.org.uk/voting-and-elections/ways-vote/apply-vote-post"
+          >Read more about applying for a postal vote</a>.
+        {% endblocktrans %}
+        <p>
+    {% else %}
+      <p>
+        {% blocktrans trimmed with application_deadline=card.application_deadline|naturalday:"j F Y" election_date=card.election_date|naturalday:"j F Y" %}
+          The deadline to apply for a postal vote for the elections taking place on {{ election_date }} was {{ application_deadline }}.
+          You can <a href="https://www.gov.uk/apply-postal-vote">apply for a postal vote</a> in future elections.
+        {% endblocktrans %}
+      </p>
+      <p>
+        {% blocktrans trimmed %}
+          <a
+            href="https://www.electoralcommission.org.uk/voting-and-elections/ways-vote/how-vote-post"
+          >Read more about voting by post</a>.
+        {% endblocktrans %}
+        <p>
+    {% endif %}
+
+
+    {% if card.dispatch_dates %}
+      <h3 class="ds-h5">{% trans "If you have a postal vote" %}</h3>
+      <ul>
+        <li>
+          {% blocktrans trimmed with date0=card.dispatch_dates.0|naturalday:"j F Y" date1=card.dispatch_dates.1|naturalday:"j F Y" %}
+            If you already have a postal vote or successfully apply by {{ date0 }}, your pack will be sent from {{ date1 }}.</li>
+          {% endblocktrans %}
+          <li>
+            {% blocktrans trimmed with date1=card.dispatch_dates.1|naturalday:"j F Y" date2=card.dispatch_dates.2|naturalday:"j F Y" application_deadline=card.application_deadline|naturalday:"j F Y" %}
+              If you apply after {{ date0 }} up to 5pm on {{ application_deadline }}, your pack will be sent from {{ date2 }}.
+            {% endblocktrans %}
+          </li>
+        </ul>
+    {% else %}
+      <p>
+        {% blocktrans trimmed %}
+          If you have a postal vote, your local council will send your postal voting pack around three weeks before polling day.
+        {% endblocktrans %}
+      </p>
+    {% endif %}
+
+    {% if postcode|ni_postcode %}
+      <p>
+        {% blocktrans trimmed with council_phone=council.phone %}
+          If you have not received your postal voting pack, you can contact
+          the Electoral Office for Northern Ireland on <a href="tel:{{ council_phone }}">{{ council_phone }}</a>.
+        {% endblocktrans %}
+      </p>
+      {% include "elections/includes/_council_contact_details.html" with contact_details=council with_address=False %}
+    {% elif council %}
+      <p>
+        {% blocktrans trimmed with council_name=council.name council_phone=council.phone %}
+          If you have not received your postal voting pack, you can contact {{ council_name }}
+          on <a href="tel:{{ council_phone }}">{{ council_phone }}</a>.
+        {% endblocktrans %}
+      </p>
+      {% include "elections/includes/_council_contact_details.html" with contact_details=council with_address=False %}
+    {% else %}
+      <p>
+        {% blocktrans trimmed %}
+          You can contact your local council if you have not received your postal voting pack.
+        {% endblocktrans %}
+      </p>
+    {% endif %}
+
+    {% if card.replacement_pack_start %}
+      <p>
+        {% blocktrans trimmed with replacement_pack_start=card.replacement_pack_start|naturalday:"j F Y" election_date=card.election_date|naturalday:"j F Y" %}
+          Replacement packs can only be issued from {{ replacement_pack_start }} until 5pm on {{ election_date }}.
+        {% endblocktrans %}
+      </p>
+    {% endif %}
+  </details>
+</li>

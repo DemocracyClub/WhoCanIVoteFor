@@ -487,11 +487,13 @@ class PostElection(TimeStampedModel):
     @property
     def postal_vote_application_deadline(self):
         try:
-            return get_election_timetable(
+            date = get_election_timetable(
                 self.ballot_paper_id, self.post.territory
             ).postal_vote_application_deadline
         except AttributeError:
             return None
+
+        return date.strftime("%d %B %Y")
 
     @property
     def past_vac_application_deadline(self):

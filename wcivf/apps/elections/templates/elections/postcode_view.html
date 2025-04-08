@@ -79,6 +79,10 @@
                         {% include "elections/includes/_registration_details.html" with card=global_registration_card council=council postcode=postcode %}
                     {% endif %}
 
+                    {% if global_postal_vote_card.show %}
+                        {% include "elections/includes/_postal_votes.html" with card=global_postal_vote_card %}
+                    {% endif %}
+
                     {% if not messages %}
                         {% include "elections/includes/_calendar.html" %}
                     {% endif %}

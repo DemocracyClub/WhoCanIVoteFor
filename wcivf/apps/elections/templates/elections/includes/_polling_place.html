@@ -96,7 +96,6 @@
             {% else %}
                 <p>{% blocktrans trimmed %}Postal votes cannot be accepted at polling stations in Northern Ireland.{% endblocktrans%}</p>
             {% endif %}
-            <p><a href="https://www.electoralcommission.org.uk/voting-and-elections/ways-vote/how-vote-post">{% trans "Learn more about voting by post" %}</a>.</p>
         {% else %}
             {% if ballots_today and not multiple_city_of_london_elections_on_next_poll_date %}
                 {% blocktrans trimmed with open_time=polling_station_opening_times.polls_open|time:"ga" close_time=polling_station_opening_times.polls_close|time:"ga" %}
