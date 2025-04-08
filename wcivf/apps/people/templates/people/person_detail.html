@@ -42,7 +42,7 @@
 
         {% include "people/includes/_person_policy_card.html" %}
 
-        {% if object.show_national_manifesto and not object.deselected %}
+        {% if object.current_or_future_candidacies and not object.deselected %}
             {% include "people/includes/_person_manifesto_card.html" with party=object.national_party party_name=object.national_party.name %}
         {% endif %}
 
