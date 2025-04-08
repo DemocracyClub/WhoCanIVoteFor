@@ -43,7 +43,7 @@
                 </h3>
                 <p>
                     {% if election_group.list|uncancelled_ballots|length > 0 %}
-                        {% blocktrans trimmed with num_ballots=election_group.list|uncancelled_ballots|length|apnumber ballots_pluralised=election_group.list|pluralize %}
+                        {% blocktrans trimmed with num_ballots=election_group.list|uncancelled_ballots|length|apnumber ballots_pluralised=election_group.list|uncancelled_ballots|pluralize %}
                             You will have {{ num_ballots }} ballot paper{{ ballots_pluralised }} to fill out.
                         {% endblocktrans %}
                     {% endif %}
