@@ -3,7 +3,8 @@ import vcr
 from django.db.models import Count
 from django.test import TestCase, override_settings
 from django.urls import reverse
-from elections.models import InvalidPostcodeError, PostElection
+from elections.devs_dc_client import InvalidPostcodeError
+from elections.models import PostElection
 from elections.tests.factories import (
     ElectionFactory,
     PostElectionFactory,

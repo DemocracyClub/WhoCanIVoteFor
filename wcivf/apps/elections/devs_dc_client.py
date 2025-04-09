@@ -5,6 +5,10 @@ import requests
 from django.conf import settings
 
 
+class InvalidPostcodeError(Exception):
+    pass
+
+
 class DevsDCAPIException(Exception):
     def __init__(self, response: requests.Response):
         try:
