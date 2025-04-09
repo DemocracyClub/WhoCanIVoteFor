@@ -14,7 +14,11 @@ from elections.constants import (
     PEOPLE_FOR_BALLOT_KEY_FMT,
     UPDATED_SLUGS,
 )
-from elections.devs_dc_client import DevsDCAPIException, DevsDCClient
+from elections.devs_dc_client import (
+    DevsDCAPIException,
+    DevsDCClient,
+    InvalidPostcodeError,
+)
 from hustings.models import Husting
 from leaflets.models import Leaflet
 from uk_election_timetables.calendars import Country
@@ -28,8 +32,6 @@ DEVS_DC_CLIENT = DevsDCClient()
 
 class PostcodeToPostsMixin(object):
     def get(self, request, *args, **kwargs):
-        from ..models import InvalidPostcodeError
-
         try:
             context = self.get_context_data(**kwargs)
         except (InvalidPostcodeError, DevsDCAPIException) as e:
