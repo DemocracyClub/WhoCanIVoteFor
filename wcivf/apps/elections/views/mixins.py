@@ -7,14 +7,22 @@ from django.conf import settings
 from django.core.cache import cache
 from django.db.models import Case, Count, F, IntegerField, Prefetch, When
 from django.db.models.functions import Coalesce
-from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
+from django.http import (
+    Http404,
+    HttpResponsePermanentRedirect,
+    HttpResponseRedirect,
+)
 from django.urls import reverse
 from django.views import View
 from elections.constants import (
     PEOPLE_FOR_BALLOT_KEY_FMT,
     UPDATED_SLUGS,
 )
-from elections.devs_dc_client import DevsDCAPIException, DevsDCClient
+from elections.devs_dc_client import (
+    DevsDCClient,
+    InvalidPostcodeError,
+    InvalidUprnError,
+)
 from hustings.models import Husting
 from leaflets.models import Leaflet
 from uk_election_timetables.calendars import Country
@@ -28,14 +36,15 @@ DEVS_DC_CLIENT = DevsDCClient()
 
 class PostcodeToPostsMixin(object):
     def get(self, request, *args, **kwargs):
-        from ..models import InvalidPostcodeError
-
         try:
             context = self.get_context_data(**kwargs)
-        except (InvalidPostcodeError, DevsDCAPIException):
+        except InvalidPostcodeError:
             return HttpResponseRedirect(
-                "/?invalid_postcode=1&postcode={}".format(self.postcode)
+                f"/?invalid_postcode=1&postcode={self.postcode}"
             )
+        except InvalidUprnError:
+            raise Http404()
+
         return self.render_to_response(context)
 
     def postcode_to_ballots(self, postcode, uprn=None, compact=False):

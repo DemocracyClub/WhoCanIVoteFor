@@ -5,7 +5,8 @@ from api.serializers import VotingSystemSerializer
 from core.helpers import clean_postcode
 from django.conf import settings
 from django.utils.http import urlencode
-from elections.models import InvalidPostcodeError, PostElection
+from elections.devs_dc_client import InvalidPostcodeError
+from elections.models import PostElection
 from elections.views import mixins
 from hustings.api.serializers import HustingSerializer
 from people.models import Person

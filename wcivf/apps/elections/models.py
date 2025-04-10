@@ -25,10 +25,6 @@ from .managers import ElectionManager
 LOCAL_TZ = pytz.timezone("Europe/London")
 
 
-class InvalidPostcodeError(Exception):
-    pass
-
-
 class ElectionCancellationReason(models.TextChoices):
     NO_CANDIDATES = "NO_CANDIDATES", "No candidates"
     EQUAL_CANDIDATES = "EQUAL_CANDIDATES", "Equal candidates to seats"

@@ -1,0 +1,48 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.31.0
+    method: GET
+    uri: https://developers.democracyclub.org.uk/api/v1/postcode/TE1%202ST/?include_current=1
+  response:
+    body:
+      string: '{"error":"Could not geocode from any source"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '45'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 08 Apr 2025 14:01:01 GMT
+      Via:
+      - 1.1 a80cfefba1e25a9103271d8bd22be77e.cloudfront.net (CloudFront), 1.1 3e451e9597256bf0aa25b96dd37c1986.cloudfront.net
+        (CloudFront)
+      X-Amz-Cf-Id:
+      - 7zo9DUW5VD6pdXlEzjTcuYm67yn2UFVuZuRA9vyTWA9vSuvXWdBAeA==
+      X-Amz-Cf-Pop:
+      - LHR50-P2
+      - LHR5-P3
+      X-Amzn-Trace-Id:
+      - Root=1-67f52c1d-21cb5c224aad27e428713ea7;Parent=4abdb5e61eac7f7b;Sampled=0;Lineage=1:b30bce40:0
+      X-Cache:
+      - Error from cloudfront
+      x-amz-apigw-id:
+      - ItPUnHUIrPEEo5A=
+      x-amzn-Remapped-content-length:
+      - '45'
+      x-amzn-RequestId:
+      - d9c74ca1-e203-48c4-8ea5-b639064584a9
+    status:
+      code: 400
+      message: Bad Request
+version: 1

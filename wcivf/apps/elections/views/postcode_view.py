@@ -3,15 +3,15 @@ from typing import Optional
 from administrations.helpers import AdministrationsHelper
 from core.helpers import clean_postcode
 from django.conf import settings
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.views.generic import TemplateView, View
+from elections.devs_dc_client import InvalidPostcodeError, InvalidUprnError
 from elections.dummy_models import DummyPostElection, dummy_polling_station
-from elections.models import LOCAL_TZ, InvalidPostcodeError
+from elections.models import LOCAL_TZ
 from icalendar import Calendar, Event, vText
 from parishes.models import ParishCouncilElection
 
-from ..devs_dc_client import DevsDCAPIException
 from .mixins import (
     LogLookUpMixin,
     NewSlugsRedirectMixin,
@@ -64,12 +64,9 @@ class PostcodeView(
 
         context["postcode"] = self.postcode
 
-        try:
-            ballot_dict = self.get_ballot_dict()
-            context["address_picker"] = ballot_dict.get("address_picker")
-            context["addresses"] = ballot_dict.get("addresses")
-        except (InvalidPostcodeError, DevsDCAPIException) as exception:
-            raise exception
+        ballot_dict = self.get_ballot_dict()
+        context["address_picker"] = ballot_dict.get("address_picker")
+        context["addresses"] = ballot_dict.get("addresses")
 
         if (
             not context["address_picker"]
@@ -313,10 +310,12 @@ class PostcodeiCalView(
             self.ballot_dict = self.postcode_to_ballots(
                 postcode=postcode, uprn=uprn
             )
-        except (InvalidPostcodeError, DevsDCAPIException):
+        except InvalidPostcodeError:
             return HttpResponseRedirect(
                 f"/?invalid_postcode=1&postcode={postcode}"
             )
+        except InvalidUprnError:
+            raise Http404()
 
         polling_station = self.ballot_dict.get("polling_station")
 

@@ -3,7 +3,8 @@ import vcr
 from django.db.models import Count
 from django.test import TestCase, override_settings
 from django.urls import reverse
-from elections.models import InvalidPostcodeError, PostElection
+from elections.devs_dc_client import InvalidPostcodeError
+from elections.models import PostElection
 from elections.tests.factories import (
     ElectionFactory,
     PostElectionFactory,
@@ -35,6 +36,20 @@ class PostcodeViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "elections/postcode_view.html")
 
+    @vcr.use_cassette(
+        "fixtures/vcr_cassettes/test_postcode_view_with_invalid_postcode.yaml"
+    )
+    def test_postcode_view_with_invalid_postcode(self):
+        # TE1 2ST passes postcode format validation but doesn't exist so DevsDcAPI returns a 400
+        response = self.client.get("/elections/TE1 2ST", follow=True)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "home.html")
+        self.assertContains(
+            response,
+            "Sorry, we don't know the postcode TE1 2ST. Is there another one you can try?",
+        )
+
     @vcr.use_cassette("fixtures/vcr_cassettes/test_uprn_view.yaml")
     def test_uprn_view(self):
         response = self.client.get(
@@ -48,8 +63,8 @@ class PostcodeViewTests(TestCase):
         response = self.client.get(
             "/elections/WV15 6EG/www.somerset.gov.uk/", follow=True
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "home.html")
+        self.assertEqual(response.status_code, 404)
+        self.assertTemplateUsed(response, "404.html")
 
     @vcr.use_cassette("fixtures/vcr_cassettes/test_ical_view.yaml")
     def test_ical_view(self):
@@ -120,6 +135,9 @@ class PostcodeViewTests(TestCase):
         assert '"utm_medium": "pytest"' in logging_message.message
         assert '"calls_devs_dc_api": true' in logging_message.message
 
+    @vcr.use_cassette(
+        "fixtures/vcr_cassettes/test_dc_logging_postcode_invalid.yaml"
+    )
     def test_dc_logging_postcode_invalid(self):
         with self.assertLogs(level="DEBUG") as captured:
             self.client.get(
