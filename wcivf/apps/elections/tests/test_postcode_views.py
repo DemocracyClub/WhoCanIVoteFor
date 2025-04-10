@@ -63,8 +63,8 @@ class PostcodeViewTests(TestCase):
         response = self.client.get(
             "/elections/WV15 6EG/www.somerset.gov.uk/", follow=True
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "home.html")
+        self.assertEqual(response.status_code, 404)
+        self.assertTemplateUsed(response, "404.html")
 
     @vcr.use_cassette("fixtures/vcr_cassettes/test_ical_view.yaml")
     def test_ical_view(self):

@@ -7,7 +7,11 @@ from django.conf import settings
 from django.core.cache import cache
 from django.db.models import Case, Count, F, IntegerField, Prefetch, When
 from django.db.models.functions import Coalesce
-from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
+from django.http import (
+    Http404,
+    HttpResponsePermanentRedirect,
+    HttpResponseRedirect,
+)
 from django.urls import reverse
 from django.views import View
 from elections.constants import (
@@ -34,10 +38,12 @@ class PostcodeToPostsMixin(object):
     def get(self, request, *args, **kwargs):
         try:
             context = self.get_context_data(**kwargs)
-        except (InvalidPostcodeError, InvalidUprnError):
+        except InvalidPostcodeError:
             return HttpResponseRedirect(
-                "/?invalid_postcode=1&postcode={}".format(self.postcode)
+                f"/?invalid_postcode=1&postcode={self.postcode}"
             )
+        except InvalidUprnError:
+            raise Http404()
 
         return self.render_to_response(context)
 

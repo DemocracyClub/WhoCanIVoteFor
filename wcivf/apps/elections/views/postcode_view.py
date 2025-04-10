@@ -3,7 +3,7 @@ from typing import Optional
 from administrations.helpers import AdministrationsHelper
 from core.helpers import clean_postcode
 from django.conf import settings
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.views.generic import TemplateView, View
 from elections.devs_dc_client import InvalidPostcodeError, InvalidUprnError
@@ -313,10 +313,12 @@ class PostcodeiCalView(
             self.ballot_dict = self.postcode_to_ballots(
                 postcode=postcode, uprn=uprn
             )
-        except (InvalidPostcodeError, InvalidUprnError):
+        except InvalidPostcodeError:
             return HttpResponseRedirect(
                 f"/?invalid_postcode=1&postcode={postcode}"
             )
+        except InvalidUprnError:
+            raise Http404()
 
         polling_station = self.ballot_dict.get("polling_station")
 
