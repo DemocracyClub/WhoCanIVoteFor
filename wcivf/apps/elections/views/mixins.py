@@ -15,9 +15,9 @@ from elections.constants import (
     UPDATED_SLUGS,
 )
 from elections.devs_dc_client import (
-    DevsDCAPIException,
     DevsDCClient,
     InvalidPostcodeError,
+    InvalidUprnError,
 )
 from hustings.models import Husting
 from leaflets.models import Leaflet
@@ -34,13 +34,7 @@ class PostcodeToPostsMixin(object):
     def get(self, request, *args, **kwargs):
         try:
             context = self.get_context_data(**kwargs)
-        except (InvalidPostcodeError, DevsDCAPIException) as e:
-            if (
-                isinstance(e, DevsDCAPIException)
-                and e.response.status_code > 400
-            ):
-                raise e
-
+        except (InvalidPostcodeError, InvalidUprnError):
             return HttpResponseRedirect(
                 "/?invalid_postcode=1&postcode={}".format(self.postcode)
             )

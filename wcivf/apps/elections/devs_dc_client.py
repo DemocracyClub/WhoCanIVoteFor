@@ -9,6 +9,10 @@ class InvalidPostcodeError(Exception):
     pass
 
 
+class InvalidUprnError(Exception):
+    pass
+
+
 class DevsDCAPIException(Exception):
     def __init__(self, response: requests.Response):
         try:
@@ -39,6 +43,10 @@ class DevsDCClient:
         if extra_params:
             default_params.update(**extra_params)
         resp = requests.get(url, params=default_params)
+        if path.startswith("postcode/") and resp.status_code == 400:
+            raise InvalidPostcodeError()
+        if path.startswith("address/") and resp.status_code == 404:
+            raise InvalidUprnError()
         if resp.status_code >= 400:
             raise DevsDCAPIException(response=resp)
         return resp.json()

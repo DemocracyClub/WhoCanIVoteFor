@@ -6,13 +6,12 @@ from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.views.generic import TemplateView, View
-from elections.devs_dc_client import InvalidPostcodeError
+from elections.devs_dc_client import InvalidPostcodeError, InvalidUprnError
 from elections.dummy_models import DummyPostElection, dummy_polling_station
 from elections.models import LOCAL_TZ
 from icalendar import Calendar, Event, vText
 from parishes.models import ParishCouncilElection
 
-from ..devs_dc_client import DevsDCAPIException
 from .mixins import (
     LogLookUpMixin,
     NewSlugsRedirectMixin,
@@ -69,7 +68,7 @@ class PostcodeView(
             ballot_dict = self.get_ballot_dict()
             context["address_picker"] = ballot_dict.get("address_picker")
             context["addresses"] = ballot_dict.get("addresses")
-        except (InvalidPostcodeError, DevsDCAPIException) as exception:
+        except (InvalidPostcodeError, InvalidUprnError) as exception:
             raise exception
 
         if (
@@ -314,7 +313,7 @@ class PostcodeiCalView(
             self.ballot_dict = self.postcode_to_ballots(
                 postcode=postcode, uprn=uprn
             )
-        except (InvalidPostcodeError, DevsDCAPIException):
+        except (InvalidPostcodeError, InvalidUprnError):
             return HttpResponseRedirect(
                 f"/?invalid_postcode=1&postcode={postcode}"
             )
