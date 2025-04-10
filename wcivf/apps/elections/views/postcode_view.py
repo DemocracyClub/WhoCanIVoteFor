@@ -64,12 +64,9 @@ class PostcodeView(
 
         context["postcode"] = self.postcode
 
-        try:
-            ballot_dict = self.get_ballot_dict()
-            context["address_picker"] = ballot_dict.get("address_picker")
-            context["addresses"] = ballot_dict.get("addresses")
-        except (InvalidPostcodeError, InvalidUprnError) as exception:
-            raise exception
+        ballot_dict = self.get_ballot_dict()
+        context["address_picker"] = ballot_dict.get("address_picker")
+        context["addresses"] = ballot_dict.get("addresses")
 
         if (
             not context["address_picker"]
