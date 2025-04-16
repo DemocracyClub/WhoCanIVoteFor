@@ -242,6 +242,12 @@ class Election(models.Model):
             "mayor.salford.2024-05-02": f"{s3_bucket}/2024-05-02/mayoral/mayor.salford.2024-05-02.pdf",
             "mayor.west-midlands.2024-05-02": f"{s3_bucket}/2024-05-02/mayoral/mayor.west-midlands.2024-05-02.pdf",
             "mayor.east-midlands-cca.2024-05-02": f"{s3_bucket}/2024-05-02/mayoral/mayor.east-midlands-cca.2024-05-02.pdf",
+            "mayor.cambridgeshire-and-peterborough.2025-05-01": f"{s3_bucket}/2025-05-01/mayoral/mayor.cambridgeshire-and-peterborough.2025-05-01.pdf",
+            "mayor.hull-and-east-yorkshire-ca.2025-05-01": f"{s3_bucket}/2025-05-01/mayoral/mayor.hull-and-east-yorkshire-ca.2025-05-01.pdf",
+            "mayor.west-of-england.2025-05-01": f"{s3_bucket}/2025-05-01/mayoral/mayor.west-of-england.2025-05-01.pdf",
+            "mayor.greater-lincolnshire-cca.2025-05-01": f"{s3_bucket}/2025-05-01/mayoral/mayor.greater-lincolnshire-cca.2025-05-01.pdf",
+            "mayor.doncaster.2025-05-01": f"{s3_bucket}/2025-05-01/mayoral/mayor.doncaster.2025-05-01.pdf",
+            "mayor.north-tyneside.2025-05-01": f"{s3_bucket}/2025-05-01/mayoral/mayor.north-tyneside.2025-05-01.pdf",
         }
 
         return election_to_booklet.get(self.slug)
