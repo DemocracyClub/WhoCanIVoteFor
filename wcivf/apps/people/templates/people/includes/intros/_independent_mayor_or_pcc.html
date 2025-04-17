@@ -4,12 +4,12 @@
 {% block intro_line %}
     {% if verb == "is" %}
         {% blocktrans trimmed %}
-            {{ person_name }} is the independent candidate for
+            {{ person_name }} is an independent candidate for
             <a href="{{ election_url }}" title="{{ election_name }}">{{ election_name }}</a>.
         {% endblocktrans %}
     {% else %}
         {% blocktrans trimmed %}
-            {{ person_name }} was the independent candidate for
+            {{ person_name }} was an independent candidate for
             <a href="{{ election_url }}" title="{{ election_name }}">{{ election_name }}</a>.
         {% endblocktrans %}
     {% endif %}
