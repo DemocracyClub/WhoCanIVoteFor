@@ -400,11 +400,8 @@ class Person(models.Model):
         if ballot.is_parliamentary:
             return f"{base}_parl.html"
 
-        if ballot.is_mayoral:
-            return f"{base}_mayor.html"
-
-        if ballot.is_pcc:
-            return f"{base}_pcc.html"
+        if ballot.is_mayoral or ballot.is_pcc:
+            return f"{base}_mayor_or_pcc.html"
 
         if ballot.is_constituency:
             return f"{base}_constituency.html"

@@ -77,12 +77,12 @@ class TestPersonModel(TestCase):
             # mayor
             (
                 create_person(election_type="mayor"),
-                "people/includes/intros/_mayor.html",
+                "people/includes/intros/_mayor_or_pcc.html",
             ),
             # pcc
             (
                 create_person(election_type="pcc"),
-                "people/includes/intros/_pcc.html",
+                "people/includes/intros/_mayor_or_pcc.html",
             ),
             # parl
             (
