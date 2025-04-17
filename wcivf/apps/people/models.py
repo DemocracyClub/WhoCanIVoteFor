@@ -391,6 +391,9 @@ class Person(models.Model):
         party = self.featured_candidacy.party
         ballot = self.featured_candidacy.post_election
 
+        if party.is_independent and (ballot.is_mayoral or ballot.is_pcc):
+            return f"{base}_independent_mayor_or_pcc.html"
+
         if party.is_independent:
             return f"{base}_independent.html"
 

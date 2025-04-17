@@ -1,0 +1,16 @@
+{% extends "people/includes/intros/base.html" %}
+{% load i18n %}
+
+{% block intro_line %}
+    {% if verb == "is" %}
+        {% blocktrans trimmed %}
+            {{ person_name }} is the independent candidate for
+            <a href="{{ election_url }}" title="{{ election_name }}">{{ election_name }}</a>.
+        {% endblocktrans %}
+    {% else %}
+        {% blocktrans trimmed %}
+            {{ person_name }} was the independent candidate for
+            <a href="{{ election_url }}" title="{{ election_name }}">{{ election_name }}</a>.
+        {% endblocktrans %}
+    {% endif %}
+{% endblock %}
