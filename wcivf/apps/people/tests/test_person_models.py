@@ -74,15 +74,25 @@ class TestPersonModel(TestCase):
                 create_person(party_name="Independent"),
                 "people/includes/intros/_independent.html",
             ),
+            # independent mayor
+            (
+                create_person(party_name="Independent", election_type="mayor"),
+                "people/includes/intros/_independent_mayor_or_pcc.html",
+            ),
+            # independent pcc
+            (
+                create_person(party_name="Independent", election_type="pcc"),
+                "people/includes/intros/_independent_mayor_or_pcc.html",
+            ),
             # mayor
             (
                 create_person(election_type="mayor"),
-                "people/includes/intros/_mayor.html",
+                "people/includes/intros/_mayor_or_pcc.html",
             ),
             # pcc
             (
                 create_person(election_type="pcc"),
-                "people/includes/intros/_pcc.html",
+                "people/includes/intros/_mayor_or_pcc.html",
             ),
             # parl
             (
