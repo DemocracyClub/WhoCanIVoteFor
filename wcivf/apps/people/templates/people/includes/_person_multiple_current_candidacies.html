@@ -1,0 +1,20 @@
+{% load i18n static %}
+
+<h5>{{ person_name }}
+    {% with party=candidacies.0.party %}
+        {% blocktrans trimmed with party_name=party.party_name party_link=party.get_absolute_url a_or_an=party.is_independent|yesno:_("an,a") %}
+            {{ verb }} {{ a_or_an }} <a href="{{ party_link }}">{{ party_name }}</a> candidate in the following elections:
+        {% endblocktrans %}
+    {% endwith %}
+</h5>
+
+{% for candidacy in candidacies %}
+    <ul>
+        <li>
+            {% blocktrans trimmed with election=candidacy.election.name %}{{ election }} for{% endblocktrans %}
+            <a href="{{ candidacy.post_election.get_absolute_url }}">
+                {{ candidacy.post_election.friendly_name }}
+            </a>
+        </li>
+    </ul>
+{% endfor %}

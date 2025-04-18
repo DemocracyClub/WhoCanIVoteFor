@@ -11,22 +11,10 @@
         Past elections will appear in the table below. 
         {% endcomment %}
         {% if object.future_candidacies.all.count > 1 %}
-            <h5>{{ object.name }}
-                {% blocktrans trimmed with party_name=object.future_candidacies.0.party_name a_or_an=object.future_candidacies.0.party.is_independent|yesno:_("an,a") party_link=object.future_candidacies.0.party.get_absolute_url %}
-                    is {{ a_or_an }} <a href="{{ party_link }}">{{ party_name }}</a> candidate in the following elections:
-                {% endblocktrans %}
-            </h5>
-
-            {% for candidacy in object.future_candidacies %}
-                <ul>
-                    <li>
-                        {% blocktrans trimmed with election=candidacy.election.name %}{{ election }} for{% endblocktrans %}
-                        <a href="{{ candidacy.post_election.get_absolute_url }}">
-                            {{ candidacy.post_election.friendly_name }}
-                        </a>
-                    </li>
-                </ul>
-            {% endfor %}
+            {% include "people/includes/_person_multiple_current_candidacies.html" with candidacies=object.future_candidacies person_name=object.name verb=object.get_verb %}
+            {% comment %} If there are no future elections, but > 1 current but past elections, list those {% endcomment %}
+        {% elif object.current_but_past_candidacies.all.count > 1 and not object.future_candidacies %}
+            {% include "people/includes/_person_multiple_current_candidacies.html" with candidacies=object.current_but_past_candidacies person_name=object.name verb=object.get_verb %}
             {% comment %} Otherwise, display the featured candidacy, whether it is current or not. {% endcomment %}
         {% else %}
             <p>
