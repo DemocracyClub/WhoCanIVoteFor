@@ -24,7 +24,7 @@ dependencies = [
     "django-dotenv==1.4.2",
     "akismet==24.5.1",
     "dc-design-system",
-    "boto3==1.36.11",
+    "boto3==1.37.38",
     "django-middleware-global-request==0.3.5",
     "nh3==0.2.21",
 ]
