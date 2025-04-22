@@ -15,6 +15,18 @@
             {% include "elections/includes/_cancelled_election.html" with object=postelection only %}
         {% else %}
 
+            {% if not postelection.cancelled and postelection.election.in_past%}
+                {% url "home_view" as home_view_url%}
+                {% blocktrans trimmed with time_since=postelection.election.election_date|timesince %}
+                    <div class="ds-status-message" >
+                        This election happened {{ time_since }} ago.
+                        <a href="{{ home_view_url }}">Enter your postcode</a>
+                        to find upcoming elections in your area.
+                    </div>
+                {% endblocktrans %}
+            {% endif %}
+
+
             {% if not postelection.is_pcc and not postelection.is_mayoral %}
                 <h3>{% if postelection.is_london_assembly_additional %}{% trans "Additional members" %}{% else %}{{ postelection.friendly_name }}{% endif %}</h3>
             {% endif %}
