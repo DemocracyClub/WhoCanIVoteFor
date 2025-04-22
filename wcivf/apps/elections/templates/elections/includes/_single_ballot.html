@@ -15,8 +15,8 @@
             {% include "elections/includes/_cancelled_election.html" with object=postelection only %}
         {% else %}
 
-            {% if not postelection.cancelled and postelection.election.in_past%}
-                {% url "home_view" as home_view_url%}
+            {% if not postelection.cancelled and postelection.election.in_past %}
+                {% url "home_view" as home_view_url %}
                 {% blocktrans trimmed with time_since=postelection.election.election_date|timesince %}
                     <div class="ds-status-message" >
                         This election happened {{ time_since }} ago.
