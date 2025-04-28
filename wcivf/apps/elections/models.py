@@ -268,7 +268,10 @@ class Election(models.Model):
             "parish": "parishes",
             "constituency": "constituencies",
         }
-        suffix = self.post_set.first().division_suffix
+        try:
+            suffix = self.post_set.first().division_suffix
+        except AttributeError:
+            suffix = None
 
         if not suffix:
             return "posts"
