@@ -114,11 +114,13 @@ class PartyListVew(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["ballot"] = PostElection.objects.get(
-            ballot_paper_id=self.kwargs["election"]
+        context["ballot"] = get_object_or_404(
+            PostElection, ballot_paper_id=self.kwargs["election"]
         )
 
-        context["party"] = Party.objects.get(party_id=self.kwargs["party_id"])
+        context["party"] = get_object_or_404(
+            Party, party_id=self.kwargs["party_id"]
+        )
 
         local_party_qs = LocalParty.objects.select_related("parent").filter(
             post_election=context["ballot"], parent=context["party"]
