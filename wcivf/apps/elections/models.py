@@ -264,11 +264,15 @@ class Election(models.Model):
         Returns a string for the pluralised divison name for the posts in the
         election
         """
+        first_post = self.post_set.first()
+        if not first_post:
+            return "posts"
+
         pluralise = {
             "parish": "parishes",
             "constituency": "constituencies",
         }
-        suffix = self.post_set.first().division_suffix
+        suffix = first_post.division_suffix
 
         if not suffix:
             return "posts"

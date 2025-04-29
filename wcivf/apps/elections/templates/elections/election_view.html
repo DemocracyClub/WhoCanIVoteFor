@@ -69,17 +69,19 @@
                     {% endif %}
                 {% endif %}
 
-                <h3>{% blocktrans trimmed with title=object.pluralized_division_name|title %} {{ title }}{% endblocktrans %}</h3>
-                <ul>
-                    {% for postelection in object.postelection_set.all %}
-                        <li>
-                            {% blocktrans trimmed with postelection_url=postelection.get_absolute_url post_label=postelection.post.label cancelled_message=postelection.short_cancelled_message_html %}
-                                <a href="{{ postelection_url }}">{{ post_label }}</a>
-                                {{ cancelled_message }}
-                            {% endblocktrans %}
-                        </li>
-                    {% endfor %}
-                </ul>
+                {% if object.postelection_set.exists %}
+                    <h3>{% blocktrans trimmed with title=object.pluralized_division_name|title %} {{ title }}{% endblocktrans %}</h3>
+                    <ul>
+                        {% for postelection in object.postelection_set.all %}
+                            <li>
+                                {% blocktrans trimmed with postelection_url=postelection.get_absolute_url post_label=postelection.post.label cancelled_message=postelection.short_cancelled_message_html %}
+                                    <a href="{{ postelection_url }}">{{ post_label }}</a>
+                                    {{ cancelled_message }}
+                                {% endblocktrans %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             {% endif %}
             <script type="application/ld+json">
                 {
