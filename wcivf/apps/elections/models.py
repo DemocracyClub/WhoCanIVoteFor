@@ -776,10 +776,10 @@ class PostElection(TimeStampedModel):
     def should_show_candidates(self):
         if not self.cancelled:
             return True
-        if not self.metadata:
-            return True
         if self.cancellation_reason in ["CANDIDATE_DEATH"]:
             return False
+        if not self.metadata:
+            return True
         return True
 
     @property
