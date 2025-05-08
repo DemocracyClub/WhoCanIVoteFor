@@ -340,7 +340,7 @@ workflows:
           vpc-id: vpc-0d23d243e8bff4415
           subnet-ids: "subnet-04caf1309c0ab8f94,subnet-06475e48c36b4aece,subnet-0895b7d4795fbb1f4"
           ssl-certificate-arn:  arn:aws:acm:us-east-1:705594574410:certificate/31f3f746-fd90-4c69-964d-091e8fa0cbfe
-          instance-type: c6a.large
+          instance-type: t3a.medium
           domain: "whocanivotefor.co.uk"
           requires:
           - build_and_test
