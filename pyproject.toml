@@ -19,7 +19,7 @@ dependencies = [
     "dc-logging-utils",
     "djangorestframework-jsonp==1.0.2",
     "feedparser==6.0.10",
-    "uk-election-timetables==4.2.3",
+    "uk-election-timetables==4.3.0",
     "uk-election-ids==0.9.1",
     "django-dotenv==1.4.2",
     "akismet==24.5.1",
