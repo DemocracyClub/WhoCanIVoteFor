@@ -5,8 +5,11 @@ Used for making sure meta tags and important information is actually
 shown before and after template changes.
 """
 
+from datetime import timedelta
+
 import pytest
 import vcr
+from dateutil.utils import today
 from dc_utils.tests.helpers import validate_html_str
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -94,3 +97,56 @@ class TestBaseTemplate(TestCase):
             req = self.client.get("/")
             assert req.status_code == 200
             assert "dc_base_naked.html" in (t.name for t in req.templates)
+
+
+class TestHomePageView(TestCase):
+    def test_home_page_smoke_test(self):
+        req = self.client.get("/")
+        self.assertEqual(req.status_code, 200)
+
+    def test_upcoming_elections(self):
+        """
+        Ensure that ballots replacing another ballot are included in the
+        upcoming elections list alongside by-elections.
+
+
+        These elections are useful to show outside scheduled elections, but
+        aren't by-elections.
+
+        """
+
+        election_with_by_election = ElectionFactory(
+            election_date=today(), current=True, any_non_by_elections=False
+        )
+        PostElectionFactory.create(
+            election=election_with_by_election,
+            ballot_paper_id="local.foo.bar.by.date",
+        )
+
+        old_election = ElectionFactory(
+            election_date=today() - timedelta(weeks=6),
+            current=False,
+            slug="local.baz.old_date",
+        )
+
+        election_with_replaced = ElectionFactory(
+            election_date=today(), current=True, slug="local.baz.date"
+        )
+
+        replaced_ballot = PostElectionFactory(
+            election=election_with_replaced,
+            ballot_paper_id="local.baz.replaced.date",
+            cancelled=False,
+        )
+        replaced_ballot.save()
+        PostElectionFactory(
+            election=old_election,
+            ballot_paper_id="local.baz.bar.old_date",
+            cancelled=True,
+            replaced_by=replaced_ballot,
+        ).save()
+
+        req = self.client.get("/")
+        self.assertContains(req, "local.foo.bar.by.date")
+        self.assertContains(req, "local.baz.replaced.date")
+        self.assertContains(req, "Upcoming Elections")

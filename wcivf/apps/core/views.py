@@ -3,6 +3,7 @@ import os
 
 from django import http
 from django.conf import settings
+from django.db.models import Q
 from django.urls import reverse
 from django.utils import timezone, translation
 from django.views.generic import FormView, TemplateView, View
@@ -79,8 +80,10 @@ class HomePageView(PostcodeFormView):
             PostElection.objects.filter(
                 election__election_date__gte=today,
                 election__election_date__lte=cut_off_date,
-                # Temporarily removed following May elections #
-                election__any_non_by_elections=False,
+            )
+            .filter(
+                Q(election__any_non_by_elections=False)
+                | Q(replaces__isnull=False),
             )
             # .exclude(election__election_date=may_election_day_this_year())
             .select_related("election", "post")
