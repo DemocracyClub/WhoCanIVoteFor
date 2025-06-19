@@ -200,8 +200,6 @@ class PollingStationInfoMixin(object):
         if not non_city_of_london_ballots:
             return {"show": False}
         next_ballot = non_city_of_london_ballots[0]
-        if next_ballot.ballot_paper_id.startswith("ref."):
-            return {"show": False}
         election = next_ballot.election
         country = next_ballot.post.territory
 
@@ -226,10 +224,7 @@ class PollingStationInfoMixin(object):
         if not post_elections:
             return {"show": False}
         next_ballot = post_elections[0]
-        if next_ballot.ballot_paper_id.startswith("ref."):
-            return {"show": False}
         election = next_ballot.election
-
         country = next_ballot.post.territory
 
         if not country:
