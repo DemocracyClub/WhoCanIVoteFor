@@ -150,3 +150,23 @@ class TestHomePageView(TestCase):
         self.assertContains(req, "local.foo.bar.by.date")
         self.assertContains(req, "local.baz.replaced.date")
         self.assertContains(req, "Upcoming Elections")
+
+    def test_ref_in_upcoming_elections(self):
+        """
+        Ensure that referendums show up in the home page list
+
+
+        """
+        referendum_election = ElectionFactory(
+            election_date=today(),
+            current=True,
+            # This will get marked as True by the importer
+            any_non_by_elections=True,
+            slug="ref.date",
+        )
+        PostElectionFactory.create(
+            election=referendum_election,
+            ballot_paper_id="ref.foo.date",
+        )
+        req = self.client.get("/")
+        self.assertContains(req, "ref.foo.date")

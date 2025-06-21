@@ -83,7 +83,8 @@ class HomePageView(PostcodeFormView):
             )
             .filter(
                 Q(election__any_non_by_elections=False)
-                | Q(replaces__isnull=False),
+                | Q(replaces__isnull=False)
+                | Q(ballot_paper_id__startswith="ref.")
             )
             # .exclude(election__election_date=may_election_day_this_year())
             .select_related("election", "post")
