@@ -107,6 +107,12 @@ edited in `sam-template.yaml` for this change to take effect.
 PDF booklets can be manually added here wcivf/assets/booklets following the same naming convention as the other booklets. The file name should be the same as the election slug.
 Then, add the slug and corresponding booklet file name to the list here /wcivf/apps/elections/models.py#L187.
 
+## Disable upcoming elections
+
+The home page shows a list of upcoming elections. We don't want this for 
+scheduled elections, so we need to set `SHOW_UPCOMING_ELECTIONS = False` in 
+settings.  
+
 # New WCIVF Google Sheets imports (Hustings, local parties)
 
 Peter will have set up some Google sheets in a known format. The CSV version of these sheets are imported in to WCIVF from time to time.
@@ -125,6 +131,10 @@ If you want to show the GB voter ID messaging, set `SHOW_GB_ID_MESSAGING = True`
 
 When we've got some results to show, you'll want to update `SHOW_RESULTS_CHART = True` in `settings/base.py`.
 You'll also need to grab the Flourish chart info and replace it in `/templates/home.html`. It should live inside the `{% if show_results_chart %}` block.
+
+## Enable upcoming elections
+
+Set `SHOW_UPCOMING_ELECTIONS = True` in settings. 
 
 ## Deployments
 

@@ -36,3 +36,5 @@ EMAIL_SIGNUP_BACKEND = "local_db"
 # GDAL_LIBRARY_PATH = "/opt/homebrew/Cellar/gdal/3.5.1_3/lib/libgdal.dylib"
 
 # GEOS_LIBRARY_PATH= '/opt/homebrew/Cellar/geos/3.11.0/lib/libgeos_c.1.17.0.dylib'
+
+SHOW_UPCOMING_ELECTIONS = True

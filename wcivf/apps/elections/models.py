@@ -5,7 +5,7 @@ import pytz
 from django.conf import settings
 from django.contrib.humanize.templatetags.humanize import apnumber
 from django.db import models
-from django.db.models import DateTimeField, JSONField
+from django.db.models import DateTimeField, JSONField, Q
 from django.db.models.functions import Greatest
 from django.template.defaultfilters import pluralize
 from django.urls import reverse
@@ -398,6 +398,28 @@ class PostElectionQuerySet(models.QuerySet):
             )
             .filter(last_updated__gt=date)
             .order_by("last_updated")
+        )
+
+    def home_page_upcoming_ballots(self):
+        """
+        Returns a queryset of ballots to show on the home page
+
+        """
+        today = datetime.datetime.today()
+        delta = datetime.timedelta(weeks=4)
+        cut_off_date = today + delta
+        return (
+            self.filter(
+                election__election_date__gte=today,
+                election__election_date__lte=cut_off_date,
+            )
+            .filter(
+                Q(election__any_non_by_elections=False)
+                | Q(replaces__isnull=False)
+                | Q(ballot_paper_id__startswith="ref.")
+            )
+            .select_related("election", "post")
+            .order_by("election__election_date")
         )
 
 
