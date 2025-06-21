@@ -68,7 +68,10 @@ class HomePageView(PostcodeFormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context["upcoming_elections"] = PostElection.objects.home_page_upcoming_ballots()
+        if getattr(settings, "SHOW_UPCOMING_ELECTIONS", True):
+            context[
+                "upcoming_elections"
+            ] = PostElection.objects.home_page_upcoming_ballots()
         polls_open = timezone.make_aware(
             datetime.datetime.strptime("2019-12-12 7", "%Y-%m-%d %H")
         )

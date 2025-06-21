@@ -99,6 +99,7 @@ class TestBaseTemplate(TestCase):
             assert "dc_base_naked.html" in (t.name for t in req.templates)
 
 
+@override_settings(SHOW_UPCOMING_ELECTIONS=True)
 class TestHomePageView(TestCase):
     def test_home_page_smoke_test(self):
         req = self.client.get("/")
