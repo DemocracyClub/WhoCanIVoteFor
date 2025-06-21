@@ -3,7 +3,6 @@ import os
 
 from django import http
 from django.conf import settings
-from django.db.models import Q
 from django.urls import reverse
 from django.utils import timezone, translation
 from django.views.generic import FormView, TemplateView, View
@@ -69,27 +68,7 @@ class HomePageView(PostcodeFormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # Comment in this code to hide upcoming elections on the homepage
-        # context["upcoming_elections"] = None
-
-        # # Comment in this code to show upcoming elections on the homepage
-        today = datetime.datetime.today()
-        delta = datetime.timedelta(weeks=4)
-        cut_off_date = today + delta
-        context["upcoming_elections"] = (
-            PostElection.objects.filter(
-                election__election_date__gte=today,
-                election__election_date__lte=cut_off_date,
-            )
-            .filter(
-                Q(election__any_non_by_elections=False)
-                | Q(replaces__isnull=False)
-                | Q(ballot_paper_id__startswith="ref.")
-            )
-            # .exclude(election__election_date=may_election_day_this_year())
-            .select_related("election", "post")
-            .order_by("election__election_date")
-        )
+        context["upcoming_elections"] = PostElection.objects.home_page_upcoming_ballots()
         polls_open = timezone.make_aware(
             datetime.datetime.strptime("2019-12-12 7", "%Y-%m-%d %H")
         )
