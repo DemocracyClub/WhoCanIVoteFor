@@ -18,7 +18,7 @@
                 On <strong>{{ referendum.date|date:"l j F Y" }}</strong>
             {% endif %},
             {% blocktrans trimmed with were_or_will_be=referendum.in_past|yesno:"were, will be" council_name=referendum.council_name %}
-                voters in <strong>{{ council_name }}</strong> able to vote in a governance referendum.
+                voters in <strong>{{ council_name }}</strong> {{ were_or_will_be }} able to vote in a governance referendum.
             {% endblocktrans %}
         </p>
         {% if referendum.in_past %}

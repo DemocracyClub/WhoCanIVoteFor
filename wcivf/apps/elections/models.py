@@ -489,7 +489,7 @@ class PostElection(TimeStampedModel):
             return get_election_timetable(
                 self.ballot_paper_id, self.post.territory
             ).sopn_publish_date
-        except AttributeError:
+        except (AttributeError, NotImplementedError):
             return None
 
     @property
