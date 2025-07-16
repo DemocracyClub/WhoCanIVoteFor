@@ -192,19 +192,35 @@ class TestPostElectionModel:
             == "Greater London Authority mayoral election"
         )
 
-    @pytest.mark.django_db
-    def test_is_constituency(self, post_election):
-        post_election.ballot_paper_id = "gla.c.2021-05-06"
-        assert post_election.is_constituency is True
-        post_election.ballot_paper_id = "senedd.c.2021-05-06"
-        assert post_election.is_constituency is True
-        post_election.ballot_paper_id = "sp.c.2021-05-06"
-        assert post_election.is_constituency is True
+    @pytest.mark.parametrize(
+        "ballot_paper_id,expected",
+        [
+            ("sp.c.division.2021-05-06", True),
+            ("gla.c.division.2021-05-06", True),
+            ("senedd.c.division.2021-05-06", True),
+            ("senedd.division.2021-05-06", True),
+            ("sp.r.division.2021-05-06", False),
+            ("senedd.r.division.2021-05-06", False),
+        ],
+    )
+    def test_is_constituency(self, post_election, ballot_paper_id, expected):
+        post_election.ballot_paper_id = ballot_paper_id
+        assert post_election.is_constituency == expected
 
-    @pytest.mark.django_db
-    def test_is_regional(self, post_election):
-        post_election.ballot_paper_id = "gla.c.2021-05-06"
-        assert post_election.is_regional is False
+    @pytest.mark.parametrize(
+        "ballot_paper_id,expected",
+        [
+            ("sp.r.division.2021-05-06", True),
+            ("senedd.r.division.2021-05-06", True),
+            ("sp.c.division.2021-05-06", False),
+            ("gla.c.division.2021-05-06", False),
+            ("senedd.c.division.2021-05-06", False),
+            ("senedd.division.2021-05-06", False),
+        ],
+    )
+    def test_is_regional(self, post_election, ballot_paper_id, expected):
+        post_election.ballot_paper_id = ballot_paper_id
+        assert post_election.is_regional == expected
 
     @pytest.mark.django_db
     @pytest.mark.freeze_time("2021-04-06")

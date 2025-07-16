@@ -591,11 +591,19 @@ class PostElection(TimeStampedModel):
 
     @property
     def is_constituency(self):
-        return self.ballot_paper_id.startswith(("gla.c", "senedd.c", "sp.c"))
+        if self.ballot_paper_id.startswith("senedd.r."):
+            return False
+        if self.ballot_paper_id.startswith(("gla.c.", "senedd.c.", "sp.c.")):
+            return True
+        if re.match(
+            r"^senedd\.[a-z\-]+.\d{4}-\d{2}-\d{2}$", self.ballot_paper_id
+        ):
+            return True
+        return False
 
     @property
     def is_regional(self):
-        return self.ballot_paper_id.startswith(("gla.r", "senedd.r", "sp.r"))
+        return self.ballot_paper_id.startswith(("senedd.r.", "sp.r."))
 
     @property
     def is_referendum(self):
