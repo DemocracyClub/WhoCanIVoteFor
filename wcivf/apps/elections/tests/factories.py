@@ -40,6 +40,7 @@ class PostFactory(factory.django.DjangoModelFactory):
     ynr_id = "WMC:E14000647"
     label = "copeland"
     organization_type = "local-authority"
+    territory = "ENG"
 
 
 class PostElectionFactory(factory.django.DjangoModelFactory):
