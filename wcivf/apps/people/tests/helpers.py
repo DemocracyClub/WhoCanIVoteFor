@@ -27,6 +27,11 @@ def create_person(
         any_non_by_elections=not by_election,
     )
 
+    if election_type == "local":
+        ballot_id = f"{election_type}.org.division{election.id}.{election_date}"
+    else:
+        ballot_id = f"{election_type}.division{election.id}.{election_date}"
+
     return PersonPostWithPartyFactory(
         election=election,
         person__name="Joe Bloggs",
@@ -36,6 +41,6 @@ def create_person(
         party_name=party_name,
         party__party_name=party_name,
         party__party_id=party_id,
-        post_election__ballot_paper_id=f"{election_type}.{election.slug}",
+        post_election__ballot_paper_id=ballot_id,
         **kwargs,
     )
