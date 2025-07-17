@@ -110,10 +110,6 @@ class TestPersonModel(TestCase):
                 "people/includes/intros/base.html",
             ),
             (
-                create_person(election_type="senedd"),
-                "people/includes/intros/base.html",
-            ),
-            (
                 create_person(election_type="europarl"),
                 "people/includes/intros/base.html",
             ),
@@ -136,7 +132,19 @@ class TestPersonModel(TestCase):
             ),
             # list,
             (
-                create_person(list_election=True),
+                create_person(election_type="gla.a", list_election=True),
+                "people/includes/intros/_list_ballot.html",
+            ),
+            (
+                create_person(election_type="senedd.r", list_election=True),
+                "people/includes/intros/_list_ballot.html",
+            ),
+            (
+                create_person(election_type="sp.r", list_election=True),
+                "people/includes/intros/_list_ballot.html",
+            ),
+            (
+                create_person(election_type="senedd", list_election=True),
                 "people/includes/intros/_list_ballot.html",
             ),
         ]
