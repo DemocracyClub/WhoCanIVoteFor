@@ -591,13 +591,11 @@ class PostElection(TimeStampedModel):
 
     @property
     def is_constituency(self):
-        if self.ballot_paper_id.startswith("senedd.r."):
-            return False
-        if self.ballot_paper_id.startswith(("gla.c.", "senedd.c.", "sp.c.")):
+        if self.ballot_paper_id.startswith("senedd."):
+            if self.ballot_paper_id.startswith("senedd.r."):
+                return False
             return True
-        if re.match(
-            r"^senedd\.[a-z\-]+.\d{4}-\d{2}-\d{2}$", self.ballot_paper_id
-        ):
+        if self.ballot_paper_id.startswith(("gla.c.", "senedd.c.", "sp.c.")):
             return True
         return False
 
