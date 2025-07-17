@@ -110,10 +110,6 @@ class TestPersonModel(TestCase):
                 "people/includes/intros/base.html",
             ),
             (
-                create_person(election_type="sp"),
-                "people/includes/intros/base.html",
-            ),
-            (
                 create_person(election_type="senedd"),
                 "people/includes/intros/base.html",
             ),
@@ -123,10 +119,6 @@ class TestPersonModel(TestCase):
             ),
             (
                 create_person(election_type="nia"),
-                "people/includes/intros/base.html",
-            ),
-            (
-                create_person(election_type="naw"),
                 "people/includes/intros/base.html",
             ),
             # constituency
