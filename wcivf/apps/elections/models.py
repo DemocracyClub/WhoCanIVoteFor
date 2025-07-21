@@ -280,6 +280,13 @@ class Election(models.Model):
         return pluralise.get(suffix, f"{suffix}s")
 
 
+class TerritoryCode(models.TextChoices):
+    ENG = ("ENG", "England")
+    NIR = ("NIR", "Northern Ireland")
+    SCT = ("SCT", "Scotland")
+    WLS = ("WLS", "Wales")
+
+
 class Post(models.Model):
     """
     A post has an election and candidates
@@ -312,7 +319,12 @@ class Post(models.Model):
     organization_type = models.CharField(blank=True, max_length=100)
     area_name = models.CharField(blank=True, max_length=100)
     area_id = models.CharField(blank=True, max_length=100)
-    territory = models.CharField(blank=True, max_length=3)
+    territory = models.CharField(
+        blank=False,
+        max_length=3,
+        choices=TerritoryCode.choices,
+        verbose_name="Territory",
+    )
     elections = models.ManyToManyField(
         Election, through="elections.PostElection"
     )
