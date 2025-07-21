@@ -10,7 +10,9 @@ post_map = {
 
 def fix_territory(apps, schema_editor):
     Post = apps.get_model("elections", "Post")
-    posts = Post.objects.exclude(territory__in=["ENG", "WLS", "NIR", "SCT"])
+    posts = Post.objects.using(schema_editor.connection.alias).exclude(
+        territory__in=["ENG", "WLS", "NIR", "SCT"]
+    )
     for post in posts:
         if not post.ynr_id.startswith("gss:"):
             raise ValueError(f"Can't infer territory for post {post.ynr_id}")
