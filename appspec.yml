@@ -64,9 +64,6 @@ hooks:
     - location: deploy/after_install/compilemessages.sh
       timeout: 300
       runas: wcivf
-    - location: deploy/after_install/install_crontab.sh
-      timeout: 300
-      runas: root
 # During the ApplicationStart deployment lifecycle event, run the commands
 #   in the script specified in "location".
   ApplicationStart:
