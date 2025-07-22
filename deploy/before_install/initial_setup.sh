@@ -26,7 +26,7 @@ systemd-run --property="After=apt-daily.service apt-daily-upgrade.service" --wai
 apt-get purge --yes unattended-upgrades
 
 # Install apt packages
-apt-get install --yes nodejs npm gettext redis-server ec2-instance-connect postgresql-client postgresql-common python3-dev libpq-dev gdal-bin libproj-dev jq postgresql-16
+apt-get install --yes nodejs npm gettext redis-server ec2-instance-connect postgresql-client postgresql-common python3-dev libpq-dev jq postgresql-16
 
 # Cloudwatch agent
 mkdir -p /tmp/cloudwatch-logs
