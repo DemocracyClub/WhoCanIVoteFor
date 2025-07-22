@@ -17,8 +17,6 @@ SUBSCRIPTION=${USER}_${INSTANCE_ID:2}
 # Set up DB and enable PostGIS
 dropdb --if-exists "$DB" -U "$USER"
 createdb "$DB" -U "$USER"
-psql "$DB" -U "$USER" -c 'create extension postgis;'
-
 
 # Activate Virtual env
 source /var/www/wcivf/code/.venv/bin/activate
@@ -27,10 +25,8 @@ source /var/www/wcivf/code/.venv/bin/activate
 IGNORE_ROUTERS=True /var/www/wcivf/code/manage.py migrate --run-syncdb
 IGNORE_ROUTERS=True /var/www/wcivf/code/manage.py truncate_replicated_tables
 
-
-
 # Truncate some tables that are populated by the above steps
-psql "$DB" -U "$USER" -c 'TRUNCATE "spatial_ref_sys", "auth_permission", "django_migrations", "django_content_type", "django_site" RESTART IDENTITY CASCADE;'
+psql "$DB" -U "$USER" -c 'TRUNCATE "auth_permission", "django_migrations", "django_content_type", "django_site" RESTART IDENTITY CASCADE;'
 psql "$DB" -U "$USER" -c 'alter table elections_votingsystem drop constraint elections_votingsystem_pkey cascade;'
 psql "$DB" -U "$USER" -c 'TRUNCATE elections_votingsystem RESTART IDENTITY CASCADE;'
 
