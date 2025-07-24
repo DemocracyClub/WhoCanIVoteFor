@@ -26,7 +26,7 @@ systemd-run --property="After=apt-daily.service apt-daily-upgrade.service" --wai
 apt-get purge --yes unattended-upgrades
 
 # Install apt packages
-apt-get install --yes postgresql-16
+apt-get install --yes postgresql-16 redis-server
 
 # Cloudwatch agent
 mkdir -p /tmp/cloudwatch-logs
