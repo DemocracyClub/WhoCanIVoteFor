@@ -13,7 +13,7 @@ FOUND_USEFUL_CHOICES = (
 VOTE_CHOICES = (
     ("MORE_LIKELY", _("More likely")),
     ("LESS_LIKELY", _("Less likely")),
-    ("NO_DIFFERENCE", _("I always vote (no change)")),
+    ("NO_DIFFERENCE", _("No change")),
 )
 
 
