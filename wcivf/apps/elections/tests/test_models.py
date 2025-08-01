@@ -1,8 +1,10 @@
 import datetime
 
 import pytest
+from django.core.exceptions import ValidationError
+from django.db.utils import IntegrityError
 from django.utils import timezone
-from elections.models import Election, Post, PostElection
+from elections.models import ByElectionReason, Election, Post, PostElection
 from elections.tests.factories import (
     ElectionFactoryLazySlug,
     ElectionWithPostFactory,
@@ -477,3 +479,26 @@ class TestPostElectionModel:
         newer_ballot = PostElectionFactory()
         newer_ballot.ballot_paper_id = "parl.place.2025-01-01"
         assert newer_ballot.get_postal_voting_requirements == "EA-2022"
+
+    def test_by_election_reason_default(self, db):
+        by_election = PostElectionFactory()
+        assert by_election.by_election_reason == ""
+
+    def test_by_election_reason_cant_be_null(self, db):
+        with pytest.raises(IntegrityError):
+            PostElectionFactory(by_election_reason=None)
+
+    def test_by_election_reason_valid_choices(self, db):
+        by_election = PostElectionFactory(by_election_reason="DEATH")
+        by_election.full_clean(exclude=["metadata", "wikipedia_bio"])
+        assert (
+            by_election.get_by_election_reason_display()
+            == ByElectionReason.DEATH.label
+        )
+
+    def test_by_election_invalid_reason(self, db):
+        by_election = PostElectionFactory(
+            by_election_reason="DIDNT_FEEL_LIKE_IT"
+        )
+        with pytest.raises(ValidationError):
+            by_election.full_clean()
