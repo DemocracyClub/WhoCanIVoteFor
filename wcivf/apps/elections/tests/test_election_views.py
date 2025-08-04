@@ -6,7 +6,7 @@ import pytest
 from django.shortcuts import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
-from elections.models import Post
+from elections.models import ByElectionReason, Post
 from elections.tests.factories import (
     ElectionFactory,
     ElectionFactoryLazySlug,
@@ -483,6 +483,49 @@ class ElectionPostViewTests(TestCase):
             "This candidate has been deselected by their party",
         )
         self.assertContains(response, "Learn more")
+
+    def test_by_election_reason_not_shown_when_empty(self):
+        response = self.client.get(
+            self.post_election.get_absolute_url(), follow=True
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "elections/post_view.html")
+        self.assertNotContains(response, "By-election reason:")
+
+    def test_by_election_reason_not_shown_when_other(self):
+        self.post_election.by_election_reason = "OTHER"
+        self.post_election.save()
+        response = self.client.get(
+            self.post_election.get_absolute_url(), follow=True
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "elections/post_view.html")
+        self.assertNotContains(response, "By-election reason:")
+
+    def test_by_election_reason_shown_with_valid_reason(self):
+        # Get all reasons except OTHER, UNKNOWN and NOT_APPLICABLE
+        valid_reasons = [
+            choice
+            for choice in ByElectionReason.choices
+            if choice[0] not in ("OTHER", "UNKNOWN", "")
+        ]
+
+        for reason_code, reason_display in valid_reasons:
+            with self.subTest():
+                self.post_election.by_election_reason = reason_code
+                self.post_election.save()
+                response = self.client.get(
+                    self.post_election.get_absolute_url(), follow=True
+                )
+                self.assertEqual(response.status_code, 200)
+                self.assertTemplateUsed(response, "elections/post_view.html")
+                self.assertTemplateUsed(
+                    response, "elections/includes/_by_election_reason.html"
+                )
+                self.assertContains(
+                    response, "This by-election was called because"
+                )
+                self.assertContains(response, reason_display.lower())
 
 
 @pytest.mark.django_db

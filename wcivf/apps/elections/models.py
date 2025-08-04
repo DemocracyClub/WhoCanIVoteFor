@@ -781,6 +781,19 @@ class PostElection(TimeStampedModel):
         return mark_safe(message)
 
     @property
+    def by_election_reason_text(self):
+        if self.by_election_reason in [
+            ByElectionReason.UNKNOWN,
+            ByElectionReason.OTHER,
+            ByElectionReason.NOT_APPLICABLE,
+        ]:
+            return ""
+
+        return _("This by-election was called because %(reason)s.") % {
+            "reason": self.get_by_election_reason_display().lower()
+        }
+
+    @property
     def get_voting_system(self):
         if self.voting_system:
             return self.voting_system
