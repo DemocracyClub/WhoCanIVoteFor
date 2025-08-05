@@ -25,12 +25,14 @@ clean: ## Delete any unneeded static asset files and git-restore the rendered AP
 
 .PHONY: lambda-migrate
 lambda-migrate:  ## Invoke lambda to migrate the database
-	aws lambda invoke \
-	--function-name WCIVFControllerFunction \
-	--payload '{ "command": "migrate" }' \
-	--cli-binary-format raw-in-base64-out \
-	/dev/stdout | grep --invert-match 'FunctionError'
-
+	output=$$(aws lambda invoke \
+		--function-name WCIVFControllerFunction \
+		--payload '{ "command": "migrate", "args": ["--no-input"] }' \
+		--cli-binary-format raw-in-base64-out \
+		--output json \
+		/dev/stdout); \
+	echo "$$output"; \
+	echo "$$output" | grep -q '"FunctionError"' && exit 1 || exit 0
 
 lib/dc_utils:
 	mkdir -p lib
