@@ -492,12 +492,12 @@ class PostElection(TimeStampedModel):
         related_name="replaces",
         on_delete=models.CASCADE,
     )
-    metadata = JSONField(null=True)
+    metadata = JSONField(null=True, blank=True)
     voting_system = models.ForeignKey(
         "VotingSystem", null=True, blank=True, on_delete=models.CASCADE
     )
     wikipedia_url = models.CharField(blank=True, null=True, max_length=800)
-    wikipedia_bio = models.TextField(null=True)
+    wikipedia_bio = models.TextField(null=True, blank=True)
     ynr_modified = models.DateTimeField(
         blank=True,
         null=True,
