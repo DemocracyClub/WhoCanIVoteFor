@@ -73,6 +73,7 @@ class TestAPISearchViews(APITestCase):
                 "ballot_locked": False,
                 "hustings": None,
                 "last_updated": "2023-01-01T00:00:00Z",
+                "by_election_reason": "",
                 "candidates": [
                     {
                         "list_position": None,

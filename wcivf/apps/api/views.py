@@ -105,6 +105,7 @@ class BaseCandidatesAndElectionsViewSet(
                 "last_updated": getattr(
                     postelection, "last_updated", postelection.modified
                 ),
+                "by_election_reason": postelection.by_election_reason,
             }
             if postelection.replaced_by:
                 election[
