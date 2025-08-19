@@ -31,21 +31,23 @@
         <div class="ds-card-body">
             <h3>{{ object.nice_election_name }}</h3>
 
-            <p>
-                {% if object.is_election_day %}
-                    {% blocktrans trimmed with election=object.nice_election_name %}The {{ election }}
-                        <strong>is being held today</strong>. Polls are open from{% endblocktrans %} {{ object.polls_open|time:"ga" }} {% trans "till" %} {{ object.polls_close|time:"ga" }}
-                {% elif object.in_past %}
-                    {% comment %} TO DO: Change text when the election is "tomorrow" {% endcomment %}
-                    {% blocktrans trimmed with election_date=object.election_date|naturalday:"\o\n l j F Y" %}
-                        This election was held <strong>{{ election_date }}</strong>.
-                    {% endblocktrans %}
-                {% else %}
-                    {% blocktrans trimmed with election_date=object.election_date|naturalday:"\o\n l j F Y" %}
-                        This election will be held on <strong>{{ election_date }}</strong>.
-                    {% endblocktrans %}
-                {% endif %}
-            </p>
+            <div data-nosnippet>
+                <p>
+                    {% if object.is_election_day %}
+                        {% blocktrans trimmed with election=object.nice_election_name %}The {{ election }}
+                            <strong>is being held today</strong>. Polls are open from{% endblocktrans %} {{ object.polls_open|time:"ga" }} {% trans "till" %} {{ object.polls_close|time:"ga" }}
+                    {% elif object.in_past %}
+                      {% comment %} TO DO: Change text when the election is "tomorrow" {% endcomment %}
+                        {% blocktrans trimmed with election_date=object.election_date|naturalday:"\o\n l j F Y" %}
+                            This election was held <strong>{{ election_date }}</strong>.
+                        {% endblocktrans %}
+                    {% else %}
+                        {% blocktrans trimmed with election_date=object.election_date|naturalday:"\o\n l j F Y" %}
+                            This election will be held on <strong>{{ election_date }}</strong>.
+                        {% endblocktrans %}
+                    {% endif %}
+                </p>
+            </div>
             {% if object.election_type != "ref" %}
                 {% if election.person_set.count %}
                     <p>

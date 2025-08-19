@@ -38,22 +38,24 @@
             {% endif %}
 
             <p>
-                {% if postelection.election.is_election_day %}
-                    {% blocktrans trimmed with open_time=postelection.election.polls_open|time:"ga" close_time=postelection.election.polls_close|time:"ga" %}
-                        This election <strong>is being held today</strong>. Polls are open from {{ open_time }} till {{ close_time }}
-                    {% endblocktrans %}
+                <div data-nosnippet>
+                    {% if postelection.election.is_election_day %}
+                        {% blocktrans trimmed with open_time=postelection.election.polls_open|time:"ga" close_time=postelection.election.polls_close|time:"ga" %}
+                            This election <strong>is being held today</strong>. Polls are open from {{ open_time }} till {{ close_time }}
+                        {% endblocktrans %}
 
-                {% else %}
-                    {% if postelection.election.in_past %}
-                        {% blocktrans trimmed with election_date=postelection.election.election_date|naturalday:"\o\n l j F Y" %}
-                            This election was held <strong>{{ election_date }}</strong>.
-                        {% endblocktrans %}
                     {% else %}
-                        {% blocktrans trimmed with election_date=postelection.election.election_date|naturalday:"\o\n l j F Y" %}
-                            This election will be held <strong>{{ election_date }}</strong>.
-                        {% endblocktrans %}
+                        {% if postelection.election.in_past %}
+                            {% blocktrans trimmed with election_date=postelection.election.election_date|naturalday:"\o\n l j F Y" %}
+                                This election was held <strong>{{ election_date }}</strong>.
+                            {% endblocktrans %}
+                        {% else %}
+                            {% blocktrans trimmed with election_date=postelection.election.election_date|naturalday:"\o\n l j F Y" %}
+                                This election will be held <strong>{{ election_date }}</strong>.
+                            {% endblocktrans %}
+                        {% endif %}
                     {% endif %}
-                {% endif %}
+                </div>
             </p>
 
             {% if object.election.slug == "europarl.2019-05-23"%}
