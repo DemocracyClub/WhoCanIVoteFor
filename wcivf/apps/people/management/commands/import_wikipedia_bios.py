@@ -32,7 +32,7 @@ class Command(BaseCommand):
             ballot_paper_id__startswith="parl."
         )
         if options["current"]:
-            parl_ballots.filter(election__current=True)
+            parl_ballots = parl_ballots.filter(election__current=True)
 
         for ballot in parl_ballots:
             start = ".".join(ballot.ballot_paper_id.split(".")[:-1]) + "."
