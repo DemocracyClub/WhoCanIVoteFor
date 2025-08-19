@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block page_title %}{{ object.name }}{% endblock page_title %}
-{% block og_title_content  %}{{ object.name }}{% endblock og_title_content  %}
+{% block og_title_content %}{{ object.name }}{% endblock og_title_content %}
 {% block og_description_content %}
     {% if object.in_past %}
         {% blocktrans trimmed with election=object.name date=object.election_date|date:"j M Y"  %}The {{ election }} was held on {{ date }}.{% endblocktrans %}
@@ -12,7 +12,7 @@
     {% endif %}
 {% endblock og_description_content %}
 
-{% block twitter_title_content %}{{ object.name }}{% endblock twitter_title_content %}>
+{% block twitter_title_content %}{{ object.name }}{% endblock twitter_title_content %}
 
 {% block twitter_description_content %}
     {% if object.in_past %}
@@ -20,7 +20,7 @@
     {% else %}
         {% blocktrans trimmed with election=object.name date=object.election_date|date:"j M Y" %}The {{ election }} will be held on {{ date }}.{% endblocktrans %}
     {% endif %}
-{% endblock twitter_description_content %}/>
+{% endblock twitter_description_content %}
 
 
 {% block content %}
