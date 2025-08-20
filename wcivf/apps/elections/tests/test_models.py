@@ -1,8 +1,10 @@
 import datetime
 
 import pytest
+from django.core.exceptions import ValidationError
+from django.db.utils import IntegrityError
 from django.utils import timezone
-from elections.models import Election, Post, PostElection
+from elections.models import ByElectionReason, Election, Post, PostElection
 from elections.tests.factories import (
     ElectionFactoryLazySlug,
     ElectionWithPostFactory,
@@ -477,3 +479,69 @@ class TestPostElectionModel:
         newer_ballot = PostElectionFactory()
         newer_ballot.ballot_paper_id = "parl.place.2025-01-01"
         assert newer_ballot.get_postal_voting_requirements == "EA-2022"
+
+    def test_by_election_reason_default(self, db):
+        by_election = PostElectionFactory()
+        assert by_election.by_election_reason == ""
+
+    def test_by_election_reason_cant_be_null(self, db):
+        with pytest.raises(IntegrityError):
+            PostElectionFactory(by_election_reason=None)
+
+    def test_by_election_reason_valid_choices(self, db):
+        by_election = PostElectionFactory(by_election_reason="DEATH")
+        by_election.full_clean(exclude=["metadata", "wikipedia_bio"])
+        assert (
+            by_election.get_by_election_reason_display()
+            == ByElectionReason.DEATH.label
+        )
+
+    def test_by_election_invalid_reason(self, db):
+        by_election = PostElectionFactory(
+            by_election_reason="DIDNT_FEEL_LIKE_IT"
+        )
+        with pytest.raises(ValidationError):
+            by_election.full_clean()
+
+    @pytest.mark.parametrize(
+        "reason,expected_text",
+        [
+            (ByElectionReason.UNKNOWN, ""),
+            (ByElectionReason.OTHER, ""),
+            (
+                ByElectionReason.DEATH,
+                "This by-election was called because the elected member died.",
+            ),
+            (
+                ByElectionReason.RESIGNATION,
+                "This by-election was called because the elected member resigned.",
+            ),
+            (
+                ByElectionReason.ELECTORAL_COURT,
+                "This by-election was called because the election of the elected member was declared void by an election court.",
+            ),
+            (
+                ByElectionReason.FAILURE_TO_ACCEPT,
+                "This by-election was called because the previous election winner did not sign a declaration of acceptance.",
+            ),
+            (
+                ByElectionReason.FAILURE_TO_ATTEND_MEETINGS,
+                "This by-election was called because the elected member failed to attend meetings for six months.",
+            ),
+            (
+                ByElectionReason.DISQUALIFICATION,
+                "This by-election was called because the elected member was disqualified.",
+            ),
+            (
+                ByElectionReason.LOSING_QUALIFICATION,
+                "This by-election was called because the elected member no longer qualified as a registered elector.",
+            ),
+            (
+                ByElectionReason.RECALL_PETITION,
+                "This by-election was called because the elected member was recalled by a successful recall petition.",
+            ),
+        ],
+    )
+    def test_by_election_reason_text(self, reason, expected_text, db):
+        post_election = PostElectionFactory(by_election_reason=reason)
+        assert post_election.by_election_reason_text == expected_text
