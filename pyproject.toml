@@ -31,7 +31,7 @@ dependencies = [
 
 [tool.uv.sources]
 dc-design-system = { git = "https://github.com/DemocracyClub/design-system.git", tag = "0.7.0" }
-dc-django-utils = { git = "https://github.com/DemocracyClub/dc_django_utils.git", tag = "8.0.1" }
+dc-django-utils = { git = "https://github.com/DemocracyClub/dc_django_utils.git", tag = "8.0.3" }
 dc-logging-utils = { git = "https://github.com/DemocracyClub/dc_logging.git", tag = "1.1.0" }
 
 [tool.uv]

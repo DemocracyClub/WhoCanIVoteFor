@@ -216,8 +216,8 @@ source = { git = "https://github.com/DemocracyClub/design-system.git?tag=0.7.0#9
 
 [[package]]
 name = "dc-django-utils"
-version = "8.0.1"
-source = { git = "https://github.com/DemocracyClub/dc_django_utils.git?tag=8.0.1#d140e554cd3f62541036464fb8d515fa212e4b46" }
+version = "8.0.3"
+source = { git = "https://github.com/DemocracyClub/dc_django_utils.git?tag=8.0.3#a9319366d3351c639e5129d11452bab68824287f" }
 dependencies = [
     { name = "django" },
     { name = "django-localflavor" },
@@ -1455,7 +1455,7 @@ requires-dist = [
     { name = "akismet", specifier = "==24.5.1" },
     { name = "boto3", specifier = "==1.36.11" },
     { name = "dc-design-system", git = "https://github.com/DemocracyClub/design-system.git?tag=0.7.0" },
-    { name = "dc-django-utils", git = "https://github.com/DemocracyClub/dc_django_utils.git?tag=8.0.1" },
+    { name = "dc-django-utils", git = "https://github.com/DemocracyClub/dc_django_utils.git?tag=8.0.3" },
     { name = "dc-logging-utils", git = "https://github.com/DemocracyClub/dc_logging.git?tag=1.1.0" },
     { name = "django", specifier = "==4.2.20" },
     { name = "django-dotenv", specifier = "==1.4.2" },
