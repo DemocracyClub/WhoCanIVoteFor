@@ -44,7 +44,7 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v7-dependencies-{{ checksum "uv.lock" }}
+          - v8-dependencies-{{ checksum "uv.lock" }}
       - run:
           name: Install UV
           command: deploy/files/scripts/install-uv.sh
@@ -102,9 +102,8 @@ jobs:
           command: uv cache prune --ci
       - save_cache:
           paths:
-            - ./.venv
             - $HOME/.cache/uv
-          key: v7-dependencies-{{ checksum "uv.lock" }}
+          key: v8-dependencies-{{ checksum "uv.lock" }}
 
 
   sam_build:
@@ -149,7 +148,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v7-dependencies-{{ checksum "uv.lock" }}
+          - v8-dependencies-{{ checksum "uv.lock" }}
       - attach_workspace:
           at: ~/repo/
       - run: echo <<parameters.instance-type>>
@@ -191,7 +190,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v7-dependencies-{{ checksum "uv.lock" }}
+            - v8-dependencies-{{ checksum "uv.lock" }}
       - attach_workspace:
           at: ~/repo/
       - run:
@@ -231,7 +230,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v7-dependencies-{{ checksum "uv.lock" }}
+          - v8-dependencies-{{ checksum "uv.lock" }}
       - attach_workspace:
           at: ~/repo/
       - run:
