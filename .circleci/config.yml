@@ -200,7 +200,7 @@ jobs:
       - aws-cli/setup
       - run:
           name: post deploy tests
-          command: uv run pytest -sx ~/repo/.circleci/
+          command: uv run --group deploy pytest -sx ~/repo/.circleci/
       - run:
           name: migrate the database
           command: |
