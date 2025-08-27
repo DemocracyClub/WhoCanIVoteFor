@@ -36,6 +36,7 @@ dc-logging-utils = { git = "https://github.com/DemocracyClub/dc_logging.git", ta
 
 [tool.uv]
 package = false
+required-version = "==0.8.*"
 
 [dependency-groups]
 deploy = [
