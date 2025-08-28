@@ -35,3 +35,14 @@ class Feedback(TimeStampedModel):
         blank=True, max_length=100, default=generate_feedback_token
     )
     flagged_as_spam = models.BooleanField(default=False)
+
+
+class NoElectionFeedback(TimeStampedModel):
+    no_election_feedback_text = models.TextField(blank=True)
+    source_url = models.CharField(
+        blank=True, max_length=800, default=settings.CANONICAL_URL
+    )
+    token = models.CharField(
+        blank=True, max_length=100, default=generate_feedback_token
+    )
+    flagged_as_spam = models.BooleanField(default=False)
