@@ -7,8 +7,8 @@ from django.utils import timezone
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.generic import UpdateView, View
 
-from .forms import FeedbackForm
-from .models import Feedback
+from .forms import FeedbackForm, NoElectionFeedbackForm
+from .models import Feedback, NoElectionFeedback
 
 
 class FeedbackFormView(UpdateView):
@@ -80,6 +80,22 @@ class FeedbackFormView(UpdateView):
                 % err,
             )
         return super().form_invalid(form)
+
+
+class NoElectionFeedbackFormView(FeedbackFormView):
+    form_class = NoElectionFeedbackForm
+    template_name = "feedback/feedback_form_view.html"
+
+    def get_object(self, queryset=None):
+        token = self.request.POST.get("token")
+        try:
+            return NoElectionFeedback.objects.get(
+                token=token, created__date=timezone.datetime.today()
+            )
+        except NoElectionFeedback.DoesNotExist:
+            if token:
+                return NoElectionFeedback(token=token)
+            return NoElectionFeedback()
 
 
 class RecordJsonFeedback(View):
