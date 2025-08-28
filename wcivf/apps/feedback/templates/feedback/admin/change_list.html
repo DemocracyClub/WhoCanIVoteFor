@@ -5,8 +5,12 @@
             {% if has_add_permission %}
                 {{ block.super }}
             {% endif %}
-            <li><a href='{% url "admin:feedback_export_all" %}' class="import_link">Export All</a></li>
-            <li><a href='{% url "admin:feedback_export_comments" %}' class="import_link">Export with comments</a></li>
+            {% if module_name == "No Election Page Feedback" %}
+                <li><a href='{% url "admin:no_election_feedback_export_all" %}' class="import_link">Export All</a></li>
+            {% else %}
+                <li><a href='{% url "admin:feedback_export_all" %}' class="import_link">Export All</a></li>
+                <li><a href='{% url "admin:feedback_export_comments" %}' class="import_link">Export with comments</a></li>
+            {% endif %}
         {% endblock %}
     </ul>
 {% endblock %}
