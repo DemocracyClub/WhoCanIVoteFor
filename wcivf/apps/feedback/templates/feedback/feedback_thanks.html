@@ -2,22 +2,23 @@
 {% load i18n %}
 <div class="ds-status">
     <h3>{% trans "Thanks for your feedback!" %}</h3>
+    {% if object.found_useful %}
+        <aside class="ds-status messages" aria-label="Status" style="color: white">
+            <ul class="ds-stack">
+                <li class="ds-status-message">
+                    {% if object.found_useful == "YES" %}
+                        {% blocktrans trimmed %}
+                            <p>The information you see here is gathered publicly, by people like you.</p>
+                        {% endblocktrans %}
+                    {% else %}
+                        {% blocktrans trimmed %}
+                            <p>We're sorry you didn't find what you were looking for. We'll read your feedback and pass it on to our volunteers.</p>
 
-    <aside class="ds-status messages" aria-label="Status" style="color: white">
-        <ul class="ds-stack">
-            <li class="ds-status-message">
-                {% if object.found_useful == "YES" %}
-                    {% blocktrans trimmed %}
-                        <p>The information you see here is gathered publicly, by people like you.</p>
-                    {% endblocktrans %}
-                {% else %}
-                    {% blocktrans trimmed %}
-                        <p>We're sorry you didn't find what you were looking for. We'll read your feedback and pass it on to our volunteers.</p>
-
-                        <p>The information you see here is gathered publicly, by people like you.</p>
-                    {% endblocktrans %}
-                {% endif %}
-            </li>
-        </ul>
-    </aside>
+                            <p>The information you see here is gathered publicly, by people like you.</p>
+                        {% endblocktrans %}
+                    {% endif %}
+                </li>
+            </ul>
+        </aside>
+    {% endif %}
 </div>
