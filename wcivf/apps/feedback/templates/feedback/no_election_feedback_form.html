@@ -1,0 +1,31 @@
+{% load i18n %}
+{% load static %}
+
+<style>
+    .link-button {
+        color: #403F41;
+        border-color: #E6007C;
+        @media (max-width: 576px) {
+            display: block;
+            margin-bottom: 10px;
+        }
+    }
+</style>
+
+<div>
+    <form id="no_election_feedback_form" method="post" action="{% url 'no_election_feedback_form_view' %}">
+        <div id="no_election_feedback_text" class="ds-field">
+            <label
+                for="{{ no_election_feedback_form.no_election_feedback_text.id_for_label }}"
+            >
+                {% trans "Why did you search today? What would make this more useful?" %}
+                <small>{% trans "Please don't provide any personal details" %} </small>
+            </label>
+            {{ no_election_feedback_form.no_election_feedback_text }}
+        </div>
+        <button type="submit" class="ds-button-pink">{% trans "Send feedback" %}</button>
+        {% csrf_token %}
+        {{ no_election_feedback_form.token }}
+        {{ no_election_feedback_form.source_url }}
+    </form>
+</div>

@@ -4,6 +4,7 @@ from .models import (
     FOUND_USEFUL_CHOICES,
     VOTE_CHOICES,
     Feedback,
+    NoElectionFeedback,
     generate_feedback_token,
 )
 
@@ -27,5 +28,27 @@ class FeedbackForm(forms.ModelForm):
         required=False,
     )
     email = forms.EmailField(required=False)
+    source_url = forms.CharField(widget=forms.HiddenInput())
+    token = forms.CharField(widget=forms.HiddenInput())
+
+
+class NoElectionFeedbackForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(NoElectionFeedbackForm, self).__init__(*args, **kwargs)
+        self.fields["token"].initial = generate_feedback_token()
+
+    class Meta:
+        model = NoElectionFeedback
+        fields = ["no_election_feedback_text", "source_url"]
+
+    no_election_feedback_text = forms.CharField(
+        widget=forms.Textarea(
+            attrs={
+                "rows": 4,
+                "cols": 40,
+            }
+        ),
+        required=True,
+    )
     source_url = forms.CharField(widget=forms.HiddenInput())
     token = forms.CharField(widget=forms.HiddenInput())

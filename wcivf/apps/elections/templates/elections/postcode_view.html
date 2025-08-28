@@ -93,6 +93,8 @@
             {% endif %}
             {% if postelections %}
                 {% include "feedback/feedback_form.html" %}
+            {% else %}
+                {% include "feedback/no_election_feedback_form.html" %}
             {% endif %}
         {% endif %}
 
