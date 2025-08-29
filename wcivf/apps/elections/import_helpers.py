@@ -135,6 +135,11 @@ class YNRElectionImporter:
                 election.cancellation_reason = cancellation_reason
                 updated = True
 
+            by_election_reason = ee_data["by_election_reason"]
+            if by_election_reason:
+                election.by_election_reason = by_election_reason
+                updated = True
+
             voting_system = ee_data["voting_system"]
             if voting_system:
                 election.voting_system = VotingSystem.objects.update_or_create(
@@ -456,6 +461,7 @@ class YNRBallotImporter:
         self.set_metadata(ballot)
         self.set_requires_voter_id(ballot)
         self.set_cancellation_reason(ballot)
+        self.set_by_election_reason(ballot)
         self.set_organisation_type(ballot)
         self.set_division_type(ballot)
         ballot.save()
@@ -509,6 +515,14 @@ class YNRBallotImporter:
         ee_data = self.ee_helper.get_data(ballot.ballot_paper_id)
         if ee_data:
             ballot.cancellation_reason = ee_data["cancellation_reason"]
+            ballot.save()
+
+    def set_by_election_reason(self, ballot):
+        if ballot.by_election_reason and not self.force_update:
+            return
+        ee_data = self.ee_helper.get_data(ballot.ballot_paper_id)
+        if ee_data:
+            ballot.by_election_reason = ee_data["by_election_reason"]
             ballot.save()
 
     def set_organisation_type(self, ballot):

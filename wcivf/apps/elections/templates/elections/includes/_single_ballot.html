@@ -58,6 +58,8 @@
                 </div>
             </p>
 
+            {% include "elections/includes/_by_election_reason.html" with object=postelection %}
+
             {% if object.election.slug == "europarl.2019-05-23"%}
                 {% include "elections/includes/eu_results.html" with card=0 %}
             {% endif %}
