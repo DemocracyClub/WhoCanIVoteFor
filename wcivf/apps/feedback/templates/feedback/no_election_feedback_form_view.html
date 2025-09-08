@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+    {% load i18n %}
+
+    {% include "feedback/no_election_feedback_form.html" with no_election_feedback_form=form %}
+
+{% endblock content %}
