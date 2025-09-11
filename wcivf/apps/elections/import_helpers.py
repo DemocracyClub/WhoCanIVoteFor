@@ -518,8 +518,6 @@ class YNRBallotImporter:
             ballot.save()
 
     def set_by_election_reason(self, ballot):
-        if ballot.by_election_reason and not self.force_update:
-            return
         ee_data = self.ee_helper.get_data(ballot.ballot_paper_id)
         if ee_data:
             ballot.by_election_reason = ee_data["by_election_reason"]
