@@ -102,6 +102,29 @@
 {% endblock content %}
 
 {% block in_page_javascript %}
+    {{ postelections | length |  json_script:"postElectionsCount" }}
+    <script>
+        const postElectionsCount = JSON.parse(document.getElementById('postElectionsCount').textContent);
+
+        function trackElectionsShownEvent(postElectionsCount) {
+            const hasElections = postElectionsCount > 0;
+            const eventData = hasElections ? {
+                path: 'ELECTION_SHOWN',
+                title: 'Election feedback form displayed',
+                event: true,
+            } : {
+                path: 'NO_ELECTION_SHOWN',
+                title: 'No election feedback form displayed',
+                event: true,
+            };
+
+            window.goatcounter.count(eventData);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            trackElectionsShownEvent(postElectionsCount);
+        });
+    </script>
     <script>
         fallback.ready(['jQuery'], function () {
             /*! http://mths.be/details v0.1.0 by @mathias | includes http://mths.be/noselect v1.0.3 */
