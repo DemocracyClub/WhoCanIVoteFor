@@ -277,11 +277,12 @@ class PollingStationInfoMixin(object):
 
 
 class LogLookUpMixin(object):
-    def log_postcode(self: View, postcode):
+    def log_postcode(self: View, postcode, had_election: bool):
         entry = settings.POSTCODE_LOGGER.entry_class(
             postcode=postcode,
             dc_product=settings.POSTCODE_LOGGER.dc_product.wcivf,
-            calls_devs_dc_api=True,
+            calls_devs_dc_api=True,  #
+            had_election=had_election,
             **self.request.session.get("utm_data"),
         )
         settings.POSTCODE_LOGGER.log(entry)

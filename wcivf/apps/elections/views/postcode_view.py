@@ -84,12 +84,16 @@ class PostcodeView(
                 # Just catch any error at the moment, as we don't want this to break anything
                 pass
 
-        self.log_postcode(self.postcode)
-
         if context["address_picker"]:
             return context
 
         context["postelections"] = ballot_dict.get("ballots")
+
+        had_election = False
+        if len(context["postelections"]) > 0:
+            had_election = True
+        self.log_postcode(self.postcode, had_election)
+
         context["future_postelections"] = self.future_postelections(
             context["postelections"]
         )
