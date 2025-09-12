@@ -25,6 +25,17 @@ systemd-run --property="After=apt-daily.service apt-daily-upgrade.service" --wai
 # Remove unattended upgrades
 apt-get purge --yes unattended-upgrades
 
+# Apt update
+apt-get update --yes
+
+# Let Apt do it's thing
+while ps awx | grep --extended-regex 'apt[ -]' | grep -v grep
+do
+  echo "Waiting for existing apt process to finish"
+  sleep 5
+done
+echo "Apt finished, continuing"
+
 # Install apt packages
 apt-get install --yes postgresql-16 redis-server
 
