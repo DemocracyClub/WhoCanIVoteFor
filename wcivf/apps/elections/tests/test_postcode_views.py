@@ -111,6 +111,14 @@ class PostcodeViewTests(TestCase):
 
     @vcr.use_cassette("fixtures/vcr_cassettes/test_mayor_elections.yaml")
     def test_dc_logging_postcode_valid(self):
+        election = ElectionFactory(slug="mayor.tower-hamlets.2018-05-03")
+        post = PostFactory(ynr_id="tower-hamlets", label="Tower Hamlets")
+
+        PostElectionFactory(
+            post=post,
+            election=election,
+            ballot_paper_id="mayor.tower-hamlets.2018-05-03",
+        )
         with self.assertLogs(level="DEBUG") as captured:
             self.client.get(
                 "/elections/e32nx/",
@@ -134,6 +142,7 @@ class PostcodeViewTests(TestCase):
         assert '"utm_campaign": "better_tracking"' in logging_message.message
         assert '"utm_medium": "pytest"' in logging_message.message
         assert '"calls_devs_dc_api": true' in logging_message.message
+        assert '"had_election": true' in logging_message.message
 
     @vcr.use_cassette(
         "fixtures/vcr_cassettes/test_dc_logging_postcode_invalid.yaml"
