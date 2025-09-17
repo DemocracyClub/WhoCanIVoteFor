@@ -56,7 +56,7 @@ urlpatterns = [
         r"^voting_system/ams/",
         TranslatedTemplateView.as_view(
             template_name="elections/ams.html",
-            extra_context={"voting_sytem": "Additional Member System"},
+            extra_context={"voting_system": "Additional Member System"},
         ),
         name="ams_voting_system_view",
     ),
@@ -64,7 +64,7 @@ urlpatterns = [
         r"^voting_system/sv/",
         TranslatedTemplateView.as_view(
             template_name="elections/sv.html",
-            extra_context={"voting_sytem": "Supplementary Vote"},
+            extra_context={"voting_system": "Supplementary Vote"},
         ),
         name="sv_voting_system_view",
     ),
@@ -72,7 +72,7 @@ urlpatterns = [
         r"^voting_system/STV/",
         TranslatedTemplateView.as_view(
             template_name="elections/stv.html",
-            extra_context={"voting_sytem": "Single Transferable Vote"},
+            extra_context={"voting_system": "Single Transferable Vote"},
         ),
         name="stv_voting_system_view",
     ),
