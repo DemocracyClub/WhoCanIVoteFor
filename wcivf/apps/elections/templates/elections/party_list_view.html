@@ -120,7 +120,7 @@
     <h3>{% trans "Candidates" %}</h3>
     <ul class="ds-grid" style="--gridCellMin: 25ch">
         {% for person in person_posts %}
-            {% include "elections/includes/_person_card.html" with person_post=person lists=True %}
+            {% include "elections/includes/_person_card.html" with person_post=person in_party_list=True %}
         {% endfor %}
     </ul>
 

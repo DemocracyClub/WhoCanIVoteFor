@@ -5,7 +5,7 @@
 <li class="ds-candidate {% if person_post.elected %}elected{% endif %}">
     <div class="ds-candidate-body ds-stack-smaller">
         <h6 class="ds-candidate-name ds-h5">
-            {% if person_post.list_position %}
+            {% if in_party_list %}
                 {{ person_post.list_position }}.
             {% endif %}
             <a href="{{ person_post.person.get_absolute_url }}" class="ds-card-link">
@@ -25,7 +25,7 @@
             </p>
         {% endif %}
 
-        {% if not person_post.list_position or not postelection.display_as_party_list %}
+        {% if not in_party_list %}
             <p>{{ person_post.party_name }}
                 {% if person_post.votes_cast %}
                     <br><strong>{% blocktrans trimmed with votes_cast=person_post.votes_cast|intcomma%}{{ votes_cast }} votes{% endblocktrans %}</strong>
