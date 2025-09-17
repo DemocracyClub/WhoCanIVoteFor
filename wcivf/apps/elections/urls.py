@@ -77,6 +77,16 @@ urlpatterns = [
         name="stv_voting_system_view",
     ),
     re_path(
+        r"^voting_system/PR-CL/",
+        TranslatedTemplateView.as_view(
+            template_name="elections/pr-cl.html",
+            extra_context={
+                "voting_system": "Closed-List Proportional Representation"
+            },
+        ),
+        name="pr_cl_voting_system_view",
+    ),
+    re_path(
         r"^TE1 1ST.ics$",
         DummyPostcodeiCalView.as_view(),
         name="dummy_postcode_ical_view",
