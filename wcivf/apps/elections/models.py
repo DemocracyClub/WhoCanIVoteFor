@@ -918,6 +918,8 @@ class VotingSystem(models.Model):
             return reverse("sv_voting_system_view")
         if self.slug == "STV":
             return reverse("stv_voting_system_view")
+        if self.slug == "PR-CL":
+            return reverse("pr_cl_voting_system_view")
 
         return None
 
@@ -931,5 +933,7 @@ class VotingSystem(models.Model):
             return _("Supplementary Vote")
         if self.slug == "STV":
             return _("Single Transferable Vote")
+        if self.slug == "PR-CL":
+            return _("Closed-List Proportional Representation")
 
         return None
