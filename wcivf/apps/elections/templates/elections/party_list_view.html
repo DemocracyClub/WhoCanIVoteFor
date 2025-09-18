@@ -14,8 +14,12 @@
 
                 <h2>{{ party_name }}</h2>
                 <h4>
-                    {{ ballot.election.nice_election_name }}
-                    {% if not ballot.is_pcc and not ballot.is_mayoral %}: {{ ballot.friendly_name }}{% endif %}
+                    {% with ballot_url=ballot.get_absolute_url election_url=ballot.election.get_absolute_url %}
+                        <a href="{{ election_url }}">{{ ballot.election.nice_election_name }}</a>
+                        {% if not ballot.is_pcc and not ballot.is_mayoral %}
+                            : <a href="{{ ballot_url }}">{{ ballot.friendly_name }}</a>
+                        {% endif %}
+                    {% endwith %}
                 </h4>
                 {% if local_party %}
                     <dl class="ds-descriptions" style="border-style:none;">
