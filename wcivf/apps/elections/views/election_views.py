@@ -109,7 +109,7 @@ class PostView(NewSlugsRedirectMixin, PostelectionsToPeopleMixin, DetailView):
         return context
 
 
-class PartyListVew(TemplateView):
+class PartyListView(TemplateView):
     template_name = "elections/party_list_view.html"
 
     def get_context_data(self, **kwargs):
