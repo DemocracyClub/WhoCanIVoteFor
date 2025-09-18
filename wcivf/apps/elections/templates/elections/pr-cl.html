@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load markdown_filter %}
+{% load humanize %}
+{% load i18n %}
+
+{% block page_title %}Closed List Proportional Representation{% endblock page_title %}
+{% block og_title_content  %}Closed List Proportional Representation{% endblock og_title_content  %}
+{% block og_description_content %}Closed List Proportional Representation{% endblock og_description_content %}
+{% block twitter_title_content %}Closed List Proportional Representation{% endblock twitter_title_content %}
+{% block twitter_description_content %}Closed List Proportional Representation{% endblock twitter_description_content %}
+
+{% block content %}
+
+    {% include "elections/includes/_voting_system_breadcrumbs.html" %}
+
+    <div class="ds-page">
+        <div class="ds-stack-smaller">
+
+            <h2>Closed List Proportional Representation</h2>
+            <p>
+                The closed list electoral system is a type of proportional representation.
+                Closed list is used for elections to the Senedd Cymru/ Welsh Parliament.
+            </p>
+            <p>
+                Closed list uses large, multi-member constituencies: for example, each Senedd constituency contains six seats.
+                Political parties do not stand individual candidates for each constituency,
+                but instead submit lists containing as many candidates as they like. Independent candidates can also stand in their own ‘list’ of one.
+                Voters have one vote, and can vote for a single list.
+
+            </p>
+            <p>
+                Within each party’s list the candidates are ranked, and this ranking is the order in which they will be elected.
+                For example, if a party wins half of the votes in a six-member constituency,
+                it will be entitled to three seats: the top three candidates in its list will be elected.
+            </p>
+            <p>
+                This system is called ‘closed’ because voters cannot choose between the candidates within a party list.
+            </p>
+            <h3>Seat allocation</h3>
+            <p>
+                The closed list system is designed so that the number of votes a party has received closely matches the number of seats it wins.
+            </p>
+            <p>
+                Seats are allocated to parties using a common method called the ‘D’Hondt formula’.
+                Each seat is allocated in turn, with the number of votes needed to win a seat (the ‘quota’)
+                calculated using the following formula:
+            </p>
+            <p class="ds-card ds-padded ds-dark">
+                Vote quota = Total number of votes won by the party / (Total number of seats already won by the party + 1).
+            </p>
+            <p>
+                In order to be allocated a seat, a party must have the highest vote number after the above formula has been applied.
+            </p>
+        </div>
+    </div>
+
+{% endblock content %}

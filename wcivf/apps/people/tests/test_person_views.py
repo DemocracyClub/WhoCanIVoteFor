@@ -964,7 +964,7 @@ class TestPersonIntro(TestCase):
             ),
             (
                 self.list_candidate,
-                "Joe Bloggs is the 1st place candidate for the Test Party in the London Assembly elections (additional).",
+                "Joe Bloggs is the 1st place candidate for the Test Party in Ecclesall in the London Assembly elections (additional).",
             ),
         ]
         for candidacy in candidacies:
@@ -1039,7 +1039,7 @@ class TestPersonIntro(TestCase):
             ),
             (
                 self.list_candidate,
-                "Joe Bloggs is the 1st place candidate for the Test Party in the London Assembly elections (additional).",
+                "Joe Bloggs is the 1st place candidate for the Test Party in Ecclesall in the London Assembly elections (additional).",
             ),
         ]
 

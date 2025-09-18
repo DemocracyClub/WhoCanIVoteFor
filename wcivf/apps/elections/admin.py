@@ -5,6 +5,9 @@ from .models import Election, Post, PostElection, VotingSystem
 
 class ElectionAdmin(admin.ModelAdmin):
     list_filter = ("election_type", "voting_system")
+    list_display = ("name", "slug", "election_date")
+    search_fields = ("slug", "name")
+    date_hierarchy = "election_date"
 
 
 class PostAdmin(admin.ModelAdmin):
