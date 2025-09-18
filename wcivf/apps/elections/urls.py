@@ -9,7 +9,7 @@ from .helpers import ElectionIDSwitcher
 from .views import (
     ElectionsView,
     ElectionView,
-    PartyListVew,
+    PartyListView,
     PostcodeiCalView,
     PostcodeView,
     PostView,
@@ -30,7 +30,7 @@ urlpatterns = [
     ),
     re_path(
         r"^(?P<election>[a-z\-]+\.[^/]+)/(?P<party_id>(joint-party|party|minor-party|ynmp-party):[0-9\-]+)/$",
-        PartyListVew.as_view(),
+        PartyListView.as_view(),
         name="party_list_view",
     ),
     #
