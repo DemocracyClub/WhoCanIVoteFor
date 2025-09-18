@@ -100,15 +100,22 @@
             </div>
         </div>
     </div>
-
+    {% if not ballot.election.in_past %}
+        <div>
+            <p>
+                {% blocktrans trimmed with party_name=party.party_name %} This is the list for {{ party_name }}. In this election you will vote for a party, or an independent candidate.
+                    Each candidate is ranked by the party, and they will be elected in order of their ranking. For example,
+                    if this party win two seats in this division, the first two candidates in the list will be elected. {% endblocktrans %}
+            </p>
+        </div>
+    {% endif %}
     {% if manifesto %}
-
-        <h3>{% trans "Party manifesto" %}</h3>
-        <p>
-
-            {% blocktrans trimmed with party_name=party.party_name manifesto=manifesto|safe %}Find out more about the {{ party_name }} in their {{ manifesto }}.{% endblocktrans %}
-        </p>
-
+        <div>
+            <h3>{% trans "Party manifesto" %}</h3>
+            <p>
+                {% blocktrans trimmed with party_name=party.party_name manifesto=manifesto|safe %}Find out more about this party in the {{ party_name }} {{ manifesto }}.{% endblocktrans %}
+            </p>
+        </div>
     {% endif %}
     {% if local_party %}
         {% if local_party.twitter %}
