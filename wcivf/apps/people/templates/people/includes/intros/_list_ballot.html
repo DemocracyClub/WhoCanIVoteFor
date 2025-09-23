@@ -8,13 +8,13 @@
         {% blocktrans trimmed %}
             {{ person_name }} is the {{ list_position_ordinal }} place candidate for the
             <a href="{{ party_url }}" title="{{ party_name }}">{{ party_name }}</a>
-            in the <a href="{{ election_url }}" title="{{ election_name }}">{{ election_name }}</a>.
+            in <a href="{{ post_url }}" title="{{ post_label }}">{{ post_label }}</a> in the <a href="{{ election_url }}" title="{{ election_name }}">{{ election_name }}</a>.
         {% endblocktrans %}
     {% else %}
         {% blocktrans trimmed %}
             {{ person_name }} was the {{ list_position_ordinal }} place candidate for the
             <a href="{{ party_url }}" title="{{ party_name }}">{{ party_name }}</a>
-            in the <a href="{{ election_url }}" title="{{ election_name }}">{{ election_name }}</a>.
+            in <a href="{{ post_url }}" title="{{ post_label }}">{{ post_label }}</a> in the <a href="{{ election_url }}" title="{{ election_name }}">{{ election_name }}</a>.
         {% endblocktrans %}
     {% endif %}
 

@@ -13,10 +13,16 @@
             <div class="ds-not-sidebar">
 
                 <h2>{{ party_name }}</h2>
-                <h4>
-                    {{ ballot.election.nice_election_name }}
-                    {% if not ballot.is_pcc and not ballot.is_mayoral %}: {{ ballot.friendly_name }}{% endif %}
-                </h4>
+                {% with election=ballot.election %}
+                    <h4>
+                        <a href="{{ election.get_absolute_url }}">{{ election.nice_election_name }}</a>
+                    </h4>
+                    {% if not ballot.is_pcc and not ballot.is_mayoral %}
+                        <h5>
+                            <a href="{{ ballot.get_absolute_url }}">{{ ballot.friendly_name }}</a>
+                        </h5>
+                    {% endif %}
+                {% endwith %}
                 {% if local_party %}
                     <dl class="ds-descriptions" style="border-style:none;">
                         <div>
@@ -96,15 +102,22 @@
             </div>
         </div>
     </div>
-
+    {% if not ballot.election.in_past %}
+        <div>
+            <p>
+                {% blocktrans trimmed with party_name=party.party_name %} This is the list for {{ party_name }}. In this election you will vote for a party, or an independent candidate.
+                    Each candidate is ranked by the party, and they will be elected in order of their ranking. For example,
+                    if this party win two seats in this division, the first two candidates in the list will be elected. {% endblocktrans %}
+            </p>
+        </div>
+    {% endif %}
     {% if manifesto %}
-
-        <h3>{% trans "Party manifesto" %}</h3>
-        <p>
-
-            {% blocktrans trimmed with party_name=party.party_name manifesto=manifesto|safe %}Find out more about the {{ party_name }} in their {{ manifesto }}.{% endblocktrans %}
-        </p>
-
+        <div>
+            <h3>{% trans "Party manifesto" %}</h3>
+            <p>
+                {% blocktrans trimmed with party_name=party.party_name manifesto=manifesto|safe %}Find out more about this party in the {{ party_name }} {{ manifesto }}.{% endblocktrans %}
+            </p>
+        </div>
     {% endif %}
     {% if local_party %}
         {% if local_party.twitter %}
@@ -120,7 +133,7 @@
     <h3>{% trans "Candidates" %}</h3>
     <ul class="ds-grid" style="--gridCellMin: 25ch">
         {% for person in person_posts %}
-            {% include "elections/includes/_person_card.html" with person_post=person lists=True %}
+            {% include "elections/includes/_person_card.html" with person_post=person in_party_list=True %}
         {% endfor %}
     </ul>
 
