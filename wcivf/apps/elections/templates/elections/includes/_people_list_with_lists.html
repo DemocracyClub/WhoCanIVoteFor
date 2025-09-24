@@ -5,54 +5,56 @@
 
 
 {% for person_post in people_by_party %}
-    {% if person_post.list.0.party.is_independent %}
+    {% with party=person_post.list.0.party %}
+        {% if party.is_independent %}
         {#  This is a special case where we don't want to group independants, but show a single card per person  #}
-        {% for pp in person_post.list %}
-            <div class="ds-with-sidebar ds-card">
-                <div class="ds-card-body">
-                    <div class="ds-sidebar" style="flex-basis: 5rem">
-                        {% if pp.person.photo_url %}
-                            <img src="{{ pp.person.photo_url }}" alt="{% blocktrans trimmed %}Photo of {{ pp.person.name }}{% endblocktrans %}">
-                        {% else %}
-                            <img src="{% static '/people/images/blank-avatar.png' %}" alt="Blank Head icons created by Freepik - Flaticon" style="background-color: #ddd;">
-                        {% endif %}
+            {% for pp in person_post.list %}
+                <div class="ds-with-sidebar ds-card">
+                    <div class="ds-card-body">
+                        <div class="ds-sidebar" style="flex-basis: 5rem">
+                            {% if pp.person.photo_url %}
+                                <img src="{{ pp.person.photo_url }}" alt="{% blocktrans trimmed %}Photo of {{ pp.person.name }}{% endblocktrans %}">
+                            {% else %}
+                                <img src="{% static '/people/images/blank-avatar.png' %}" alt="Blank Head icons created by Freepik - Flaticon" style="background-color: #ddd;">
+                            {% endif %}
+                        </div>
+                        <div class="ds-not-sidebar">
+                            <a href="{{ pp.person.get_absolute_url }}">
+                                {% if pp.elected %}🌟 <span class="elected_text">{% trans "Elected:" %}</span> {% endif %}
+                                {{ party.party_name }}:<br>{{ pp.person.name }}
+                                {% if pp.elected %}🌟{% endif %}
+                            </a>
+                        </div>
                     </div>
-                    <div class="ds-not-sidebar">
-                        <a href="{{ pp.person.get_absolute_url }}">
-                            {% if pp.elected %}🌟 <span class="elected_text">{% trans "Elected:" %}</span> {% endif %}
-                            {{ person_post.grouper }}:<br>{{ pp.person.name }}
-                            {% if pp.elected %}🌟{% endif %}
-                        </a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div>
+                <div class="ds-with-sidebar ds-card">
+                    <div class="ds-card-body">
+                        <div class="emblem-for-candidate-list" style="flex-basis: 5rem">
+                            {% if party.emblem_url %}
+                                <img src="{{ party.emblem_url }}" alt="{% trans "Party emblem" %}">
+                            {% endif %}
+                        </div>
+                        <div class="ds-not-sidebar">
+                            <a href="{% url 'party_list_view' election=person_post.list.0.post_election.ballot_paper_id party_id=party.party_id %}">{{ party.party_name }}</a>
+                            <ul class="ds-details" style="border-style:none;">
+                                <li style="list-style-type: none;">
+                                    <details style="border-style:none;">
+                                        <summary>{% blocktrans trimmed with num_candidates=person_post.list|length %}Show {{ num_candidates  }} candidates{% endblocktrans %}</summary>
+                                        <ul class="ds-grid" style="--gridCellMin: 25ch">
+                                            {% for person in person_post.list %}
+                                                {% include "elections/includes/_person_card.html" with person_post=person in_party_list=True %}
+                                            {% endfor %}
+                                        </ul>
+                                    </details>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        {% endfor %}
-    {% else %}
-        <div>
-            <div class="ds-with-sidebar ds-card">
-                <div class="ds-card-body">
-                    <div class="emblem-for-candidate-list" style="flex-basis: 5rem">
-                        {% if person_post.list.0.party.emblem_url %}
-                            <img src="{{ person_post.list.0.party.emblem_url }}" alt="{% trans "Party emblem" %}">
-                        {% endif %}
-                    </div>
-                    <div class="ds-not-sidebar">
-                        <a href="{% url 'party_list_view' election=person_post.list.0.post_election.ballot_paper_id party_id=person_post.list.0.party_id %}">{{ person_post.grouper }}</a>
-                        <ul class="ds-details" style="border-style:none;">
-                            <li style="list-style-type: none;">
-                                <details style="border-style:none;">
-                                    <summary>{% blocktrans trimmed with num_candidates=person_post.list|length %}Show {{ num_candidates  }} candidates{% endblocktrans %}</summary>
-                                    <ul class="ds-grid" style="--gridCellMin: 25ch">
-                                        {% for person in person_post.list %}
-                                            {% include "elections/includes/_person_card.html" with person_post=person in_party_list=True %}
-                                        {% endfor %}
-                                    </ul>
-                                </details>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% endif %}
+        {% endif %}
+    {% endwith %}
 {% endfor %}
