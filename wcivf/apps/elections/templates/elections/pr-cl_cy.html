@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load markdown_filter %}
+{% load humanize %}
+{% load i18n %}
+
+{% block page_title %}Rhestr gaeëdig{% endblock page_title %}
+{% block og_title_content  %}Rhestr gaeëdig{% endblock og_title_content  %}
+{% block og_description_content %}Rhestr gaeëdig{% endblock og_description_content %}
+{% block twitter_title_content %}Rhestr gaeëdig{% endblock twitter_title_content %}
+{% block twitter_description_content %}Rhestr gaeëdig{% endblock twitter_description_content %}
+
+{% block content %}
+
+    {% include "elections/includes/_voting_system_breadcrumbs.html" with voting_system="Rhestr gaeëdig"%}
+
+    <div class="ds-page">
+        <div class="ds-stack-smaller">
+
+            <h2>Rhestr gaeëdig</h2>
+            <p>
+                Mae'r system etholiadol rhestr gaeëdig yn fath o gynrychiolaeth gyfrannol.
+                Defnyddir rhestr gaeëdig ar gyfer etholiadau i Senedd Cymru.
+            </p>
+            <p>
+                Mae rhestr gaeëdig yn defnyddio etholaethau mawr, aml-aelod: er enghraifft, mae pob etholaeth Senedd yn cynnwys chwe sedd.
+                Nid yw pleidiau gwleidyddol yn cyflwyno ymgeiswyr unigol ar gyfer pob etholaeth, ond yn hytrach yn cyflwyno rhestrau sy'n cynnwys cymaint o ymgeiswyr ag y dymunant.
+                Gall ymgeiswyr annibynnol hefyd sefyll yn eu 'rhestr' eu hunain o un. Mae gan bleidleiswyr un bleidlais, a gallant bleidleisio dros un rhestr.
+            </p>
+            <p>
+                O fewn rhestr pob plaid mae'r ymgeiswyr wedi'u rhestru, a'r drefn hon yw'r drefn y cânt eu hethol.
+                Er enghraifft, os yw plaid yn ennill hanner y pleidleisiau mewn etholaeth chwe aelod, bydd ganddi hawl i dair sedd:
+                bydd y tri ymgeisydd gorau yn ei rhestr yn cael eu hethol.
+            </p>
+            <p>
+                Gelwir y system hon yn 'system gaeëdig' oherwydd ni all pleidleiswyr ddewis rhwng yr ymgeiswyr o fewn rhestr plaid.
+            </p>
+            <h3>Dyraniad seddi</h3>
+            <p>
+                Mae'r system rhestr gaeëdig wedi'i chynllunio fel bod nifer y pleidleisiau y mae plaid wedi'u derbyn yn cyfateb yn agos i nifer y seddi y mae'n eu hennill.
+            </p>
+            <p>
+                Caiff seddi eu dyrannu i bleidiau gan ddefnyddio dull cyffredin o'r enw 'fformiwla D'Hondt'.
+                Caiff pob sedd ei dyrannu yn ei thro, gyda nifer y pleidleisiau sydd eu hangen i ennill sedd (y 'cwota') yn cael ei gyfrifo gan ddefnyddio'r fformiwla ganlynol:
+            </p>
+            <p class="ds-card ds-padded ds-dark">
+                Cwota pleidleisiau  = Cyfanswm nifer y pleidleisiau a enillwyd gan y blaid / (Cyfanswm nifer y seddi a enillwyd eisoes gan y blaid + 1).
+            </p>
+            <p>
+                Er mwyn cael sedd, rhaid i blaid gael y nifer pleidleisiau uchaf ar ôl i'r fformiwla uchod gael ei chymhwyso.
+            </p>
+        </div>
+    </div>
+
+{% endblock content %}

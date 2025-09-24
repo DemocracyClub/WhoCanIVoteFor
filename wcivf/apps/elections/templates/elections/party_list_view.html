@@ -105,9 +105,9 @@
     {% if not ballot.election.in_past %}
         <div>
             <p>
-                {% blocktrans trimmed with party_name=party.party_name %} This is the list for {{ party_name }}. In this election you will vote for a party, or an independent candidate.
+                {% blocktrans trimmed with party_name=party.party_name %} This is the list for {{ party_name }}. In this election you will vote for a party, not an individual candidate.
                     Each candidate is ranked by the party, and they will be elected in order of their ranking. For example,
-                    if this party win two seats in this division, the first two candidates in the list will be elected. {% endblocktrans %}
+                    if this party wins two seats, the first two candidates in the list will be elected. {% endblocktrans %}
             </p>
         </div>
     {% endif %}
