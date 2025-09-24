@@ -38,7 +38,7 @@
                             {% endif %}
                         </div>
                         <div class="ds-not-sidebar">
-                            <a href="{% url 'party_list_view' election=person_post.list.0.post_election.ballot_paper_id party_id=party.party_id %}">{{ party.party_name }}</a>
+                            <a href="{% url 'party_list_view' election=postelection.ballot_paper_id party_id=party.party_id %}">{{ party.party_name }}</a>
                             <ul class="ds-details" style="border-style:none;">
                                 <li style="list-style-type: none;">
                                     <details style="border-style:none;">
