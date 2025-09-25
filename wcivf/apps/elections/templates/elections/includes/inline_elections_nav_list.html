@@ -3,7 +3,7 @@
 {% load postcode_tags %}
 <div class="ds-stack-smaller">
     {% if postelections.count == 0 %}
-        <h2>{% trans "We don't know of any upcoming elections in your area." %}</h2>
+        <h2>{% trans "We don't know of any upcoming elections for your address." %}</h2>
         <p>{% trans "Local and devolved elections in the UK typically happen on the first Thursday in May. By-elections and parliamentary general elections can happen at any time. Not all areas have elections each year." %}</p>
         <p>{% blocktrans trimmed with ec_url="https://www.electoralcommission.org.uk/i-am-a/voter/types-elections" %}Learn more about elections in the UK <a href="{{ec_url}}">on the Electoral Commission website</a>.{% endblocktrans %}</p>
     {% else %}
