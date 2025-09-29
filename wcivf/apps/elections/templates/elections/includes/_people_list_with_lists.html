@@ -3,7 +3,6 @@
 {% load humanize %}
 {% regroup people.by_party by party.party_name as people_by_party %}
 
-
 {% for person_post in people_by_party %}
     {% with party=person_post.list.0.party %}
         {% if party.is_independent %}
@@ -39,6 +38,16 @@
                         </div>
                         <div class="ds-not-sidebar">
                             <a href="{% url 'party_list_view' election=postelection.ballot_paper_id party_id=party.party_id %}">{{ party.party_name }}</a>
+                            {% with manifesto=party.manifestos.0 %}
+                                {% if manifesto %}
+                                    <p>
+                                        Find out more this party's policies in their manifesto:
+                                    </p>
+                                    <ul>
+                                        {% include "parties/single_manifesto.html" with manifesto=manifesto %}
+                                    </ul>
+                                {% endif %}
+                            {% endwith %}
                             <ul class="ds-details" style="border-style:none;">
                                 <li style="list-style-type: none;">
                                     <details style="border-style:none;">
