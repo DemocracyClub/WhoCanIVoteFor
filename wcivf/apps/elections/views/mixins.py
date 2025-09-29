@@ -25,6 +25,7 @@ from elections.devs_dc_client import (
 )
 from hustings.models import Husting
 from leaflets.models import Leaflet
+from parties.models import Manifesto
 from uk_election_timetables.calendars import Country
 from uk_election_timetables.election import TimetableEvent
 from uk_election_timetables.election_ids import from_election_id
@@ -129,6 +130,17 @@ class PostelectionsToPeopleMixin(object):
         )
         if postelection.election.uses_lists:
             order_by = ["party__party_name", "list_position"]
+
+            manifesto_qs = Manifesto.objects.filter(
+                election_id=postelection.election.pk
+            )
+            people_for_post = people_for_post.prefetch_related(
+                Prefetch(
+                    "party__manifesto_set",
+                    queryset=manifesto_qs,
+                    to_attr="manifestos",
+                )
+            )
         else:
             order_by = ["name_for_ordering", "person__name"]
 
