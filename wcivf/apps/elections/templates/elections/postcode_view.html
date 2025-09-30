@@ -109,12 +109,12 @@
         function trackElectionsShownEvent(postElectionsCount) {
             const hasElections = postElectionsCount > 0;
             const eventData = hasElections ? {
-                path: 'ELECTION_SHOWN',
-                title: 'Election feedback form displayed',
+                path: 'POSTCODE_SEARCH_ELECTION_SHOWN',
+                title: 'Postcode search user had an election',
                 event: true,
             } : {
-                path: 'NO_ELECTION_SHOWN',
-                title: 'No election feedback form displayed',
+                path: 'POSTCODE_SEARCH_NO_ELECTION_SHOWN',
+                title: 'Postcode search user had no election',
                 event: true,
             };
 
