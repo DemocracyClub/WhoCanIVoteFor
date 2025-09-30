@@ -32,7 +32,7 @@ dependencies = [
 [tool.uv.sources]
 dc-design-system = { git = "https://github.com/DemocracyClub/design-system.git", tag = "0.7.0" }
 dc-django-utils = { git = "https://github.com/DemocracyClub/dc_django_utils.git", tag = "8.0.4" }
-dc-logging-utils = { git = "https://github.com/DemocracyClub/dc_logging.git", tag = "3.0.0" }
+dc-logging-utils = { git = "https://github.com/DemocracyClub/dc_logging.git", rev = "761df3ec621655445412a044580298250490f786" }
 
 [tool.uv]
 package = false
