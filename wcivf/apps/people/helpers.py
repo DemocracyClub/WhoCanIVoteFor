@@ -44,7 +44,7 @@ def get_wikipedia_extract(wikipedia_url):
         sleep_time = 1
         if retry_after is not None:
             with contextlib.suppress(ValueError):
-                # we expect this to be expressed as aa number of second to wait for
+                # we expect this to be expressed as a number of seconds to wait for
                 # not a datetime to retry after
                 # https://www.mediawiki.org/wiki/Manual:Maxlag_parameter
                 sleep_time = int(retry_after)
