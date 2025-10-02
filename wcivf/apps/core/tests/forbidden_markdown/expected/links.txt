@@ -1,0 +1,13 @@
+<p>[I'm an inline-style link](https://www.google.com)</p>
+<p>[I'm an inline-style link with title](https://www.google.com &quot;Google's Homepage&quot;)</p>
+<p>[I'm a reference-style link][Arbitrary case-insensitive reference text]</p>
+<p>[I'm a relative reference to a repository file](../blob/master/LICENSE)</p>
+<p>[You can use numbers for reference-style link definitions][1]</p>
+<p>Or leave it empty and use the [link text itself].</p>
+<p>URLs and URLs in angle brackets will automatically get turned into links.
+http://www.example.com or &lt;http://www.example.com&gt; and sometimes
+example.com (but not on Github, for example).</p>
+<p>Some text to show that the reference links can follow later.</p>
+<p>[arbitrary case-insensitive reference text]: https://www.mozilla.org
+[1]: http://slashdot.org
+[link text itself]: http://www.reddit.com</p>
