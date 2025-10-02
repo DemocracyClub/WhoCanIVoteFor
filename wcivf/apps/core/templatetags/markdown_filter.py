@@ -2,6 +2,7 @@ import markdown
 import nh3
 from django import template
 from django.utils.safestring import mark_safe
+from markdown_it import MarkdownIt
 
 register = template.Library()
 
@@ -13,3 +14,32 @@ def markdown_filter(text):
 
 
 markdown_filter.is_safe = True
+
+
+def markdown_it_filter(text):
+    """
+    note using js-default preset here gives us XSS protection
+    https://markdown-it-py.readthedocs.io/en/latest/security.html
+    so we don't need to run the text through nh3
+    """
+    renderer = MarkdownIt("js-default").disable(
+        [
+            "table",
+            "code",
+            "fence",
+            "backticks",
+            "hr",
+            "reference",
+            "html_block",
+            "heading",
+            "lheading",
+            "linkify",
+            "strikethrough",
+            "link",
+            "image",
+            "autolink",
+            "html_inline",
+        ]
+    )
+    html = renderer.render(text)
+    return mark_safe(html)
