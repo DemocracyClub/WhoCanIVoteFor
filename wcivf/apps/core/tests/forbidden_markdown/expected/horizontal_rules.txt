@@ -1,0 +1,7 @@
+<p>Three or more...</p>
+<p>---</p>
+<p>Hyphens</p>
+<p>***</p>
+<p>Asterisks</p>
+<p>___</p>
+<p>Underscores</p>
