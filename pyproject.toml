@@ -13,7 +13,7 @@ dependencies = [
     "markdown==3.5.1",
     "django-localflavor==4.0",
     "django-extensions==3.2.3",
-    "djangorestframework==3.14.0",
+    "djangorestframework==3.16.0",
     "icalendar==5.0.7",
     "dc-django-utils",
     "dc-logging-utils",
