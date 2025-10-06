@@ -5,8 +5,8 @@ import pytz
 from django.conf import settings
 from django.contrib.humanize.templatetags.humanize import apnumber
 from django.db import models
-from django.db.models import DateTimeField, JSONField, Q
-from django.db.models.functions import Greatest
+from django.db.models import DateTimeField, F, JSONField, Q, Window
+from django.db.models.functions import DenseRank, Greatest
 from django.template.defaultfilters import pluralize
 from django.urls import reverse
 from django.utils import timezone
@@ -543,6 +543,28 @@ class PostElection(TimeStampedModel):
             or self.electorate
             or self.personpost_set.filter(elected=True)
         )
+
+    def update_candidate_ranks(self):
+        """
+        Calculate ranks for all candidates on this ballot.
+        This should be called when results are imported or updated.
+        """
+        if not self.has_results:
+            return
+
+        # Get all candidates with calculated ranks
+        candidates = self.personpost_set.annotate(
+            new_rank=Window(
+                expression=DenseRank(), order_by=F("votes_cast").desc()
+            )
+        ).order_by("new_rank")
+
+        # Set the rank on each candidate
+        for candidate in candidates:
+            candidate.rank = candidate.new_rank
+
+        # Update all ranks
+        self.personpost_set.bulk_update(candidates, ["rank"])
 
     @property
     def expected_sopn_date(self):
