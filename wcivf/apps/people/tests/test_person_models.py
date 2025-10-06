@@ -163,10 +163,12 @@ class TestPersonModel(TestCase):
         candidate2 = PersonPostFactory(election=election)
         candidate3 = PersonPostFactory(election=election)
         candidate1.votes_cast = 100
+        candidate1.rank = 3
         candidate2.votes_cast = 200
+        candidate2.rank = 2
         candidate3.votes_cast = 300
+        candidate3.rank = 1
         results_rank_str = candidate3.get_results_rank
-        candidate3.refresh_from_db()
         self.assertTrue(results_rank_str, "1st / 3 candidates")
 
     def test_get_results_rank_tied_candidates(self):
@@ -180,12 +182,14 @@ class TestPersonModel(TestCase):
         candidate3 = PersonPostFactory(election=election)
         candidate4 = PersonPostFactory(election=election)
         candidate1.votes_cast = 100
+        candidate1.rank = 3
         candidate2.votes_cast = 200
-        candidate3.votes_cast = 200
+        candidate2.rank = 2
+        candidate3.votes_cast = 300
+        candidate3.rank = 1
         candidate4.votes_cast = 300
+        candidate4.rank = 1
         results_rank_str_2 = candidate2.get_results_rank
         results_rank_str_3 = candidate3.get_results_rank
-        candidate2.refresh_from_db()
-        candidate3.refresh_from_db()
         self.assertTrue(results_rank_str_2, "Joint 2nd / 4 candidates")
         self.assertTrue(results_rank_str_3, "Joint 2nd / 4 candidates")

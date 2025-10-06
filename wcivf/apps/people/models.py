@@ -10,6 +10,7 @@ from django.utils.functional import cached_property
 from django.utils.html import strip_tags
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext
 from elections.models import Election, Post
 from parties.models import Party
 
@@ -117,35 +118,45 @@ class PersonPost(models.Model):
 
     @property
     def get_results_rank(self):
-        """Get the rank of the person in the election"""
+        """
+        Returns a formatted string of the position of the candidate on the ballot.
 
-        candidate_count = len(self.post_election.personpost_set.all())
-        list_of_candidates_sorted_by_votes_cast = (
-            self.post_election.personpost_set.order_by("-votes_cast")
+        e.g "3rd / 5 candidates".
+
+        Deals with joint placement too, e.g "Joint 2nd / 4 candidates".
+
+        Returns None if the rank is unknown.
+
+        """
+
+        if not self.rank:
+            return None
+
+        election_info = PersonPost.objects.filter(
+            post_election=self.post_election
+        ).aggregate(
+            candidate_count=models.Count("id"),
+            tie_count=models.Count(
+                "id",
+                filter=models.Q(votes_cast=self.votes_cast, rank=self.rank),
+            ),
         )
-        for index, candidate in enumerate(
-            list_of_candidates_sorted_by_votes_cast
-        ):
-            # If we find the candidate in the sorted list, assign their rank based on their index
-            # in the list. Otherwise, loop through the list until we find the candidate.
-            if self.person == candidate.person:
-                candidate.rank = index + 1
-                candidate.save()
-                # If the candidate has the same number of votes as the next candidate,
-                # there is a tie and assign a joint rank
-                if index != candidate_count - 1 and (
-                    candidate.votes_cast
-                    == list_of_candidates_sorted_by_votes_cast[
-                        index + 1
-                    ].votes_cast
-                ):
-                    return f"Joint {ordinal(candidate.rank)} / {candidate_count} candidates"
-                if candidate_count > 1:
-                    return f"{ordinal(candidate.rank)} / {candidate_count} candidates"
-                return (
-                    f"{ordinal(candidate.rank)} / {candidate_count} candidate"
-                )
-        return None
+
+        has_tie = election_info["tie_count"] > 1
+        candidate_count = election_info["candidate_count"]
+        rank_ordinal = ordinal(self.rank)
+        if has_tie:
+            return ngettext(
+                "Joint %(rank)s / %(count)d candidate",
+                "Joint %(rank)s / %(count)d candidates",
+                candidate_count,
+            ) % {"rank": rank_ordinal, "count": candidate_count}
+        # Complete sentence for regular rankings
+        return ngettext(
+            "%(rank)s / %(count)d candidate",
+            "%(rank)s / %(count)d candidates",
+            candidate_count,
+        ) % {"rank": rank_ordinal, "count": candidate_count}
 
     class Meta:
         ordering = ("-election__election_date",)

@@ -353,6 +353,7 @@ class PersonViewTests(TestCase):
             election=past_election,
             party=party,
             votes_cast=1000,
+            rank=1,
         )
         response = self.client.get(self.person_url, follow=True)
         self.assertTemplateUsed(
