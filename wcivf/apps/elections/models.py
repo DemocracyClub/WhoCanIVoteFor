@@ -558,13 +558,11 @@ class PostElection(TimeStampedModel):
                 expression=DenseRank(), order_by=F("votes_cast").desc()
             )
         ).order_by("new_rank")
-
         # Set the rank on each candidate
         for candidate in candidates:
-            candidate.rank = candidate.new_rank
-
-        # Update all ranks
-        self.personpost_set.bulk_update(candidates, ["rank"])
+            if candidate.rank != candidate.new_rank:
+                candidate.rank = candidate.new_rank
+                candidate.save()
 
     @property
     def expected_sopn_date(self):
