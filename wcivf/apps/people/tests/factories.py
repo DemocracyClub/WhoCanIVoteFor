@@ -11,6 +11,7 @@ from people.models import Person, PersonPost
 class PersonFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Person
+        django_get_or_create = ("ynr_id",)
 
     ynr_id = factory.Sequence(lambda n: n)
     name = factory.Sequence(lambda n: "Candidate %d" % n)

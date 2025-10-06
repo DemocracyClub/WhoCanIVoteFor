@@ -2,7 +2,9 @@ from django.test import TestCase
 from people.tests.factories import PersonFactory
 from people.tests.helpers import create_person
 
-from wcivf.apps.elections.tests.factories import ElectionFactory
+from wcivf.apps.elections.tests.factories import (
+    PostElectionFactory,
+)
 from wcivf.apps.people.tests.factories import PersonPostFactory
 
 
@@ -158,38 +160,46 @@ class TestPersonModel(TestCase):
         """Test that the get_results_rank method returns the correct rank
         given vote count is available."""
 
-        election = ElectionFactory()
-        candidate1 = PersonPostFactory(election=election)
-        candidate2 = PersonPostFactory(election=election)
-        candidate3 = PersonPostFactory(election=election)
-        candidate1.votes_cast = 100
-        candidate1.rank = 3
-        candidate2.votes_cast = 200
-        candidate2.rank = 2
-        candidate3.votes_cast = 300
-        candidate3.rank = 1
+        ballot = PostElectionFactory(spoilt_ballots=10)
+        PersonPostFactory(
+            election=ballot.election, post_election=ballot, votes_cast=100
+        )
+        PersonPostFactory(
+            election=ballot.election, post_election=ballot, votes_cast=200
+        )
+        candidate3 = PersonPostFactory(
+            election=ballot.election, post_election=ballot, votes_cast=300
+        )
+
+        ballot.update_candidate_ranks()
+        candidate3.refresh_from_db()
         results_rank_str = candidate3.get_results_rank
-        self.assertTrue(results_rank_str, "1st / 3 candidates")
+        self.assertEqual(results_rank_str, "1st / 3 candidates")
 
     def test_get_results_rank_tied_candidates(self):
         """Test that the get_results_rank method returns the correct rank
         given vote count is available and there is a tie for a non-elected
         candidate."""
 
-        election = ElectionFactory()
-        candidate1 = PersonPostFactory(election=election)
-        candidate2 = PersonPostFactory(election=election)
-        candidate3 = PersonPostFactory(election=election)
-        candidate4 = PersonPostFactory(election=election)
-        candidate1.votes_cast = 100
-        candidate1.rank = 3
-        candidate2.votes_cast = 200
-        candidate2.rank = 2
-        candidate3.votes_cast = 300
-        candidate3.rank = 1
-        candidate4.votes_cast = 300
-        candidate4.rank = 1
+        ballot = PostElectionFactory(spoilt_ballots=10)
+        PersonPostFactory(
+            election=ballot.election, post_election=ballot, votes_cast=100
+        )
+        candidate2 = PersonPostFactory(
+            election=ballot.election, post_election=ballot, votes_cast=300
+        )
+        candidate3 = PersonPostFactory(
+            election=ballot.election, post_election=ballot, votes_cast=300
+        )
+        PersonPostFactory(
+            election=ballot.election, post_election=ballot, votes_cast=400
+        )
+        ballot.update_candidate_ranks()
+
+        candidate2.refresh_from_db()
+        candidate3.refresh_from_db()
+
         results_rank_str_2 = candidate2.get_results_rank
         results_rank_str_3 = candidate3.get_results_rank
-        self.assertTrue(results_rank_str_2, "Joint 2nd / 4 candidates")
-        self.assertTrue(results_rank_str_3, "Joint 2nd / 4 candidates")
+        self.assertEqual(results_rank_str_2, "Joint 2nd / 4 candidates")
+        self.assertEqual(results_rank_str_3, "Joint 2nd / 4 candidates")
