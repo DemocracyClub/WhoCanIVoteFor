@@ -134,22 +134,6 @@ input[type=radio] {
   outline: 3px solid #ffbf47;
 }
 
-#language-menu {
-  background-color: transparent;
-  margin: 0px;
-  padding: 0px;
-  line-height: 1;
-
-  button {
-    font-family: Montserrat, sans-serif;
-    background: none !important;
-    border: none;
-    padding: 0 !important;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-}
-
 input[type=url], input[type=date], input[type=time] {
   color: #403F41;
   padding: .5rem;
@@ -158,10 +142,6 @@ input[type=url], input[type=date], input[type=time] {
   max-width: 50ch;
   box-shadow: inset .25rem .25rem 0 rgba(64, 63, 65, 0.2);
   box-sizing: border-box;
-}
-
-#language-label {
-  font-family: Montserrat, sans-serif;
 }
 
 .ds-error {
