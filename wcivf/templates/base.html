@@ -51,12 +51,12 @@
 
 {% block base_language_menu %}
     {% if USE_I18N %}
-        <form action="{% url 'set_language' %}" id="language-menu" method="post">
-            <aside class="ds-language" aria-labelledby="language-label">
+        <aside class="ds-language" aria-labelledby="language-label">
+            <form action="{% url 'set_language' %}" method="post">
                 {% csrf_token %}
                 <input name="next" type="hidden" value="{{ request.get_full_path }}">
                 <ul>
-                    <li id="language-label" aria-hidden="true">{% trans "Language:" %}</li>
+                    <li aria-hidden="true">{% trans "Language:" %}</li>
                     {% get_current_language as LANGUAGE_CODE %}
                     {% get_available_languages as LANGUAGES %}
                     {% get_language_info_list for LANGUAGES as languages %}
@@ -69,8 +69,8 @@
                         </li>
                     {% endfor %}
                 </ul>
-            </aside>
-        </form>
+            </form>
+        </aside>
     {% endif %}
 
 {% endblock base_language_menu %}
