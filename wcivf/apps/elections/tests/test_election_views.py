@@ -799,3 +799,51 @@ class TestPostelectionsToPeopleMixin(TestCase):
             # resolve queryset to execute the queries
             candidates = list(queryset)
             self.assertEqual(len(candidates), 10)
+
+
+class TestUpdateCandidateRanks(TestCase):
+    def test_update_candidate_ranks_with_results(self):
+        """Smoke test that update_candidate_ranks doesn't crash with results"""
+
+        post_election = PostElectionFactory(spoilt_ballots=10)
+
+        PersonPostFactory(
+            post_election=post_election,
+            election=post_election.election,
+            votes_cast=300,
+        )
+        PersonPostFactory(
+            post_election=post_election,
+            election=post_election.election,
+            votes_cast=200,
+        )
+        PersonPostFactory(
+            post_election=post_election,
+            election=post_election.election,
+            votes_cast=100,
+        )
+
+        post_election.update_candidate_ranks()
+
+        ranks = list(
+            post_election.personpost_set.values_list(
+                "rank", flat=True
+            ).order_by("rank")
+        )
+        assert ranks == [1, 2, 3]
+
+    def test_update_candidate_ranks_without_results(self):
+        """
+        Test that update_candidate_ranks returns early without results
+        """
+
+        # Make an election with no results
+        post_election = PostElectionFactory()
+        candidacy = PersonPostFactory(
+            post_election=post_election,
+            election=post_election.election,
+        )
+
+        post_election.update_candidate_ranks()
+        candidacy.refresh_from_db()
+        assert candidacy.rank is None

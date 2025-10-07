@@ -448,6 +448,10 @@ class YNRBallotImporter:
                             continue
                         person_post.previous_party_affiliations.add(party)
 
+            # Calculate ranks for all candidates if this ballot has results
+            if ballot_dict.get("results") and ballot.has_results:
+                ballot.update_candidate_ranks()
+
             if created:
                 self.stdout.write(
                     "Added new ballot: {0}".format(ballot.ballot_paper_id)

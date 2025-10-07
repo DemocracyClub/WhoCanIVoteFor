@@ -50,6 +50,7 @@ class Command(BaseCommand):
     def handle(self, **options):
         self.options = options
         self.ballot_importer = YNRBallotImporter(stdout=self.stdout)
+        self.updated_ballots = set()  # Track ballots that need rank calculation
 
         try:
             person = Person.objects.latest()
@@ -79,6 +80,7 @@ class Command(BaseCommand):
 
         self.delete_merged_people()
         self.delete_orphaned_people()
+        self.calculate_ranks_for_updated_ballots()
 
     def add_to_db(self):
         self.existing_people = set(Person.objects.values_list("pk", flat=True))
@@ -91,6 +93,9 @@ class Command(BaseCommand):
             with open(os.path.join(self.dirpath, file), "r") as f:
                 results = json.loads(f.read())
                 self.add_people(results)
+
+        # Calculate ranks after all people have been processed
+        self.calculate_ranks_for_updated_ballots()
 
         should_clean_up = not any(
             [
@@ -240,8 +245,28 @@ class Command(BaseCommand):
             msg = f"{personpost} was {'created' if created else 'updated'}"
             self.stdout.write(msg=msg)
 
+            # Track ballot for rank calculation if it has results
+            if (
+                candidacy.get("result")
+                and candidacy["result"].get("num_ballots") is not None
+            ):
+                self.updated_ballots.add(ballot)
+
     def import_ballots_for_date(self, date):
         self.ballot_importer.do_import(params={"election_date": date})
+
+    def calculate_ranks_for_updated_ballots(self):
+        """Calculate ranks for all ballots that had vote counts updated."""
+        if not self.updated_ballots:
+            return
+
+        for ballot in self.updated_ballots:
+            self.stdout.write(f"Calculating ranks for {ballot.ballot_paper_id}")
+            ballot.update_candidate_ranks()
+
+        self.stdout.write(
+            f"Calculated ranks for {len(self.updated_ballots)} ballots"
+        )
 
     @time_function_length
     def delete_merged_people(self):
