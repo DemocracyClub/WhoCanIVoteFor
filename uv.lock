@@ -208,8 +208,8 @@ source = { git = "https://github.com/DemocracyClub/design-system.git?tag=0.9.0#8
 
 [[package]]
 name = "dc-django-utils"
-version = "8.0.4"
-source = { git = "https://github.com/DemocracyClub/dc_django_utils.git?tag=8.0.4#6d308a16f574ddbd1601a8cadd79e9b3f6ca56bf" }
+version = "8.0.5"
+source = { git = "https://github.com/DemocracyClub/dc_django_utils.git?tag=8.0.5#7f3cbb59117284445c3cc29394078a787aa88b3b" }
 dependencies = [
     { name = "django" },
     { name = "django-localflavor" },
@@ -347,11 +347,15 @@ wheels = [
 
 [[package]]
 name = "django-pipeline"
-version = "3.1.0"
+version = "4.1.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/2c/22/24a8fdfb07ebd60ed9af004cfbef4df0ee5af9fb9c06ad1d3e6e1e5b33ac/django_pipeline-3.1.0.tar.gz", hash = "sha256:36470aeced4889694b899a995bcd2eda512f45b61ac68d50adc5863c8bad5ee4", size = 71495, upload-time = "2024-05-10T17:56:10.708Z" }
+dependencies = [
+    { name = "setuptools" },
+    { name = "wheel" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/1c/7b/2f78ccdad9f45a3d4f709950160f9d7e5009b2b8bec8ef636025ec89b62e/django_pipeline-4.1.0.tar.gz", hash = "sha256:aa1d79df6f215b78396cdd50ed162f8741dc4993e9fba2c78483d9b6f1e722b4", size = 72180, upload-time = "2025-09-13T11:47:45.332Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/2e/39/e643d2f1836dcf3be399f4ec221101de2d07ba421afad682fdccc4341c8e/django_pipeline-3.1.0-py3-none-any.whl", hash = "sha256:aa973adeb480762f9d795818140da32e0348b7cd85a90b316205b8e966f986b7", size = 40497, upload-time = "2024-05-10T17:56:36.096Z" },
+    { url = "https://files.pythonhosted.org/packages/9a/89/fd40adbf5cc16550007ad67bffd7493c9976f7e576bf431d1bc537cfa976/django_pipeline-4.1.0-py3-none-any.whl", hash = "sha256:bdb84feb8db73b9fe8298fd9d0f6e50f30d78eb28a8ed28f73ca5d154080c3d5", size = 75523, upload-time = "2025-09-13T11:42:55.754Z" },
 ]
 
 [[package]]
@@ -1378,6 +1382,15 @@ wheels = [
 ]
 
 [[package]]
+name = "wheel"
+version = "0.45.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/8a/98/2d9906746cdc6a6ef809ae6338005b3f21bb568bea3165cfc6a243fdc25c/wheel-0.45.1.tar.gz", hash = "sha256:661e1abd9198507b1409a20c02106d9670b2576e916d58f520316666abca6729", size = 107545, upload-time = "2024-11-23T00:18:23.513Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/0b/2c/87f3254fd8ffd29e4c02732eee68a83a1d3c346ae39bc6822dcbcb697f2b/wheel-0.45.1-py3-none-any.whl", hash = "sha256:708e7481cc80179af0e556bbf0cc00b8444c7321e2700b8d8580231d13017248", size = 72494, upload-time = "2024-11-23T00:18:21.207Z" },
+]
+
+[[package]]
 name = "whitenoise"
 version = "6.8.2"
 source = { registry = "https://pypi.org/simple" }
@@ -1447,7 +1460,7 @@ requires-dist = [
     { name = "akismet", specifier = "==24.5.1" },
     { name = "boto3", specifier = "==1.36.11" },
     { name = "dc-design-system", git = "https://github.com/DemocracyClub/design-system.git?tag=0.9.0" },
-    { name = "dc-django-utils", git = "https://github.com/DemocracyClub/dc_django_utils.git?tag=8.0.4" },
+    { name = "dc-django-utils", git = "https://github.com/DemocracyClub/dc_django_utils.git?tag=8.0.5" },
     { name = "dc-logging-utils", git = "https://github.com/DemocracyClub/dc_logging.git?tag=3.0.0" },
     { name = "django", specifier = "==5.2.7" },
     { name = "django-dotenv", specifier = "==1.4.2" },
