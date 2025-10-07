@@ -1,3 +1,5 @@
+from unittest.mock import MagicMock, patch
+
 import pytest
 import vcr
 from django.db.models import Count
@@ -15,7 +17,6 @@ from elections.views.postcode_view import PostcodeView
 from freezegun import freeze_time
 from parishes.models import ParishCouncilElection
 from pytest_django import asserts
-from unittest.mock import MagicMock, patch
 
 
 @override_settings(
@@ -963,7 +964,9 @@ class TestPostcodeiCalView:
             "postcode_to_ballots",
             side_effect=InvalidPostcodeError,
         )
-        with patch("elections.models.PostElection.husting_set") as husting_set_mock:
+        with patch(
+            "elections.models.PostElection.husting_set"
+        ) as husting_set_mock:
             published_mock = MagicMock()
             published_mock.future.return_value = []
             husting_set_mock.published.return_value = published_mock
