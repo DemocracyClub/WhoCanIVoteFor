@@ -17,6 +17,22 @@ Bla bla bla
 3. list
 """
 
+"""
+This markdown doesn't exactly follow CommonMark spacing rules
+because it was written by a fallible human
+but we would like it to just work anyway, please
+"""
+badly_formed_markdown_input = """\
+Bla bla bla
+- unordered
+- bullet
+- list
+**bold** _italic_
+1. ordered
+2. bullet
+3. list
+"""
+
 allowed_markdown_expected = """\
 <p>Bla bla bla</p>
 <ul>
@@ -50,6 +66,12 @@ class TestMarkdownFilters(TestCase):
         """
         self.assertHTMLEqual(
             markdown_it_filter(allowed_markdown_input),
+            allowed_markdown_expected,
+        )
+
+    def test_badly_formed_markdown(self):
+        self.assertHTMLEqual(
+            markdown_it_filter(badly_formed_markdown_input),
             allowed_markdown_expected,
         )
 
