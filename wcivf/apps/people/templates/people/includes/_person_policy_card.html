@@ -11,15 +11,15 @@
         {% if object.long_statement %}
             <div class="ds-details">
                 <blockquote class="ds-stack-smaller">
-                    <p>{{ object.statement_intro }}</p>
+                    <p>{{ object.statement_intro|markdown_subset }}</p>
                     <details>
                         <summary>{% trans "Full statement" %}</summary>
-                        <p>{{ object.statement_remainder|linebreaksbr }}</p>
+                        <p>{{ object.statement_remainder|markdown_subset }}</p>
                     </details>
                 </blockquote>
             </div>
         {% else %}
-            <blockquote>{{ object.statement_to_voters|markdown }}</blockquote>
+            <blockquote>{{ object.statement_to_voters|markdown_subset }}</blockquote>
         {% endif %}
         {% if object.statement_to_voters_last_updated %}
             <p>{% blocktrans with date=object.statement_to_voters_last_updated|naturalday %}This statement was last updated on {{ date }}.{% endblocktrans %}</p>
