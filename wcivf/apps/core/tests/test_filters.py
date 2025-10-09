@@ -15,8 +15,6 @@ Bla bla bla
 1. ordered
 2. bullet
 3. list
-
-> block quote
 """
 
 allowed_markdown_expected = """\
@@ -32,9 +30,6 @@ allowed_markdown_expected = """\
 <li>bullet</li>
 <li>list</li>
 </ol>
-<blockquote>
-<p>block quote</p>
-</blockquote>
 """
 
 
@@ -65,6 +60,7 @@ class TestMarkdownFilters(TestCase):
         does not get rendered to HTML
         """
         test_cases = [
+            "blockquote",
             "code",
             "headings",
             "horizontal_rules",

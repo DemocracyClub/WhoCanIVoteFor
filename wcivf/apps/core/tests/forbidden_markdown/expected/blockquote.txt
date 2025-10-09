@@ -1,0 +1,4 @@
+<p>&gt; Blockquotes are very handy in email to emulate reply text.<br>
+&gt; This line is part of the same quote.</p>
+<p>Quote break.</p>
+<p>&gt; This is a very long line that will still be quoted properly when it wraps. Oh boy let's keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can <em>put</em> <strong>Markdown</strong> into a blockquote.</p>
