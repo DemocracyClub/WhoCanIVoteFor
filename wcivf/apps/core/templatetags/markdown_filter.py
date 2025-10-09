@@ -22,7 +22,10 @@ def markdown_it_filter(text):
     https://markdown-it-py.readthedocs.io/en/latest/security.html
     so we don't need to run the text through nh3
     """
-    renderer = MarkdownIt("js-default").disable(
+    options = {
+        "breaks": True  # nl2br
+    }
+    renderer = MarkdownIt("js-default", options).disable(
         [
             "table",
             "code",

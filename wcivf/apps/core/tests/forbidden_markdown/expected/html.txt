@@ -1,6 +1,6 @@
-<p>&lt;dl&gt;
-&lt;dt&gt;Definition list&lt;/dt&gt;
+<p>&lt;dl&gt;<br>
+&lt;dt&gt;Definition list&lt;/dt&gt;<br>
 &lt;dd&gt;Is something people use sometimes.&lt;/dd&gt;</p>
-<p>&lt;dt&gt;Markdown in HTML&lt;/dt&gt;
-&lt;dd&gt;Does <em>not</em> work <strong>very</strong> well. Use HTML &lt;em&gt;tags&lt;/em&gt;.&lt;/dd&gt;
+<p>&lt;dt&gt;Markdown in HTML&lt;/dt&gt;<br>
+&lt;dd&gt;Does <em>not</em> work <strong>very</strong> well. Use HTML &lt;em&gt;tags&lt;/em&gt;.&lt;/dd&gt;<br>
 &lt;/dl&gt;</p>
