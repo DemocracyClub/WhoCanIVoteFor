@@ -16,6 +16,7 @@ def markdown_filter(text):
 markdown_filter.is_safe = True
 
 
+@register.filter(name="markdown_subset")
 def markdown_it_filter(text):
     """
     note using js-default preset here gives us XSS protection
@@ -47,3 +48,6 @@ def markdown_it_filter(text):
     )
     html = renderer.render(text)
     return mark_safe(html)
+
+
+markdown_it_filter.is_safe = True
