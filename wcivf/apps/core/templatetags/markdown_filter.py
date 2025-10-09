@@ -30,6 +30,7 @@ def markdown_it_filter(text):
             "table",
             "code",
             "fence",
+            "blockquote",
             "backticks",
             "hr",
             "reference",
