@@ -56,7 +56,7 @@
                 {% csrf_token %}
                 <input name="next" type="hidden" value="{{ request.get_full_path }}">
                 <ul>
-                    <li aria-hidden="true">{% trans "Language:" %}</li>
+                    <li id="language-label" aria-hidden="true">{% trans "Language:" %}</li>
                     {% get_current_language as LANGUAGE_CODE %}
                     {% get_available_languages as LANGUAGES %}
                     {% get_language_info_list for LANGUAGES as languages %}
