@@ -1,13 +1,13 @@
 <p>Colons can be used to align columns.</p>
-<p>| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
+<p>| Tables        | Are           | Cool  |<br>
+| ------------- |:-------------:| -----:|<br>
+| col 3 is      | right-aligned | $1600 |<br>
+| col 2 is      | centered      |   $12 |<br>
 | zebra stripes | are neat      |    $1 |</p>
-<p>There must be at least 3 dashes separating each header cell.
-The outer pipes (|) are optional, and you don't need to make the
+<p>There must be at least 3 dashes separating each header cell.<br>
+The outer pipes (|) are optional, and you don't need to make the<br>
 raw Markdown line up prettily. You can also use inline Markdown.</p>
-<p>Markdown | Less | Pretty
---- | --- | ---
-<em>Still</em> | `renders` | <strong>nicely</strong>
+<p>Markdown | Less | Pretty<br>
+--- | --- | ---<br>
+<em>Still</em> | `renders` | <strong>nicely</strong><br>
 1 | 2 | 3</p>

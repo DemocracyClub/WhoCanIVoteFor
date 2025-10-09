@@ -4,10 +4,10 @@
 <p>[I'm a relative reference to a repository file](../blob/master/LICENSE)</p>
 <p>[You can use numbers for reference-style link definitions][1]</p>
 <p>Or leave it empty and use the [link text itself].</p>
-<p>URLs and URLs in angle brackets will automatically get turned into links.
-http://www.example.com or &lt;http://www.example.com&gt; and sometimes
+<p>URLs and URLs in angle brackets will automatically get turned into links.<br>
+http://www.example.com or &lt;http://www.example.com&gt; and sometimes<br>
 example.com (but not on Github, for example).</p>
 <p>Some text to show that the reference links can follow later.</p>
-<p>[arbitrary case-insensitive reference text]: https://www.mozilla.org
-[1]: http://slashdot.org
+<p>[arbitrary case-insensitive reference text]: https://www.mozilla.org<br>
+[1]: http://slashdot.org<br>
 [link text itself]: http://www.reddit.com</p>
