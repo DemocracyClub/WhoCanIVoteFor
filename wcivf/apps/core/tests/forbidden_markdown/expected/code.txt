@@ -1,13 +1,13 @@
 <p>Inline `code` has `back-ticks around` it.</p>
-<p>```javascript
-var s = &quot;JavaScript syntax highlighting&quot;;
-alert(s);
+<p>```javascript<br>
+var s = &quot;JavaScript syntax highlighting&quot;;<br>
+alert(s);<br>
 ```</p>
-<p>```python
-s = &quot;Python syntax highlighting&quot;
-print s
+<p>```python<br>
+s = &quot;Python syntax highlighting&quot;<br>
+print s<br>
 ```</p>
-<p>```
-No language indicated, so no syntax highlighting.
-But let's throw in a &lt;b&gt;tag&lt;/b&gt;.
+<p>```<br>
+No language indicated, so no syntax highlighting.<br>
+But let's throw in a &lt;b&gt;tag&lt;/b&gt;.<br>
 ```</p>
