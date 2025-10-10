@@ -1,0 +1,6 @@
+<p>Here's our logo (hover to see the title text):</p>
+<p>Inline-style:<br>
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png &quot;Logo Title Text 1&quot;)</p>
+<p>Reference-style:<br>
+![alt text][logo]</p>
+<p>[logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png &quot;Logo Title Text 2&quot;</p>
