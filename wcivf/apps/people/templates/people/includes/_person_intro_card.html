@@ -41,7 +41,7 @@
         {% if object.photo_url %}
             <img src="{{ object.photo_url }}" alt="{% blocktrans trimmed with person=object.name %}profile photo of {{ person }}{% endblocktrans %}">
         {% else %}
-            <img src="{% static '/people/images/blank-avatar.png' %}" alt="Blank Head icons created by Freepik - Flaticon" style="background-color: #ddd;">
+            <img src="{% static 'people/images/blank-avatar.png' %}" alt="Blank Head icons created by Freepik - Flaticon" style="background-color: #ddd;">
         {% endif %}
     </div>
 </section>
