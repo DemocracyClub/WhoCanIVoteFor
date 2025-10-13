@@ -1,4 +1,7 @@
-STATICFILES_STORAGE = "pipeline.storage.PipelineStorage"
+STORAGES = {
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "staticfiles": {"BACKEND": "pipeline.storage.PipelineStorage"},
+}
 
 CACHES = {
     "default": {

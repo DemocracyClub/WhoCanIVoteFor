@@ -1,3 +1,5 @@
+from unittest.mock import MagicMock, patch
+
 import pytest
 import vcr
 from django.db.models import Count
@@ -962,8 +964,15 @@ class TestPostcodeiCalView:
             "postcode_to_ballots",
             side_effect=InvalidPostcodeError,
         )
-        url = reverse("postcode_ical_view", kwargs={"postcode": "TE1 1ST"})
-        response = client.get(url)
+        with patch(
+            "elections.models.PostElection.husting_set"
+        ) as husting_set_mock:
+            published_mock = MagicMock()
+            published_mock.future.return_value = []
+            husting_set_mock.published.return_value = published_mock
+
+            url = reverse("postcode_ical_view", kwargs={"postcode": "TE1 1ST"})
+            response = client.get(url)
 
         assert response.status_code == 200
         content_without_ephemeral_datestamp = "\n".join(

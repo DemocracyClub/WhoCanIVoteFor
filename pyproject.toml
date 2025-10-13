@@ -5,15 +5,15 @@ description = "🗳 The source for https://whocanivotefor.co.uk/"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "django-filter==24.2",
-    "django==4.2.20",
+    "django-filter==25.2",
+    "django==5.2.7",
     "psycopg2-binary==2.9.9",
     "requests==2.31.0",
-    "django-model-utils==4.3.1",
+    "django-model-utils==5.0.0",
     "markdown==3.5.1",
-    "django-localflavor==4.0",
-    "django-extensions==3.2.3",
-    "djangorestframework==3.14.0",
+    "django-localflavor==5.0",
+    "django-extensions==4.1.0",
+    "djangorestframework==3.16.1",
     "icalendar==5.0.7",
     "dc-django-utils",
     "dc-logging-utils",
@@ -30,8 +30,8 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-dc-design-system = { git = "https://github.com/DemocracyClub/design-system.git", tag = "0.7.0" }
-dc-django-utils = { git = "https://github.com/DemocracyClub/dc_django_utils.git", tag = "8.0.4" }
+dc-design-system = { git = "https://github.com/DemocracyClub/design-system.git", tag = "0.9.0" }
+dc-django-utils = { git = "https://github.com/DemocracyClub/dc_django_utils.git", tag = "8.0.5" }
 dc-logging-utils = { git = "https://github.com/DemocracyClub/dc_logging.git", tag = "3.0.0" }
 
 [tool.uv]
@@ -40,10 +40,10 @@ required-version = "==0.8.*"
 
 [dependency-groups]
 deploy = [
-    "django-redis==5.3.0",
+    "django-redis==6.0.0",
     "gevent<24.10.1",
     "gunicorn[gevent]==22.0.0",
-    "sentry-sdk==1.27.1",
+    "sentry-sdk==2.41.0",
 ]
 dev = [
     "ipdb==0.13.13",
@@ -58,7 +58,7 @@ dev = [
     "pytest-subtests==0.13.1",
     "tomlkit==0.13.2",
     "freezegun==1.2.2",
-    "django-debug-toolbar==4.3.0",
+    "django-debug-toolbar==6.0.0",
     "djhtml==3.0.6",
     "ruff==0.1.15",
     "pytest-ruff==0.2.1",
