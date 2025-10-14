@@ -1,5 +1,3 @@
-import requests
-from django.conf import settings
 from django.db import models
 from django.db.models import Count
 from django.utils import timezone
@@ -177,9 +175,8 @@ class PersonManager(models.Manager):
         try:
             return self.get(pk=pk)
         except self.model.DoesNotExist:
-            req = requests.get(
-                "{}/api/next/person_redirects/{}/".format(settings.YNR_BASE, pk)
+            from people.models import PersonRedirect
+
+            return self.get(
+                PersonRedirect.objects.get(old_person_id=pk).new_person_id
             )
-            if req.status_code == 200:
-                return self.get(pk=req.json()["new_person_id"])
-            raise

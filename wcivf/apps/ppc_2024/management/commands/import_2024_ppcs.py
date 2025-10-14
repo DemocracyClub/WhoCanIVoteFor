@@ -6,10 +6,8 @@ import contextlib
 import csv
 from dataclasses import dataclass
 from typing import Dict, List, Optional
-from urllib.parse import urljoin
 
 import requests
-from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from parties.models import Party
@@ -75,32 +73,7 @@ class Command(BaseCommand):
     def get_person(self, person_id):
         if not person_id:
             return None
-        try:
-            return Person.objects.get(ynr_id=person_id)
-        except Person.DoesNotExist:
-            # if this person doesn't exist in WCIVF
-            # this could be due to a merge.
-            # See if we can get an alternative person id from YNR
-            url = urljoin(
-                settings.YNR_BASE, f"/api/next/person_redirects/{person_id}"
-            )
-            req = requests.get(url)
-            if req.status_code != 200:
-                raise
-
-            result = req.json()
-
-            if "new_person_id" not in result:
-                # we couldn't find an alt person id, re-raise the exception
-                raise
-
-            try:
-                # see if the alt person id exists
-                return Person.objects.get(ynr_id=result["new_person_id"])
-            except Person.DoesNotExist:
-                # this person still doesn't exist in WCIVF
-                # re-raise the exception
-                raise
+        return Person.objects.get_by_pk_or_redirect_from_ynr(pk=person_id)
 
     def create_ppc(self, data: CSVRow):
         print(data.party_id)
