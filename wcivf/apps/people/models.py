@@ -495,12 +495,13 @@ class Person(models.Model):
 
 
 class PersonRedirect(models.Model):
-    old_person_id = models.IntegerField()
+    old_person_id = models.IntegerField(db_index=True)
     new_person_id = models.IntegerField()
     ynr_created = models.DateTimeField()
 
     class Meta:
         get_latest_by = "ynr_created"
+        unique_together = ("old_person_id", "new_person_id")
 
 
 class AssociatedCompany(models.Model):
