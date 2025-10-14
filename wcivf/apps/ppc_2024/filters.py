@@ -1,7 +1,5 @@
 import django_filters
-
-# TODO: refactor into core.utils
-from elections.filters import DSLinkWidget
+from dc_utils.filter_widgets import DSLinkWidget
 from ppc_2024.models import PPCPerson
 
 

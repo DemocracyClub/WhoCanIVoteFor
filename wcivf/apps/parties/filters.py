@@ -1,7 +1,7 @@
 from urllib.parse import urlencode
 
 import django_filters
-from core.utils import DSLinkWidget
+from dc_utils.filter_widgets import DSLinkWidget
 from parties.models import Party
 
 
