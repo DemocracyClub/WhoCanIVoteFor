@@ -270,13 +270,18 @@ class Command(BaseCommand):
 
     @time_function_length
     def delete_merged_people(self):
-        latest_person_redirect = PersonRedirect.objects.latest().ynr_created
+        latest_person_redirect = (
+            PersonRedirect.objects.latest().ynr_created.strftime(
+                "%Y-%m-%dT%H:%M:%S.%fZ"
+            )
+        )
         url = f"{settings.YNR_BASE}/api/next/person_redirects/?page_size=200&created={latest_person_redirect}"
         if settings.YNR_API_KEY:
             url = f"{url}&auth_token={settings.YNR_API_KEY}"
         merged_ids = []
         while url:
             resp = requests.get(url)
+            print(url)
             resp.raise_for_status()
             page = resp.json()
             for result in page.get("results", []):
