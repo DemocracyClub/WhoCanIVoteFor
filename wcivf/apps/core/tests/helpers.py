@@ -6,8 +6,14 @@ from django.test import TestCase, override_settings
 
 
 @override_settings(
-    STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage",
-    DEFAULT_FILE_STORAGE="django.core.files.storage.FileSystemStorage",
+    STORAGES={
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    },
     MEDIA_ROOT=mkdtemp(),
 )
 class TmpMediaRootMixin(TestCase):
