@@ -5,12 +5,14 @@ Used for making sure meta tags and important information is actually
 shown before and after template changes.
 """
 
+from copy import deepcopy
 from datetime import timedelta
 
 import pytest
 import vcr
 from dateutil.utils import today
 from dc_utils.tests.helpers import validate_html_str
+from django.conf import settings
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -23,9 +25,14 @@ from people.tests.factories import (
     PersonPostWithPartyFactory,
 )
 
+TEST_STORAGES_DICT = deepcopy(settings.STORAGES)
+TEST_STORAGES_DICT["staticfiles"][
+    "BACKEND"
+] = "pipeline.storage.NonPackagingPipelineStorage"
+
 
 @override_settings(
-    STATICFILES_STORAGE="pipeline.storage.NonPackagingPipelineStorage",
+    STORAGES=TEST_STORAGES_DICT,
     PIPELINE_ENABLED=False,
 )
 class TestMetaTags(TestCase):

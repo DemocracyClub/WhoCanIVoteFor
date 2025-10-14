@@ -1,7 +1,9 @@
+from copy import deepcopy
 from unittest.mock import MagicMock, patch
 
 import pytest
 import vcr
+from django.conf import settings
 from django.db.models import Count
 from django.test import TestCase, override_settings
 from django.urls import reverse
@@ -18,9 +20,14 @@ from freezegun import freeze_time
 from parishes.models import ParishCouncilElection
 from pytest_django import asserts
 
+TEST_STORAGES_DICT = deepcopy(settings.STORAGES)
+TEST_STORAGES_DICT["staticfiles"][
+    "BACKEND"
+] = "pipeline.storage.NonPackagingPipelineStorage"
+
 
 @override_settings(
-    STATICFILES_STORAGE="pipeline.storage.NonPackagingPipelineStorage",
+    STORAGES=TEST_STORAGES_DICT,
     PIPELINE_ENABLED=False,
 )
 class PostcodeViewTests(TestCase):

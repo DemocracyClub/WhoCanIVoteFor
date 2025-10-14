@@ -1,8 +1,10 @@
 import datetime
+from copy import deepcopy
 from random import shuffle
 
 import factory
 import pytest
+from django.conf import settings
 from django.shortcuts import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -24,9 +26,14 @@ from people.tests.factories import (
 )
 from pytest_django.asserts import assertContains, assertNotContains
 
+TEST_STORAGES_DICT = deepcopy(settings.STORAGES)
+TEST_STORAGES_DICT["staticfiles"][
+    "BACKEND"
+] = "pipeline.storage.NonPackagingPipelineStorage"
+
 
 @override_settings(
-    STATICFILES_STORAGE="pipeline.storage.NonPackagingPipelineStorage",
+    STORAGES=TEST_STORAGES_DICT,
     PIPELINE_ENABLED=False,
 )
 class ElectionViewTests(TestCase):

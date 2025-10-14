@@ -1,3 +1,6 @@
+from copy import deepcopy
+
+from django.conf import settings
 from django.test import TestCase
 from django.test.utils import override_settings
 from elections.tests.factories import (
@@ -9,9 +12,14 @@ from parties.models import Party
 from parties.tests.factories import PartyFactory
 from people.tests.factories import PersonFactory, PersonPostFactory
 
+TEST_STORAGES_DICT = deepcopy(settings.STORAGES)
+TEST_STORAGES_DICT["staticfiles"][
+    "BACKEND"
+] = "pipeline.storage.NonPackagingPipelineStorage"
+
 
 @override_settings(
-    STATICFILES_STORAGE="pipeline.storage.NonPackagingPipelineStorage",
+    STORAGES=TEST_STORAGES_DICT,
     PIPELINE_ENABLED=False,
 )
 class PartyViewTests(TestCase):
