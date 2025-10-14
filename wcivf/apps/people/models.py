@@ -497,6 +497,10 @@ class Person(models.Model):
 class PersonRedirect(models.Model):
     old_person_id = models.IntegerField()
     new_person_id = models.IntegerField()
+    ynr_created = models.DateTimeField()
+
+    class Meta:
+        get_latest_by = "ynr_created"
 
 
 class AssociatedCompany(models.Model):
