@@ -289,7 +289,9 @@ class Command(BaseCommand):
                 PersonRedirect.objects.get_or_create(
                     old_person_id=result["old_person_id"],
                     new_person_id=result["new_person_id"],
-                    ynr_created=result["created"],
+                    defaults={
+                        "ynr_created": result["created"],
+                    },
                 )
             url = page.get("next")
         Person.objects.filter(ynr_id__in=merged_ids).delete()

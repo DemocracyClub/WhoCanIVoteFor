@@ -174,9 +174,14 @@ class PersonManager(models.Manager):
     def get_by_pk_or_redirect_from_ynr(self, pk):
         try:
             return self.get(pk=pk)
-        except self.model.DoesNotExist:
+        except self.model.DoesNotExist as initial_e:
             from people.models import PersonRedirect
 
-            return self.get(
-                PersonRedirect.objects.get(old_person_id=pk).new_person_id
-            )
+            try:
+                return self.get(
+                    pk=PersonRedirect.objects.get(
+                        old_person_id=pk
+                    ).new_person_id
+                )
+            except PersonRedirect.DoesNotExist:
+                raise initial_e
