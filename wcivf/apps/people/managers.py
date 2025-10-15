@@ -179,7 +179,9 @@ class PersonManager(models.Manager):
 
             try:
                 return self.get(
-                    PersonRedirect.objects.get(old_person_id=pk).new_person_id
+                    pk=PersonRedirect.objects.get(
+                        old_person_id=pk
+                    ).new_person_id
                 )
             except PersonRedirect.DoesNotExist:
                 raise initial_e
