@@ -33,6 +33,9 @@ class DummyPostElection(PostElection):
     class Meta:
         proxy = True
 
+    def _is_pk_set(self):
+        return True
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.ballot_paper_id = "local.faketown.made-up-ward.2024-07-04"
