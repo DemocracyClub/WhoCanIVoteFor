@@ -1,5 +1,4 @@
 from copy import deepcopy
-from unittest.mock import MagicMock, patch
 
 import pytest
 import vcr
@@ -8,6 +7,7 @@ from django.db.models import Count
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from elections.devs_dc_client import InvalidPostcodeError
+from elections.dummy_models import dummy_polling_station
 from elections.models import PostElection
 from elections.tests.factories import (
     ElectionFactory,
@@ -958,28 +958,30 @@ class TestPostcodeiCalView:
             "postcode_to_ballots",
             side_effect=InvalidPostcodeError,
         )
-        # TE1 1ST is a known (fake) postcode, TE1 2ST is not.
+
         url = reverse("postcode_ical_view", kwargs={"postcode": "TE1 2ST"})
         response = client.get(url)
 
         assert response.status_code == 302
         assert response.url == "/?invalid_postcode=1&postcode=TE1%202ST"
 
+    @pytest.mark.django_db
     def test_ical_with_election(self, mocker, client):
+        def mock_postcode_to_ballots(postcode, uprn=None, compact=False):
+            post_election = PostElectionFactory()
+            return {
+                "ballots": [post_election],
+                "polling_station": dummy_polling_station,
+            }
+
         mocker.patch.object(
             PostcodeToPostsMixin,
             "postcode_to_ballots",
-            side_effect=InvalidPostcodeError,
+            side_effect=mock_postcode_to_ballots,
         )
-        with patch(
-            "elections.models.PostElection.husting_set"
-        ) as husting_set_mock:
-            published_mock = MagicMock()
-            published_mock.future.return_value = []
-            husting_set_mock.published.return_value = published_mock
 
-            url = reverse("postcode_ical_view", kwargs={"postcode": "TE1 1ST"})
-            response = client.get(url)
+        url = reverse("postcode_ical_view", kwargs={"postcode": "TE1 2ST"})
+        response = client.get(url)
 
         assert response.status_code == 200
         content_without_ephemeral_datestamp = "\n".join(
@@ -989,24 +991,23 @@ class TestPostcodeiCalView:
             .split("\n")
             if "DTSTAMP" not in line
         )
-        assert (
-            content_without_ephemeral_datestamp
-            == """BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//Elections in TE1 1ST//mxm.dk//
-SUMMARY:Elections in TE1 1ST
-X-WR-CALNAME:Elections in TE1 1ST
-X-WR-TIMEZONE:Europe/London
-BEGIN:VEVENT
-SUMMARY:Llantalbot local election - Made-Up-Ward
-DTSTART;TZID=Europe/London:20240704T070000
-DTEND;TZID=Europe/London:20240704T220000
-UID:-local.faketown.2024-07-04
-DESCRIPTION:Find out more at https://whocanivotefor.co.uk/elections/TE11ST
- /
-GEO:-3.119229\;51.510885
-LOCATION:1 Made Up Street\\, Made Up Town\\, Made Up County\\, MA1 1AA
-END:VEVENT
-END:VCALENDAR
-"""
+        expected = (
+            "BEGIN:VCALENDAR\n"
+            "VERSION:2.0\n"
+            "PRODID:-//Elections in TE1 2ST//mxm.dk//\n"
+            "SUMMARY:Elections in TE1 2ST\n"
+            "X-WR-CALNAME:Elections in TE1 2ST\n"
+            "X-WR-TIMEZONE:Europe/London\n"
+            "BEGIN:VEVENT\n"
+            "SUMMARY:UK General Election 2015 - copeland\n"
+            "DTSTART;TZID=Europe/London:20150507T070000\n"
+            "DTEND;TZID=Europe/London:20150507T220000\n"
+            "UID:WMC:E14000647-parl.2015-05-07\n"
+            "DESCRIPTION:Find out more at https://whocanivotefor.co.uk/elections/TE12ST\n"
+            " /\n"
+            "GEO:-3.119229\\;51.510885\n"
+            "LOCATION:1 Made Up Street\\, Made Up Town\\, Made Up County\\, MA1 1AA\n"
+            "END:VEVENT\n"
+            "END:VCALENDAR\n"
         )
+        assert content_without_ephemeral_datestamp == expected
