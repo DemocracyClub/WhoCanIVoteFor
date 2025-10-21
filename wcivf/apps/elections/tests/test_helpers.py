@@ -628,6 +628,7 @@ class TestYNRPostImporter:
                 "id": "foo",
                 "slug": "bar",
                 "label": "example",
+                "created": "2021-01-01T00:00:00+00:00",
             }
         }
         mock = mocker.Mock(return_value=(1, True))
@@ -645,6 +646,7 @@ class TestYNRPostImporter:
                 "id": None,
                 "slug": "bar",
                 "label": "example",
+                "created": "2021-01-01T00:00:00+00:00",
             }
         }
         mock = mocker.Mock(return_value=(1, True))
@@ -655,3 +657,55 @@ class TestYNRPostImporter:
         mock.assert_called_once_with(
             ynr_id="bar", defaults={"label": "example"}
         )
+
+    def test_post_cache_with_duplicate_ids(self, mocker):
+        ballot_dict_one = {
+            "post": {
+                "id": "foo",
+                "slug": "bar",
+                "label": "example",
+                "created": "date-one",
+            }
+        }
+        ballot_dict_two = {
+            "post": {
+                "id": "foo",
+                "slug": "bar",
+                "label": "example",
+                "created": "date-two",
+            }
+        }
+        mock = mocker.Mock(return_value=(1, True))
+        mocker.patch("elections.models.Post.objects.update_or_create", mock)
+        importer = YNRPostImporter()
+        importer.update_or_create_from_ballot_dict(ballot_dict=ballot_dict_one)
+        assert len(importer.post_cache) == 1
+
+        importer.update_or_create_from_ballot_dict(ballot_dict=ballot_dict_two)
+        assert len(importer.post_cache) == 2
+
+    def test_post_cache_with_duplicate_slugs(self, mocker):
+        ballot_dict_one = {
+            "post": {
+                "id": None,
+                "slug": "bar",
+                "label": "example",
+                "created": "date-one",
+            }
+        }
+        ballot_dict_two = {
+            "post": {
+                "id": None,
+                "slug": "bar",
+                "label": "example",
+                "created": "date-two",
+            }
+        }
+        mock = mocker.Mock(return_value=(1, True))
+        mocker.patch("elections.models.Post.objects.update_or_create", mock)
+        importer = YNRPostImporter()
+        importer.update_or_create_from_ballot_dict(ballot_dict=ballot_dict_one)
+        assert len(importer.post_cache) == 1
+
+        importer.update_or_create_from_ballot_dict(ballot_dict=ballot_dict_two)
+        assert len(importer.post_cache) == 2

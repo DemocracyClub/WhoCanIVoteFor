@@ -165,14 +165,16 @@ class YNRPostImporter:
         if not post_id:
             # if no id to use return None to indicate to skip this ballot
             return None
+        created_date = ballot_dict["post"]["created"]
+        post_cache_key = f"{post_id}-{created_date}"
 
-        if post_id not in self.post_cache:
+        if post_cache_key not in self.post_cache:
             post, _ = Post.objects.update_or_create(
                 ynr_id=post_id,
                 defaults={"label": ballot_dict["post"]["label"]},
             )
-            self.post_cache[post_id] = post
-        return self.post_cache[post_id]
+            self.post_cache[post_cache_key] = post
+        return self.post_cache[post_cache_key]
 
 
 class YNRBallotImporter:
