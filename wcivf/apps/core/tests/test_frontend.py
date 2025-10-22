@@ -72,6 +72,8 @@ class TestHtml:
             reverse("fptp_voting_system_view"),
             reverse("ams_voting_system_view"),
             reverse("stv_voting_system_view"),
+            reverse("dummy_postcode_view"),
+            reverse("dummy_postcode_ical_view"),
         ]
 
     @vcr.use_cassette("fixtures/vcr_cassettes/test_mayor_elections.yaml")
