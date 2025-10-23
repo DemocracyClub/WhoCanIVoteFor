@@ -1,6 +1,7 @@
 from datetime import datetime
 
 import requests
+from dateutil.parser import parse
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from django.utils import timezone as tz
@@ -80,10 +81,7 @@ class Command(BaseCommand):
                 person_id = list(person_data.keys())[0]
                 thumb_url = leaflet["first_page_thumb"]
                 leaflet_id = leaflet["pk"]
-                upload_date = datetime.strptime(
-                    leaflet["date_uploaded"].split(".")[0], "%Y-%m-%dT%H:%M:%S"
-                )
-                dt_aware = tz.make_aware(upload_date, tz.get_current_timezone())
+                dt_aware = self.parse_date_uploaded(leaflet["date_uploaded"])
                 try:
                     person = Person.objects.get_by_pk_or_redirect_from_ynr(
                         person_id
@@ -98,3 +96,11 @@ class Command(BaseCommand):
                     )
                 except Person.DoesNotExist:
                     print("No person found with id %s" % person_id)
+
+    def parse_date_uploaded(self, date_uploaded: str) -> datetime:
+        dt = parse(date_uploaded)
+        if dt.tzinfo is None:
+            dt = tz.make_aware(dt, tz.get_current_timezone())
+        else:
+            dt = dt.astimezone(tz.get_current_timezone())
+        return dt
