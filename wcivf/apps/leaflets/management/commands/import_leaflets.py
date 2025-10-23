@@ -1,6 +1,7 @@
 from datetime import datetime
 
 import requests
+from dateutil.parser import parse
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from django.utils import timezone as tz
@@ -97,7 +98,9 @@ class Command(BaseCommand):
                     print("No person found with id %s" % person_id)
 
     def parse_date_uploaded(self, date_uploaded: str) -> datetime:
-        upload_date = datetime.strptime(
-            date_uploaded.split(".")[0], "%Y-%m-%dT%H:%M:%S"
-        )
-        return tz.make_aware(upload_date, tz.get_current_timezone())
+        dt = parse(date_uploaded)
+        if dt.tzinfo is None:
+            dt = tz.make_aware(dt, tz.get_current_timezone())
+        else:
+            dt = dt.astimezone(tz.get_current_timezone())
+        return dt
