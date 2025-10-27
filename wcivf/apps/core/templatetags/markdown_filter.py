@@ -7,6 +7,16 @@ from markdown_it import MarkdownIt
 register = template.Library()
 
 
+"""
+Note:
+We are using two different markdown rendering libraries in this module
+This is for historic reasons rather than because we strictly need to
+
+See
+https://github.com/DemocracyClub/WhoCanIVoteFor/pull/2299#:~:text=Other%20places%20we%20use%20markdown
+"""
+
+
 @register.filter(name="markdown")
 def markdown_filter(text):
     clean_text = nh3.clean(text)
