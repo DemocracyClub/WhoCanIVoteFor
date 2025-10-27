@@ -36,6 +36,9 @@ class DummyPerson(Person):
         self.blog_url = f"https://example.com/{self.name_slug}/blog/"
         self.youtube_profile = "#"
 
+    def _is_pk_set(self):
+        return True
+
     @property
     def facebook_username(self):
         return self.name_slug
