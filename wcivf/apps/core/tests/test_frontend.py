@@ -74,6 +74,7 @@ class TestHtml:
             reverse("stv_voting_system_view"),
             reverse("dummy_postcode_view"),
             reverse("dummy_postcode_ical_view"),
+            reverse("dummy-profile", kwargs={"name": "jimmy-jordan"}),
         ]
 
     @vcr.use_cassette("fixtures/vcr_cassettes/test_mayor_elections.yaml")
