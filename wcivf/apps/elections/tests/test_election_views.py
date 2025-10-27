@@ -714,7 +714,7 @@ class TestPostElectionView(TestCase):
         )
         self.assertEqual(response.status_code, 200)
 
-        self.assertTrue(self.post_election.has_results)
+        self.assertTrue(self.post_election.has_results_summary)
         self.assertContains(response, "Electorate")
         self.assertNotContains(response, "Turnout")
         self.assertContains(response, "Spoilt Ballots")
