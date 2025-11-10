@@ -532,24 +532,30 @@ class PostElection(TimeStampedModel):
         return self.ballot_paper_id
 
     @property
-    def has_results(self):
+    def has_results_summary(self):
         """
-        Returns a boolean for if the election has results
+        Returns a boolean for if the election has any results summary data
         """
         return bool(
             self.spoilt_ballots
             or self.ballot_papers_issued
             or self.turnout
             or self.electorate
-            or self.personpost_set.filter(elected=True)
         )
+
+    @property
+    def has_winner(self):
+        """
+        Returns a boolean for if the election has a winner
+        """
+        return self.personpost_set.filter(elected=True).exists()
 
     def update_candidate_ranks(self):
         """
         Calculate ranks for all candidates on this ballot.
         This should be called when results are imported or updated.
         """
-        if not self.has_results:
+        if not self.has_results_summary:
             return
 
         # Get all candidates with calculated ranks
