@@ -37,6 +37,9 @@ dc-logging-utils = { git = "https://github.com/DemocracyClub/dc_logging.git", ta
 [tool.uv]
 package = false
 required-version = "==0.8.*"
+environments = [
+    "platform_python_implementation == 'CPython'"
+]
 
 [dependency-groups]
 deploy = [
@@ -52,7 +55,7 @@ dev = [
     "pytest==8.3.4",
     "pytest-cov==6.0.0",
     "factory-boy==3.3.1",
-    "vcrpy==6.0.1",
+    "vcrpy==7.0.0",
     "pytest-freezegun==0.4.2",
     "pytest-mock==3.14.0",
     "pytest-subtests==0.13.1",
