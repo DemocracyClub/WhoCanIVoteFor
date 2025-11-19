@@ -1,0 +1,11 @@
+<p># H1<br>
+## H2<br>
+### H3<br>
+#### H4<br>
+##### H5<br>
+###### H6</p>
+<p>Alternatively, for H1 and H2, an underline-ish style:</p>
+<p>Alt-H1<br>
+======</p>
+<p>Alt-H2<br>
+------</p>

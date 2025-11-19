@@ -11,6 +11,7 @@ dependencies = [
     "requests==2.32.4",
     "django-model-utils==5.0.0",
     "markdown==3.5.1",
+    "markdown-it-py==4.0.0",
     "django-localflavor==5.0",
     "django-extensions==4.1.0",
     "djangorestframework==3.16.1",
