@@ -1,0 +1,20 @@
+{% load i18n %}
+
+{% url "home_view" as home_view_url %}
+{% if postelection.cancelled %}
+    {% blocktrans trimmed with time_since=postelection.election.election_date|timesince %}
+        <div class="ds-status-message" >
+            This election was scheduled to happen {{ time_since }} ago.
+            <a href="{{ home_view_url }}">Enter your postcode</a>
+            to find upcoming elections in your area.
+        </div>
+    {% endblocktrans %}
+{% else %}
+    {% blocktrans trimmed with time_since=postelection.election.election_date|timesince %}
+        <div class="ds-status-message" >
+            This election happened {{ time_since }} ago.
+            <a href="{{ home_view_url }}">Enter your postcode</a>
+            to find upcoming elections in your area.
+        </div>
+    {% endblocktrans %}
+{% endif %}
