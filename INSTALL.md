@@ -112,6 +112,10 @@ packages:
 sudo apt-get install postgresql
 ```
 
+Start the PostgreSQL server with:
+
+    /etc/init.d/postgresql start
+
 Then create, for example, a `wcivf` user:
 
 ```shell
