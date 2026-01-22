@@ -13,9 +13,9 @@
 
         {% if postelection.cancelled %}
             {% if postelection.election.in_past %}
-                {% include "elections/includes/_past_election.html" with past_election=True%}
+                {% include "elections/includes/_past_election.html" %}
             {% endif %}
-            {% include "elections/includes/_cancelled_election.html" %}
+            {% include "elections/includes/_cancelled_election.html" with object=postelection only %}
         {% else %}
 
             {% if postelection.election.in_past %}
