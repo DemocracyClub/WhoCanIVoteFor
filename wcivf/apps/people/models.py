@@ -225,6 +225,11 @@ class Person(models.Model):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        if not self.wikipedia_url:
+            self.wikipedia_bio = None
+        super().save(*args, **kwargs)
+
     def get_absolute_url(self):
         return reverse(
             "person_view", args=[str(self.ynr_id), slugify(self.name)]
