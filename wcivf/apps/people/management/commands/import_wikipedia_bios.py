@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+from django.db.models import Q
 from elections.models import PostElection
 from elections.wikipedia_map import ballot_to_wikipedia
 from people.helpers import get_wikipedia_extract
@@ -57,6 +58,22 @@ class Command(BaseCommand):
                 except RequestException:
                     pass
 
+    def delete_bios_when_url_missing(self, current):
+        bio_exists = Q(wikipedia_bio__isnull=False)
+        url_does_not_exist = Q(wikipedia_url=None) | Q(wikipedia_url="")
+        people = Person.objects.filter(bio_exists & url_does_not_exist)
+        if current:
+            current_candidacies = PersonPost.objects.current()
+            people = (
+                people.filter(personpost__in=current_candidacies)
+                .order_by()
+                .distinct()
+            )
+        for person in people:
+            person.wikipedia_bio = None
+            person.save()
+
     def handle(self, **options):
         self.update_people(options["current"])
         self.update_ballots(options["current"])
+        self.delete_bios_when_url_missing(options["current"])
