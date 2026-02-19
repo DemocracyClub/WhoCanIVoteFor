@@ -156,6 +156,40 @@ class TestPersonModel(TestCase):
             with self.subTest(msg=candidacy[1]):
                 self.assertEqual(person.intro_template, expected)
 
+    def test_save_clears_wikipedia_bio_when_url_is_none(self):
+        self.person.wikipedia_url = "https://en.wikipedia.org/wiki/Test"
+        self.person.wikipedia_bio = "A bio from Wikipedia."
+        self.person.save()
+        self.assertEqual(self.person.wikipedia_bio, "A bio from Wikipedia.")
+
+        self.person.wikipedia_url = None
+        self.person.save()
+        self.person.refresh_from_db()
+        self.assertIsNone(self.person.wikipedia_bio)
+
+    def test_save_clears_wikipedia_bio_when_url_is_empty_string(self):
+        self.person.wikipedia_url = "https://en.wikipedia.org/wiki/Test"
+        self.person.wikipedia_bio = "A bio from Wikipedia."
+        self.person.save()
+
+        self.person.wikipedia_url = ""
+        self.person.save()
+        self.person.refresh_from_db()
+        self.assertIsNone(self.person.wikipedia_bio)
+
+    def test_wikipedia_bio_unchanged_when_url_changes(self):
+        # This is a funny one, but I think this is the right behaviour.
+        # If we update the wiki url, we shouldn't do a network request for the new bio.
+        # Instead leave it outdated, and let the import_wikipedia_bios.py cron tidy up.
+        self.person.wikipedia_url = "https://en.wikipedia.org/wiki/Test"
+        self.person.wikipedia_bio = "A bio from Wikipedia."
+        self.person.save()
+        self.assertEqual(self.person.wikipedia_bio, "A bio from Wikipedia.")
+        self.person.wikipedia_url = "https://en.wikipedia.org/wiki/changed"
+        self.person.save()
+        self.person.refresh_from_db()
+        self.assertEqual(self.person.wikipedia_bio, "A bio from Wikipedia.")
+
     def test_get_results_rank(self):
         """Test that the get_results_rank method returns the correct rank
         given vote count is available."""
