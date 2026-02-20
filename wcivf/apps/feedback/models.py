@@ -1,3 +1,4 @@
+import time
 import uuid
 
 from django.conf import settings
@@ -18,7 +19,8 @@ VOTE_CHOICES = (
 
 
 def generate_feedback_token():
-    return uuid.uuid4().hex
+    timestamp = str(int(time.time()))
+    return timestamp + uuid.uuid4().hex
 
 
 class Feedback(TimeStampedModel):
