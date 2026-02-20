@@ -10,9 +10,7 @@ class PersonSerializer(serializers.ModelSerializer):
 
     def get_absolute_url(self, obj):
         if "request" in self.context:
-            return self.context["request"].build_absolute_uri(
-                obj.get_absolute_url()
-            )
+            return self.context["request"].build_absolute_uri(obj.get_absolute_url())
         return obj.get_absolute_url()
 
     class Meta:
@@ -49,14 +47,21 @@ class PersonPostSerializer(serializers.HyperlinkedModelSerializer):
             "party",
             "person",
             "previous_party_affiliations",
+            "deselected",
+            "deselected_source",
         )
 
     person = PersonSerializer(many=False, read_only=True)
     party = PartySerializer(many=False, read_only=True)
     list_position = serializers.SerializerMethodField(allow_null=True)
-    previous_party_affiliations = serializers.SerializerMethodField(
-        allow_null=True
-    )
+    previous_party_affiliations = serializers.SerializerMethodField(allow_null=True)
+
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        if not ret["deselected"]:
+            del ret["deselected"]
+            del ret["deselected_source"]
+        return ret
 
     def get_list_position(self, obj):
         """
