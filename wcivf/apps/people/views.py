@@ -148,6 +148,18 @@ class PersonView(DetailView, PersonMixin):
             title += person.featured_candidacy.election.name
         return title
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.object.current_or_future_candidacies.count() > 1:
+            current_candidacies = self.object.current_or_future_candidacies
+            first_party = current_candidacies[0].party
+            if all(c.party == first_party for c in current_candidacies):
+                context["multi_party_candidacies"] = False
+            else:
+                context["multi_party_candidacies"] = True
+
+        return context
+
 
 class DummyPersonView(PersonView):
     def get_template_names(self):
