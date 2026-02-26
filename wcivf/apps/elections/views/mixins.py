@@ -53,6 +53,12 @@ class PostcodeToPostsMixin(object):
         if uprn:
             kwargs["uprn"] = uprn
 
+        include_boundary_reviews = getattr(
+            settings, "SHOW_BOUNDARY_CHANGES", False
+        )
+        if include_boundary_reviews:
+            kwargs["include_boundary_reviews"] = 1
+
         results_json = DEVS_DC_CLIENT.make_request(**kwargs)
         all_ballots = []
         ret = {
@@ -64,6 +70,9 @@ class PostcodeToPostsMixin(object):
                 results_json.get("postcode_location", "")
             ),
         }
+
+        if include_boundary_reviews:
+            ret["boundary_reviews"] = results_json.get("boundary_reviews", None)
 
         if ret["address_picker"]:
             ret["addresses"] = results_json["addresses"]
