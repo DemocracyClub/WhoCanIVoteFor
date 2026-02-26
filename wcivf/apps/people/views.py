@@ -5,6 +5,7 @@ from django.views.generic import DetailView, RedirectView
 from elections.dummy_models import DummyPostElection
 from parties.models import LocalParty, Manifesto, NationalParty
 
+from .dummy_models import DummyPerson
 from .models import Person, PersonPost, PersonRedirect
 
 
@@ -150,7 +151,10 @@ class PersonView(DetailView, PersonMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.object.current_or_future_candidacies.count() > 1:
+        if (
+            not isinstance(self.object, DummyPerson)
+            and self.object.current_or_future_candidacies.count() > 1
+        ):
             current_candidacies = self.object.current_or_future_candidacies
             first_party = current_candidacies[0].party
             if all(c.party == first_party for c in current_candidacies):
