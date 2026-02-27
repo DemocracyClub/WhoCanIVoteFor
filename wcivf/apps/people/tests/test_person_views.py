@@ -174,6 +174,38 @@ class PersonViewTests(TestCase):
         expected = """is a <a href="/parties/foo/liberal-democrat">Liberal Democrat</a> candidate in the following elections:"""
         self.assertContains(response, expected)
 
+    def test_multi_party_candidacies_intro(self):
+        election_one = ElectionFactory(
+            election_date="2040-02-01",
+            current=True,
+            name="FooBar Election 2040",
+            slug="local.foobar.2040-02-01",
+        )
+        election_two = ElectionFactory(
+            election_date="2040-01-01",
+            current=True,
+            name="FooBar Election 2040",
+            slug="local.foobar.2040-01-01",
+        )
+        party_one = PartyFactory(party_name="Liberal Democrat", party_id="foo")
+        party_two = PartyFactory(party_name="Sovereignty", party_id="bar")
+        PersonPostFactory(
+            person=self.person,
+            election=election_one,
+            party=party_one,
+            party_name=party_one.party_name,
+        )
+        PersonPostFactory(
+            person=self.person,
+            election=election_two,
+            party=party_two,
+            party_name=party_two.party_name,
+        )
+        self.assertEqual(self.person.future_candidacies.count(), 2)
+        response = self.client.get(self.person_url, follow=True)
+        expected = "is a candidate in the following elections:"
+        self.assertContains(response, expected)
+
     def test_multiple_independent_candidacies_intro(self):
         election_one = ElectionFactory(
             election_date="2040-02-01",
