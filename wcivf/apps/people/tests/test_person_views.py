@@ -203,7 +203,7 @@ class PersonViewTests(TestCase):
         )
         self.assertEqual(self.person.future_candidacies.count(), 2)
         response = self.client.get(self.person_url, follow=True)
-        expected = """is a candidate in the following elections:"""
+        expected = "is a candidate in the following elections:"
         self.assertContains(response, expected)
 
     def test_multiple_independent_candidacies_intro(self):
