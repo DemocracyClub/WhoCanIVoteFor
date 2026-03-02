@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block page_title %}Boundary Reviews{% endblock page_title %}
+{% block page_meta %}
+    <meta name="robots" content="noindex">
+{% endblock %}
+
+{% block content %}
+    <h2>Boundary Changes in your area</h2>
+    <div class="ds-stack">
+        <p>{% trans "Some intro text explaining that boundaries are changing in your area and that they may or may not affect you" %}</p>
+
+        {% for review in boundary_reviews %}
+            <div class="ds-stack-smaller">
+                <h3>{{review.organisation_official_name}} has new boundaries</h3>
+                <p>
+                    Text explaining the review: organisation affected, effective date, link to consultation, etc
+                </p>
+                {% for change in review.boundary_changes %}
+                    {% with change.change_scenario as change_scenario %}
+                        {% if change_scenario == "NO_CHANGE" %}
+                            <div class="ds-stack-smaller">
+                                <h4>Your constituency/region is staying the same</h4>
+                                <p>
+                                    NO_CHANGE explanation text
+                                </p>
+                                <div>
+                                    Map with new boundaries goes here
+                                </div>
+                            </div>
+                            {% elif change_scenario == "BOUNDARY_CHANGED"%}
+                            <div class="ds-stack-smaller">
+                                <h4>Your constituency/region's boundaries are changing</h4>
+                                <p>
+                                    BOUNDARY_CHANGED explanation text
+                                </p>
+                                <div>
+                                    Map with current and new boundaries goes here
+                                </div>
+                            </div>
+                            {% elif change_scenario == "NAME_CHANGED"%}
+                            <div class="ds-stack-smaller">
+                                <h4>Your constituency/region's name is changing</h4>
+                                <p>
+                                    NAME_CHANGED explanation text
+                                </p>
+                                <div>
+                                    Map with new boundaries goes here
+                                </div>
+                            </div>
+                            {% elif change_scenario == "BOTH_CHANGED"%}
+                            <div class="ds-stack-smaller">
+                                <h4>Your constituency/region's name and boundaries are changing</h4>
+                                <p>
+                                    BOTH_CHANGED explanation text
+                                </p>
+                                <div>
+                                    Map with current and new boundaries goes here
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

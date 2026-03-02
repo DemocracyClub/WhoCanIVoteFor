@@ -10,6 +10,7 @@ from .views import (
     ElectionsView,
     ElectionView,
     PartyListView,
+    PostcodeBoundaryReviewView,
     PostcodeiCalView,
     PostcodeView,
     PostView,
@@ -90,6 +91,16 @@ urlpatterns = [
         r"^TE1 1ST.ics$",
         DummyPostcodeiCalView.as_view(),
         name="dummy_postcode_ical_view",
+    ),
+    re_path(
+        r"^(?P<postcode>[^/]+)/boundary_changes/$",
+        PostcodeBoundaryReviewView.as_view(),
+        name="postcode_boundary_review_view",
+    ),
+    re_path(
+        r"^(?P<postcode>[^/]+)/(?P<uprn>[^/]+)/boundary_changes/$",
+        PostcodeBoundaryReviewView.as_view(),
+        name="uprn_boundary_review_view",
     ),
     re_path(
         r"^(?P<postcode>[^/]+)/(?P<uprn>[^/]+)/$",

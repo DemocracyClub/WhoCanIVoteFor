@@ -4,6 +4,7 @@ from administrations.helpers import AdministrationsHelper
 from core.helpers import clean_postcode
 from django.conf import settings
 from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from django.utils import timezone
 from django.views.generic import TemplateView, View
 from elections.devs_dc_client import InvalidPostcodeError, InvalidUprnError
@@ -132,6 +133,18 @@ class PostcodeView(
         context["num_ballots"] = self.num_ballots()
         context["requires_voter_id"] = self.get_voter_id_status()
         context["show_parish_text"] = self.show_parish_text(context["council"])
+        if ballot_dict.get("boundary_reviews"):
+            context["has_boundary_changes"] = True
+            if self.uprn:
+                context["boundary_review__view_url"] = reverse(
+                    "uprn_boundary_review_view",
+                    kwargs={"postcode": self.postcode, "uprn": self.uprn},
+                )
+            else:
+                context["boundary_review__view_url"] = reverse(
+                    "postcode_boundary_review_view",
+                    kwargs={"postcode": self.postcode},
+                )
 
         return context
 
@@ -499,3 +512,27 @@ class DummyPostcodeView(PostcodeView):
 
     def get_polling_station(self):
         return dummy_polling_station
+
+
+class PostcodeBoundaryReviewView(PostcodeToPostsMixin, TemplateView):
+    """
+    This view is used to show the boundary review information for a given postcode.
+    """
+
+    template_name = "elections/boundary_reviews_view.html"
+    postcode = None
+    uprn = None
+
+    def get_boundary_reviews(self):
+        ballot_dict = self.postcode_to_ballots(
+            postcode=self.postcode,
+            uprn=self.uprn,
+        )
+        return ballot_dict.get("boundary_reviews")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        self.postcode = clean_postcode(kwargs["postcode"])
+        self.uprn = self.kwargs.get("uprn")
+        context["boundary_reviews"] = self.get_boundary_reviews()
+        return context
