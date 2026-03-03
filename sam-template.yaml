@@ -419,6 +419,14 @@ Resources:
           ViewerProtocolPolicy: "redirect-to-https"
 
         CacheBehaviors:
+          # Don't cache the candidates_for_ballots endpoint
+          - PathPattern: api/candidates_for_ballots/*
+            AllowedMethods: [ GET, HEAD, OPTIONS ]
+            TargetOriginId: Dynamic
+            ViewerProtocolPolicy: redirect-to-https
+            # AWS Managed: CachingDisabled
+            CachePolicyId: 4135ea2d-6df8-44a3-9df3-4b5a84be39ad
+
           - AllowedMethods: [ GET, HEAD, OPTIONS ]
             PathPattern: static/*
             TargetOriginId: Static
