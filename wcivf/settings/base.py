@@ -322,7 +322,7 @@ ENABLE_LAYERS_OF_STATE_FEATURE = os.environ.get(
     "ENABLE_LAYERS_OF_STATE_FEATURE", False
 )
 
-BASIC_AUTH_ALLOWLIST = ["/_status_check/"]
+BASIC_AUTH_ALLOWLIST = ["/_status_check/", "/api/*"]
 
 with contextlib.suppress(ImportError):
     # .local.py overrides all the common settings.
