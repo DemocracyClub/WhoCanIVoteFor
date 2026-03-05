@@ -6,6 +6,38 @@
     <meta name="robots" content="noindex">
 {% endblock %}
 
+{% block extra_site_css%}
+    {{ block.super }}
+    <style>
+        div[class$="-map-legend"] {
+            display: none;
+            position: absolute;
+            z-index: 1;
+            top: 10px;
+            left: 10px;
+            border-radius: 3px;
+            width: auto;
+            border: 1px solid rgba(0, 0, 0, 0.4);
+            background-color: rgb(255, 255, 255);
+            padding: 4px;
+            gap: 2px;
+        }
+
+        .map-legend-row {
+            display: flex;
+            align-items: center;
+        }
+
+        .map-legend-colour {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #000;
+            margin-right: 4px;
+            border-radius: 3px;
+        }
+    </style>
+{% endblock extra_site_css%}
+
 {% block content %}
     <h2>Boundary Changes in your area</h2>
     <div class="ds-stack">
@@ -25,7 +57,9 @@
                                     NO_CHANGE explanation text
                                 </p>
                                 <h4>Map</h4>
-                                <div id="{{map_element_id_start}}-{{change_scenario}}-map" class="ds-map-maplibre"></div>
+                                <div id="{{map_element_id_start}}-{{change_scenario}}-map" class="ds-map-maplibre">
+                                    <div class="{{map_element_id_start}}-{{change_scenario}}-map-legend"></div>
+                                </div>
                             </div>
                         {% elif change_scenario == "BOUNDARY_CHANGED"%}
                             <div class="ds-stack-smaller">
@@ -34,7 +68,10 @@
                                     BOUNDARY_CHANGED explanation text
                                 </p>
                                 <h4>Map</h4>
-                                <div id="{{map_element_id_start}}-{{change_scenario}}-map" class="ds-map-maplibre"></div>
+                                <div id="{{map_element_id_start}}-{{change_scenario}}-map" class="ds-map-maplibre">
+                                    <div class="{{map_element_id_start}}-{{change_scenario}}-map-legend"></div>
+                                </div>
+
                             </div>
                         {% elif change_scenario == "NAME_CHANGED"%}
                             <div class="ds-stack-smaller">
@@ -43,7 +80,9 @@
                                     NAME_CHANGED explanation text
                                 </p>
                                 <h4>Map</h4>
-                                <div id="{{map_element_id_start}}-{{change_scenario}}-map" class="ds-map-maplibre"></div>
+                                <div id="{{map_element_id_start}}-{{change_scenario}}-map" class="ds-map-maplibre">
+                                    <div class="{{map_element_id_start}}-{{change_scenario}}-map-legend"></div>
+                                </div>
                             </div>
                         {% elif change_scenario == "BOTH_CHANGED"%}
                             <div class="ds-stack-smaller">
@@ -52,7 +91,9 @@
                                     BOTH_CHANGED explanation text
                                 </p>
                                 <h4>Map</h4>
-                                <div id="{{map_element_id_start}}-{{change_scenario}}-map" class="ds-map-maplibre"></div>
+                                <div id="{{map_element_id_start}}-{{change_scenario}}-map" class="ds-map-maplibre">
+                                    <div class="{{map_element_id_start}}-{{change_scenario}}-map-legend"></div>
+                                </div>
                             </div>
                         {% endif %}
                     {% endwith %}
@@ -135,9 +176,29 @@
             return bounds
         }
 
+        const addRowToLegend = (fillColour, borderColour, description, legendDiv) => {
+            row = document.createElement('div')
+            row.className = "map-legend-row"
+
+            rowColour = document.createElement('span')
+            rowColour.className = "map-legend-colour"
+            rowColour.style.backgroundColor = fillColour
+            rowColour.style.borderColor = borderColour
+
+            rowDescription = document.createElement('span')
+            rowDescription.className = "map-legend-description"
+
+            rowDescription.textContent = description
+
+            row.appendChild(rowColour)
+            row.appendChild(rowDescription)
+            legendDiv.appendChild(row)
+        }
+
         boundaryReviewsData.forEach(review => {
             review.boundary_changes.forEach(change => {
                 let mapElementID = `${review.id}-${change.division_type}-${change.change_scenario}-map`
+                let mapLegendDivClass = `${review.id}-${change.division_type}-${change.change_scenario}-map-legend`
 
                 if (document.getElementById(mapElementID) != null) {
                     const map = new maplibregl.Map({
@@ -147,9 +208,13 @@
                         zoom: 4.4
                     });
 
-                    let OLD_PMTILES_URL, oldDivisionsetID;
+                    let OLD_PMTILES_URL, oldDivisionsetID, showOldBoundary;
 
-                    if ( nation === "Scotland" && (change.change_scenario === "BOUNDARY_CHANGED" || change.change_scenario === "BOTH_CHANGED")) {
+                    if  ( nation === "Scotland" && (change.change_scenario === "BOUNDARY_CHANGED" || change.change_scenario === "BOTH_CHANGED")) {
+                        showOldBoundary = true
+                    }
+
+                    if ( showOldBoundary ) {
                         OLD_PMTILES_URL = change.old_divisionset_pmtiles_url;
                         oldDivisionsetID = extractDivisonsetID(OLD_PMTILES_URL)
                         addPmtilesURLtoProtocol(OLD_PMTILES_URL)
@@ -161,39 +226,7 @@
 
 
                     map.on('load', () => {
-
-                        map.addSource('new_division_set', {
-                            "type": "vector",
-                            "url": `pmtiles://${NEW_PMTILES_URL}`
-                        });
-
-                        map.addLayer({
-                            "id": "new_division_set_layer_fill",
-                            "type": "fill",
-                            "source": "new_division_set",
-                            "source-layer": `${newDivisionsetID}_${change.division_type}`,
-                            "paint": {
-                                "fill-color": "#007CAD",
-                                "fill-opacity": 0.1
-                            }
-                        });
-
-                        map.addLayer({
-                            "id": "new_division_set_layer_line",
-                            "type": "line",
-                            "source": "new_division_set",
-                            "source-layer": `${newDivisionsetID}_${change.division_type}`,
-                            "paint": {
-                                "line-color": "#007CAD",
-                                "line-opacity": 0.4,
-                                "line-width": 4,
-                            }
-                        });
-
-                        map.setFilter("new_division_set_layer_fill", ['==', ["get", "division__official_identifier"], change.new_division_official_identifier])
-                        map.setFilter("new_division_set_layer_line", ['==', ["get", "division__official_identifier"], change.new_division_official_identifier])
-
-                        if ( nation === "Scotland" && (change.change_scenario === "BOUNDARY_CHANGED" || change.change_scenario === "BOTH_CHANGED")) {
+                        if ( showOldBoundary ) {
                             map.addSource('old_division_set', {
                                 "type": "vector",
                                 "url": `pmtiles://${OLD_PMTILES_URL}`
@@ -204,19 +237,94 @@
                                 "type": "line",
                                 "source": "old_division_set",
                                 "source-layer": `${oldDivisionsetID}_${change.division_type}`,
+                                "layout": {
+                                    "line-miter-limit": 1,
+                                },
                                 "paint": {
-                                    "line-color": "#E6007C",
-                                    "line-width": 2,
+                                    "line-color": "#5d5c5cd0",
+                                    "line-blur": 1,
+                                    "line-width": [
+                                        "interpolate",
+                                        ["linear"],
+                                        ["zoom"],
+                                        7,
+                                        3,
+                                        9,
+                                        4,
+                                        12,
+                                        5,
+                                        14,
+                                        6
+                                    ],
                                 }
                             });
 
+                            map.addLayer({
+                                "id": "old_division_set_layer_fill",
+                                "type": "fill",
+                                "source": "old_division_set",
+                                "source-layer": `${oldDivisionsetID}_${change.division_type}`,
+                                "paint": {
+                                    "fill-color": "#a4a6a6d0",
+                                    "fill-opacity": 0.8
+                                }
+                            });
+
+
                             map.setFilter("old_division_set_layer_line", ['==', ["get", "division__official_identifier"], change.old_division_official_identifier]);
+                            map.setFilter("old_division_set_layer_fill", ['==', ["get", "division__official_identifier"], change.old_division_official_identifier]);
                         };
+
+                        map.addSource('new_division_set', {
+                            "type": "vector",
+                            "url": `pmtiles://${NEW_PMTILES_URL}`
+                        });
+
+
+                        map.addLayer({
+                            "id": "new_division_set_layer_line",
+                            "type": "line",
+                            "source": "new_division_set",
+                            "source-layer": `${newDivisionsetID}_${change.division_type}`,
+                            "layout": {
+                                "line-miter-limit": 1,
+                            },
+                            "paint": {
+                                "line-color": "#E6007C",
+                                "line-blur": 1,
+                                "line-width": [
+                                    "interpolate",
+                                    ["linear"],
+                                    ["zoom"],
+                                    7,
+                                    1,
+                                    9,
+                                    2,
+                                ],
+                            }
+                        });
+
+                        if (!showOldBoundary) {
+                            map.addLayer({
+                                "id": "new_division_set_layer_fill",
+                                "type": "fill",
+                                "source": "new_division_set",
+                                "source-layer": `${newDivisionsetID}_${change.division_type}`,
+                                "paint": {
+                                    "fill-color": "#E6007C",
+                                    "fill-opacity": 0.2
+                                },
+                            })
+                            map.setFilter("new_division_set_layer_fill", ['==', ["get", "division__official_identifier"], change.new_division_official_identifier])
+                        }
+
+                        map.setFilter("new_division_set_layer_line", ['==', ["get", "division__official_identifier"], change.new_division_official_identifier])
+
                     })
 
                     map.once('idle', () => {
                         const layers = ["new_division_set_layer_line"]
-                        if ( nation === "Scotland" && (change.change_scenario === "BOUNDARY_CHANGED" || change.change_scenario === "BOTH_CHANGED")) {
+                        if ( showOldBoundary ) {
                             layers.push("old_division_set_layer_line")
                         }
 
@@ -230,7 +338,23 @@
                         let marker = new maplibregl.Marker().setLngLat(postcodeLocation.geometry.coordinates).addTo(map)
                         let nav = new maplibregl.NavigationControl();
                         map.addControl(nav, 'top-right');
-
+                        // Only show the legend if there are multiple layers to show
+                        if (layers.length > 1) {
+                            mapLegendDiv = document.getElementsByClassName(mapLegendDivClass)[0]
+                            mapLegendDiv.style.display = "grid";
+                            layers.forEach(layer => {
+                                if (layer.startsWith("new")) {
+                                    var fillColour = null
+                                    var borderColour = "#E6007C"
+                                    var description = "New Boundary"
+                                } else {
+                                    var fillColour = "#a4a6a6d0"
+                                    var borderColour = "#5d5c5cd0"
+                                    var description = "Old Boundary"
+                                }
+                                addRowToLegend(fillColour, borderColour, description, mapLegendDiv)
+                            });
+                        }
                     });
                 };
             });
