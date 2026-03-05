@@ -187,7 +187,7 @@ Resources:
             Schedule: rate(1 hour)
             Name: import-local-parties-global
             Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2025-5-1"]}'
+            Input: '{"command": "import_local_parties", "args": ["--date=2026-5-7"]}'
 
   WCIVFCodeDeployApp:
     Type: AWS::CodeDeploy::Application
