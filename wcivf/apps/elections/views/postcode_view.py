@@ -1,3 +1,4 @@
+import json
 from typing import Optional
 
 from administrations.helpers import AdministrationsHelper
@@ -520,19 +521,29 @@ class PostcodeBoundaryReviewView(PostcodeToPostsMixin, TemplateView):
     """
 
     template_name = "elections/boundary_reviews_view.html"
+    ballot_dict = None
     postcode = None
     uprn = None
 
-    def get_boundary_reviews(self):
-        ballot_dict = self.postcode_to_ballots(
-            postcode=self.postcode,
-            uprn=self.uprn,
-        )
-        return ballot_dict.get("boundary_reviews")
+    def get_ballot_dict(self):
+        """
+        Returns a QuerySet of PostElection objects. Calls postcode_to_ballots
+        and updates the self.ballot_dict attribute the first time it is called.
+        """
+        if self.ballot_dict is None:
+            self.ballot_dict = self.postcode_to_ballots(
+                postcode=self.postcode, uprn=self.uprn
+            )
+
+        return self.ballot_dict
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         self.postcode = clean_postcode(kwargs["postcode"])
         self.uprn = self.kwargs.get("uprn")
-        context["boundary_reviews"] = self.get_boundary_reviews()
+        ballot_dict = self.get_ballot_dict()
+        context["boundary_reviews"] = ballot_dict.get("boundary_reviews")
+        postcode_location = ballot_dict.get("postcode_location", None)
+        context["postcode_location"] = json.loads(postcode_location)
+        context["nation"] = ballot_dict.get("electoral_services")["nation"]
         return context
