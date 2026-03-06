@@ -9,18 +9,10 @@ class Command(BaseCommand):
         LocalElection(
             date="2025-05-01",
             csv_files=[
-                # LibDem
-                "https://docs.google.com/spreadsheets/d/e/2PACX-1vTd6sLnXiOSBEMv357NQprn5XUaWfAMvsdRlQyY10ZWkCVZl-FAQmdcxQxGgYjURbBf8g1L3501pJKy/pub?gid=0&single=true&output=csv",
-                # Con
-                "https://docs.google.com/spreadsheets/d/e/2PACX-1vTd6sLnXiOSBEMv357NQprn5XUaWfAMvsdRlQyY10ZWkCVZl-FAQmdcxQxGgYjURbBf8g1L3501pJKy/pub?gid=84663404&single=true&output=csv",
-                # Lab
-                "https://docs.google.com/spreadsheets/d/e/2PACX-1vTd6sLnXiOSBEMv357NQprn5XUaWfAMvsdRlQyY10ZWkCVZl-FAQmdcxQxGgYjURbBf8g1L3501pJKy/pub?gid=1874493069&single=true&output=csv",
-                # Green
-                "https://docs.google.com/spreadsheets/d/e/2PACX-1vTd6sLnXiOSBEMv357NQprn5XUaWfAMvsdRlQyY10ZWkCVZl-FAQmdcxQxGgYjURbBf8g1L3501pJKy/pub?gid=818921609&single=true&output=csv",
-                # Reform
-                "https://docs.google.com/spreadsheets/d/e/2PACX-1vTd6sLnXiOSBEMv357NQprn5XUaWfAMvsdRlQyY10ZWkCVZl-FAQmdcxQxGgYjURbBf8g1L3501pJKy/pub?gid=1157694678&single=true&output=csv",
-                # Other
-                "https://docs.google.com/spreadsheets/d/e/2PACX-1vTd6sLnXiOSBEMv357NQprn5XUaWfAMvsdRlQyY10ZWkCVZl-FAQmdcxQxGgYjURbBf8g1L3501pJKy/pub?gid=836467868&single=true&output=csv",
+                # Scotland
+                "https://docs.google.com/spreadsheets/d/e/2PACX-1vSIy24w1-iawrlvg9ApM0sRq8LcrcD8FRONEjzInxkYWhNOpGeWLv2ABAVDFc-4ZwSemPJ1gcXwJ5NK/pub?gid=0&single=true&output=csv",
+                # Wales
+                "https://docs.google.com/spreadsheets/d/e/2PACX-1vSIy24w1-iawrlvg9ApM0sRq8LcrcD8FRONEjzInxkYWhNOpGeWLv2ABAVDFc-4ZwSemPJ1gcXwJ5NK/pub?gid=538606759&single=true&output=csv",
             ],
         ),
     ]
