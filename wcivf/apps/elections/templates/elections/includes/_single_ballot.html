@@ -155,6 +155,7 @@
                                 {# Case: Candidates and the post is NOT locked (add CTA) #}
                             {% blocktrans trimmed with num_candidates=postelection.people|length|apnumber plural_candidates=postelection.people|pluralize %}
                                 We are currently aware of {{ num_candidates }} candidate{{plural_candidates}} for this position.
+                                We expect more candidates to be announced in the future.
                             {% endblocktrans %}
 
                             {% blocktrans trimmed with expected_sopn_date=postelection.expected_sopn_date|date:"j F Y" ynr_link=postelection.ynr_link %}
