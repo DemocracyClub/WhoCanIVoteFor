@@ -256,6 +256,7 @@ class PollingStationInfoMixin(object):
             "before_application_deadline": election.is_before(event),
             "application_deadline": next_ballot.postal_vote_application_deadline,
             "election_date": next_ballot.election.election_date,
+            "sopn_date": next_ballot.expected_sopn_date,
         }
 
         # we only hold postal votes dispatch data data for one
