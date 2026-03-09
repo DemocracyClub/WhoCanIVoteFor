@@ -7,7 +7,7 @@ from parties.importers import LocalElection, LocalPartyImporter
 class Command(BaseCommand):
     ELECTIONS = [
         LocalElection(
-            date="2025-05-01",
+            date="2026-05-07",
             csv_files=[
                 # Scotland
                 "https://docs.google.com/spreadsheets/d/e/2PACX-1vSIy24w1-iawrlvg9ApM0sRq8LcrcD8FRONEjzInxkYWhNOpGeWLv2ABAVDFc-4ZwSemPJ1gcXwJ5NK/pub?gid=0&single=true&output=csv",
