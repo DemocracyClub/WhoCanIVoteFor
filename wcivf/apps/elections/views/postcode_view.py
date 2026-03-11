@@ -542,6 +542,18 @@ class PostcodeBoundaryReviewView(PostcodeToPostsMixin, TemplateView):
         self.postcode = clean_postcode(kwargs["postcode"])
         self.uprn = self.kwargs.get("uprn")
         ballot_dict = self.get_ballot_dict()
+        boundary_reviews = ballot_dict.get("boundary_reviews")
+        # TODO: division_unit would be good to add to the API
+        for review in boundary_reviews:
+            review["effective_date"] = timezone.datetime.strptime(
+                review["effective_date"], "%Y-%m-%d"
+            )
+            for change in review["boundary_changes"]:
+                if change["division_type"].endswith("E"):
+                    change["division_unit"] = "region"
+                else:
+                    change["division_unit"] = "constituency"
+
         context["boundary_reviews"] = ballot_dict.get("boundary_reviews")
         postcode_location = ballot_dict.get("postcode_location", None)
         context["postcode_location"] = json.loads(postcode_location)
