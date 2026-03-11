@@ -61,10 +61,6 @@
     {% else %}
       {% blocktrans trimmed with election_date=card.election_date|naturalday:"j F Y" sopn_date=card.sopn_date|naturalday:"j F Y" %}
         <p>
-          You can apply for a postal vote for a specific time period or for a maximum of three years.
-          You will need to reapply once this time period has elapsed.
-        </p>
-        <p>
           Ballot papers for the election on {{ election_date }} will not be printed until after {{ sopn_date }}.
           If you have a postal vote, your local council will send your postal voting pack around three weeks before polling day.
         </p>
