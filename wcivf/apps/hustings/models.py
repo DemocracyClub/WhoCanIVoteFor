@@ -4,8 +4,10 @@ Models for Hustings
 
 import hashlib
 
+from django.contrib.sites.models import Site
 from django.db import models
 from django.db.models import TextChoices
+from django.urls import reverse
 from django.utils import timezone
 from elections.models import PostElection
 from model_utils.models import TimeStampedModel
@@ -84,3 +86,98 @@ class Husting(TimeStampedModel):
         """
         s = f"{self.title}{self.starts.timestamp()}"
         return hashlib.md5(s.encode("utf-8")).hexdigest()
+
+    def get_admin_url(self):
+        return reverse(
+            f"admin:{self._meta.app_label}_{self._meta.model_name}_change",
+            args=[self.pk],
+        )
+
+    def as_slack_blocks(self) -> list:
+        """
+        Return Slack Block payload blocks for a husting, for use in the
+        Slack Helper
+        """
+
+        starts = self.starts
+        starts_str = starts.strftime("%A %-d %B %Y at %-I:%M%p")
+
+        url = self.url.strip() if self.url else ""
+        location = self.location.strip() if self.location else ""
+        ends = self.ends if self.ends else None
+
+        current_site = Site.objects.get_current()
+        admin_url = f"https://{current_site.domain}{self.get_admin_url()}"
+
+        fields = [
+            {
+                "type": "mrkdwn",
+                "text": f"*Ballot*\n{self.post_election}",
+            },
+            {
+                "type": "mrkdwn",
+                "text": f"*Starts*\n{starts_str}",
+            },
+        ]
+
+        if ends:
+            fields.append(
+                {
+                    "type": "mrkdwn",
+                    "text": f"*Ends*\n{ends.strftime('%A %-d %B %Y at %-I:%M%p')}",
+                }
+            )
+
+        if location:
+            fields.append(
+                {
+                    "type": "mrkdwn",
+                    "text": f"*Location*\n{location}",
+                }
+            )
+
+        if url:
+            fields.append(
+                {
+                    "type": "mrkdwn",
+                    "text": f"*URL*\n<{url}|Open event page>",
+                }
+            )
+
+        return [
+            {
+                "type": "header",
+                "text": {
+                    "type": "plain_text",
+                    "text": "New husting added",
+                    "emoji": True,
+                },
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"*{self.title}*",
+                },
+            },
+            {
+                "type": "section",
+                "fields": fields,
+            },
+            {"type": "divider"},
+            {
+                "type": "actions",
+                "elements": [
+                    {
+                        "type": "button",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "Moderate in admin",
+                            "emoji": True,
+                        },
+                        "url": admin_url,
+                        "style": "primary",
+                    }
+                ],
+            },
+        ]

@@ -1,3 +1,5 @@
+from core.slack import SlackHelper
+from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView
@@ -38,4 +40,19 @@ class AddHustingView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
+        # Post to Slack in this method as we know that the data has
+        # been saved at this point. If Slack fails for some reason, we'll give
+        # the user a 500, but their data will not be lost
+        self.post_to_slack()
         return self.ballot.get_absolute_url()
+
+    def post_to_slack(self):
+        hust: Husting = self.object
+        slack_helper = SlackHelper()
+        slack_helper.post_message(
+            # DC Slack Hustings channel
+            getattr(settings, "SLACK_HUSTINGS_CHANNEL", "C53KNT7NH"),
+            "New hustings added",
+            blocks=hust.as_slack_blocks(),
+            extra_dict={"icon_emoji": ":calendar:"},
+        )

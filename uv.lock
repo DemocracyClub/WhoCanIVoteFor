@@ -1454,6 +1454,16 @@ wheels = [
 ]
 
 [[package]]
+name = "slacker2"
+version = "22.8.4"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "requests", marker = "platform_python_implementation == 'CPython'" },
+    { name = "wheel", marker = "platform_python_implementation == 'CPython'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ff/e4/9e2bc02ea852d7c3d3c0318ece90db07dd57d03b4ec92a912e9447d881bc/slacker2-22.8.4.tar.gz", hash = "sha256:7348e0c923002c72aea1286e6710da3274acc6d445bc929d84ab790ec4cb2b3a", size = 10479, upload-time = "2022-08-05T00:03:53.482Z" }
+
+[[package]]
 name = "sqlparse"
 version = "0.5.4"
 source = { registry = "https://pypi.org/simple" }
@@ -1648,6 +1658,7 @@ dependencies = [
     { name = "nh3", marker = "platform_python_implementation == 'CPython'" },
     { name = "psycopg2-binary", marker = "platform_python_implementation == 'CPython'" },
     { name = "requests", marker = "platform_python_implementation == 'CPython'" },
+    { name = "slacker2", marker = "platform_python_implementation == 'CPython'" },
     { name = "uk-election-ids", marker = "platform_python_implementation == 'CPython'" },
     { name = "uk-election-timetables", marker = "platform_python_implementation == 'CPython'" },
 ]
@@ -1702,6 +1713,7 @@ requires-dist = [
     { name = "nh3", specifier = "==0.2.21" },
     { name = "psycopg2-binary", specifier = "==2.9.9" },
     { name = "requests", specifier = "==2.32.4" },
+    { name = "slacker2", specifier = ">=22.8.4" },
     { name = "uk-election-ids", specifier = "==0.10.0" },
     { name = "uk-election-timetables", specifier = "==4.3.0" },
 ]

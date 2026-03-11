@@ -289,6 +289,13 @@ PARTY_LIST_VOTING_TYPES = ["PR-CL", "AMS"]
 
 WDIV_API_KEY = os.environ.get("WDIV_API_KEY")
 SLACK_FEEDBACK_WEBHOOK_URL = os.environ.get("SLACK_FEEDBACK_WEBHOOK_URL")  # noqa
+SLACK_BOT_USERNAME = "WCIVF-Bot"
+if (
+    os.environ.get("DC_ENVIRONMENT")
+    and os.environ.get("DC_ENVIRONMENT") != "production"
+):
+    # #bot-testing
+    SLACK_HUSTINGS_CHANNEL = "C080MGZ7CJ1"
 
 CHECK_HOST_DIRTY = False
 DIRTY_FILE_PATH = "~/server_dirty"
