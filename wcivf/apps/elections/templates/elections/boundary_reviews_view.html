@@ -126,14 +126,22 @@
                             </div>
                         {% elif change_scenario == "BOTH_CHANGED"%}
                             <div class="ds-stack-smaller">
-                                {% blocktrans trimmed with division_unit_cap=division_unit|capfirst date=review.effective_date|date:"j M Y"%}
-                                    <h4>Your {{division_unit_cap}} has changed</h4>
-                                    <p>
-                                        At the last election your {{division_unit}} was [name].
-                                        On {{date}} it will be [new name].
-                                        View the map below to understand these changes.
-                                    </p>
-                                {% endblocktrans %}
+                                {% if nation == "Wales" %}
+                                    {% blocktrans %}
+                                        <p>
+                                            Your new constituency is [new_name]. View your new constituency on the map below.
+                                        </p>
+                                    {% endblocktrans %}
+                                {% else %}
+                                    {% blocktrans trimmed with division_unit_cap=division_unit|capfirst date=review.effective_date|date:"j M Y"%}
+                                        <h4>Your {{division_unit_cap}} has changed</h4>
+                                        <p>
+                                            At the last election your {{division_unit}} was [name].
+                                            On {{date}} it will be [new name].
+                                            View the map below to understand these changes.
+                                        </p>
+                                    {% endblocktrans %}
+                                {% endif %}
                                 <h4>{% trans "Map" %}</h4>
                                 <div id="{{map_element_id_start}}-{{change_scenario}}-map" class="ds-map-maplibre">
                                     <div class="{{map_element_id_start}}-{{change_scenario}}-map-legend"></div>
