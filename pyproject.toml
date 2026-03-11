@@ -28,6 +28,7 @@ dependencies = [
     "boto3==1.36.11",
     "django-middleware-global-request==0.3.5",
     "nh3==0.2.21",
+    "slacker2>=22.8.4",
 ]
 
 [tool.uv.sources]
