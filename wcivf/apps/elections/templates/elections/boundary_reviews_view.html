@@ -81,12 +81,12 @@
                     {% with change_scenario=change.change_scenario map_element_id_start=review.id|add:"-"|add:change.division_type  division_unit=change.division_unit%}
                         {% if change_scenario == "NO_CHANGE" %}
                             <div class="ds-stack-smaller">
-                                {% blocktrans trimmed with division_unit_cap=division_unit|capfirst %}
+                                {% blocktrans trimmed with division_unit_cap=division_unit|capfirst old_name=change.old_division_name%}
                                     <h4>Your {{division_unit_cap}} has not changed</h4>
                                     <p>
                                         Your {{division_unit}} has not been significantly affected by the boundary review.
                                         Whilst there may have been minor adjustments to the boundary, no areas have been added or removed,
-                                        and its name is unchanged from the last election.
+                                        and its name, <strong>{{old_name}}</strong>, is unchanged from the last election.
                                     </p>
                                 {% endblocktrans %}
                                 <h4>{% trans "Map" %}</h4>
@@ -96,10 +96,10 @@
                             </div>
                         {% elif change_scenario == "BOUNDARY_CHANGED"%}
                             <div class="ds-stack-smaller">
-                                {% blocktrans trimmed with division_unit_cap=division_unit|capfirst %}
+                                {% blocktrans trimmed with division_unit_cap=division_unit|capfirst old_name=change.old_division_name %}
                                     <h4>Your {{division_unit_cap}} has changed shape</h4>
                                     <p>
-                                        Your {{division_unit}}, [name], has changed shape since the last election.
+                                        Your {{division_unit}}, <strong>{{old_name}}</strong>, has changed shape since the last election.
                                         View the map below to understand these changes.
                                         Your {{division_unit}}’s name has not been changed.
                                     </p>
@@ -112,11 +112,11 @@
                             </div>
                         {% elif change_scenario == "NAME_CHANGED"%}
                             <div class="ds-stack-smaller">
-                                {% blocktrans trimmed with division_unit_cap=division_unit|capfirst %}
+                                {% blocktrans trimmed with division_unit_cap=division_unit|capfirst old_name=change.old_division_name new_name=change.new_division_name %}
                                     <h4>Your {{division_unit_cap}} has a new name</h4>
                                     <p>
-                                        At the last parliamentary election your {{division_unit}} was [name].
-                                        It has been renamed [new name].
+                                        At the last parliamentary election your {{division_unit}} was <strong>{{old_name}}</strong>.
+                                        It has been renamed <strong>{{new_name}}</strong>.
                                         The {{division_unit}}’s boundaries have not been significantly changed.
                                     </p>
                                 {% endblocktrans %}
@@ -128,17 +128,17 @@
                         {% elif change_scenario == "BOTH_CHANGED"%}
                             <div class="ds-stack-smaller">
                                 {% if nation == "Wales" %}
-                                    {% blocktrans %}
+                                    {% blocktrans trimmed with new_name=change.new_division_name  %}
                                         <p>
-                                            Your new constituency is [new_name]. View your new constituency on the map below.
+                                            Your new constituency is <strong>{{new_name}}</strong>. View your new constituency on the map below.
                                         </p>
                                     {% endblocktrans %}
                                 {% else %}
-                                    {% blocktrans trimmed with division_unit_cap=division_unit|capfirst date=review.effective_date|date:"j M Y"%}
+                                    {% blocktrans trimmed with division_unit_cap=division_unit|capfirst date=review.effective_date|date:"j M Y" old_name=change.old_division_name new_name=change.new_division_name%}
                                         <h4>Your {{division_unit_cap}} has changed</h4>
                                         <p>
-                                            At the last election your {{division_unit}} was [name].
-                                            On {{date}} it will be [new name].
+                                            At the last parliamentary election your {{division_unit}} was <strong>{{old_name}}</strong>.
+                                            On {{date}} it will be <strong>{{new_name}}</strong>.
                                             View the map below to understand these changes.
                                         </p>
                                     {% endblocktrans %}
