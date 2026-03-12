@@ -42,6 +42,7 @@
     <h2>{% trans "Boundary Changes in your area" %}</h2>
     <div class="ds-stack">
         <p>{% trans "There's been a boundary review in your area. Please see below for details." %}</p>
+        <p> {% trans "Looking for election information?"%} <a href="{% url 'postcode_view' postcode %}">{% trans "Find elections in your area" %}</a>.</p>
         {% for review in boundary_reviews %}
             <div class="ds-stack-smaller">
                 <h3>{% blocktrans trimmed with org_name=review.organisation_official_name %} {{ org_name }} has new boundaries{% endblocktrans %}</h3>

@@ -540,6 +540,7 @@ class PostcodeBoundaryReviewView(PostcodeToPostsMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         self.postcode = clean_postcode(kwargs["postcode"])
+        context["postcode"] = self.postcode
         self.uprn = self.kwargs.get("uprn")
         ballot_dict = self.get_ballot_dict()
         boundary_reviews = ballot_dict.get("boundary_reviews")
