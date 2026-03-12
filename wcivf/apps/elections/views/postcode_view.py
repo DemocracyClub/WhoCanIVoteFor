@@ -543,6 +543,10 @@ class PostcodeBoundaryReviewView(PostcodeToPostsMixin, TemplateView):
         self.uprn = self.kwargs.get("uprn")
         ballot_dict = self.get_ballot_dict()
         boundary_reviews = ballot_dict.get("boundary_reviews")
+
+        if not boundary_reviews:
+            raise Http404("No boundary reviews found for this postcode")
+
         # TODO: division_unit would be good to add to the API
         for review in boundary_reviews:
             review["effective_date"] = timezone.datetime.strptime(
