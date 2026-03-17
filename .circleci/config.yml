@@ -261,7 +261,7 @@ jobs:
             
       
 workflows:
-  main:
+  test_build_deploy:
     jobs:
       - build_and_test:
           matrix:
