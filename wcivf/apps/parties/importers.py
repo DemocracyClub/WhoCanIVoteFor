@@ -223,7 +223,7 @@ class LocalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
     def add_manifesto(self, row, party, election, file_url):
         manifesto_web = row["Manifesto Website URL"].strip()
         manifesto_pdf = row["Manifesto PDF URL"].strip()
-        country = self.get_country(election_type="local")
+        country = self.get_country(election_type=election.election_type)
         # These columns aren't guaranteed to be part of the csv so we use .get()
         language = row.get("Manifesto Language", "English").strip()
         easy_read_url = row.get("Manifesto Easy Read PDF", "").strip()
