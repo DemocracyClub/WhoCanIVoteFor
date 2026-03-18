@@ -201,7 +201,7 @@
             protocol.add(p);
         };
 
-        const extractDivisonsetID = (pmtilesURL) => {
+        const extractDivisionsetID = (pmtilesURL) => {
             return pmtilesURL.split("/").at(-1).split('_')[1]
         }
 
@@ -269,12 +269,12 @@
 
                     if ( showOldBoundary ) {
                         OLD_PMTILES_URL = change.old_divisionset_pmtiles_url;
-                        oldDivisionsetID = extractDivisonsetID(OLD_PMTILES_URL)
+                        oldDivisionsetID = extractDivisionsetID(OLD_PMTILES_URL)
                         addPmtilesURLtoProtocol(OLD_PMTILES_URL)
                     }
 
                     const NEW_PMTILES_URL = change.new_divisionset_pmtiles_url;
-                    const newDivisionsetID = extractDivisonsetID(NEW_PMTILES_URL)
+                    const newDivisionsetID = extractDivisionsetID(NEW_PMTILES_URL)
                     addPmtilesURLtoProtocol(NEW_PMTILES_URL)
 
 
