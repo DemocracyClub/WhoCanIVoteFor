@@ -31,16 +31,6 @@
             {% include "elections/includes/inline_elections_nav_list.html" %}
         {% endif %}
 
-        {% if has_boundary_changes %}
-            <h3>{% trans "There are boundary changes in your area" %}</h3>
-            <p>
-                {% blocktrans trimmed with url=boundary_review__view_url %}
-                    <a href="{{ url }}">Find out more</a>
-                    about the changes to electoral boundaries that may affect your area.
-                {% endblocktrans %}
-            </p>
-        {% endif %}
-
         {% if not address_picker %}
 
 
