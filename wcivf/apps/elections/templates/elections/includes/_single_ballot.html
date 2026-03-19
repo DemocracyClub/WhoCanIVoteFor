@@ -52,6 +52,13 @@
                     {% endif %}
                 </span>
             </p>
+            {% if has_boundary_changes %}
+                <p>
+                    {% blocktrans trimmed with url=boundary_review__view_url %}
+                        There are <a href="{{ url }}">boundary changes</a> which affect this election.
+                    {% endblocktrans %}
+                </p>
+            {% endif %}
 
             {% include "elections/includes/_by_election_reason.html" with object=postelection %}
 

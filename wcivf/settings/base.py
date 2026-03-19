@@ -228,6 +228,13 @@ USE_TZ = True
 SHOW_GB_ID_MESSAGING = False
 SHOW_RESULTS_CHART = False
 
+# Boundary Changes Feature switch
+SHOW_BOUNDARY_CHANGES = os.environ.get("SHOW_BOUNDARY_CHANGES", "").lower() in (
+    "1",
+    "true",
+    "yes",
+)
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
