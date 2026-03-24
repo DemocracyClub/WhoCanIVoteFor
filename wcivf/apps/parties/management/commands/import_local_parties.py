@@ -9,10 +9,22 @@ class Command(BaseCommand):
         LocalElection(
             date="2026-05-07",
             csv_files=[
+                # Conservative
+                "https://docs.google.com/spreadsheets/d/e/2PACX-1vRs_VqYx0ei9pyYF6VBrBZ4HFudjA5kEbnsWr79lmD8A_HRlhBaSg7hXxyw_04BK9CM1EdhRQ6qVQTn/pub?gid=957717807&single=true&output=csv",
+                # Green
+                "https://docs.google.com/spreadsheets/d/e/2PACX-1vRs_VqYx0ei9pyYF6VBrBZ4HFudjA5kEbnsWr79lmD8A_HRlhBaSg7hXxyw_04BK9CM1EdhRQ6qVQTn/pub?gid=1912184573&single=true&output=csv",
+                # Labour
+                "https://docs.google.com/spreadsheets/d/e/2PACX-1vRs_VqYx0ei9pyYF6VBrBZ4HFudjA5kEbnsWr79lmD8A_HRlhBaSg7hXxyw_04BK9CM1EdhRQ6qVQTn/pub?gid=0&single=true&output=csv",
+                # Lib Dem
+                "https://docs.google.com/spreadsheets/d/e/2PACX-1vRs_VqYx0ei9pyYF6VBrBZ4HFudjA5kEbnsWr79lmD8A_HRlhBaSg7hXxyw_04BK9CM1EdhRQ6qVQTn/pub?gid=1082204341&single=true&output=csv",
+                # Reform
+                "https://docs.google.com/spreadsheets/d/e/2PACX-1vRs_VqYx0ei9pyYF6VBrBZ4HFudjA5kEbnsWr79lmD8A_HRlhBaSg7hXxyw_04BK9CM1EdhRQ6qVQTn/pub?gid=305808946&single=true&output=csv",
                 # Scotland
                 "https://docs.google.com/spreadsheets/d/e/2PACX-1vSIy24w1-iawrlvg9ApM0sRq8LcrcD8FRONEjzInxkYWhNOpGeWLv2ABAVDFc-4ZwSemPJ1gcXwJ5NK/pub?gid=0&single=true&output=csv",
                 # Wales
                 "https://docs.google.com/spreadsheets/d/e/2PACX-1vSIy24w1-iawrlvg9ApM0sRq8LcrcD8FRONEjzInxkYWhNOpGeWLv2ABAVDFc-4ZwSemPJ1gcXwJ5NK/pub?gid=538606759&single=true&output=csv",
+                # Other
+                "https://docs.google.com/spreadsheets/d/e/2PACX-1vRs_VqYx0ei9pyYF6VBrBZ4HFudjA5kEbnsWr79lmD8A_HRlhBaSg7hXxyw_04BK9CM1EdhRQ6qVQTn/pub?gid=1661321806&single=true&output=csv",
             ],
         ),
     ]
