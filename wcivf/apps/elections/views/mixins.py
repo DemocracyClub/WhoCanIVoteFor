@@ -266,9 +266,12 @@ class PollingStationInfoMixin(object):
             # this is the date when replacement packs can be issued from
             # for ALL councils
             # TODO: add this to the timetable library
-            card["replacement_pack_start"] = datetime.strptime(
-                "30/04/2026", "%d/%m/%Y"
-            ).date()
+            if country == Country.SCOTLAND:
+                card["replacement_pack_start"] = None
+            else:
+                card["replacement_pack_start"] = datetime.strptime(
+                    "30/04/2026", "%d/%m/%Y"
+                ).date()
             if council and council["council_id"]:
                 card["dispatch_dates"] = get_postal_vote_dispatch_dates(
                     council["council_id"]
