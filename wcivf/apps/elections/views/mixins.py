@@ -137,8 +137,15 @@ class PostelectionsToPeopleMixin(object):
         people_for_post = people_for_post.annotate(
             name_for_ordering=Coalesce("person__sort_name", "last_name")
         )
+
         if postelection.election.uses_lists:
-            order_by = ["party__party_name", "list_position"]
+            # Put independent candidates at the end of the list for elections that use lists
+            list_party_sort = Case(
+                When(party__party_id="ynmp-party:2", then=1),
+                default=0,
+                output_field=IntegerField(),
+            )
+            order_by = [list_party_sort, "party__party_name", "list_position"]
 
             manifesto_qs = Manifesto.objects.filter(
                 election_id=postelection.election.pk
