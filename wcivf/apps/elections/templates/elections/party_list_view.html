@@ -2,6 +2,11 @@
 {% load i18n %}
 
 {% block content %}
+    {% if ballot.election.in_past %}
+        <div>
+            {% include "elections/includes/_past_election.html" with postelection=ballot%}
+        </div>
+    {% endif %}
 
     <div class="ds-with-sidebar">
         <div>
