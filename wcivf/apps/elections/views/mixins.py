@@ -276,15 +276,18 @@ class PollingStationInfoMixin(object):
         }
 
         # we only hold postal votes dispatch data data for one
-        # election. TODO: remove/review after 2025-05-01
-        if next_ballot.election.election_date == date(2025, 5, 1):
-            # hard-coded for May 2025
+        # election. TODO: remove/review after 2026-05-07
+        if next_ballot.election.election_date == date(2026, 5, 7):
+            # hard-coded for May 2026
             # this is the date when replacement packs can be issued from
             # for ALL councils
             # TODO: add this to the timetable library
-            card["replacement_pack_start"] = datetime.strptime(
-                "25/04/2025", "%d/%m/%Y"
-            ).date()
+            if country == Country.SCOTLAND:
+                card["replacement_pack_start"] = None
+            else:
+                card["replacement_pack_start"] = datetime.strptime(
+                    "30/04/2026", "%d/%m/%Y"
+                ).date()
             if council and council["council_id"]:
                 card["dispatch_dates"] = get_postal_vote_dispatch_dates(
                     council["council_id"]

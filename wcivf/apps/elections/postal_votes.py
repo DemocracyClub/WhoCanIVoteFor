@@ -5,7 +5,7 @@ from pathlib import Path
 
 def get_postal_vote_dispatch_dates(council_id):
     with open(
-        Path(__file__).parent / "data" / "20250501_postal_votes.csv"
+        Path(__file__).parent / "data" / "20260507_postal_votes.csv"
     ) as csvfile:
         reader = csv.DictReader(csvfile)
         dispatch_dates = {row.pop("Reg"): row for row in list(reader)}
