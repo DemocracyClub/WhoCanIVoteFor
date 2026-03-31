@@ -1533,11 +1533,11 @@ wheels = [
 
 [[package]]
 name = "uk-election-timetables"
-version = "4.3.0"
+version = "4.4.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/23/20/af03321e398a5ca83a4aab9874b215dd802e0c043443d728af1ff9dade7d/uk_election_timetables-4.3.0.tar.gz", hash = "sha256:a82fde1fc9c6afd0ed17166c24b6105c74a61e9b236dbed0ad6a7911ea33906a", size = 18572, upload-time = "2025-06-19T07:42:49.992Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/24/7e/fcb9e159c3e38b38305e0d51d2737d5680a993e6180c5e1e09477efb6a25/uk_election_timetables-4.4.0.tar.gz", hash = "sha256:1462ee03dad497550078d1a3728ee88aa5c92a226fef0c9d1fddc525663658df", size = 18746, upload-time = "2026-03-31T07:12:06.506Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/3a/3f/808a1134bee4e81ec40ab1aa7cb9c8e5a81976d8c19ff9c30d13bf0b56ef/uk_election_timetables-4.3.0-py3-none-any.whl", hash = "sha256:da9b087e557f52e32641c0c32a1276d3c0256968a7a7729da65a592c24a2f78b", size = 20977, upload-time = "2025-06-19T07:42:48.849Z" },
+    { url = "https://files.pythonhosted.org/packages/79/6c/6351387e8e88e97d6e2bfb65bc895018199f0e59277d4e03927dd18c3ed7/uk_election_timetables-4.4.0-py3-none-any.whl", hash = "sha256:f14a84d6f95cac34835018d8292b3e664bad8cd98323795477976bf89d744973", size = 21076, upload-time = "2026-03-31T07:12:05.316Z" },
 ]
 
 [[package]]
@@ -1715,7 +1715,7 @@ requires-dist = [
     { name = "requests", specifier = "==2.33.0" },
     { name = "slacker2", specifier = ">=22.8.4" },
     { name = "uk-election-ids", specifier = "==0.10.0" },
-    { name = "uk-election-timetables", specifier = "==4.3.0" },
+    { name = "uk-election-timetables", specifier = "==4.4.0" },
 ]
 
 [package.metadata.requires-dev]
