@@ -229,6 +229,9 @@
                 </div>
             </section>
         {% endif %}
+        {% if postelection.voting_system != 'FPTP' and postelection.election.in_past and postelection.results_source_url %}
+            <a class="ds-cta ds-cta-blue" href={{postelection.results_source_url}}>{% trans "See Full Results"%}</a>
+        {% endif %}
 
         {% if postelection.people and postelection.should_show_candidates %}
             {% if postelection.display_as_party_list %}
