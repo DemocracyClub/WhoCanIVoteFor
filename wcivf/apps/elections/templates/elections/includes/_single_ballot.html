@@ -88,6 +88,15 @@
                 {% endif %}
             </ul>
 
+            {% if not postelection.election.in_past and not postelection.locked and postelection.people %}
+                <div class="ds-status-message">
+                    {% blocktrans trimmed with expected_sopn_date=postelection.expected_sopn_date|date:"j F Y" %}
+                        This candidate list is provisional.
+                        The complete candidate list will be published after {{expected_sopn_date}}.
+                    {% endblocktrans %}
+                </div>
+            {% endif %}
+
             <p>
                 {% if postelection.election.in_past %}
                     {% blocktrans trimmed with num_candidates=postelection.people|length plural=postelection.people|pluralize postelection=postelection.friendly_name %}<strong>{{ num_candidates }} candidate{{ plural }}</strong> stood in the {{ postelection }}.{% endblocktrans %}
