@@ -20,50 +20,50 @@
                         <div class="ds-not-sidebar">
                             <a href="{{ pp.person.get_absolute_url }}">
                                 {% if pp.elected %}🌟 <span class="elected_text">{% trans "Elected:" %}</span> {% endif %}
-                                {{ party.party_name }}:<br>{{ pp.person.name }}
-                                {% if pp.elected %}🌟{% endif %}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        {% else %}
-            <div>
-                <div class="ds-with-sidebar ds-card">
-                    <div class="ds-card-body">
-                        <div class="emblem-for-candidate-list" style="flex-basis: 5rem">
-                            {% if party.emblem_url %}
-                                <img src="{{ party.emblem_url }}" alt="{% trans "Party emblem" %}">
-                            {% endif %}
-                        </div>
-                        <div class="ds-not-sidebar">
-                            <a href="{% url 'party_list_view' election=postelection.ballot_paper_id party_id=party.party_id %}">{{ party.party_name }}</a>
-                            {% with manifesto=party.manifestos.0 %}
-                                {% if manifesto %}
-                                    <p>
-                                        Find out more this party's policies in their manifesto:
-                                    </p>
-                                    <ul>
-                                        {% include "parties/single_manifesto.html" with manifesto=manifesto %}
-                                    </ul>
-                                {% endif %}
-                            {% endwith %}
-                            <ul class="ds-details" style="border-style:none;">
-                                <li style="list-style-type: none;">
-                                    <details style="border-style:none;">
-                                        <summary>{% blocktrans trimmed with num_candidates=person_post.list|length %}Show {{ num_candidates  }} candidates{% endblocktrans %}</summary>
-                                        <ul class="ds-grid" style="--gridCellMin: 25ch">
-                                            {% for person in person_post.list %}
-                                                {% include "elections/includes/_person_card.html" with person_post=person in_party_list=True %}
-                                            {% endfor %}
+                                    {{ party.party_name }}:<br>{{ pp.person.name }}
+                                    {% if pp.elected %}🌟{% endif %}
+                                </a>
+                                    </div>
+                                    </div>
+                                    </div>
+                                {% endfor %}
+            {% else %}
+                <div>
+                    <div class="ds-with-sidebar ds-card">
+                        <div class="ds-card-body">
+                            <div class="emblem-for-candidate-list" style="flex-basis: 5rem">
+                                {% if party.emblem_url %}
+                                    <img src="{{ party.emblem_url }}" alt="{% trans "Party emblem" %}">
+                                    {% endif %}
+                                    </div>
+                                    <div class="ds-not-sidebar">
+                                        <a href="{% url 'party_list_view' election=postelection.ballot_paper_id party_id=party.party_id %}">{{ party.party_name }}</a>
+                                        {% with manifesto=party.manifestos.0 %}
+                                            {% if manifesto %}
+                                                <p>
+                                                    {% trans %}Find out more about this party's policies in their manifesto:{% endtrans %}
+                                                </p>
+                                                <ul>
+                                                    {% include "parties/single_manifesto.html" with manifesto=manifesto %}
+                                                </ul>
+                                            {% endif %}
+                                        {% endwith %}
+                                        <ul class="ds-details" style="border-style:none;">
+                                            <li style="list-style-type: none;">
+                                                <details style="border-style:none;">
+                                                    <summary>{% blocktrans trimmed with num_candidates=person_post.list|length %}Show {{ num_candidates  }} candidates{% endblocktrans %}</summary>
+                                                    <ul class="ds-grid" style="--gridCellMin: 25ch">
+                                                        {% for person in person_post.list %}
+                                                            {% include "elections/includes/_person_card.html" with person_post=person in_party_list=True %}
+                                                        {% endfor %}
+                                                    </ul>
+                                                </details>
+                                            </li>
                                         </ul>
-                                    </details>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-    {% endwith %}
-{% endfor %}
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                {% endif %}
+            {% endwith %}
+        {% endfor %}

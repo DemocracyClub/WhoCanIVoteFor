@@ -7,13 +7,13 @@
 # William Roper <roper.william@gmail.com>, 2022
 # Atebol, 2022
 # Sym Roe <sym@talusdesign.co.uk>, 2022
+# Lucy Knight <lucy@jargonautical.com>, 2026
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-25 16:54+0000\n"
+"POT-Creation-Date: 2026-04-02 11:42+0000\n"
 "PO-Revision-Date: 2022-03-24 09:04+0000\n"
 "Last-Translator: Sym Roe <sym@talusdesign.co.uk>, 2022\n"
 "Language-Team: Welsh (https://www.transifex.com/democracy-club/teams/61326/"
@@ -25,62 +25,852 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
 "11) ? 2 : 3;\n"
 
+#: wcivf/apps/administrations/templates/administrations/administrations_for_postcode.html:14
+#, python-format
+msgid ""
+"\n"
+"                <p>There are %(administration.seats_total|apnumber)s "
+"%(administration.role_name)s representing you.</p>\n"
+"                "
+msgstr ""
+
+#: wcivf/apps/administrations/templates/elections/your_area.html:17
+msgid ""
+"\n"
+"        <h2>Your area</h2>\n"
+"        <p>This page lists all the parts of government that look after your "
+"area. Each of these organisations\n"
+"            have different responsibilities and representatives.</p>\n"
+"        "
+msgstr ""
+
+#: wcivf/apps/administrations/templates/elections/your_area.html:28
+msgid "Something wrong? Please "
+msgstr ""
+
+#: wcivf/apps/administrations/templates/elections/your_area.html:29
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:14
+msgid "get in touch"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/elections/your_area.html:29
+msgid "with feedback or bug reports"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/elections/your_area.html:32
+msgid ""
+"\n"
+"        <h2>Please pick your address</h2>\n"
+"        <p>This postcode spans more than one area, so we need to know the "
+"address to provide information about your\n"
+"            area</p>\n"
+"        "
+msgstr ""
+
+#: wcivf/apps/administrations/templates/elections/your_area.html:57
+#, fuzzy
+#| msgid "Find out about candidates in your area"
+msgid "Find out about local government in your area"
+msgstr "Cael gwybod am ymgeiswyr yn eich ardal chi"
+
+#: wcivf/apps/administrations/templates/elections/your_area.html:67
+msgid ""
+"\n"
+"            As well as your new MP, there are others who represent you in "
+"your area.\n"
+"            We're working on a new experimental feature to explain who these "
+"people are and how everything\n"
+"            from your council to your\n"
+"            police force works.\n"
+"            "
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/org_id/parl-hoc.html:5
+msgid ""
+"\n"
+"Members of Parliament (MPs) represent your interests and concerns in the "
+"House of Commons.\n"
+"\n"
+"MPs consider and can propose new laws as well as raising issues that matter "
+"to you in the House. This includes asking government\n"
+"ministers questions about current issues including those which affect local "
+"constituents.\n"
+"\n"
+"MPs split their time between working in Parliament itself, working in the "
+"constituency that elected them and working\n"
+"for their political party.\n"
+"\n"
+"[Find out more about MPs](https://www.parliament.uk/about/mps-and-lords/"
+"members/mps/)\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/post_type/CED.html:5
+msgid ""
+"\n"
+"County councils are responsible for services across the whole of a county, "
+"like:\n"
+"\n"
+"* education\n"
+"* transport\n"
+"* planning\n"
+"* fire and public safety\n"
+"* social care\n"
+"* libraries\n"
+"* waste management\n"
+"* trading standards\n"
+"\n"
+"[Understand how your council works](https://www.gov.uk/understand-how-your-"
+"council-works)\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/post_type/DIW.html:5
+msgid ""
+"\n"
+"District councils cover a smaller area than county councils. They’re usually "
+"responsible for services like:\n"
+"\n"
+"* rubbish collection\n"
+"* recycling\n"
+"* Council Tax collections\n"
+"* housing\n"
+"* planning applications\n"
+"\n"
+"\n"
+"[Understand how your council works](https://www.gov.uk/understand-how-your-"
+"council-works)\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/post_type/GLA_C.html:7
+msgid ""
+"\n"
+"The Assembly holds the Mayor and Mayoral advisers to account by publicly "
+"examining policies and programmes through committee meetings, plenary "
+"sessions, site visits and investigations.\n"
+"\n"
+"Eleven Assembly Members represent the whole capital and 14 are elected by "
+"constituencies\n"
+"\n"
+"[Read more about what the London Assembly](https://www.london.gov.uk/who-we-"
+"are/what-london-assembly-does/about-london-assembly)\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/post_type/LGE.html:5
+msgid ""
+"\n"
+"The council is responsible for services like:\n"
+"\n"
+"* planning\n"
+"* waste and recycling services\n"
+"* leisure and community services\n"
+"* building control and local economic\n"
+"* cultural development\n"
+"\n"
+"[Understand how your council works](https://www.nidirect.gov.uk/articles/"
+"local-councils)\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/post_type/MTW.html:5
+msgid ""
+"\n"
+"Metropolitan district councils are responsible for services like:\n"
+"\n"
+"* schools\n"
+"* social services\n"
+"* waste collection\n"
+"* roads\n"
+"\n"
+"[Understand how your council works](https://www.gov.uk/understand-how-your-"
+"council-works)\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/post_type/NIE.html:6
+msgid ""
+"\n"
+"Members of the Legislative Assembly (MLAs) are elected by, and represent the "
+"people of, Northern Ireland. MLAs pass laws and examine policy on "
+"transferred matters like health, education, the environment, social work and "
+"housing. They scrutinise the work of Ministers and hold Executive "
+"(Government) Departments to account.\n"
+"\n"
+"Every MLA has an office in their constituency to enable them to provide a "
+"constituency service. They meet with constituents, listen to their views and "
+"act on their behalf to resolve problems. MLAs can contact relevant bodies "
+"and can raise the profile of an issue in the media. They communicate with "
+"their constituents by email, telephone, letter and social media.\n"
+"\n"
+"\n"
+"[Read more about your MLAs](https://www.niassembly.gov.uk/about-the-assembly/"
+"how-the-assembly-works/about-your-mlas/)\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/post_type/PCC.html:5
+msgid ""
+"\n"
+"Police and crime commissioners are elected in areas of England and Wales to "
+"make sure that local police meet the needs of the community.\n"
+"\n"
+"They are responsible for:\n"
+"\n"
+"* how your area is policed\n"
+"* the police budget\n"
+"* the amount of Council Tax charged for the police\n"
+"* the information you get about what the local police are doing\n"
+"* appointing and dismissing the chief constable (the most senior police "
+"officer for the area)\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/post_type/SPE.html:5
+#, python-format
+msgid ""
+"\n"
+"MSPs take part in examining and passing Bills (proposed laws). They "
+"represent you in the Scottish Parliament and\n"
+"your local area and they examine the work of the Scottish Government.\n"
+"\n"
+"[Read more about your MSPs](https://www.parliament.scot/msps/current-and-"
+"previous-msps/search-results?postcode=%(postcode)s)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/post_type/UTW.html:5
+msgid ""
+"\n"
+"Unitary authorities are responsible for services like:\n"
+"\n"
+"* education\n"
+"* transport\n"
+"* planning\n"
+"* fire and public safety\n"
+"* social care\n"
+"* libraries\n"
+"* waste management\n"
+"* trading standards\n"
+"* rubbish collection\n"
+"* recycling\n"
+"* Council Tax collections\n"
+"* housing\n"
+"* planning applications\n"
+"\n"
+"\n"
+"[Understand how your council works](https://www.gov.uk/understand-how-your-"
+"council-works)\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/post_type/WAE.html:5
+#, python-format
+msgid ""
+"\n"
+"When the Senedd is sitting, Members meet twice a week in the Siambr, the "
+"debating chamber, to question Welsh Government Ministers, examine proposed "
+"laws, and debate various issues. Members also participate in committees that "
+"focus on areas such as health and education, examining laws and government "
+"policies that could impact these sectors. These committees are composed of "
+"Members reflecting the overall representation of the elected parties.\n"
+"\n"
+"Most Members have a local office in their constituency or region, employing "
+"staff to assist with constituent enquiries. They hold regular 'surgeries' "
+"where the public can meet with their representatives to discuss concerns. "
+"Additionally, Members engage with constituents online or over the phone, and "
+"visit businesses, schools, and local organisations to gain insight into "
+"everyday issues, which they may later address in the Senedd.\n"
+"\n"
+"\n"
+"[Read more about the Senedd](https://senedd.wales/how-we-work/about-members-"
+"of-the-senedd/)\n"
+"\n"
+"[Find more about your Senedd members](https://senedd.wales/find-a-member-of-"
+"the-senedd/?Postcode=%(postcode)s)\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::BDF::mayor.html:5
+msgid ""
+"\n"
+"The Mayor of Bedford is a directly elected mayor. The Mayor appoints "
+"Councillors to his\n"
+"Executive and is responsible for the majority of Council services.\n"
+"\n"
+"\n"
+"[Find more about the mayor](https://www.bedford.gov.uk/your-council/"
+"councillors-and-senior-staff/mayor-bedford-borough)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::CPCA::mayor.html:5
+msgid ""
+"\n"
+"The role of the Mayor of Cambridgeshire and Peterborough is to deliver "
+"economic prosperity across the region, to\n"
+"make Cambridgeshire and Peterborough a leading place in the world to live, "
+"learn,\n"
+"work and do business.\n"
+"\n"
+"The Mayor oversees a £20 million annual budget devolved from government, and "
+"also has devolved powers to spend up to\n"
+"£800 million on local housing, infrastructure and jobs.\n"
+"\n"
+"[Find more about the mayor's role](https://cambridgeshirepeterborough-ca.gov."
+"uk/about-us/mayor/)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::CRY::mayor.html:5
+msgid ""
+"\n"
+"The directly elected Mayor provides leadership and direction to the borough "
+"and the Council and has overall\n"
+"responsibility for council policy and the delivery of services.\n"
+"\n"
+"The elected Mayor has a mandate to represent the whole borough and will "
+"speak on its behalf locally, regionally,\n"
+"nationally and internationally.  It will be for them to decide how this role "
+"will work in practice, within the\n"
+"boundaries set out in the Council’s Constitution.\n"
+"\n"
+"[Find more about the mayor's role](https://www.croydon.gov.uk/council-and-"
+"elections/mayors-croydon/elected-mayor-croydon/role-elected-mayor#lgd-"
+"guides__title)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::DNC::mayor.html:7
+msgid ""
+"\n"
+"Doncaster Council is led by an Elected Mayor and Cabinet. The Mayor:\n"
+"\n"
+"* is the council's political leader and is elected by Doncaster constituents "
+"to serve a four-year term of office.\n"
+"* has executive powers and is responsible for the effective implementation "
+"of council policy and delivering services.\n"
+"* has nine cabinet members to advise, support and lead on their own specific "
+"portfolio.\n"
+"\n"
+"\n"
+"[Find more about the Mayor](https://www.doncaster.gov.uk/mayor/mayor-home)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::EMCA::mayor.html:5
+msgid ""
+"\n"
+"The Mayor has responsibility for transport, skills and adult education, "
+"housing and land, net-zero and economic\n"
+"development.\n"
+"\n"
+"As the Chair of the East Midlands Combined County Authority, the Mayor works "
+"with partners across the region and\n"
+"beyond to deliver transformational change for the East Midlands.\n"
+"\n"
+"The Mayor also acts as a champion for the region, influencing Government at "
+"a national level to boost growth and\n"
+"innovation, shape policy and access further funding.\n"
+"\n"
+"[Find more about the mayor's role](https://www.eastmidlands-cca.gov.uk/the-"
+"mayor/)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::GMCA::mayor.html:5
+msgid ""
+"\n"
+"\n"
+"Accountable to and representing the people of all 10 boroughs in Greater "
+"Manchester, the Mayor steers the work of\n"
+"Greater Manchester’s Combined Authority, focusing on issues such as the "
+"economy, transport, police, and fire\n"
+"services. The Mayor's responsibilities include transforming public services "
+"and shaping the region's future while\n"
+"making the case for Greater Manchester at the heart of government and on the "
+"world stage. The Mayor chairs the\n"
+"Combined Authority, with the leaders of the 10 councils forming the Mayor’s "
+"Cabinet, and is supported by a Deputy\n"
+"Mayor for Policing and Crime, and a Deputy Mayor for Economic Growth and "
+"Business.\n"
+"\n"
+"The Mayor sets budgets and priorities for Greater Manchester’s public "
+"services and acts as an ambassador for the\n"
+"region. Responsibilities include managing the transport budget from the "
+"Government, overseeing the future of bus\n"
+"services, acting as the public’s voice on policing matters, making strategic "
+"decisions about the fire service, and\n"
+"managing a £300 million housing investment fund. While the Mayor can make "
+"some decisions independently, others\n"
+"require consultation with, and approval from, all 11 members of the Greater "
+"Manchester Combined Authority, with some\n"
+"decisions needing unanimous support and others requiring a majority.\n"
+"\n"
+"[Find more about the mayor's role](https://www.greatermanchester-ca.gov.uk/"
+"the-mayor/)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::HCK::mayor.html:5
+msgid ""
+"\n"
+"\n"
+"The directly elected Mayor provides leadership and direction to the borough. "
+"They have overall responsibility for council policy and delivery of "
+"services.\n"
+"\n"
+"[Find more about the mayor's role](https://hackney.gov.uk/mayor)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::LCE::mayor.html:5
+msgid ""
+"\n"
+"\n"
+"The City Mayor has responsibility for all council decisions during their "
+"four-year term\n"
+"and for selecting up to nine councillors as a supporting cabinet.\n"
+"\n"
+"[Find more about the mayor](https://www.leicester.gov.uk/your-council/city-"
+"mayor-peter-soulsby/)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::LCR::mayor.html:5
+msgid ""
+"\n"
+"Metro Mayors are directly elected by the people in their area and chair "
+"their Combined Authority. The Metro Mayor\n"
+"exercises the powers and functions devolved from government, set out in the "
+"local area’s devolution deal.\n"
+"\n"
+"The UK government has devolved a range of powers and responsibilities to the "
+"Liverpool City Region Combined\n"
+"Authority and the Mayor of the Liverpool City Region. These include:\n"
+"\n"
+"* Apprenticeships\n"
+"* Business growth, innovation and support\n"
+"* Children’s services\n"
+"* Culture and tourism\n"
+"* Employment and skills\n"
+"* Energy and environment\n"
+"* Some taxes and finance\n"
+"* Health and social care\n"
+"* Housing and planning\n"
+"* Justice\n"
+"* Transport\n"
+"\n"
+"[Find more about the mayor's role](https://www.liverpoolcityregion-ca.gov.uk/"
+"your-metro-mayor)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::LEW::mayor.html:5
+msgid ""
+"\n"
+"The Mayor is directly elected and appoints a Cabinet to lead on decision-"
+"making across the Council. Their\n"
+"responsibilities include:\n"
+"\n"
+"* overall budget, strategy and policy responsibility\n"
+"* trade unions\n"
+"* service transformation\n"
+"* Bakerloo line extension\n"
+"* inward investment\n"
+"* London Councils, Local Government Association and key stakeholder "
+"relationships\n"
+"* Lewisham Strategic Partnership (LSP)\n"
+"* communications\n"
+"* Young Mayor's programme\n"
+"\n"
+"\n"
+"[Find more about the mayor's role](https://lewisham.gov.uk/mayorandcouncil/"
+"mayor)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::MAS::mayor.html:6
+msgid ""
+"\n"
+"It is the job of the Mayor to represent the council and its residents, make "
+"key decisions on policies, services and how the council spends its money.\n"
+"\n"
+"The Mayor is supported by a Cabinet of councillors who help him or her "
+"develop and implement these policies.\n"
+"\n"
+"[Find more about the Mayor](https://www.mansfield.gov.uk/council-councillors-"
+"democracy/meet-mayor-1)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::MDB::mayor.html:7
+msgid ""
+"\n"
+"The Mayor of Middlesbrough leads the Middlesbrough Council and represents "
+"the borough at local, regional, and national levels. The Mayor's "
+"responsibilities include setting strategic priorities, overseeing economic "
+"development, and managing budgets for public services. The Mayor also works "
+"to improve transportation, housing, education, and community safety. "
+"Additionally, the Mayor engages with residents, businesses, and other "
+"stakeholders to address local issues and promote the well-being of the "
+"community. The role involves both independent decision-making and "
+"collaboration with the council and other local authorities.\n"
+"\n"
+"[Find more about the council](https://www.middlesbrough.gov.uk/council-and-"
+"democracy/about-the-council/)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::NEMC::mayor.html:5
+msgid ""
+"\n"
+"\n"
+"Combined authorities allow a group of local authorities to pool appropriate "
+"responsibility and receive certain\n"
+"devolved functions from central government in order to deliver transport and "
+"economic policy more effectively over a\n"
+"wider area. The mayor is the leader of the North East Mayoral Combined "
+"Authority and has responsibility for:\n"
+"\n"
+"* housing and regeneration\n"
+"* education, skills and training\n"
+"* the adult education budget\n"
+"* the functional power of competence\n"
+"* housing and planning, including mayoral development areas and "
+"corporations, land and acquisition powers\n"
+"* finance, through council precepts and business rate supplements\n"
+"* transport, including bus grants and franchising powers\n"
+"\n"
+"[Find more about the mayor's role](https://www.northeast-ca.gov.uk/about/the-"
+"mayor)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::NTY::mayor.html:5
+msgid ""
+"\n"
+"\n"
+"The role of the Elected Mayor is to :\n"
+"\n"
+"* be the Authority’s principal public spokesperson\n"
+"* give overall political direction to the Authority\n"
+"* appoint the Cabinet and Deputy Mayor\n"
+"* decide on the scheme of delegation for Cabinet functions\n"
+"* chair meetings of the Cabinet\n"
+"* represent the Authority on such external executive bodies as the Elected "
+"Mayor decides\n"
+"\n"
+"[Find more about the mayor's role](https://my.northtyneside.gov.uk/"
+"category/613/about-elected-mayor)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::NWM::mayor.html:5
+msgid ""
+"\n"
+"\n"
+"The Mayor of Newham is a directly elected mayor responsible for the "
+"executive function of the council.\n"
+"\n"
+"[Find more about the mayor](https://www.newham.gov.uk/council/mayor-"
+"newham-1)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::SCR::mayor.html:5
+msgid ""
+"\n"
+"The Mayor is elected to represent 1.4 million residents in the region. The "
+"Mayor acts to promote South Yorkshire as\n"
+"a place to live, work, visit and invest.\n"
+"\n"
+"The MCA has powers and funding which are used to help create jobs, grow the "
+"economy, up-skill the workforce, support\n"
+"the public transport network and develop new infrastructure and homes in "
+"South Yorkshire. Many decisions are made by\n"
+"the MCA and Mayor together, but the Mayor can make some decisions "
+"independently.\n"
+"\n"
+"[Find more about the mayor's role](https://www.southyorkshire-ca.gov.uk/"
+"about-the-mayor/role)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::SLF::mayor.html:5
+msgid ""
+"\n"
+"\n"
+"The City Mayor leads the council and has overall responsibility for the "
+"delivery of all council services.\n"
+"\n"
+"They develop budgets to meet the needs of the city's residents, through the "
+"city plan, make\n"
+"sure the work of the council is conducted in accordance with the "
+"constitution and the law and that all decisions are\n"
+"open, transparent and understandable.\n"
+"\n"
+"[Find more about the mayor's role](https://www.salford.gov.uk/cmrole)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::TVCA::mayor.html:5
+msgid ""
+"\n"
+"\n"
+"The Mayor's primary role is to steer the work of the Tees Valley Combined "
+"Authority, which drives economic growth\n"
+"and job creation in the area. The Combined Authority is distinct from local "
+"councils, which continue to deliver\n"
+"local services independently. As part of a Devolution Deal, Tees Valley "
+"elected a Mayor to act as a single point of\n"
+"accountability to both local people and central Government. Devolution "
+"provides more control over local budgets,\n"
+"enabling the region to design services and boost the economy by reinvesting "
+"money back into the community.\n"
+"\n"
+"The Mayor sets budgets and priorities for economic development, acts as an "
+"ambassador to attract investment, and\n"
+"oversees a £588 million Tees Valley Investment Plan. The Mayor also chairs "
+"the South Tees Development Corporation\n"
+"(STDC) Board, which promotes economic growth and commercial development in "
+"the Tees Valley. This includes converting\n"
+"assets in the South Tees area, now known as Teesworks, into opportunities "
+"for business investment and economic\n"
+"growth.\n"
+"\n"
+"[Find more about the mayor and combined authority](https://teesvalley-ca.gov."
+"uk/about/leadership/mayor/what-the-mayor-does/)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::TWH::mayor.html:5
+msgid ""
+"\n"
+"The Mayor has oversight for the following services and activities that fall "
+"within the Mayor and Cabinet Member\n"
+"Portfolios – Decision Making powers are as set out in the Executive Scheme "
+"of Delegation in the Constitution\n"
+"\n"
+"\n"
+"* Strategy and performance\n"
+"* Co-ordination of policy development and implementation\n"
+"* Council transformation and continuous improvement\n"
+"* Emergency planning & business continuity\n"
+"* Strategic partnerships\n"
+"* Tower Hamlets strategic partnership and the Community Plan\n"
+"* Oversight of community building and asset policy\n"
+"* Oversight of relationships with external partners\n"
+"* Communications\n"
+"* Oversight of Budget strategy\n"
+"* Town Hall strategy\n"
+"* Regeneration strategy\n"
+"* Regeneration Board\n"
+"* Inequality\n"
+"\n"
+"\n"
+"[Find more about the mayor's role](https://democracy.towerhamlets.gov.uk/"
+"mgExecPostDetails.aspx?ID=604)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::WAT::mayor.html:5
+msgid ""
+"\n"
+"\n"
+"The Mayor of Watford is a directly elected and the council's principal\n"
+"public spokesperson, representing the council and the borough on local,\n"
+"national and international platforms. The Mayor is responsible for:\n"
+"\n"
+"\n"
+"* the overall political direction of the council\n"
+"* the scheme of delegation for Executive functions\n"
+"* Chairing the  Cabinet\n"
+"\n"
+"\n"
+"[Find more about the mayor](https://www.watford.gov.uk/electedmayor)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::WECA::mayor.html:5
+msgid ""
+"\n"
+"The Mayor of the West of England is the directly elected mayor who leads the "
+"West of England Combined Authority. The body, a combined authority, is "
+"responsible for the strategic administration of the West of England, "
+"including planning, transport and skills.\n"
+"\n"
+"[Find more about the mayor and combined authority](https://www.westofengland-"
+"ca.gov.uk/what-we-do/)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::YNYC::mayor.html:5
+msgid ""
+"\n"
+"The role of the mayor is to work alongside local leaders to\n"
+"create a long-term vision, secure more investment into\n"
+"the region.\n"
+"\n"
+"The Mayor has certain powers and responsibilities, devolved to them by "
+"central government.\n"
+"\n"
+"These include:\n"
+"\n"
+"* Responsibility for 30-year Mayoral Investment Fund and the powers to "
+"borrow against funds\n"
+"* Full devolution of the Adult Education Budget\n"
+"* Powers to improve the supply and quality of housing and secure the "
+"development of land or infrastructure\n"
+"* Powers and funds to improve transport through a consolidated, devolved, "
+"multi-year transport settlement\n"
+"* Responsibilities for community safety and the powers to appoint a Deputy "
+"Mayor who will carry out many of the duties currently held by the Police, "
+"Fire and Crime Commissioner\n"
+"\n"
+"\n"
+"[Find more about the mayor's role](https://yorknorthyorks-ca.gov.uk/meet-"
+"your-mayor/)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::london::mayor.html:5
+msgid ""
+"\n"
+"The Mayor sets an overall vision for London. He has a duty to create plans "
+"and policies for the capital covering:\n"
+"\n"
+"* Arts & Culture\n"
+"* Business & Economy\n"
+"* Environment\n"
+"* Fire\n"
+"* Health\n"
+"* Housing and Land\n"
+"* Planning\n"
+"* Policing & Crime\n"
+"* Regeneration\n"
+"* Sport\n"
+"* Transport\n"
+"* Young People\n"
+"\n"
+"[Read more about what the Mayor of London does](https://www.london.gov.uk/"
+"who-we-are/what-mayor-does)\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::north-of-tyne::mayor.html:5
+msgid ""
+"\n"
+"The North of Tyne Combined Authority was a mayoral combined authority which "
+"consisted of the local authorities of\n"
+"Newcastle upon Tyne, North Tyneside, and Northumberland, all in North East "
+"England.\n"
+"\n"
+msgstr ""
+
+#: wcivf/apps/administrations/templates/responsibilities/single_id/O::west-yorkshire::mayor.html:5
+msgid ""
+"\n"
+"\n"
+"The West Yorkshire Combined Authority brings together the local authorities "
+"of Bradford, Calderdale, Kirklees, Leeds\n"
+"and Wakefield. It develops and delivers policies, programmes and services "
+"which directly\n"
+"benefit the people of West Yorkshire.\n"
+"\n"
+"The Mayor of West Yorkshire is a directly elected mayor responsible for the "
+"metropolitan county of West Yorkshire in\n"
+"England. The Mayor chairs and leads the West Yorkshire Combined Authority, "
+"and assumes the office and powers of the\n"
+"West Yorkshire Police and Crime Commissioner.\n"
+"\n"
+"\n"
+"[Find more about the mayor's role](https://www.westyorks-ca.gov.uk/about-"
+"us/)\n"
+"\n"
+msgstr ""
+
 #: wcivf/apps/core/forms.py:7
 msgid "Enter your postcode"
 msgstr "Rhowch eich côd post"
 
-#: wcivf/apps/elections/models.py:731
+#: wcivf/apps/elections/models.py:49
+msgid "The elected member died"
+msgstr ""
+
+#: wcivf/apps/elections/models.py:54
+msgid ""
+"The election of the elected member was declared void by an election court"
+msgstr ""
+
+#: wcivf/apps/elections/models.py:60
+msgid "The previous election winner did not sign a declaration of acceptance"
+msgstr ""
+
+#: wcivf/apps/elections/models.py:65
+msgid "The elected member failed to attend meetings for six months"
+msgstr ""
+
+#: wcivf/apps/elections/models.py:69
+msgid "The elected member was disqualified"
+msgstr ""
+
+#: wcivf/apps/elections/models.py:73
+msgid "The elected member no longer qualified as a registered elector"
+msgstr ""
+
+#: wcivf/apps/elections/models.py:77
+msgid "The elected member was recalled by a successful recall petition"
+msgstr ""
+
+#: wcivf/apps/elections/models.py:79
+msgid "Other"
+msgstr "Arall"
+
+#: wcivf/apps/elections/models.py:80
+msgid "Unknown"
+msgstr "Anadnabyddus"
+
+#: wcivf/apps/elections/models.py:81
+msgid "Neither a by-election nor a ballot"
+msgstr ""
+
+#: wcivf/apps/elections/models.py:738
 #, python-brace-format
 msgid "{ballot_label} by-election"
-msgstr ""
+msgstr "{ballot_label} isetholiad"
 
-#: wcivf/apps/elections/models.py:766 wcivf/apps/elections/models.py:769
+#: wcivf/apps/elections/models.py:773 wcivf/apps/elections/models.py:776
 msgid " (postponed)"
-msgstr ""
+msgstr " (wedi'i ohirio)"
 
-#: wcivf/apps/elections/models.py:772
-#, fuzzy
-#| msgid "(uncontested)"
+#: wcivf/apps/elections/models.py:779
 msgid " (uncontested)"
-msgstr "(dim cystadleuaeth)"
+msgstr " (heb gystadleuaeth)"
 
-#: wcivf/apps/elections/models.py:818
-#, fuzzy, python-format
-#| msgid "This election was cancelled."
+#: wcivf/apps/elections/models.py:825
+#, python-format
 msgid "This by-election was called because %(reason)s."
-msgstr "Canslwyd yr etholiad hwn."
+msgstr "Galwyd yr isetholiad hwn oherwydd %(reason)s."
 
-#: wcivf/apps/elections/models.py:955
+#: wcivf/apps/elections/models.py:962
 msgid "First-past-the-post"
 msgstr "Y Cyntaf i’r Felin"
 
-#: wcivf/apps/elections/models.py:957
+#: wcivf/apps/elections/models.py:964
 msgid "Additional Member System"
 msgstr "Y System Aelodau Ychwanegol"
 
-#: wcivf/apps/elections/models.py:959
+#: wcivf/apps/elections/models.py:966
 msgid "Supplementary Vote"
 msgstr "Pleidlais Atodol"
 
-#: wcivf/apps/elections/models.py:961
+#: wcivf/apps/elections/models.py:968
 msgid "Single Transferable Vote"
 msgstr "Pleidlais Sengl Drosglwyddadwy"
 
-#: wcivf/apps/elections/models.py:963
+#: wcivf/apps/elections/models.py:970
 msgid "Closed-List Proportional Representation"
 msgstr ""
 
 #: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:4
-#, fuzzy
-#| msgid "Boundary changes"
 msgid "Boundary Reviews"
 msgstr "Newidiadau ffiniau"
 
 #: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:42
-#, fuzzy
-#| msgid "Boundary changes"
 msgid "Boundary Changes in your area"
-msgstr "Newidiadau ffiniau"
+msgstr "Newidiadau ffiniau yn eich ardal"
 
 #: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:44
 msgid ""
@@ -92,8 +882,6 @@ msgid "Looking for election information?"
 msgstr ""
 
 #: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:45
-#, fuzzy
-#| msgid "Elections in your area"
 msgid "Find elections in your area"
 msgstr "Etholiadau yn eich ardal"
 
@@ -144,7 +932,7 @@ msgstr ""
 #: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:124
 #: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:147
 msgid "Map"
-msgstr ""
+msgstr "Map"
 
 #: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:99
 #, python-format
@@ -189,7 +977,7 @@ msgstr "Cynhelir yr %(election)s cynhelir ar %(date)s."
 
 #: wcivf/apps/elections/templates/elections/election_view.html:11
 #: wcivf/apps/elections/templates/elections/election_view.html:21
-#, fuzzy, python-format
+#, python-format
 msgid "The %(election)s will be held on %(date)s."
 msgstr "Cynhelir yr %(election)s cynhelir ar %(date)s."
 
@@ -201,23 +989,23 @@ msgstr ""
 "Cynhelir yr %(election)s <strong>heddiw</strong>. Bydd y gorsafoedd "
 "pleidleisio ar agor o"
 
-#: wcivf/apps/elections/templates/elections/election_view.html:38
-msgid "till"
-msgstr "tan"
+#: wcivf/apps/elections/templates/elections/election_view.html:41
+msgid "until"
+msgstr ""
 
-#: wcivf/apps/elections/templates/elections/election_view.html:42
+#: wcivf/apps/elections/templates/elections/election_view.html:45
 #: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:44
 #, python-format
 msgid "This election was held <strong>%(election_date)s</strong>."
 msgstr "Cynhaliwyd yr etholiad hwn <strong>%(election_date)s</strong>"
 
-#: wcivf/apps/elections/templates/elections/election_view.html:46
+#: wcivf/apps/elections/templates/elections/election_view.html:49
 #, python-format
 msgid "This election will be held on <strong>%(election_date)s</strong>."
 msgstr ""
 "Bydd yr etholiad hwn yn cael ei gynnal <strong>%(election_date)s</strong>."
 
-#: wcivf/apps/elections/templates/elections/election_view.html:60
+#: wcivf/apps/elections/templates/elections/election_view.html:63
 #, python-format
 msgid ""
 "%(stood_or_standing)s for this election, in <strong>%(post_count)s</strong> "
@@ -226,21 +1014,20 @@ msgstr ""
 "Ymgeisiodd%(stood_or_standing)s yn yr etholiad hwn, mewn <strong>"
 "%(post_count)s</strong> swydd."
 
-#: wcivf/apps/elections/templates/elections/election_view.html:66
+#: wcivf/apps/elections/templates/elections/election_view.html:69
 msgid "Add more at our candidate crowd-sourcing site"
 msgstr "Ychwanegwch ragor ar ein gwefan torfoli ymgeiswyr"
 
-#: wcivf/apps/elections/templates/elections/election_view.html:71
+#: wcivf/apps/elections/templates/elections/election_view.html:74
 msgid "Add some candidates at our candidate crowd-sourcing site"
 msgstr "Ychwanegwch rai ymgeiswyr at ein gwefan torfoli ymgeiswyr"
 
-#: wcivf/apps/elections/templates/elections/election_view.html:76
-#, fuzzy, python-format
-#| msgid " %(title)s"
+#: wcivf/apps/elections/templates/elections/election_view.html:79
+#, python-format
 msgid "%(title)s"
-msgstr " %(title)s"
+msgstr "%(title)s"
 
-#: wcivf/apps/elections/templates/elections/election_view.html:80
+#: wcivf/apps/elections/templates/elections/election_view.html:83
 #, python-format
 msgid ""
 "<a href=\"%(postelection_url)s\">%(post_label)s</a> %(cancelled_message)s"
@@ -342,15 +1129,7 @@ msgid "Uncontested and Rescheduled Election"
 msgstr "Etholiad Heb Ymgeisydd ac Etholiad wedi'i Aildrefnu"
 
 #: wcivf/apps/elections/templates/elections/includes/_cancelled_election.html:24
-#, fuzzy, python-format
-#| msgid ""
-#| "This election was cancelled because the number of candidates who stood "
-#| "was fewer than the number of available seats. There is one seat in "
-#| "%(post_label)s, and %(num_people)s candidate."
-#| msgid_plural ""
-#| "This election was cancelled because the number of candidates who stood "
-#| "was fewer than the number of available seats. There are %(winner_count)s "
-#| "seats in %(post_label)s, and %(num_people)s candidates."
+#, python-format
 msgid ""
 "This election was cancelled because the number of candidates who stood was "
 "fewer than the number of available seats. There is %(winner_count)s seat in "
@@ -382,34 +1161,28 @@ msgstr ""
 "fewn 35 diwrnod gwaith i ddyddiad gwreiddiol yr etholiad.</p>"
 
 #: wcivf/apps/elections/templates/elections/includes/_cancelled_election.html:42
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This election was cancelled because no candidates stood for the available "
 "seats. A new election to fill the unclaimed seat%(plural)s will be held "
 "within 35 working days of the original election date."
 msgstr ""
-"Ni fydd unrhyw bleidleisau'n cael eu bwrw, a datganwyd yn awtomatig mae'r "
-"ymgeisydd%(plural)s isod%(has_or_have)s yw'r enillydd%(plural)s. Bydd "
-"etholiad newydd i lenwi'r sedd%(plural)s na hawliwyd yn cael ei gynnal o "
-"fewn 35 diwrnod gwaith i ddyddiad gwreiddiol yr etholiad.</p>"
+"Bydd etholiad newydd i lenwi'r sedd%(plural)s na hawliwyd yn cael ei gynnal "
+"o fewn 35 diwrnod gwaith i ddyddiad gwreiddiol yr etholiad.</p>"
 
 #: wcivf/apps/elections/templates/elections/includes/_cancelled_election.html:44
-#, fuzzy
-#| msgid "Uncontested and Rescheduled Election"
 msgid "Cancelled and Rescheduled Election"
-msgstr "Etholiad Heb Ymgeisydd ac Etholiad wedi'i Aildrefnu"
+msgstr "Etholiad wedi Ganslo a'i Aildrefnu"
 
 #: wcivf/apps/elections/templates/elections/includes/_cancelled_election.html:45
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This election was cancelled due to the death of a candidate. A new election "
 "to fill the unclaimed seat%(plural)s will be held within 35 working days of "
 "the original election date."
 msgstr ""
-"Ni fydd unrhyw bleidleisau'n cael eu bwrw, a datganwyd yn awtomatig mae'r "
-"ymgeisydd%(plural)s isod%(has_or_have)s yw'r enillydd%(plural)s. Bydd "
-"etholiad newydd i lenwi'r sedd%(plural)s na hawliwyd yn cael ei gynnal o "
-"fewn 35 diwrnod gwaith i ddyddiad gwreiddiol yr etholiad.</p>"
+"Bydd etholiad newydd i lenwi'r sedd%(plural)s na hawliwyd yn cael ei gynnal "
+"o fewn 35 diwrnod gwaith i ddyddiad gwreiddiol yr etholiad.</p>"
 
 #: wcivf/apps/elections/templates/elections/includes/_cancelled_election.html:52
 msgid "Cancelled Election"
@@ -469,7 +1242,7 @@ msgstr ""
 
 #: wcivf/apps/elections/templates/elections/includes/_contact_details_registration.html:7
 msgid "Your Local Council"
-msgstr ""
+msgstr "Eich cyngor lleol"
 
 #: wcivf/apps/elections/templates/elections/includes/_elections_breadcrumbs.html:3
 #: wcivf/apps/parties/templates/parties/parties_view.html:9
@@ -610,7 +1383,7 @@ msgid "Learn more"
 msgstr "Darllenwch ragor"
 
 #: wcivf/apps/elections/templates/elections/includes/_person_card.html:31
-#, fuzzy, python-format
+#, python-format
 msgid "%(votes_cast)s votes"
 msgstr "%(votes_cast)s pleidlais (etholwyd)"
 
@@ -781,16 +1554,12 @@ msgid "Read more about how to vote"
 msgstr "Darllenwch fwy am sut i bleidleisio"
 
 #: wcivf/apps/elections/templates/elections/includes/_polling_place.html:153
-#, fuzzy
-#| msgid "Get walking directions from"
 msgid "Get directions"
-msgstr "Cael cyfarwyddiadau cerdded o"
+msgstr "Cael cyfarwyddiadau"
 
 #: wcivf/apps/elections/templates/elections/includes/_polling_place.html:157
-#, fuzzy
-#| msgid "Get walking directions from"
 msgid "Get directions from"
-msgstr "Cael cyfarwyddiadau cerdded o"
+msgstr "Cael cyfarwyddiadau gan"
 
 #: wcivf/apps/elections/templates/elections/includes/_post_meta_description.html:4
 #, python-format
@@ -824,24 +1593,20 @@ msgstr "%(election_name)s: Y %(num_candidates)s ymgeisydd yn%(post_label)s"
 
 #: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:10
 msgid "Voting by post"
-msgstr ""
+msgstr "Pleidleisio drwy'r post"
 
 #: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:16
-#, fuzzy
-#| msgid ""
-#| "If you have a postal vote, you can hand it in at this polling station on "
-#| "election day up to 10pm."
 msgid ""
 "If you know that you won't be able to get to the polling station on polling "
 "day, you can vote by post."
 msgstr ""
-"Os oes gennych bleidlais bost, gallwch ei chyflwyno yn yr orsaf bleidleisio "
-"hondiwrnod etholiad hyd at 10pm"
+"Os ydych chi'n gwybod na fyddwch chi'n gallu cyrraedd yr orsaf bleidleisio "
+"ar ddiwrnod y pleidleisio, gallwch chi bleidleisio drwy'r post."
 
 #: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:19
 #, python-format
 msgid "You have until %(application_deadline)s to"
-msgstr ""
+msgstr "Mae gennych chi tan %(application_deadline)s i "
 
 #: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:22
 msgid "Apply for a postal vote"
@@ -852,6 +1617,9 @@ msgid ""
 "<a href=\"https://www.electoralcommission.org.uk/voting-and-elections/ways-"
 "vote/apply-vote-post\" >Read more about applying for a postal vote</a>."
 msgstr ""
+"<a href=\"https://www.electoralcommission.org.uk/cy/pleidleisio-ac-"
+"etholiadau/ffyrdd-i-bleidleisio/gwneud-cais-i-bleidleisio-drwyr-post"
+"\">Darllenwch fwy am wneud cais am bleidlais bost</a>"
 
 #: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:33
 #, python-format
@@ -861,6 +1629,9 @@ msgid ""
 "www.gov.uk/apply-postal-vote\">apply for a postal vote</a> in future "
 "elections."
 msgstr ""
+"%(application_deadline)s oedd y dyddiad cau i gofrestru am bleidlais bost ar "
+"gyfer yr etholiadau ar %(election_date)s. Gallwch wneud cais am bleidlais "
+"bost mewn etholiadau yn y dyfodol."
 
 #: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:39
 msgid ""
@@ -870,7 +1641,7 @@ msgstr ""
 
 #: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:49
 msgid "If you have a postal vote"
-msgstr ""
+msgstr "Os oes gennych bleidlais bost"
 
 #: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:52
 #, python-format
@@ -878,6 +1649,8 @@ msgid ""
 "If you already have a postal vote or successfully apply by %(date0)s, your "
 "pack will be sent from %(date1)s.</li>"
 msgstr ""
+"Os oes pleidlais bost gennych eisoes neu os ydych wedi gwneud cais "
+"llwyddiannus erbyn %(date0)s, bydd eich pecyn yn cael ei anfon o %(date1)s."
 
 #: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:56
 #, python-format
@@ -885,6 +1658,8 @@ msgid ""
 "If you apply after %(date0)s up to 5pm on %(application_deadline)s, your "
 "pack will be sent from %(date2)s."
 msgstr ""
+"Os byddwch yn gwneud cais ar ôl %(date0)s hyd at 5pm ar "
+"%(application_deadline)s, bydd eich pecyn yn cael ei anfon o %(date2)s."
 
 #: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:62
 #, python-format
@@ -900,12 +1675,7 @@ msgid ""
 msgstr ""
 
 #: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:80
-#, fuzzy, python-format
-#| msgid ""
-#| "If you haven't got one, or for questions about your poll card, polling "
-#| "place, or about returning your postal voting ballot, contact the "
-#| "Electoral Office for Northern Ireland <a href=\"tel:%(council_phone)s\">"
-#| "%(council_phone)s</a>."
+#, python-format
 msgid ""
 "If you have not received your postal voting pack, you can contact the "
 "Electoral Office for Northern Ireland on <a href=\"tel:%(council_phone)s\">"
@@ -916,11 +1686,7 @@ msgstr ""
 "%(council_phone)s</a>."
 
 #: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:88
-#, fuzzy, python-format
-#| msgid ""
-#| "If you haven't got one, or aren't sure where to vote, you should call "
-#| "%(council_name)s on <a href=\"tel:%(council_phone)s\">%(council_phone)s</"
-#| "a>."
+#, python-format
 msgid ""
 "If you have not received your postal voting pack, you can contact "
 "%(council_name)s on <a href=\"tel:%(council_phone)s\">%(council_phone)s</a>."
@@ -1027,14 +1793,11 @@ msgid ""
 msgstr ""
 
 #: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:75
-#, fuzzy
-#| msgid "About this position"
 msgid "About this election"
-msgstr "Ynglŷn â'r rôl hon"
+msgstr "Ynglŷn â'r etholiad hwn"
 
 #: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:79
-#, fuzzy, python-format
-#| msgid " %(description)s"
+#, python-format
 msgid " %(description)s"
 msgstr " %(description)s "
 
@@ -1082,16 +1845,16 @@ msgstr ""
 "strong>."
 
 #: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:121
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You will have <strong>one vote</strong>, and can choose from <strong>"
 "%(num_ballots)s</strong> in the %(postelection)s."
 msgstr ""
-"Bydd gennych ddwy bleidlais, a gallwch ddewis o <strong>%(num_ballots)s</"
+"Bydd gennych un bleidlais, a gallwch ddewis o <strong>%(num_ballots)s</"
 "strong> yn yr %(postelection)s."
 
 #: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:126
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You will have <strong>two votes</strong>, and can choose from <strong>"
 "%(num_ballots)s</strong> in the %(postelection)s."
@@ -1128,10 +1891,7 @@ msgid "Voter ID requirements"
 msgstr "Gofynion ID Pleidleisiwr"
 
 #: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:163
-#, fuzzy, python-format
-#| msgid ""
-#| "We are currently aware of %(num_candidates)s candidate"
-#| "%(plural_candidates)s for this position."
+#, python-format
 msgid ""
 "We are currently aware of %(num_candidates)s candidate%(plural_candidates)s "
 "for this position. We expect more candidates to be announced in the future."
@@ -1141,12 +1901,7 @@ msgstr ""
 
 # python-format
 #: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:168
-#, fuzzy, python-format
-#| msgid ""
-#| "The official candidate list will be published after "
-#| "%(expected_sopn_date)s, when this page will be updated. You can help "
-#| "improve this page: <a href=\"%(ynr_link)s\"> add information about "
-#| "candidates to our database</a>."
+#, python-format
 msgid ""
 "The official candidate list will be published after %(expected_sopn_date)s, "
 "when this page will be updated. You can help improve this page: <a href="
@@ -1178,16 +1933,12 @@ msgid "Turnout"
 msgstr "Cyfrif pleidleisiau"
 
 #: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:237
-#, fuzzy
-#| msgid "The official candidate list should have been published on"
 msgid "The official candidate list should have been published after"
-msgstr "Dylai'r rhestr swyddogol o ymgeiswyr fod wedi'i chyhoeddi ar "
+msgstr "Dylai'r rhestr swyddogol o ymgeiswyr fod wedi'i chyhoeddi ar ôl"
 
 #: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:239
-#, fuzzy
-#| msgid "The official candidate list should be published on"
 msgid "The official candidate list should be published after"
-msgstr "Dylai'r rhestr swyddogol o ymgeiswyr gael ei chyhoeddi ar"
+msgstr "Dylai'r rhestr swyddogol o ymgeiswyr gael ei chyhoeddi ar ôl"
 
 #: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:250
 msgid "Can you vote in this election?"
@@ -1221,10 +1972,6 @@ msgid "Read more on Wikipedia"
 msgstr "Darllenwch fwy ar Wikipedia"
 
 #: wcivf/apps/elections/templates/elections/includes/_voter_id.html:11
-#, fuzzy
-#| msgid ""
-#| "You will need to take photo ID to vote at a polling station in this "
-#| "election."
 msgid ""
 "You will need to take photo ID to vote at a polling station in this election"
 msgstr ""
@@ -1232,13 +1979,6 @@ msgstr ""
 "etholiad hwn."
 
 #: wcivf/apps/elections/templates/elections/includes/_voter_id.html:18
-#, fuzzy
-#| msgid ""
-#| "You do not need your poll card to vote. You must vote at your assigned "
-#| "polling station. <ul> <li>Read more about <a href=\"https://www.gov.uk/"
-#| "voting-in-the-uk/polling-stations\">voting in Great Britain</a>.</li> "
-#| "<li>Read more about <a href=\"https://www.gov.uk/how-to-vote/photo-id-"
-#| "youll-need\">photo ID</a>.</li> </ul>"
 msgid ""
 "<p>You do not need your poll card to vote. You must vote at your assigned "
 "polling station.</p> <ul> <li>Read more about <a href=\"https://www.gov.uk/"
@@ -1247,10 +1987,10 @@ msgid ""
 "need\">photo ID</a>. </li> </ul>"
 msgstr ""
 "Nid oes angen eich cerdyn pleidleisio arnoch i bleidleisio. Rhaid i chi "
-"bleidleisio yn yr un a neilltuwyd i chiorsaf bleidleisio. Darllenwch fwy am "
-"<a href=\" https://www.gov.uk/voting-in-the-uk/polling-stations"
-"\">pleidleisio ym Mhrydain Fawr</a>.<li>Darllenwch fwy am <a href=\" https://"
-"www.gov.uk/how-to-vote/photo-id-youll-angen \">ID llun</a>.</li></ul>"
+"bleidleisio yn eich gorsaf bleidleisio a neilltuwyd . Darllenwch fwy am <a "
+"href=\" https://www.gov.uk/voting-in-the-uk/polling-stations\">pleidleisio "
+"ym Mhrydain Fawr</a>.<li>Darllenwch fwy am <a href=\" https://www.gov.uk/how-"
+"to-vote/photo-id-youll-angen \">ID llun</a>.</li></ul>"
 
 #: wcivf/apps/elections/templates/elections/includes/_voter_id.html:31
 msgid ""
@@ -1262,7 +2002,7 @@ msgstr ""
 #: wcivf/apps/elections/templates/elections/includes/_voter_id.html:36
 #, python-format
 msgid "before %(vac_application_deadline)s"
-msgstr ""
+msgstr "cyn %(vac_application_deadline)s"
 
 #: wcivf/apps/elections/templates/elections/includes/eu_results.html:7
 #: wcivf/apps/elections/templates/elections/includes/eu_results.html:15
@@ -1283,10 +2023,10 @@ msgid "View results"
 msgstr "Gweld y canlyniadau"
 
 #: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:6
-#, fuzzy
-#| msgid "We don't know of any upcoming elections in your area."
 msgid "We don't know of any upcoming elections for your address."
-msgstr "Nid wyddwn am unrhyw etholiadau sydd i ddod"
+msgstr ""
+"Nid ydym yn ymwybodol o unrhyw etholiadau sydd ar ddod ar gyfer eich "
+"cyfeiriad."
 
 #: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:7
 msgid ""
@@ -1296,14 +2036,13 @@ msgid ""
 msgstr ""
 
 #: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:8
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Learn more about elections in the UK <a href=\"%(ec_url)s\">on the Electoral "
 "Commission website</a>."
 msgstr ""
-"Am fwy o wybodaeth, ewch i <href=\"https://www.electoralcommission.org.uk/i-"
-"am-a/voter/\">Wefan y Comisiwn Etholiadol</a> neu gofynnwch i swyddog yn "
-"eich gorsaf bleidleisio."
+"Am ragor o wybodaeth am etholiadau'r DU, ewch i <href=\"%(ec_url)s\">Wefan y "
+"Comisiwn Etholiadol</a>."
 
 #: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:12
 msgid "Select your address"
@@ -1357,17 +2096,15 @@ msgstr "Tudalen Facebook %(party_name)s"
 
 #: wcivf/apps/elections/templates/elections/party_list_view.html:41
 #: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:31
-#, fuzzy, python-format
-#| msgid "%(party_name)s's Facebook profile"
+#, python-format
 msgid "%(party_name)s's Instagram profile"
-msgstr "Tudalen Facebook %(party_name)s"
+msgstr "Tudalen Instagram %(party_name)s"
 
 #: wcivf/apps/elections/templates/elections/party_list_view.html:49
 #: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:39
-#, fuzzy, python-format
-#| msgid "%(party_name)s's Facebook profile"
+#, python-format
 msgid "%(party_name)s's Bluesky profile"
-msgstr "Tudalen Facebook %(party_name)s"
+msgstr "Tudalen Bluesky %(party_name)s"
 
 #: wcivf/apps/elections/templates/elections/party_list_view.html:55
 #: wcivf/apps/elections/templates/elections/party_list_view.html:76
@@ -1404,8 +2141,7 @@ msgid "Party manifesto"
 msgstr "Maniffesto'r blaid"
 
 #: wcivf/apps/elections/templates/elections/party_list_view.html:118
-#, fuzzy, python-format
-#| msgid "Find out more about the %(party_name)s in their %(manifesto)s."
+#, python-format
 msgid "Find out more about this party in the %(party_name)s %(manifesto)s."
 msgstr "Dysgwch fwy am %(party_name)s yn eu %(manifesto)s."
 
@@ -1444,11 +2180,32 @@ msgstr "heddiw"
 msgid "due to take place on"
 msgstr "Mae disgwyl iddo gael ei gynnal ar"
 
+#: wcivf/apps/elections/templates/elections/postcode_view.html:57
+#: wcivf/apps/elections/templates/elections/postcode_view.html:59
+msgid "Find out more"
+msgstr ""
+
+#: wcivf/apps/elections/templates/parl_24_winners_full.html:7
+#, fuzzy
+#| msgid "Candidate selections by political party"
+msgid "Number of winners by political party"
+msgstr "Dethol ymgeiswyr yn ôl plaid wleidyddol"
+
+#: wcivf/apps/elections/templates/parl_24_winners_full.html:9
+#: wcivf/apps/people/templates/people/includes/_person_previous_elections_card.html:11
+#: wcivf/apps/ppc_2024/templates/ppc_2024/home.html:91
+#: wcivf/apps/ppc_2024/templates/ppc_2024/ppcperson_list.html:45
+msgid "Party"
+msgstr "Plaid"
+
+#: wcivf/apps/elections/templates/parl_24_winners_full.html:10
+msgid "Winners"
+msgstr ""
+
 #: wcivf/apps/elections/templates/parl_24_winners_full.html:37
-#, fuzzy, python-format
-#| msgid "Photo of %(pp.person.name)s"
+#, python-format
 msgid "Photo of %(latest_winner.person.name)s"
-msgstr "Llun o %(pp.person.name)s"
+msgstr "Llun o %(latest_winner.person.name)s"
 
 #: wcivf/apps/feedback/models.py:9
 msgid "Yes"
@@ -1471,8 +2228,6 @@ msgid "Less likely"
 msgstr "Llai tebygol"
 
 #: wcivf/apps/feedback/models.py:16
-#, fuzzy
-#| msgid "Boundary changes"
 msgid "No change"
 msgstr "Newidiadau ffiniau"
 
@@ -1517,7 +2272,6 @@ msgid "Thanks for your feedback!"
 msgstr "Diolch am eich adborth!"
 
 #: wcivf/apps/feedback/templates/feedback/feedback_thanks.html:10
-#, fuzzy
 msgid ""
 "<p>The information you see here is gathered publicly, by people like you.</p>"
 msgstr ""
@@ -1526,15 +2280,14 @@ msgstr ""
 "bawb</p>"
 
 #: wcivf/apps/feedback/templates/feedback/feedback_thanks.html:14
-#, fuzzy
 msgid ""
 "<p>We're sorry you didn't find what you were looking for. We'll read your "
 "feedback and pass it on to our volunteers.</p> <p>The information you see "
 "here is gathered publicly, by people like you.</p>"
 msgstr ""
-"<p>Mae'n flin gennym na wnaethoch chi ddod o hyd i'r hyn roeddech chi'n "
-"chwilio amdano</p> <p>Cesglir y wybodaeth y gwelwch chi yma'n gyhoeddus, gan "
-"bobl fel chi.</p> <p>Helpwch ni i wneud yn well yn y dyfodol!</p>"
+"<p>Mae'n flin gennym na wnaethoch chi ddod o hyd i'r hyn roeddech chi'n.</"
+"p><p>Cesglir y wybodaeth y gwelwch chi yma'n gyhoeddus, gan bobl fel chi.</"
+"p> <p>Helpwch ni i wneud yn well yn y dyfodol!</p>"
 
 #: wcivf/apps/feedback/templates/feedback/no_election_feedback_form.html:21
 msgid "Why did you search today? What would make this more useful?"
@@ -1589,15 +2342,11 @@ msgid ""
 "You can meet candidates and question them at events (often known as "
 "'hustings'). Here are some events that are taking place:"
 msgstr ""
-"Gallwch gwrdd ag ymgeiswyr a'u cwestiynu mewn digwyddiadau ar-lein (fe'u "
-"gelwir yn hystingiau). Dyma rai digwyddiadau sy'n digwydd:"
+"Gallwch gwrdd ag ymgeiswyr a'u cwestiynu mewn digwyddiadau (fe'u gelwir yn "
+"hystingiau). Dyma rai digwyddiadau sy'n digwydd:"
 
 #: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:13
 msgid "Events are reported by users, if you spot an error, please"
-msgstr ""
-
-#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:14
-msgid "get in touch"
 msgstr ""
 
 #: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:18
@@ -1627,7 +2376,7 @@ msgid "See video or other info from this event."
 msgstr "Gweld fideo neu wybodaeth arall o'r digwyddiad hwn."
 
 #: wcivf/apps/hustings/templates/hustings/includes/_person.html:5
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You can meet candidates and question them at events (often known as "
 "'hustings'). Here are some events where %(person)s may be appearing:"
@@ -1660,7 +2409,7 @@ msgid "on <a href=\"%(parish_council_election_url)s\">%(council_name)s</a>"
 msgstr "ar <a href=\"%(parish_council_election_url)s\">%(council_name)s</a>"
 
 #: wcivf/apps/parishes/templates/parishes/includes/_card.html:30
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "<a href=\"https://www.localgov.co.uk/What-are-parish-councils/35176\">"
 "%(council_type)s councils are the first tier of local government</a>, and "
@@ -1733,8 +2482,6 @@ msgid "Current: Parties"
 msgstr "Ar hyn o bryd: Pleidiau"
 
 #: wcivf/apps/parties/templates/parties/parties_view.html:20
-#, fuzzy
-#| msgid "UK Political Parties"
 msgid "UK political parties"
 msgstr "Pleidiau Gwleidyddol y DU"
 
@@ -1799,6 +2546,16 @@ msgstr ""
 "electoralcommission.org.uk/\">gofrestr pleidiau gwleidyddol y Comisiwn "
 "Etholiadol.</a>"
 
+#: wcivf/apps/parties/templates/parties/parties_view.html:32
+#, fuzzy
+#| msgid "Filters"
+msgid "Filter:"
+msgstr "Hidlydd"
+
+#: wcivf/apps/parties/templates/parties/parties_view.html:41
+msgid "Advanced filters"
+msgstr ""
+
 #: wcivf/apps/parties/templates/parties/party_detail.html:36
 #, python-format
 msgid "Alternative name: %(alt_name)s"
@@ -1820,8 +2577,7 @@ msgstr ""
 "gynnig ymgeiswyr mwyach."
 
 #: wcivf/apps/parties/templates/parties/party_detail.html:56
-#, fuzzy, python-format
-#| msgid " %(description)s"
+#, python-format
 msgid "%(description)s"
 msgstr " %(description)s "
 
@@ -1840,22 +2596,15 @@ msgid ""
 msgstr ""
 
 #: wcivf/apps/parties/templates/parties/party_detail.html:85
-#, fuzzy
-#| msgid " %(description)s "
 msgid "Joint description"
 msgstr " %(description)s "
 
 #: wcivf/apps/parties/templates/parties/party_detail.html:88
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                                        %(num_votes)s votes (elected)\n"
+#, python-format
 msgid ""
 "\"%(joint_name)s\" is a joint description of %(first_name)s and "
 "%(second_name)s."
 msgstr ""
-"\n"
-"                                        %(num_votes)s pleidlais (etholwyd)\n"
 
 #: wcivf/apps/parties/templates/parties/party_detail.html:95
 #, python-format
@@ -1868,8 +2617,6 @@ msgid "View this party's entry in the register of political parties."
 msgstr "Gweld cofnod y blaid hon yn y gofrestr o bleidiau gwleidyddol."
 
 #: wcivf/apps/parties/templates/parties/party_detail.html:112
-#, fuzzy
-#| msgid " %(description)s "
 msgid "Ballot descriptions"
 msgstr " %(description)s "
 
@@ -1891,8 +2638,6 @@ msgstr ""
 "Comisiwn Etholiadol ar hyn o bryd."
 
 #: wcivf/apps/parties/templates/parties/party_detail.html:133
-#, fuzzy
-#| msgid " %(description)s "
 msgid "Previous Descriptions"
 msgstr " %(description)s "
 
@@ -1989,8 +2734,6 @@ msgid "Elected unopposed"
 msgstr "Wedi'i ethol yn ddiwrthwynebiad."
 
 #: wcivf/apps/people/models.py:82
-#, fuzzy
-#| msgid "This election was cancelled."
 msgid "(election cancelled)"
 msgstr "Canslwyd yr etholiad hwn."
 
@@ -2000,8 +2743,7 @@ msgid "(Results due after %(date)s)"
 msgstr "(Disgwylir canlyniadau ar ôl %(date)s)"
 
 #: wcivf/apps/people/models.py:105
-#, fuzzy, python-format
-#| msgid "%(num_votes)s votes"
+#, python-format
 msgid "%(num_votes)s votes (elected)"
 msgstr "%(num_votes)s pleidlais"
 
@@ -2010,36 +2752,35 @@ msgid "Elected (vote count not available)"
 msgstr "Nid yw'r cyfrif pleidleisiau ar gael"
 
 #: wcivf/apps/people/models.py:114
-#, fuzzy, python-format
-#| msgid "%(num_votes)s votes"
+#, python-format
 msgid "%(num_votes)s votes (not elected)"
 msgstr "%(num_votes)s pleidlais"
 
 #: wcivf/apps/people/models.py:117
-#, fuzzy
-#| msgid "Not Elected (vote count not available)"
 msgid "Not elected (vote count not available)"
-msgstr "Nid yw'r cyfrif pleidleisiau ar gael"
+msgstr "Heb ei ethol (nid yw cyfrif y pleidleisiau ar gael)"
 
 #: wcivf/apps/people/models.py:150
 #, fuzzy, python-format
-#| msgid "%(person)s is a %(party)s candidate."
+#| msgid "Joint %(rank)s / %(count)d candidate"
+#| msgid_plural "Joint %(rank)s / %(count)d candidates"
 msgid "Joint %(rank)s / %(count)d candidate"
 msgid_plural "Joint %(rank)s / %(count)d candidates"
-msgstr[0] "Mae %(person)s yn ymgeisydd ar ran y %(party)s."
-msgstr[1] "Mae %(person)s yn ymgeisydd ar ran y %(party)s."
-msgstr[2] "Mae %(person)s yn ymgeisydd ar ran y %(party)s."
-msgstr[3] "Mae %(person)s yn ymgeisydd ar ran y %(party)s."
+msgstr[0] "Cydradd %(rank)s / %(count)d ymgeisydd."
+msgstr[1] "Cydradd %(rank)s / %(count)d ymgeisydd."
+msgstr[2] "Cydradd %(rank)s / %(count)d ymgeisydd."
+msgstr[3] "Cydradd %(rank)s / %(count)d ymgeisydd."
 
 #: wcivf/apps/people/models.py:156
 #, fuzzy, python-format
-#| msgid "%(person)s is a %(party)s candidate."
+#| msgid "%(rank)s / %(count)d candidate"
+#| msgid_plural "%(rank)s / %(count)d candidates"
 msgid "%(rank)s / %(count)d candidate"
 msgid_plural "%(rank)s / %(count)d candidates"
-msgstr[0] "Mae %(person)s yn ymgeisydd ar ran y %(party)s."
-msgstr[1] "Mae %(person)s yn ymgeisydd ar ran y %(party)s."
-msgstr[2] "Mae %(person)s yn ymgeisydd ar ran y %(party)s."
-msgstr[3] "Mae %(person)s yn ymgeisydd ar ran y %(party)s."
+msgstr[0] "%(rank)s / %(count)d ymgeisydd"
+msgstr[1] "%(rank)s / %(count)d ymgeisydd"
+msgstr[2] "%(rank)s / %(count)d ymgeisydd"
+msgstr[3] "%(rank)s / %(count)d ymgeisydd"
 
 #: wcivf/apps/people/templates/people/includes/_person_about_card.html:4
 #, python-format
@@ -2072,11 +2813,10 @@ msgstr "Tudalen Facebook %(person_name)s"
 #: wcivf/apps/people/templates/people/includes/_person_contact_card.html:33
 #: wcivf/templates/base.html:134
 msgid "X"
-msgstr ""
+msgstr "X"
 
 #: wcivf/apps/people/templates/people/includes/_person_contact_card.html:35
-#, fuzzy, python-format
-#| msgid "%(person_name)s's LinkedIn profile"
+#, python-format
 msgid "%(person_name)s's X profile"
 msgstr "Tudalen LinkedIn %(person_name)s"
 
@@ -2086,10 +2826,9 @@ msgid "Mastodon"
 msgstr "Mastodon"
 
 #: wcivf/apps/people/templates/people/includes/_person_contact_card.html:46
-#, fuzzy, python-format
-#| msgid "%(person_name)s's LinkedIn profile"
+#, python-format
 msgid "%(person_name)s's Mastodon profile"
-msgstr "Tudalen LinkedIn %(person_name)s"
+msgstr "Tudalen Mastodon %(person_name)s"
 
 #: wcivf/apps/people/templates/people/includes/_person_contact_card.html:55
 #: wcivf/templates/base.html:136
@@ -2176,8 +2915,7 @@ msgid "Other contact info"
 msgstr "Gwybodaeth gyswllt arall"
 
 #: wcivf/apps/people/templates/people/includes/_person_contact_card.html:150
-#, fuzzy, python-format
-#| msgid "%(person_name)s's personal Facebook"
+#, python-format
 msgid "%(person_name)sother contact info"
 msgstr "Facebook personol %(person_name)s"
 
@@ -2210,54 +2948,42 @@ msgstr ""
 "â phosibl o ymgeiswyr, ond mae angen help arnynt."
 
 #: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:10
-#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:16
-#, fuzzy
-#| msgid "If you can add information that should be on this page"
 msgid "If you can add information to this page"
 msgstr "Os gallwch chi, ychwanegwch wybodaeth a ddylai fod ar y dudalen hon"
 
 #: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:11
-#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:17
-#, fuzzy, python-format
-#| msgid "- such as %(person)s's %(cta)s -"
+#, python-format
 msgid "- such as %(person)s's"
-msgstr "- fel%(cta)s %(person)s -"
+msgstr "- fel %(cta)s %(person)s -"
 
 #: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:12
-#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:18
 msgid "social media accounts,"
 msgstr ""
 
 #: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:13
-#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:19
 msgid "policy statement or contact information -"
 msgstr ""
 
 #: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:14
-#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:20
-#, fuzzy
-#| msgid "please use our crowdsourcing website to add it."
 msgid "please use our crowdsourcing website."
 msgstr "defnyddiwch ein gwefan torfoli i'w ychwanegu."
 
-#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:23
+#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:16
 msgid "Add or edit details &raquo;"
 msgstr "Ychwanegwch neu golygwch fanylion &raquo;"
 
-#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:25
+#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:18
 msgid "Upload your leaflets"
 msgstr ""
 
-#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:27
+#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:20
 #, python-format
 msgid ""
 "If you've received election leaflets from %(person)s, please take a photo of "
 "them and upload them to ElectionLeaflets.org"
 msgstr ""
 
-#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:30
-#, fuzzy
-#| msgid "Add or edit details &raquo;"
+#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:23
 msgid "Add leaflets &raquo;"
 msgstr "Ychwanegwch neu golygwch fanylion &raquo;"
 
@@ -2267,45 +2993,34 @@ msgid "profile photo of %(person)s"
 msgstr "Llun proffil %(person)s"
 
 #: wcivf/apps/people/templates/people/includes/_person_leaflets.html:9
-#, fuzzy, python-format
-#| msgid "Recent leaflets from %(object.name)s"
+#, python-format
 msgid "Recent leaflets from %(person_name)s"
 msgstr "Taflenni diweddar gan %(object.name)s"
 
 #: wcivf/apps/people/templates/people/includes/_person_leaflets.html:18
-#, fuzzy, python-format
-#| msgid "Thumbnail of leaflet from %(object.name)s"
+#, python-format
 msgid "Thumbnail of leaflet from %(person_name)s"
-msgstr "Thumbnail o daflen gan %(object.name)s"
+msgstr "Thumbnail o daflen gan %(person.name)s"
 
 #: wcivf/apps/people/templates/people/includes/_person_leaflets.html:22
-#, fuzzy, python-format
-#| msgid ""
-#| "Uploaded %(date)s<br /> <a href=\"https://electionleaflets.org/leaflets/"
-#| "%(leaflet.leaflet_id)s\" class=\"cta\">See leaflet</a>"
+#, python-format
 msgid ""
 "Uploaded %(date)s<br/> <a href=\"https://electionleaflets.org/leaflets/"
 "%(leaflet_id)s\" class=\"cta\">See leaflet</a>"
 msgstr ""
 "Uwchlwythwyd %(date)s<br /> <a href=\"https://electionleaflets.org/leaflets/"
-"%(leaflet.leaflet_id)s\" class=\"cta\">Gweld y daflen</a>"
+"%(leaflet_id)s\" class=\"cta\">Gweld y daflen</a>"
 
 #: wcivf/apps/people/templates/people/includes/_person_leaflets.html:32
-#, fuzzy, python-format
-#| msgid ""
-#| "<a class=\"ds-cta\" href=\"https://electionleaflets.org/person/"
-#| "%(object.ynr_id)s\">More leaflets from %(object.name)s</a> <a class=\"ds-"
-#| "cta\" href=\"https://electionleaflets.org/leaflets/add/\">Upload a "
-#| "leaflet</a>"
+#, python-format
 msgid ""
 "<a class=\"ds-cta\" href=\"https://electionleaflets.org/person/%(person_id)s"
 "\"> More leaflets from %(person_name)s</a> <a class=\"ds-cta\" href="
 "\"https://electionleaflets.org/leaflets/add/\"> Upload a leaflet </a>"
 msgstr ""
-"<a class=\"ds-cta\" href=\"https://electionleaflets.org/person/"
-"%(object.ynr_id)s\">Mwy o daflenni gan %(object.name)s</a> <a class=\"ds-cta"
-"\" href=\"https://electionleaflets.org/leaflets/add/\">Uwchlwythwch daflen</"
-"a>"
+"<a class=\"ds-cta\" href=\"https://electionleaflets.org/person/%(person_id)s"
+"\">Mwy o daflenni gan %(person.name)s</a> <a class=\"ds-cta\" href=\"https://"
+"electionleaflets.org/leaflets/add/\">Uwchlwythwch daflen</a>"
 
 #: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:6
 #, python-format
@@ -2375,8 +3090,7 @@ msgstr ""
 "ym maniffesto'r %(party_name)s."
 
 #: wcivf/apps/people/templates/people/includes/_person_manifesto_card.html:30
-#, fuzzy, python-format
-#| msgid "'%(party_name)s' emblem "
+#, python-format
 msgid "'%(party_name)s' emblem"
 msgstr "'Symbol y %(party_name)s' "
 
@@ -2387,8 +3101,7 @@ msgstr ""
 "%(intro)sCael y wybodaeth ddiweddaraf am yr ymgeisydd hwn ar %(SITE_TITLE)s"
 
 #: wcivf/apps/people/templates/people/includes/_person_multiple_current_candidacies.html:5
-#, fuzzy, python-format
-#| msgid "is %(a_or_an)s %(party_name)s candidate in the following elections:"
+#, python-format
 msgid "%(verb)s a candidate in the following elections:"
 msgstr "yw %(a_or_an)s ymgeisydd y %(party_name)s yn yr etholiadau canlynol:"
 
@@ -2397,12 +3110,13 @@ msgid "an,a"
 msgstr "an,a"
 
 #: wcivf/apps/people/templates/people/includes/_person_multiple_current_candidacies.html:8
-#, fuzzy, python-format
-#| msgid "is %(a_or_an)s %(party_name)s candidate in the following elections:"
+#, python-format
 msgid ""
 "%(verb)s %(a_or_an)s <a href=\"%(party_link)s\">%(party_name)s</a> candidate "
 "in the following elections:"
-msgstr "yw %(a_or_an)s ymgeisydd y %(party_name)s yn yr etholiadau canlynol:"
+msgstr ""
+"yw %(a_or_an)s ymgeisydd y <a href=\"%(party_link)s\">%(party_name)s</a> yn "
+"yr etholiadau canlynol:"
 
 #: wcivf/apps/people/templates/people/includes/_person_multiple_current_candidacies.html:18
 #, python-format
@@ -2410,10 +3124,9 @@ msgid "%(election)s for"
 msgstr "%(election)s ar gyfer"
 
 #: wcivf/apps/people/templates/people/includes/_person_national_party_card.html:5
-#, fuzzy, python-format
-#| msgid "%(person)s's local party is %(party_label)s."
+#, python-format
 msgid "%(person)s's party is %(party_label)s."
-msgstr "Plaid leol %(person)s yw %(party_label)s."
+msgstr "Plaid %(person)s yw %(party_label)s."
 
 #: wcivf/apps/people/templates/people/includes/_person_national_party_card.html:58
 msgid "Party Political Broadcast"
@@ -2480,12 +3193,6 @@ msgstr "Etholiadau %(person_name)s"
 msgid "Election"
 msgstr "Etholiad"
 
-#: wcivf/apps/people/templates/people/includes/_person_previous_elections_card.html:11
-#: wcivf/apps/ppc_2024/templates/ppc_2024/home.html:91
-#: wcivf/apps/ppc_2024/templates/ppc_2024/ppcperson_list.html:45
-msgid "Party"
-msgstr "Plaid"
-
 #: wcivf/apps/people/templates/people/includes/_person_previous_elections_card.html:12
 msgid "Results"
 msgstr "Canlyniadau"
@@ -2541,91 +3248,51 @@ msgstr ""
 "\"%(election_url)s\" title=\"%(election)s\">%(election_name)s</a>."
 
 #: wcivf/apps/people/templates/people/includes/intros/_independent.html:6
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "            %(person_name)s is an independent candidate in <a href="
-#| "\"%(post_url)s\">%(post_label)s</a>\n"
-#| "            in the <a href=\"%(election_url)s\" title=\"%(election_name)s"
-#| "\">%(election_name)s</a>.\n"
-#| "        "
+#, python-format
 msgid ""
 "%(person_name)s is an independent candidate in <a href=\"%(post_url)s\">"
 "%(post_label)s</a> in the <a href=\"%(election_url)s\" title="
 "\"%(election_name)s\">%(election_name)s</a>."
 msgstr ""
-"\n"
-"          Mae %(person_name)s ymgeisydd annibynnol yn <a href=\"%(post_url)s"
-"\">%(post_label)s</a>\n"
-"            yn yr <a href=\"%(election_url)s\" title=\"%(election_name)s\">"
-"%(election_name)s</a>.\n"
-"        "
+"Mae %(person_name)s ymgeisydd annibynnol yn <a href=\"%(post_url)s\">"
+"%(post_label)s</a>yn yr <a href=\"%(election_url)s\" title="
+"\"%(election_name)s\">%(election_name)s</a>."
 
 #: wcivf/apps/people/templates/people/includes/intros/_independent_mayor_or_pcc.html:6
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "            %(person_name)s is an independent candidate in <a href="
-#| "\"%(post_url)s\">%(post_label)s</a>\n"
-#| "            in the <a href=\"%(election_url)s\" title=\"%(election_name)s"
-#| "\">%(election_name)s</a>.\n"
-#| "        "
+#, python-format
 msgid ""
 "%(person_name)s is an independent candidate for <a href=\"%(election_url)s\" "
 "title=\"%(election_name)s\">%(election_name)s</a>."
 msgstr ""
-"\n"
-"          Mae %(person_name)s ymgeisydd annibynnol yn <a href=\"%(post_url)s"
-"\">%(post_label)s</a>\n"
-"            yn yr <a href=\"%(election_url)s\" title=\"%(election_name)s\">"
-"%(election_name)s</a>.\n"
-"        "
+"Mae %(person_name)s ymgeisydd annibynnol yn <a href=\"%(post_url)s\">"
+"%(post_label)s</a>yn yr <a href=\"%(election_url)s\" title="
+"\"%(election_name)s\">%(election_name)s</a>."
 
 #: wcivf/apps/people/templates/people/includes/intros/_independent_mayor_or_pcc.html:11
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "            %(person_name)s is an independent candidate in <a href="
-#| "\"%(post_url)s\">%(post_label)s</a>\n"
-#| "            in the <a href=\"%(election_url)s\" title=\"%(election_name)s"
-#| "\">%(election_name)s</a>.\n"
-#| "        "
+#, python-format
 msgid ""
 "%(person_name)s was an independent candidate for <a href=\"%(election_url)s"
 "\" title=\"%(election_name)s\">%(election_name)s</a>."
 msgstr ""
-"\n"
-"          Mae %(person_name)s ymgeisydd annibynnol yn <a href=\"%(post_url)s"
-"\">%(post_label)s</a>\n"
-"            yn yr <a href=\"%(election_url)s\" title=\"%(election_name)s\">"
-"%(election_name)s</a>.\n"
-"        "
+"Roedd %(person_name)s ymgeisydd annibynnol yn <a href=\"%(post_url)s\">"
+"%(post_label)s</a>yn yr <a href=\"%(election_url)s\" title="
+"\"%(election_name)s\">%(election_name)s</a>."
 
 #: wcivf/apps/people/templates/people/includes/intros/_list_ballot.html:8
-#, fuzzy, python-format
-#| msgid ""
-#| "%(person_name)s is a <a href=\"%(party_url)s\" title=\"%(party_name)s\">"
-#| "%(party_name)s</a> candidate in <a href=\"%(post_url)s\">%(post_label)s</"
-#| "a> in the <a href=\"%(election_url)s\" title=\"%(election_name)s\">"
-#| "%(election_name)s</a>."
+#, python-format
 msgid ""
 "%(person_name)s is the %(list_position_ordinal)s place candidate for the <a "
 "href=\"%(party_url)s\" title=\"%(party_name)s\">%(party_name)s</a> in <a "
 "href=\"%(post_url)s\" title=\"%(post_label)s\">%(post_label)s</a> in the <a "
 "href=\"%(election_url)s\" title=\"%(election_name)s\">%(election_name)s</a>."
 msgstr ""
-"Mae%(person_name)s yn ymgeisydd ar ran y <a href=\"%(party_url)s\" title="
+"Mae %(person_name)s yn ymgeisydd ar ran y <a href=\"%(party_url)s\" title="
 "\"%(party_name)s\">%(party_name)s</a> yn <a href=\"%(post_url)s\">"
 "%(post_label)s</a> yn yr <a href=\"%(election_url)s\" title="
 "\"%(election_name)s\">%(election_name)s</a>."
 
 #: wcivf/apps/people/templates/people/includes/intros/_list_ballot.html:14
-#, fuzzy, python-format
-#| msgid ""
-#| "%(person_name)s was a <a href=\"%(party_url)s\" title=\"%(party_name)s\">"
-#| "%(party_name)s</a> candidate in <a href=\"%(post_url)s\">%(post_label)s</"
-#| "a> in the <a href=\"%(election_url)s\" title=\"%(election_name)s\">"
-#| "%(election_name)s</a>."
+#, python-format
 msgid ""
 "%(person_name)s was the %(list_position_ordinal)s place candidate for the <a "
 "href=\"%(party_url)s\" title=\"%(party_name)s\">%(party_name)s</a> in <a "
@@ -2667,7 +3334,7 @@ msgid ""
 "constituency in the <a href=\"%(election_url)s\" title=\"%(election_name)s\">"
 "%(election_name)s</a>."
 msgstr ""
-"Mae%(person_name)s yn ymgeisydd ar ran y <a href=\"%(party_url)s\" title="
+"Mae %(person_name)s yn ymgeisydd ar ran y <a href=\"%(party_url)s\" title="
 "\"%(party_name)s\">%(party_name)s</a> yn etholaeth <a href=\"%(post_url)s\">"
 "%(post_label)s</a> yn yr <a href=\"%(election_url)s\" title="
 "\"%(election_name)s\">%(election_name)s</a>."
@@ -2728,7 +3395,7 @@ msgid ""
 "in the <a href=\"%(election_url)s\" title=\"%(election_name)s\">"
 "%(election_name)s</a>."
 msgstr ""
-"Mae%(person_name)s yn ymgeisydd ar ran y <a href=\"%(party_url)s\" title="
+"Mae %(person_name)s yn ymgeisydd ar ran y <a href=\"%(party_url)s\" title="
 "\"%(party_name)s\">%(party_name)s</a> yn <a href=\"%(post_url)s\">"
 "%(post_label)s</a> yn yr <a href=\"%(election_url)s\" title="
 "\"%(election_name)s\">%(election_name)s</a>."
@@ -2747,9 +3414,9 @@ msgstr ""
 "\"%(election_name)s\">%(election_name)s</a>."
 
 #: wcivf/apps/people/templates/people/not_current_person_detail.html:25
-#, fuzzy, python-format
+#, python-format
 msgid "<p>%(person_name)s stood for election twice.</p>"
-msgstr "<p>safodd %(person_name)s am etholiad unwaith.</p>"
+msgstr "<p>safodd %(person_name)s mewn etholiad ddwywaith.</p>"
 
 #: wcivf/apps/people/templates/people/not_current_person_detail.html:29
 #, python-format
@@ -2903,20 +3570,15 @@ msgstr ""
 
 #: wcivf/apps/ppc_2024/templates/ppc_2024/home.html:59
 #: wcivf/apps/ppc_2024/templates/ppc_2024/ppcperson_list.html:39
-#, fuzzy, python-format
-#| msgid ""
-#| "Please note this data is now archived. For the latest data, please refer "
-#| "to the\n"
-#| " <a href=\"https://whocanivotefor.co.uk/elections/parl.2024-07-04/uk-"
-#| "parliament-elections/\">2024 General Election page</a>.\n"
+#, python-format
 msgid ""
 "Please note this data is now archived. For the latest data, please refer to "
 "the <a href=\"%(ge_2024_election_url)s\">2024 General Election page</a>."
 msgstr ""
-"Sylwer bod y data hwn bellach wedi'i archifo. Am y data diweddaraf, os "
-"gwelwch yn dda.cyfeiriwch at y\n"
+"Sylwer bod y data hwn bellach wedi'i archifo. Am y data diweddaraf, "
+"cyfeiriwch at y\n"
 " <a href=\"https://whocanivotefor.co.uk/elections/parl.2024-07-04/uk-Senedd-"
-"etholiadau/\">tudalen Etholiad Cyffredinol 2024</a>.\n"
+"etholiadau/\">tudalen Etholiad Cyffredinol 2024</a>."
 
 #: wcivf/apps/ppc_2024/templates/ppc_2024/home.html:64
 msgid "Number of candidates announced per UK region or nation"
@@ -2957,10 +3619,6 @@ msgstr "Cyfrannwch nawr"
 
 #: wcivf/apps/ppc_2024/templates/ppc_2024/ppcperson_list.html:7
 #: wcivf/apps/ppc_2024/templates/ppc_2024/ppcperson_list.html:8
-#, fuzzy
-#| msgid ""
-#| "Democracy Club's volunteers are collecting information on each candidate "
-#| "as they are announced."
 msgid ""
 "Democracy Club's volunteers are collecting information on each candidate as "
 "they are announced"
@@ -3033,10 +3691,7 @@ msgid "Today"
 msgstr "Heddiw"
 
 #: wcivf/apps/referendums/templates/referendums/includes/_card.html:20
-#, fuzzy, python-format
-#| msgid ""
-#| "voters in <strong>%(council_name)s</strong> able to vote in a governance "
-#| "referendum."
+#, python-format
 msgid ""
 "voters in <strong>%(council_name)s</strong> %(were_or_will_be)s able to vote "
 "in a governance referendum."
@@ -3053,15 +3708,12 @@ msgid "The question you will be asked on the ballot paper is:"
 msgstr "Y cwestiwn a ofynnir i chi ar y papur pleidleisio yw:"
 
 #: wcivf/apps/referendums/templates/referendums/includes/_card.html:30
-#, fuzzy, python-format
-#| msgid ""
-#| "<h4>%(referendum_question)s</h4> <blockquote>%(referendum.answer_one)s</"
-#| "blockquote> or <blockquote>%(referendum_answer_two)s</blockquote>"
+#, python-format
 msgid ""
 "<h4>%(referendum_question)s</h4> <blockquote>%(referendum_answer_one)s</"
 "blockquote> or <blockquote>%(referendum_answer_two)s</blockquote>"
 msgstr ""
-"<h4>%(referendum_question)s</h4> <blockquote>%(referendum.answer_one)s</"
+"<h4>%(referendum_question)s</h4> <blockquote>%(referendum_answer_one)s</"
 "blockquote> or <blockquote>%(referendum_answer_two)s</blockquote>"
 
 #: wcivf/apps/referendums/templates/referendums/includes/_card.html:37
@@ -3126,8 +3778,6 @@ msgid "About"
 msgstr ""
 
 #: wcivf/templates/base.html:122
-#, fuzzy
-#| msgid "Donate now"
 msgid "Donate"
 msgstr "Cyfrannwch nawr"
 
@@ -3137,15 +3787,15 @@ msgstr ""
 
 #: wcivf/templates/base.html:125
 msgid "Privacy &amp; Terms"
-msgstr ""
+msgstr "Preifatrwydd &amp; Thelerau"
 
 #: wcivf/templates/base.html:126
 msgid "Code of Conduct"
-msgstr ""
+msgstr "Cod Ymddygiad"
 
 #: wcivf/templates/base.html:130
 msgid "Connect with us"
-msgstr ""
+msgstr "Cysylltu â Ni"
 
 #: wcivf/templates/base.html:132
 msgid "Contact Us"
@@ -3177,8 +3827,6 @@ msgstr ""
 "arall y gallwch chi ei ddefnyddio?"
 
 #: wcivf/templates/home.html:32
-#, fuzzy
-#| msgid "You will need photographic identification."
 msgid "Photographic identification"
 msgstr "Bydd angen dull adnabod ffotograffig arnoch."
 
@@ -3217,6 +3865,47 @@ msgstr ""
 msgid "Upcoming Elections"
 msgstr "Etholiadau i ddod"
 
+#, fuzzy, python-format
+#~| msgid "%(rank)s / %(count)d candidate"
+#~| msgid_plural "%(rank)s / %(count)d candidates"
+#~ msgid "%(rank_ordinal)s out of %(count)s candidate"
+#~ msgstr "%(rank)s / %(count)s ymgeiswyr"
+
+#, fuzzy, python-format
+#~| msgid "%(rank)s / %(count)d candidate"
+#~| msgid_plural "%(rank)s / %(count)d candidates"
+#~ msgid "%(rank_ordinal)s out of %(count)s candidates"
+#~ msgstr "%(rank)s / %(count)s ymgeiswyr"
+
+#, fuzzy, python-format
+#~| msgid "Joint %(rank)s / %(count)d candidate"
+#~| msgid_plural "Joint %(rank)s / %(count)d candidates"
+#~ msgid "Joint %(rank)s / %(count)d candidates"
+#~ msgstr "Cydradd %(rank)s / %(count)d ymgeiswyr."
+
+#~ msgid "till"
+#~ msgstr "tan"
+
+#, python-format
+#~| msgid ""
+#~| "\n"
+#~| "            %(person_name)s is an independent candidate in <a href="
+#~| "\"%(post_url)s\">%(post_label)s</a>\n"
+#~| "            in the <a href=\"%(election_url)s\" title=\"%(election_name)s"
+#~| "\">%(election_name)s</a>.\n"
+#~| "        "
+#~ msgid ""
+#~ "%(person_name)s was an independent candidate in <a href=\"%(post_url)s\">"
+#~ "%(post_label)s</a> in the <a href=\"%(election_url)s\" title="
+#~ "\"%(election_name)s\">%(election_name)s</a>."
+#~ msgstr ""
+#~ "\n"
+#~ "          Mae %(person_name)s ymgeisydd annibynnol yn <a href="
+#~ "\"%(post_url)s\">%(post_label)s</a>\n"
+#~ "            yn yr <a href=\"%(election_url)s\" title=\"%(election_name)s"
+#~ "\">%(election_name)s</a>.\n"
+#~ "        "
+
 #~ msgid "Learn more about voting by post"
 #~ msgstr "Dysgwch fwy am bleidleisio drwy'r post"
 
@@ -3247,7 +3936,6 @@ msgstr "Etholiadau i ddod"
 #~ msgid "It will be open from <strong>7am to 10pm</strong>."
 #~ msgstr "Bydd ar agor o <strong>7am tan 10pm</strong>."
 
-#, fuzzy
 #~| msgid ""
 #~| "For questions about your poll card, polling place, or about returning "
 #~| "your postal voting ballot, contact your council."

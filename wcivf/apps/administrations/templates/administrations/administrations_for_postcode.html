@@ -11,7 +11,9 @@
             <h3>{{ administration.role_name|capfirst }}</h3>
 
             {% if administration.seats_total > 1 %}
-                <p>There are {{ administration.seats_total|apnumber }} {{ administration.role_name }} representing you.</p>
+                {% blocktrans %}
+                    <p>There are {{ administration.seats_total|apnumber }} {{ administration.role_name }} representing you.</p>
+                {% endblocktrans %}
             {% endif %}
             {% if administration.should_show_people %}
                 <ul class="ds-grid">

@@ -12,61 +12,66 @@
             </li>
         </ul>
     </aside>
+
     {% if administrations.administrations %}
-        <h2>Your area</h2>
-
-        <p>This page lists all the parts of government that look after your area. Each of these organisations
-            have different responsibilities and representatives.</p>
-
+        {% blocktrans %}
+            <h2>Your area</h2>
+            <p>This page lists all the parts of government that look after your area. Each of these organisations
+                have different responsibilities and representatives.</p>
+        {% endblocktrans %}
         {% include "administrations/administrations_for_postcode.html" %}
         <hr>
-        <p>Note: you may also have a parish, town or community council in your area. We're working on adding them to
-            this
-            page</p>
+        {% trans %}
+            <p>Note: you may also have a parish, town or community council in your area. We're working on adding them to
+                this page</p>
+        {% endtrans %}
+        <p>{% trans "Something wrong? Please " %}<a href="https://democracyclub.org.uk/contact/">
+            {% trans "get in touch" %}</a> {% trans "with feedback or bug reports" %}</p>
 
-        <p>Something wrong? Please <a href="https://democracyclub.org.uk/contact/">
-            get in touch</a> with feedback or bug reports</p>
+            {% elif administrations.address_picker %}
+                {% blocktrans %}
+                    <h2>Please pick your address</h2>
+                    <p>This postcode spans more than one area, so we need to know the address to provide information about your
+                        area</p>
+                {% endblocktrans %}
+                <ul>
+                    {% for address in administrations.addresses %}
+                        <li>
+                            <a href="{% url "your_area_view" postcode=address.postcode uprn=address.slug %}">{{ address.address }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
 
-    {% elif administrations.address_picker %}
-        <h2>Please pick your address</h2>
-        <p>This postcode spans more than one area, so we need to know the address to provide information about your
-            area</p>
-        <ul>
-            {% for address in administrations.addresses %}
-                <li>
-                    <a href="{% url "your_area_view" postcode=address.postcode uprn=address.slug %}">{{ address.address }}</a>
-                </li>
-            {% endfor %}
-        </ul>
+            {% else %}
+                {% if postcode %}
+                    {% trans %}<p>Sorry, we don't have any information for your postcode, or something else has gone wrong. Please try a
+                        different postcode</p>{% endtrans %}
+                {% endif %}
 
-    {% else %}
-        {% if postcode %}
-            <p>Sorry, we don't have any information for your postcode, or something else has gone wrong. Please try a
-                different postcode</p>
-        {% endif %}
+            {% endif %}
 
-    {% endif %}
-
-    {% if not address_picker %}
+                {% if not address_picker %}
 
 
-        <div class="ds-text-centered ds-stack">
-            <h3 style="text-wrap: balance;">Find out about local government in your area</h3>
-            <form method="post">
-                {% csrf_token %}
-                {{ your_area_postcode_form|dc_form }}
-                <button class="ds-button-pink" type="submit">Search</button>
+                    <div class="ds-text-centered ds-stack">
+                        <h3 style="text-wrap: balance;">{% trans "Find out about local government in your area" %}</h3>
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ your_area_postcode_form|dc_form }}
+                            <button class="ds-button-pink" type="submit">Search</button>
 
-            </form>
-    {% endif %}
-    {% if not postcode %}
-        <p>
-            As well as your new MP, there are others who represent you in your area.
-            We're working on a new experimental feature to explain who these people are and how everything
-            from your council to your
-            police force works.
-        </p>
-    {% endif %}
-    </div>
+                        </form>
+                {% endif %}
+                {% if not postcode %}
+                    <p>
+                        {% blocktrans %}
+                            As well as your new MP, there are others who represent you in your area.
+                            We're working on a new experimental feature to explain who these people are and how everything
+                            from your council to your
+                            police force works.
+                        {% endblocktrans %}
+                    </p>
+                {% endif %}
+                </div>
 
-{% endblock %}
+            {% endblock %}
