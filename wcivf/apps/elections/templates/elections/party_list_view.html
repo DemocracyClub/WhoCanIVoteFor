@@ -56,6 +56,14 @@
                                     </a>
                                 </dd>
                             {% endif %}
+                            {% if local_party.twitter %}
+                                <dt>X</dt>
+                                <dd>
+                                    <a href="https://x.com/{{ local_party.twitter }}" title="{% blocktrans trimmed with party_name=local_party.name %}{{ party_name }}'s X profile{% endblocktrans %}">
+                                        https://x.com/{{ local_party.twitter }}
+                                    </a>
+                                </dd>
+                            {% endif %}
                             {% if local_party.homepage %}
                                 <dt>{% trans "Home page" %}</dt>
                                 <dd>
@@ -130,16 +138,6 @@
                 {% blocktrans trimmed with party_name=party.party_name manifesto=manifesto|safe %}Find out more about this party in the {{ party_name }} {{ manifesto }}.{% endblocktrans %}
             </p>
         </div>
-    {% endif %}
-    {% if local_party %}
-        {% if local_party.twitter %}
-            <h3>{% trans "Latest tweets" %}</h3>
-            <div class="twitter_container">
-                <a data-width="100%" data-height="500" class="twitter-timeline" href="https://twitter.com/{{ object.twitter_username }}">
-                    {% trans "Tweets by" %} @{{ object.twitter_username }}</a>
-                <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-            </div>
-        {% endif %}
     {% endif %}
 
     <h3>{% trans "Candidates" %}</h3>
