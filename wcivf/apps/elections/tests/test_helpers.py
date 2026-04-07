@@ -563,6 +563,95 @@ class TestYNRImporterAddBallots:
             party
         )
 
+    @pytest.mark.django_db
+    def test_import_ballots_with_results(
+        self, importer, ballot_dict, election, post
+    ):
+        """
+        Tests that results are included in the ballot import
+        """
+        ballot_dict["results"] = {
+            "num_turnout_reported": 46,
+            "turnout_percentage": 50.00,
+            "num_spoilt_ballots": 4,
+            "source": "https://www.westmorlandandfurness.gov.uk/voting-and-elections/elections/penrith-south-election",
+            "total_electorate": 100,
+        }
+
+        expected_defaults = {
+            "election": election,
+            "post": post,
+            "winner_count": 1,
+            "cancelled": False,
+            "locked": False,
+            "ynr_modified": "2021-10-12T00:00:00+00:00",
+            "ballot_papers_issued": 46,
+            "electorate": 100,
+            "turnout": 50.00,
+            "spoilt_ballots": 4,
+            "results_source_url": "https://www.westmorlandandfurness.gov.uk/voting-and-elections/elections/penrith-south-election",
+        }
+
+        results = {"results": [ballot_dict]}
+        importer.recently_updated = True
+        importer.add_ballots(results=results)
+
+        importer.election_importer.update_or_create_from_ballot_dict.assert_called_once_with(
+            ballot_dict
+        )
+        importer.post_importer.update_or_create_from_ballot_dict.assert_called_once_with(
+            ballot_dict
+        )
+
+        PostElection.objects.update_or_create.assert_called_once_with(
+            ballot_paper_id=ballot_dict["ballot_paper_id"],
+            defaults=expected_defaults,
+        )
+
+    @pytest.mark.django_db
+    def test_import_ballots_with_non_url_results_source(
+        self, importer, ballot_dict, election, post
+    ):
+        """
+        Tests that non URL result sources are excluded from the import
+        """
+        ballot_dict["results"] = {
+            "num_turnout_reported": 46,
+            "turnout_percentage": 50.00,
+            "num_spoilt_ballots": 4,
+            "source": "non url source",
+            "total_electorate": 100,
+        }
+
+        expected_defaults = {
+            "election": election,
+            "post": post,
+            "winner_count": 1,
+            "cancelled": False,
+            "locked": False,
+            "ynr_modified": "2021-10-12T00:00:00+00:00",
+            "ballot_papers_issued": 46,
+            "electorate": 100,
+            "turnout": 50.00,
+            "spoilt_ballots": 4,
+        }
+
+        results = {"results": [ballot_dict]}
+        importer.recently_updated = True
+        importer.add_ballots(results=results)
+
+        importer.election_importer.update_or_create_from_ballot_dict.assert_called_once_with(
+            ballot_dict
+        )
+        importer.post_importer.update_or_create_from_ballot_dict.assert_called_once_with(
+            ballot_dict
+        )
+
+        PostElection.objects.update_or_create.assert_called_once_with(
+            ballot_paper_id=ballot_dict["ballot_paper_id"],
+            defaults=expected_defaults,
+        )
+
 
 class TestYNRBallotImporterDivisionType:
     @pytest.fixture(autouse=True)

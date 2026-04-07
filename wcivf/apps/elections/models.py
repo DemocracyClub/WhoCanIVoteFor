@@ -522,6 +522,7 @@ class PostElection(TimeStampedModel):
     electorate = models.IntegerField(blank=True, null=True)
     turnout = models.IntegerField(blank=True, null=True)
     spoilt_ballots = models.IntegerField(blank=True, null=True)
+    results_source_url = models.URLField(blank=True, null=True)
 
     objects = PostElectionQuerySet.as_manager()
 

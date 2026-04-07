@@ -4,6 +4,7 @@ import sys
 from urllib.parse import urlencode
 
 from django.conf import settings
+from django.core.validators import URLValidator
 from django.db import transaction
 from django.utils import timezone
 from elections.helpers import EEHelper, JsonPaginator
@@ -382,6 +383,16 @@ class YNRBallotImporter:
                         "num_spoilt_ballots"
                     ],
                 }
+                # We don't validate the source field in YNR,
+                # so if it's there, check it looks like a URL before
+                # adding add it to the ballot
+                try:
+                    URLValidator()(ballot_dict["results"]["source"])
+                    results_defaults["results_source_url"] = ballot_dict[
+                        "results"
+                    ]["source"]
+                except Exception:
+                    pass
 
                 defaults = {**defaults, **results_defaults}
 
