@@ -322,7 +322,7 @@
                                     "fill-opacity": 0.8
                                 }
                             });
-
+                            interactiveLayers.push("old_division_set_layer_fill");
 
                             map.setFilter("old_division_set_layer_line", ['==', ["get", "division__official_identifier"], change.old_division_official_identifier]);
                             map.setFilter("old_division_set_layer_fill", ['==', ["get", "division__official_identifier"], change.old_division_official_identifier]);
@@ -357,20 +357,18 @@
                             }
                         });
 
-                        if (!showOldBoundary) {
-                            map.addLayer({
-                                "id": "new_division_set_layer_fill",
-                                "type": "fill",
-                                "source": "new_division_set",
-                                "source-layer": `${newDivisionsetID}_${change.division_type}`,
-                                "paint": {
-                                    "fill-color": "#E6007C",
-                                    "fill-opacity": 0.2
-                                },
-                            })
-                            map.setFilter("new_division_set_layer_fill", ['==', ["get", "division__official_identifier"], change.new_division_official_identifier])
-                        }
+                        map.addLayer({
+                            "id": "new_division_set_layer_fill",
+                            "type": "fill",
+                            "source": "new_division_set",
+                            "source-layer": `${newDivisionsetID}_${change.division_type}`,
+                            "paint": {
+                                "fill-color": "#E6007C",
+                                "fill-opacity": !showOldBoundary ? 0.2 : 0
+                            },
+                        })
 
+                        map.setFilter("new_division_set_layer_fill", ['==', ["get", "division__official_identifier"], change.new_division_official_identifier])
                         map.setFilter("new_division_set_layer_line", ['==', ["get", "division__official_identifier"], change.new_division_official_identifier])
 
                     })
