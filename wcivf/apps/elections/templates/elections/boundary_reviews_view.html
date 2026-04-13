@@ -252,6 +252,14 @@
             legendDiv.appendChild(row)
         }
 
+        const getFeatureData = (feature) => {
+            return {
+                name: feature.properties.division__name || "Name Missing",
+                layerColor: feature.layer.paint['fill-color'] || feature.layer.paint['line-color'],
+                isNew: feature.source.startsWith("new")
+            }
+        }
+
         boundaryReviewsData.forEach(review => {
             review.boundary_changes.forEach(change => {
                 let mapElementID = `${review.id}-${change.division_type}-${change.change_scenario}-map`
@@ -406,6 +414,36 @@
                                 addRowToLegend(fillColour, borderColour, description, mapLegendDiv)
                             });
                         }
+                    });
+
+                    map.on('click', (e) => {
+                        const coords = e.lngLat;
+                        const feats = map.queryRenderedFeatures(e.point)
+
+                        if (!feats.length) {
+                            return;
+                        }
+
+                        let featsData = [];
+                        let seen = new Set();
+
+                        for (const feat of feats) {
+                            const featId = feat.properties.id
+                            featsData.push(getFeatureData(feat));
+
+                            seen.add(featId);
+                        }
+
+                        const popUpHTML = featsData.map(feat => `
+                            <div style="color: ${feat.layerColor};">
+                                ${feat.isNew ? "New" : "Old"}: <strong style="color: ${feat.layerColor};">${feat.name}</strong>
+                            </div>
+                            `).join('');
+
+                        new maplibregl.Popup({ closeButton: true, closeOnClick: true })
+                            .setLngLat(coords)
+                            .setHTML(popUpHTML)
+                            .addTo(map);
                     });
                 };
             });
