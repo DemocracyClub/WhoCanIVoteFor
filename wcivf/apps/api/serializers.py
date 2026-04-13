@@ -52,11 +52,18 @@ class PersonPostSerializer(serializers.HyperlinkedModelSerializer):
         )
 
     person = PersonSerializer(many=False, read_only=True)
-    party = PartySerializer(many=False, read_only=True)
+    party = serializers.SerializerMethodField()
     list_position = serializers.SerializerMethodField(allow_null=True)
     previous_party_affiliations = serializers.SerializerMethodField(
         allow_null=True
     )
+
+    def get_party(self, obj):
+        data = dict(PartySerializer(obj.party, many=False, read_only=True).data)
+        pe = self.context.get("postelection") or obj.post_election
+        if pe.election.uses_lists and hasattr(obj, "party_display_name"):
+            data["party_name"] = obj.party_display_name
+        return data
 
     def get_list_position(self, obj):
         """
