@@ -7,24 +7,8 @@ orbs:
   slack: circleci/slack@4.13.3
   aws-cli: circleci/aws-cli@5.1.1
 
-executors:
-  py312:
-    docker:
-      - image: cimg/python:3.12
-        environment:
-          CIRCLECI: true
-          PGHOST: 127.0.0.1
-      - image: cimg/postgres:16.3
-        environment:
-          POSTGRES_USER: postgres
-          POSTGRES_DB: test
-
-
 jobs:
   build_and_test:
-    parameters:
-      python_version:
-        type: executor
     docker:
       # specify the version you desire here
       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
@@ -38,7 +22,6 @@ jobs:
           POSTGRES_DB: wcivf
       - image: cimg/redis:7.0.5
     working_directory: ~/repo
-    executor: py312
     steps:
       - checkout
       # Download and cache dependencies
@@ -110,7 +93,6 @@ jobs:
     docker:
       - image: public.ecr.aws/sam/build-python3.12:latest
     working_directory: ~/repo
-    executor: py312
     steps:
       - checkout
       - run:
@@ -263,10 +245,7 @@ jobs:
 workflows:
   test_build_deploy:
     jobs:
-      - build_and_test:
-          matrix:
-            parameters:
-              python_version: [ py312 ]
+      - build_and_test
       - sam_build:
           requires:
           - build_and_test
