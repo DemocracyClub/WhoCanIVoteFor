@@ -163,6 +163,7 @@
     {{ block.super }}
 
     {{ boundary_reviews|json_script:"boundaryReviewsData" }}
+    {{ postcode|json_script:"postcode" }}
     {{ postcode_location|json_script:"postcodeLocation" }}
     {{ nation|json_script:"nation" }}
 
@@ -172,6 +173,7 @@
 
     <script>
         const boundaryReviewsData = JSON.parse(document.getElementById('boundaryReviewsData').textContent);
+        const postcode = JSON.parse(document.getElementById('postcode').textContent);
         const postcodeLocation = JSON.parse(document.getElementById('postcodeLocation').textContent);
         const nation = JSON.parse(document.getElementById('nation').textContent);
 
@@ -298,6 +300,22 @@
                     addPmtilesURLtoProtocol(NEW_PMTILES_URL)
                     const interactiveLayers = ["new_division_set_layer_fill"];
 
+                    let activePopup = null;
+
+                    const showPopup = (popup) => {
+                        if (activePopup) {
+                            activePopup.remove();
+                        }
+
+                        activePopup = popup;
+                        popup.addTo(map);
+
+                        popup.on("close", () => {
+                            if (activePopup === popup) {
+                                activePopup = null;
+                            }
+                        });
+                    };
 
                     map.on('load', () => {
                         if ( showOldBoundary ) {
@@ -409,8 +427,26 @@
                         if (bounds) {
                             map.fitBounds(bounds, {padding: 20, duration: 0, });
                         };
+                        const markerPopupContent = document.createElement('p');
+                        markerPopupContent.textContent = `Centre of ${postcode}`;
+                        markerPopupContent.style.paddingTop = "5px";
+
+                        const markerPopup = new maplibregl.Popup({
+                            closeButton: true,
+                            closeOnClick: true,
+                            offset: 25,
+                        })
+                            .setLngLat(postcodeLocation.geometry.coordinates)
+                            .setDOMContent(markerPopupContent);
 
                         let marker = new maplibregl.Marker().setLngLat(postcodeLocation.geometry.coordinates).addTo(map)
+                        const markerElement = marker.getElement();
+                        markerElement.style.cursor = "pointer";
+                        markerElement.addEventListener("click", (event) => {
+                            event.stopPropagation();
+                            showPopup(markerPopup);
+                        });
+
                         let nav = new maplibregl.NavigationControl();
                         map.addControl(nav, 'top-right');
                         // Only show the legend if there are multiple layers to show
@@ -454,10 +490,9 @@
                             </div>
                             `).join('');
 
-                        new maplibregl.Popup({ closeButton: true, closeOnClick: true })
-                            .setLngLat(coords)
-                            .setHTML(popUpHTML)
-                            .addTo(map);
+                        const popup = new maplibregl.Popup({ closeButton: true, closeOnClick: true }).setLngLat(coords).setHTML(popUpHTML)
+
+                        showPopup(popup)
                     });
                 };
             });
