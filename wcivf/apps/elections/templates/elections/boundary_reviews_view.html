@@ -260,6 +260,14 @@
             }
         }
 
+        const updateCursor = (point, map, interactiveLayers) => {
+            const hasInteractiveFeature = map.queryRenderedFeatures(point, {
+                layers: interactiveLayers,
+            }).length > 0;
+
+            map.getCanvas().style.cursor = hasInteractiveFeature ? "pointer" : "";
+        };
+
         boundaryReviewsData.forEach(review => {
             review.boundary_changes.forEach(change => {
                 let mapElementID = `${review.id}-${change.division_type}-${change.change_scenario}-map`
@@ -288,6 +296,7 @@
                     const NEW_PMTILES_URL = change.new_divisionset_pmtiles_url;
                     const newDivisionsetID = extractDivisionsetID(NEW_PMTILES_URL)
                     addPmtilesURLtoProtocol(NEW_PMTILES_URL)
+                    const interactiveLayers = ["new_division_set_layer_fill"];
 
 
                     map.on('load', () => {
@@ -379,7 +388,14 @@
                         map.setFilter("new_division_set_layer_fill", ['==', ["get", "division__official_identifier"], change.new_division_official_identifier])
                         map.setFilter("new_division_set_layer_line", ['==', ["get", "division__official_identifier"], change.new_division_official_identifier])
 
-                    })
+                        map.on("mousemove", (e) => {
+                            updateCursor(e.point, map, interactiveLayers);
+                        });
+
+                        map.on("mouseout", () => {
+                            map.getCanvas().style.cursor = "";
+                        });
+                    });
 
                     map.once('idle', () => {
                         const layers = ["new_division_set_layer_line"]
@@ -418,20 +434,18 @@
 
                     map.on('click', (e) => {
                         const coords = e.lngLat;
-                        const feats = map.queryRenderedFeatures(e.point)
+                        const feats = map.queryRenderedFeatures(e.point, {
+                            layers: interactiveLayers,
+                        });
 
                         if (!feats.length) {
                             return;
                         }
 
                         let featsData = [];
-                        let seen = new Set();
 
                         for (const feat of feats) {
-                            const featId = feat.properties.id
                             featsData.push(getFeatureData(feat));
-
-                            seen.add(featId);
                         }
 
                         const popUpHTML = featsData.map(feat => `
