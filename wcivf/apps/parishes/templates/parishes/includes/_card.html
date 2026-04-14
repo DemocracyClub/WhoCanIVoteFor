@@ -27,8 +27,9 @@
         </p>
 
         <p>
-            {% blocktrans trimmed with council_type=parish_council_election.council_type council_name=parish_council_election.council_name precept_amount=parish_council_election.precept|intcomma %}
-                <a href="https://www.localgov.co.uk/What-are-parish-councils/35176">{{ council_type }} councils are the first tier of local government</a>,
+            <a href="https://www.localgov.co.uk/What-are-parish-councils/35176">
+                {% trans "Parish councils are the first tier of local government" %}</a>,
+            {% blocktrans trimmed %}
                 and have a wide range of powers including looking after community buildings,
                 planning, street lighting and allotments. They also have the power to raise
                 money through council tax, known as the 'precept'. In 2020-2021, {{ council_name }}
