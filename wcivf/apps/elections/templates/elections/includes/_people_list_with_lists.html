@@ -1,7 +1,7 @@
 {% load static %}
 {% load i18n %}
 {% load humanize %}
-{% regroup people by party_display_name as people_by_party %}
+{% regroup people by party.party_name as people_by_party %}
 {% for person_post in people_by_party %}
     {% with party=person_post.list.0.party %}
         {% if party.is_independent %}
@@ -36,7 +36,7 @@
                             {% endif %}
                         </div>
                         <div class="ds-not-sidebar">
-                            <a href="{% url 'party_list_view' election=postelection.ballot_paper_id party_id=party.party_id %}">{{ person_post.grouper }}</a>
+                            <a href="{% url 'party_list_view' election=postelection.ballot_paper_id party_id=party.party_id %}">{{ party.party_name }}</a>
                             {% with manifesto=party.manifestos.0 %}
                                 {% if manifesto %}
                                     <p>
