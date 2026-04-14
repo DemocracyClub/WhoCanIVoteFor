@@ -5,8 +5,8 @@ from typing import Optional
 from core.utils import LastWord
 from django.conf import settings
 from django.core.cache import cache
-from django.db.models import Case, Count, F, IntegerField, Prefetch, Value, When
-from django.db.models.functions import Coalesce, NullIf
+from django.db.models import Case, Count, F, IntegerField, Prefetch, When
+from django.db.models.functions import Coalesce
 from django.http import (
     Http404,
     HttpResponsePermanentRedirect,
@@ -145,7 +145,7 @@ class PostelectionsToPeopleMixin(object):
                 default=0,
                 output_field=IntegerField(),
             )
-            order_by = [list_party_sort, "party_display_name", "list_position"]
+            order_by = [list_party_sort, "party__party_name", "list_position"]
 
             manifesto_qs = Manifesto.objects.filter(
                 election_id=postelection.election.pk
@@ -155,11 +155,6 @@ class PostelectionsToPeopleMixin(object):
                     "party__manifesto_set",
                     queryset=manifesto_qs,
                     to_attr="manifestos",
-                )
-            ).annotate(
-                party_display_name=Coalesce(
-                    NullIf(F("party_description_text"), Value("")),
-                    F("party_name"),
                 )
             )
         else:
