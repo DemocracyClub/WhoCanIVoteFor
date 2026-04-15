@@ -484,13 +484,24 @@
                             featsData.push(getFeatureData(feat));
                         }
 
-                        const popUpHTML = featsData.map(feat => `
-                            <div style="color: ${feat.layerColor};">
-                                ${feat.isNew ? "New" : "Old"}: <strong style="color: ${feat.layerColor};">${feat.name}</strong>
-                            </div>
-                            `).join('');
+                        const popupContent = document.createElement('div');
+                        featsData.forEach(feat => {
+                            const featContainer = document.createElement('div');
+                            featContainer.style.color = feat.layerColor;
 
-                        const popup = new maplibregl.Popup({ closeButton: true, closeOnClick: true }).setLngLat(coords).setHTML(popUpHTML)
+                            const label = document.createTextNode(feat.isNew ? "New: " : "Old: ");
+                            const strong = document.createElement('strong');
+                            strong.style.color = feat.layerColor;
+                            strong.textContent = feat.name;
+
+                            featContainer.appendChild(label);
+                            featContainer.appendChild(strong);
+                            popupContent.appendChild(featContainer);
+                        });
+
+                        const popup = new maplibregl.Popup({ closeButton: true, closeOnClick: true })
+                            .setLngLat(coords)
+                            .setDOMContent(popupContent);
 
                         showPopup(popup)
                     });
