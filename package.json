@@ -1,0 +1,28 @@
+{
+  "name": "whocanivotefor",
+  "version": "1.0.0",
+  "description": "",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DemocracyClub/WhoCanIVoteFor.git"
+  },
+  "author": "",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/DemocracyClub/WhoCanIVoteFor/issues"
+  },
+  "homepage": "https://github.com/DemocracyClub/WhoCanIVoteFor#readme",
+  "dependencies": {
+    "maplibre-gl": "5.7.3",
+    "pmtiles": "4.3.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

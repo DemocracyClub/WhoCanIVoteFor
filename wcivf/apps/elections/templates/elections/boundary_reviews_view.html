@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load pipeline %}
+{% load static %}
 
 {% block page_title %}{% trans "Boundary Reviews" %}{% endblock page_title %}
 {% block page_meta %}
@@ -8,6 +10,7 @@
 
 {% block extra_site_css%}
     {{ block.super }}
+    {% stylesheet 'maplibre-gl' %}
     <style>
         div[class$="-map-legend"] {
             display: none;
@@ -179,13 +182,13 @@
 {% endblock content %}
 {% block extra_javascript %}
     {{ block.super }}
+
     {{ boundary_reviews|json_script:"boundaryReviewsData" }}
     {{ postcode_location|json_script:"postcodeLocation" }}
     {{ nation|json_script:"nation" }}
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.7.3/maplibre-gl.css" integrity="sha512-IylZQnfgxyZ4rs0/u4TjuOthOSWKwh47nrCPuscGnyidnt1mrhKdja/uUxfvkLaMusDAWV3DgKHHpfzNdTdGhw==" crossorigin=""/>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.7.3/maplibre-gl.js" integrity="sha512-4qLefPK7TDle+A82wrHOa/B75+B8HH0w6Zwu6YaoXxwBrLl8tQ7UmoyS0PCWOobcq3fFe51G+AN+jVZpwN5qOw==" crossorigin=""></script>
-    <script src="//unpkg.com/pmtiles@4.4.0/dist/pmtiles.js" integrity="sha256-SqjwRpVddxFvwcm7cbxJ0XRlQ0KvjxKEqjTGJccf1nY=" crossorigin=""></script>
+    <script src="{% static 'maplibre-gl/dist/maplibre-gl.js' %}"></script>
+    {% javascript 'pmtiles' %}
 
 
     <script>

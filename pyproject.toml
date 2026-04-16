@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "django-filter==25.2",
-    "django==5.2.12",
+    "django==5.2.13",
     "psycopg2-binary==2.9.9",
     "requests==2.33.0",
     "django-model-utils==5.0.0",
@@ -54,7 +54,7 @@ dev = [
     "ipdb==0.13.13",
     "pre-commit==4.0.1",
     "pytest-django==4.9.0",
-    "pytest==8.3.4",
+    "pytest==9.0.3",
     "pytest-cov==6.0.0",
     "factory-boy==3.3.1",
     "vcrpy==7.0.0",
@@ -84,6 +84,7 @@ extend-exclude = ["wcivf/settings/local.py"]
 
 [tool.pytest.ini_options]
 norecursedirs =[
+    "node_modules",
     "src",
     "wcivf/static_root",
     ".aws-sam",
