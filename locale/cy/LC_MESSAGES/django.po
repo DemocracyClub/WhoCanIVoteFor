@@ -7,11 +7,13 @@
 # William Roper <roper.william@gmail.com>, 2022
 # Atebol, 2022
 # Sym Roe <sym@talusdesign.co.uk>, 2022
+#: wcivf/apps/people/templates/people/not_current_person_detail.html:33
+#, fuzzy, python-format
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-16 11:35+0000\n"
+"POT-Creation-Date: 2026-04-16 15:50+0000\n"
 "PO-Revision-Date: 2022-03-24 09:04+0000\n"
 "Last-Translator: Sym Roe <sym@talusdesign.co.uk>, 2022\n"
 "Language-Team: Welsh (https://www.transifex.com/democracy-club/teams/61326/"
@@ -138,6 +140,48 @@ msgstr ""
 #: wcivf/apps/administrations/templates/responsibilities/org_id/parl-hoc.html:19
 msgid "Find out more about MPs"
 msgstr "Dysgwch fwy am ASau"
+
+#: wcivf/apps/administrations/templates/responsibilities/post_type/UTW.html:8
+msgid ""
+"\n"
+"Unitary authorities are responsible for services like:\n"
+"\n"
+"* education\n"
+"* transport\n"
+"* planning\n"
+"* fire and public safety\n"
+"* social care\n"
+"* libraries\n"
+"* waste management\n"
+"* trading standards\n"
+"* rubbish collection\n"
+"* recycling\n"
+"* Council Tax collections\n"
+"* housing\n"
+"* planning applications\n"
+"\n"
+msgstr ""
+"\n"
+"Mae awdurdodau unedol yn gyfrifol am wasanaethau megis:\n"
+"\n"
+"* addysg\n"
+"* trafnidiaeth\n"
+"* cynllunio\n"
+"* tân a diogelwch y cyhoedd\n"
+"* gofal cymdeithasol\n"
+"* llyfrgelloedd\n"
+"* rheoli gwastraff\n"
+"* safonau masnach\n"
+"* casglu sbwriel\n"
+"* ailgylchu\n"
+"* Casglu'r Dreth Gyngor\n"
+"* tai\n"
+"* ceisiadau cynllunio\n"
+"\n"
+
+#: wcivf/apps/administrations/templates/responsibilities/post_type/UTW.html:26
+msgid "Understand how your council works"
+msgstr "Deall sut mae eich cyngor yn gweithio"
 
 #: wcivf/apps/administrations/templates/responsibilities/post_type/WAE.html:8
 msgid ""
