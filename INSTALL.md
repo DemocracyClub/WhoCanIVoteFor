@@ -42,6 +42,17 @@ source .venv/bin/activate
 
 Or by `uv run` will automatically use the correct environment.
 
+## JavaScript packages
+
+JavaScript packages and environments are managed using
+`npm`.
+
+To install:
+
+```shell
+npm install
+```
+
 # Running tests
 
 Check that your env has correctly installed and project is working by running
