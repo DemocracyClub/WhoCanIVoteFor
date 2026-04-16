@@ -46,32 +46,39 @@ class ByElectionReason(models.TextChoices):
         https://www.electoralcommission.org.uk/guidance-returning-officers-administering-local-government-elections-england/casual-vacancies-and-elections/how-casual-vacancies-occur
     """
 
-    DEATH = "DEATH", "The elected member died"
+    DEATH = "DEATH", _("The elected member died")
     RESIGNATION = "RESIGNATION", "The elected member resigned"
     ELECTORAL_COURT = (
         "ELECTORAL_COURT",
-        "The election of the elected member was declared void by an election court",
+        _(
+            "The election of the elected member was declared void by an election court"
+        ),
     )
     FAILURE_TO_ACCEPT = (
         "FAILURE_TO_ACCEPT",
-        "The previous election winner did not sign a declaration of acceptance",
+        _(
+            "The previous election winner did not sign a declaration of acceptance"
+        ),
     )
     FAILURE_TO_ATTEND_MEETINGS = (
         "FAILURE_TO_ATTEND_MEETINGS",
-        "The elected member failed to attend meetings for six months",
+        _("The elected member failed to attend meetings for six months"),
     )
-    DISQUALIFICATION = "DISQUALIFICATION", "The elected member was disqualified"
+    DISQUALIFICATION = (
+        "DISQUALIFICATION",
+        _("The elected member was disqualified"),
+    )
     LOSING_QUALIFICATION = (
         "LOSING_QUALIFICATION",
-        "The elected member no longer qualified as a registered elector",
+        _("The elected member no longer qualified as a registered elector"),
     )
     RECALL_PETITION = (
         "RECALL_PETITION",
-        "The elected member was recalled by a successful recall petition",
+        _("The elected member was recalled by a successful recall petition"),
     )
-    OTHER = "OTHER", "Other"
-    UNKNOWN = "UNKNOWN", "Unknown"
-    NOT_APPLICABLE = "", "Neither a by-election nor a ballot"
+    OTHER = "OTHER", _("Other")
+    UNKNOWN = "UNKNOWN", _("Unknown")
+    NOT_APPLICABLE = "", _("Neither a by-election nor a ballot")
 
 
 class Election(models.Model):
@@ -522,7 +529,6 @@ class PostElection(TimeStampedModel):
     electorate = models.IntegerField(blank=True, null=True)
     turnout = models.IntegerField(blank=True, null=True)
     spoilt_ballots = models.IntegerField(blank=True, null=True)
-    results_source_url = models.URLField(blank=True, null=True)
 
     objects = PostElectionQuerySet.as_manager()
 
@@ -816,7 +822,7 @@ class PostElection(TimeStampedModel):
         ]:
             return ""
 
-        return _("This by-election was called because %(reason)s.") % {
+        return _("This by-election was called because %(reason)s") % {
             "reason": self.get_by_election_reason_display().lower()
         }
 

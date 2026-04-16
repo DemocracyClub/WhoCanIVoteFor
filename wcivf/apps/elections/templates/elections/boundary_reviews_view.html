@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block page_title %}{% trans "Boundary Reviews"%}{% endblock page_title %}
+{% block page_title %}{% trans "Boundary Reviews" %}{% endblock page_title %}
 {% block page_meta %}
     <meta name="robots" content="noindex">
 {% endblock %}
@@ -42,53 +42,61 @@
     <h2>{% trans "Boundary Changes in your area" %}</h2>
     <div class="ds-stack">
         <p>{% trans "There's been a boundary review in your area. Please see below for details." %}</p>
-        <p> {% trans "Looking for election information?"%} <a href="{% url 'postcode_view' postcode %}">{% trans "Find elections in your area" %}</a>.</p>
+        <p> {% trans "Looking for election information?" %} <a href="{% url 'postcode_view' postcode %}">{% trans "Find elections in your area" %}</a>.</p>
         {% for review in boundary_reviews %}
             <div class="ds-stack-smaller">
                 <h3>{% blocktrans trimmed with org_name=review.organisation_official_name %} {{ org_name }} has new boundaries{% endblocktrans %}</h3>
                 {% if nation == "Scotland" %}
-                    {% blocktrans trimmed %}
-                        <p>
+                    <p>
+                        {% blocktrans trimmed %}
                             A new set of constituency and regional boundaries will be used for the 2026 Scottish parliament elections.
                             The boundaries of all constituencies and regions have been reviewed by the independent organisation
-                            <a href="https://www.boundaries.scot/reviews/reviews-historical-reviews/scottish-parliament-boundaries/reviews-second-review-scottish-parliament-boundaries/">
-                                Boundaries Scotland
-                            </a>,
-                            to take account of population changes since 2011.
-                        </p>
-                        <p>
-                            This means that your constituency or region may have changed shape or name since the last election, or you may be in a new constituency or region.
-                        </p>
-                    {% endblocktrans %}
+                        {% endblocktrans %}
+                        <a href="https://www.boundaries.scot/reviews/reviews-historical-reviews/scottish-parliament-boundaries/reviews-second-review-scottish-parliament-boundaries/">
+                            Boundaries Scotland</a>,
+                        {% trans "to take account of population changes since 2011." %}
+                    </p>
+                    <p>
+                        {% trans "This means that your constituency or region may have changed shape or name since the last election, or you may be in a new constituency or region." %}                </p>
+
                 {% else %}
-                    {% blocktrans trimmed %}
-                        <p>
+                    <p>
+                        {% blocktrans trimmed %}
                             The way you vote has changed. When voting for your Members of the Senedd, you will now vote on one ballot paper, instead of two as previously.
                             You will vote once for a single party or independent candidate, and seats will be allocated using proportional representation.
                             Party candidates will be elected in the order they appear on their party list.
-                        </p>
-
-                        <p>
-                            These changes mean that you will have a new constituency. Each constituency will elect six members, and the overall number of Senedd members is increasing from 60 to 96.
+                        {% endblocktrans %}
+                    </p>
+                    <p>
+                        {% blocktrans trimmed %}
+                            These changes mean that you will have a new constituency.
+                            Each constituency will elect six members, and the overall number
+                            of Senedd members is increasing from 60 to 96.
                             Senedd elections will happen every four years.
-                        </p>
-                        <p>
-                            <a href="https://senedd.wales/how-we-work/our-role/senedd-election-and-member-changes/">Learn more about the Senedd changes</a>.
-                        </p>
-                    {% endblocktrans %}
+                        {% endblocktrans %}
+                    </p>
+                    <p>
+                        <a href="https://senedd.wales/how-we-work/our-role/senedd-election-and-member-changes/">
+                            {% trans "Learn more about the Senedd changes" %}</a>.
+                    </p>
                 {% endif %}
                 {% for change in review.boundary_changes %}
                     {% with change_scenario=change.change_scenario map_element_id_start=review.id|add:"-"|add:change.division_type  division_unit=change.division_unit%}
                         {% if change_scenario == "NO_CHANGE" %}
                             <div class="ds-stack-smaller">
-                                {% blocktrans trimmed with division_unit_cap=division_unit|capfirst old_name=change.old_division_name%}
-                                    <h4>Your {{division_unit_cap}} has not changed</h4>
-                                    <p>
+                                <h4>
+                                    {% blocktrans trimmed with division_unit_cap=division_unit|capfirst %}
+                                        Your {{division_unit_cap}} has not changed
+                                    {% endblocktrans %}
+                                </h4>
+                                <p>
+                                    {% blocktrans trimmed with division_unit_cap=division_unit|capfirst old_name=change.old_division_name%}
                                         Your {{division_unit}} has not been significantly affected by the boundary review.
                                         Whilst there may have been minor adjustments to the boundary, no houses have been added or removed,
                                         and its name, <strong>{{old_name}}</strong>, is unchanged from the last election.
-                                    </p>
-                                {% endblocktrans %}
+                                    {% endblocktrans %}
+                                </p>
+
                                 <h4>{% trans "Map" %}</h4>
                                 <div id="{{map_element_id_start}}-{{change_scenario}}-map" class="ds-map-maplibre">
                                     <div class="{{map_element_id_start}}-{{change_scenario}}-map-legend"></div>
@@ -96,31 +104,39 @@
                             </div>
                         {% elif change_scenario == "BOUNDARY_CHANGED"%}
                             <div class="ds-stack-smaller">
-                                {% blocktrans trimmed with division_unit_cap=division_unit|capfirst old_name=change.old_division_name %}
-                                    <h4>Your {{division_unit_cap}} has changed shape</h4>
-                                    <p>
+                                <h4>
+                                    {% blocktrans trimmed with division_unit_cap=division_unit|capfirst %}
+                                        Your {{division_unit_cap}} has changed shape
+                                    {% endblocktrans %}
+                                </h4>
+                                <p>
+                                    {% blocktrans trimmed with division_unit_cap=division_unit|capfirst old_name=change.old_division_name %}
                                         Your {{division_unit}}, <strong>{{old_name}}</strong>, has changed shape since the last election.
                                         These changes might be minor but will affect some electors.
                                         View the map below to understand these changes.
                                         Your {{division_unit}}’s name has not been changed.
-                                    </p>
-                                {% endblocktrans %}
+                                    {% endblocktrans %}
+                                </p>
                                 <h4>{% trans "Map" %}</h4>
                                 <div id="{{map_element_id_start}}-{{change_scenario}}-map" class="ds-map-maplibre">
                                     <div class="{{map_element_id_start}}-{{change_scenario}}-map-legend"></div>
                                 </div>
-
                             </div>
                         {% elif change_scenario == "NAME_CHANGED"%}
                             <div class="ds-stack-smaller">
-                                {% blocktrans trimmed with division_unit_cap=division_unit|capfirst old_name=change.old_division_name new_name=change.new_division_name %}
-                                    <h4>Your {{division_unit_cap}} has a new name</h4>
-                                    <p>
+                                <h4>
+                                    {% blocktrans trimmed with division_unit_cap=division_unit|capfirst %}
+                                        Your {{division_unit_cap}} has a new name
+                                    {% endblocktrans %}
+                                </h4>
+                                <p>
+                                    {% blocktrans trimmed with division_unit_cap=division_unit|capfirst old_name=change.old_division_name new_name=change.new_division_name %}
                                         At the last parliamentary election your {{division_unit}} was <strong>{{old_name}}</strong>.
                                         It has been renamed <strong>{{new_name}}</strong>.
                                         The {{division_unit}}’s boundaries have not been significantly changed.
-                                    </p>
-                                {% endblocktrans %}
+                                    {% endblocktrans %}
+                                </p>
+
                                 <h4>{% trans "Map" %}</h4>
                                 <div id="{{map_element_id_start}}-{{change_scenario}}-map" class="ds-map-maplibre">
                                     <div class="{{map_element_id_start}}-{{change_scenario}}-map-legend"></div>
@@ -129,20 +145,25 @@
                         {% elif change_scenario == "BOTH_CHANGED"%}
                             <div class="ds-stack-smaller">
                                 {% if nation == "Wales" %}
-                                    {% blocktrans trimmed with new_name=change.new_division_name  %}
-                                        <p>
+                                    <p>
+                                        {% blocktrans trimmed with new_name=change.new_division_name  %}
                                             Your new constituency is <strong>{{new_name}}</strong>. View your new constituency on the map below.
-                                        </p>
-                                    {% endblocktrans %}
+                                        {% endblocktrans %}
+                                    </p>
                                 {% else %}
-                                    {% blocktrans trimmed with division_unit_cap=division_unit|capfirst date=review.effective_date|date:"j M Y" old_name=change.old_division_name new_name=change.new_division_name%}
-                                        <h4>Your {{division_unit_cap}} has changed</h4>
-                                        <p>
+                                    <h4>
+                                        {% blocktrans trimmed with division_unit_cap=division_unit|capfirst %}
+                                            Your {{division_unit_cap}} has changed
+                                        {% endblocktrans %}
+                                    </h4>
+                                    <p>
+                                        {% blocktrans trimmed with division_unit_cap=division_unit|capfirst date=review.effective_date|date:"j M Y" old_name=change.old_division_name new_name=change.new_division_name%}
                                             At the last parliamentary election your {{division_unit}} was <strong>{{old_name}}</strong>.
                                             On {{date}} it will be <strong>{{new_name}}</strong>.
                                             View the map below to understand these changes.
-                                        </p>
-                                    {% endblocktrans %}
+                                        {% endblocktrans %}
+                                    </p>
+
                                 {% endif %}
                                 <h4>{% trans "Map" %}</h4>
                                 <div id="{{map_element_id_start}}-{{change_scenario}}-map" class="ds-map-maplibre">

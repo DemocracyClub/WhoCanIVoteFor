@@ -7,13 +7,11 @@
 # William Roper <roper.william@gmail.com>, 2022
 # Atebol, 2022
 # Sym Roe <sym@talusdesign.co.uk>, 2022
-#
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-27 16:38+0000\n"
+"POT-Creation-Date: 2026-04-16 11:35+0000\n"
 "PO-Revision-Date: 2022-03-24 09:04+0000\n"
 "Last-Translator: Sym Roe <sym@talusdesign.co.uk>, 2022\n"
 "Language-Team: Welsh (https://www.transifex.com/democracy-club/teams/61326/"
@@ -25,25 +23,427 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
 "11) ? 2 : 3;\n"
 
+#: wcivf/apps/administrations/templates/elections/your_area.html:17
+#: wcivf/apps/elections/templates/elections/postcode_view.html:49
+#, fuzzy
+#| msgid "You are here"
+msgid "Your area"
+msgstr "Eich ardal"
+
+#: wcivf/apps/administrations/templates/elections/your_area.html:19
+msgid "This page lists all the parts of government that look after your area."
+msgstr ""
+"Mae'r dudalen hon yn rhestru'r holl rannau o'r llywodraeth sy'n gofalu am "
+"eich ardal."
+
+#: wcivf/apps/administrations/templates/elections/your_area.html:20
+msgid ""
+"Each of these organisations have different responsibilities and "
+"representatives."
+msgstr ""
+"Mae gan bob un o'r sefydliadau hyn wahanol gyfrifoldebau a chynrychiolwyr."
+
+#: wcivf/apps/administrations/templates/elections/your_area.html:25
+#, fuzzy
+#| msgid ""
+#| "There may also be parish, town or community council elections in some "
+#| "areas."
+msgid ""
+"Note: you may also have a parish, town or community council in your area."
+msgstr ""
+"Efallai y bydd etholiadau cyngor plwyf, tref neu gymunedol mewn rhai "
+"ardaloedd."
+
+#: wcivf/apps/administrations/templates/elections/your_area.html:26
+msgid "We're working on adding them to this page."
+msgstr "Rydym yn gweithio ar eu hychwanegu at y dudalen hon."
+
+#: wcivf/apps/administrations/templates/elections/your_area.html:28
+msgid "Something wrong? Please "
+msgstr "Rhywbeth o’i le? "
+
+#: wcivf/apps/administrations/templates/elections/your_area.html:29
+#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:14
+msgid "get in touch"
+msgstr "Cysylltwch â ni"
+
+#: wcivf/apps/administrations/templates/elections/your_area.html:29
+msgid "with feedback or bug reports"
+msgstr "i roi adborth neu i roi gwybod am wallau"
+
+#: wcivf/apps/administrations/templates/elections/your_area.html:32
+#, fuzzy
+#| msgid "Select your address"
+msgid "Please pick your address"
+msgstr "Dewiswch eich cyfeiriad"
+
+#: wcivf/apps/administrations/templates/elections/your_area.html:34
+msgid ""
+"This postcode spans more than one area, so we need to know the address to "
+"provide information about your area."
+msgstr ""
+"Mae’r cod post hwn ar gyfer mwy nag un ardal, felly rhaid i ni gael gwybod y "
+"cyfeiriad cyn y gallwn rannu gwybodaeth am eich ardal"
+
+#: wcivf/apps/administrations/templates/elections/your_area.html:45
+msgid ""
+" Sorry, we don't have any information for your postcode, or something else "
+"has gone wrong. Please try a different postcode."
+msgstr ""
+"Nid oes gennym unrhyw wybodaeth ar gyfer eich cod post, neu mae rhywbeth "
+"arall wedi mynd o'i le. Rhowch gynnig ar god post gwahanol."
+
+#: wcivf/apps/administrations/templates/elections/your_area.html:55
+#, fuzzy
+#| msgid "Find out about candidates in your area"
+msgid "Find out about local government in your area"
+msgstr "Cael gwybod am ymgeiswyr yn eich ardal chi"
+
+#: wcivf/apps/administrations/templates/elections/your_area.html:64
+msgid ""
+"As well as your new MP, there are others who represent you in your area. "
+"We're working on a new experimental feature to explain who these people are "
+"and how everything from your council to your police force works."
+msgstr ""
+"Yn ogystal â'ch AS newydd, mae eraill yn eich ardal sy'n eich cynrychioli "
+"chi. Rydym yn gweithio ar nodwedd arbrofol newydd i egluro pwy yw'r bobl hyn "
+"a sut mae popeth yn gweithio, e.e. eich Cyngor Lleol a’r Heddlu."
+
+#: wcivf/apps/administrations/templates/responsibilities/org_id/parl-hoc.html:8
+msgid ""
+"\n"
+"Members of Parliament (MPs) represent your interests and concerns in the "
+"House of Commons.\n"
+"\n"
+"MPs consider and can propose new laws as well as raising issues that matter "
+"to you in the House. This includes asking government\n"
+"ministers questions about current issues including those which affect local "
+"constituents.\n"
+"\n"
+"MPs split their time between working in Parliament itself, working in the "
+"constituency that elected them and working\n"
+"for their political party.\n"
+"\n"
+msgstr ""
+"\n"
+"Mae Aelodau Seneddol (AS) yn cynrychioli eich buddiannau a'ch pryderon yn "
+"Nhŷ'r Cyffredin.\n"
+"Mae ASau yn ystyried ac yn cynnig deddfau newydd yn ogystal â thrafod "
+"materion sy'n bwysig i chi yn y Tŷ.Mae hyn yn cynnwys holi gweinidogion y "
+"llywodraeth am faterion cyfoes, gan gynnwys y rhai sy'n effeithio ar "
+"etholwyr lleol.\n"
+"80.\tMae ASau yn rhannu eu hamser rhwng gweithio yn y Senedd ei hun, "
+"gweithio yn eu hetholaethau, a gweithio i'w plaid wleidyddol.\n"
+
+#: wcivf/apps/administrations/templates/responsibilities/org_id/parl-hoc.html:19
+msgid "Find out more about MPs"
+msgstr "Dysgwch fwy am ASau"
+
+#: wcivf/apps/administrations/templates/responsibilities/post_type/WAE.html:8
+msgid ""
+"\n"
+"When the Senedd is sitting, Members meet twice a week in the Siambr, the "
+"debating chamber, to question Welsh Government Ministers, examine proposed "
+"laws, and debate various issues. Members also participate in committees that "
+"focus on areas such as health and education, examining laws and government "
+"policies that could impact these sectors. These committees are composed of "
+"Members reflecting the overall representation of the elected parties.\n"
+"\n"
+"Most Members have a local office in their constituency or region, employing "
+"staff to assist with constituent enquiries. They hold regular 'surgeries' "
+"where the public can meet with their representatives to discuss concerns. "
+"Additionally, Members engage with constituents online or over the phone, and "
+"visit businesses, schools, and local organisations to gain insight into "
+"everyday issues, which they may later address in the Senedd.\n"
+"\n"
+msgstr ""
+"\n"
+"Pan fo’r Senedd wedi ymgynnull, mae'r Aelodau'n cyfarfod ddwywaith yr "
+"wythnos yn y Siambr, sef y siambr drafod, i holi Gweinidogion Llywodraeth "
+"Cymru, i edrych ar ddeddfau arfaethedig, ac i drafod materion amrywiol. Mae "
+"aelodau hefyd yn cymryd rhan mewn pwyllgorau sy'n canolbwyntio ar wahanol "
+"feysydd, gan gynnwys iechyd ac addysg, ac yn edrych ar gyfreithiau a "
+"pholisïau'r llywodraeth a allai effeithio ar y sectorau hyn. Mae'r "
+"pwyllgorau hyn yn cynnwys Aelodau sy'n adlewyrchu cynrychiolaeth gyffredinol "
+"y pleidiau etholedig.\n"
+"Mae gan y rhan fwyaf o'r Aelodau swyddfa leol yn eu hetholaeth neu ranbarth, "
+"ac mae’r swyddfa’n cyflogi staff i gynorthwyo gydag ymholiadau etholiadol. "
+"Maen nhw'n cynnal 'cymorthfeydd' rheolaidd lle gall y cyhoedd gwrdd â'u "
+"cynrychiolwyr i drafod pryderon. Bydd Aelodau hefyd yn cysylltu ag etholwyr "
+"ar-lein neu dros y ffôn, ac yn ymweld â busnesau, ysgolion a sefydliadau "
+"lleol i gael dealltwriaeth o’r materion bob dydd y gallan nhw roi sylw iddyn "
+"nhw yn y Senedd yn ddiweddarach.\n"
+
+#: wcivf/apps/administrations/templates/responsibilities/post_type/WAE.html:15
+#, fuzzy
+#| msgid "Read more about how to vote"
+msgid "Read more about the Senedd"
+msgstr "Dysgwch fwy am y Senedd"
+
+#: wcivf/apps/administrations/templates/responsibilities/post_type/WAE.html:17
+msgid "Find more about your Senedd members"
+msgstr "Dysgwch fwy am eich Aelodau o’r Senedd"
+
 #: wcivf/apps/core/forms.py:7
 msgid "Enter your postcode"
 msgstr "Rhowch eich côd post"
 
-#: wcivf/apps/elections/models.py:757
+#: wcivf/apps/elections/models.py:49
+msgid "The elected member died"
+msgstr "Bu farw'r aelod etholedig."
+
+#: wcivf/apps/elections/models.py:54
+msgid ""
+"The election of the elected member was declared void by an election court"
+msgstr ""
+"Penderfynodd llys etholiadol fod etholiad yr aelod etholedig yn ddi-rym."
+
+#: wcivf/apps/elections/models.py:60
+msgid "The previous election winner did not sign a declaration of acceptance"
+msgstr "Ni wnaeth enillydd yr etholiad blaenorol lofnodi datganiad derbyn."
+
+#: wcivf/apps/elections/models.py:65
+msgid "The elected member failed to attend meetings for six months"
+msgstr "Ni aeth yr aelod etholedig i gyfarfod am chwe mis."
+
+#: wcivf/apps/elections/models.py:69
+msgid "The elected member was disqualified"
+msgstr "Cafodd yr aelod etholedig ei anghymhwyso."
+
+#: wcivf/apps/elections/models.py:73
+msgid "The elected member no longer qualified as a registered elector"
+msgstr ""
+"Nid oedd yr aelod etholedig bellach yn gymwys fel etholwr cofrestredig."
+
+#: wcivf/apps/elections/models.py:77
+msgid "The elected member was recalled by a successful recall petition"
+msgstr "Cafodd yr aelod etholedig ei alw'n ôl gan ddeiseb adalw lwyddiannus."
+
+#: wcivf/apps/elections/models.py:79
+msgid "Other"
+msgstr "Arall"
+
+#: wcivf/apps/elections/models.py:80
+msgid "Unknown"
+msgstr "Anadnabyddus"
+
+#: wcivf/apps/elections/models.py:81
+msgid "Neither a by-election nor a ballot"
+msgstr "Nid trwy isetholiad na phleidlais."
+
+#: wcivf/apps/elections/models.py:773 wcivf/apps/elections/models.py:776
+msgid " (postponed)"
+msgstr " (wedi'i ohirio)"
+
+#: wcivf/apps/elections/models.py:779
+#, fuzzy
+#| msgid "(uncontested)"
+msgid " (uncontested)"
+msgstr "(dim cystadleuaeth)"
+
+#: wcivf/apps/elections/models.py:825
+#, fuzzy, python-format
+#| msgid "This election was cancelled."
+msgid "This by-election was called because %(reason)s"
+msgstr "Canslwyd yr etholiad hwn %(reason)s."
+
+#: wcivf/apps/elections/models.py:962
 msgid "First-past-the-post"
 msgstr "Y Cyntaf i’r Felin"
 
-#: wcivf/apps/elections/models.py:759
+#: wcivf/apps/elections/models.py:964
 msgid "Additional Member System"
 msgstr "Y System Aelodau Ychwanegol"
 
-#: wcivf/apps/elections/models.py:761
+#: wcivf/apps/elections/models.py:966
 msgid "Supplementary Vote"
 msgstr "Pleidlais Atodol"
 
-#: wcivf/apps/elections/models.py:763
+#: wcivf/apps/elections/models.py:968
 msgid "Single Transferable Vote"
 msgstr "Pleidlais Sengl Drosglwyddadwy"
+
+#: wcivf/apps/elections/models.py:970
+msgid "Closed-List Proportional Representation"
+msgstr "Cynrychiolaeth Gyfrannol â Rhestrau Caeedig"
+
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:4
+#, fuzzy
+#| msgid "Boundary changes"
+msgid "Boundary Reviews"
+msgstr "Newidiadau ffiniau"
+
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:42
+#, fuzzy
+#| msgid "Boundary changes"
+msgid "Boundary Changes in your area"
+msgstr "Newidiadau ffiniau"
+
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:44
+msgid ""
+"There's been a boundary review in your area. Please see below for details."
+msgstr ""
+"Mae adolygiad ffiniau wedi digwydd yn eich ardal chi. Mae’r manylion i’w "
+"cael isod."
+
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:45
+msgid "Looking for election information?"
+msgstr "Chwilio am wybodaeth am yr etholiad?"
+
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:45
+#, fuzzy
+#| msgid "Elections in your area"
+msgid "Find elections in your area"
+msgstr "Etholiadau yn eich ardal"
+
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:48
+#, python-format
+msgid "%(org_name)s has new boundaries"
+msgstr "Mae gan %(org_name)s ffiniau newydd"
+
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:51
+#, fuzzy
+#| msgid ""
+#| "A new set of constituency boundaries will be used for the 2024 election. "
+#| "This means that your constituency may have changed since the last "
+#| "election."
+msgid ""
+"A new set of constituency and regional boundaries will be used for the 2026 "
+"Scottish parliament elections. The boundaries of all constituencies and "
+"regions have been reviewed by the independent organisation"
+msgstr ""
+"Bydd set newydd o ffiniau etholaethau yn cael eu defnyddio ar gyfer etholiad "
+"2024. Mae hyn yn golygu y gallai eich etholaeth fod wedi newid ers yr "
+"etholiad diwethaf."
+
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:57
+msgid "to take account of population changes since 2011."
+msgstr "i ystyried newidiadau yn y boblogaeth ers 2011."
+
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:60
+msgid ""
+"This means that your constituency or region may have changed shape or name "
+"since the last election, or you may be in a new constituency or region."
+msgstr ""
+"Bydd set newydd o ffiniau etholaethau yn cael eu defnyddio ar gyfer yr "
+"etholiad nesaf. Mae hyn yn golygu y gallai eich etholaeth fod wedi newid."
+
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:64
+msgid ""
+"The way you vote has changed. When voting for your Members of the Senedd, "
+"you will now vote on one ballot paper, instead of two as previously. You "
+"will vote once for a single party or independent candidate, and seats will "
+"be allocated using proportional representation. Party candidates will be "
+"elected in the order they appear on their party list."
+msgstr ""
+"2.\tMae sut rydych chi’n pleidleisio wedi newid. Yn awr, pan fyddwch chi’n "
+"pleidleisio dros ymgeisydd i fod yn Aelod o’r Senedd, byddwch yn defnyddio "
+"un papur pleidleisio yn hytrach na dau. Byddwch yn bwrw un bleidlais i un "
+"blaid neu ymgeisydd annibynnol, a bydd y seddau’n cael eu dyrannu gan "
+"ddefnyddio cynrychiolaeth gyfrannol. Bydd ymgeiswyr y pleidiau’n cael eu "
+"hethol yn y drefn y maen nhw’n ymddangos ar restr eu plaid."
+
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:71
+msgid ""
+"These changes mean that you will have a new constituency. Each constituency "
+"will elect six members, and the overall number of Senedd members is "
+"increasing from 60 to 96. Senedd elections will happen every four years."
+msgstr ""
+"Mae’r newidiadau hyn yn golygu y bydd gennych chi etholaeth newydd. Bydd pob "
+"etholaeth yn ethol chwe aelod, ac mae nifer o aelodau’r Senedd yn cynyddu o "
+"60 i 96. Bydd etholiadau’r Senedd yn digwydd bob pedair blynedd."
+
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:80
+#, fuzzy
+#| msgid "Learn more about voting by post"
+msgid "Learn more about the Senedd changes"
+msgstr "Dysgwch fwy am y newidiadau i’r Senedd."
+
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:88
+#, python-format
+msgid "Your %(division_unit_cap)s has not changed"
+msgstr "Nid yw eich %(division_unit_cap)s wedi newid"
+
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:93
+#, python-format
+msgid ""
+"Your %(division_unit)s has not been significantly affected by the boundary "
+"review. Whilst there may have been minor adjustments to the boundary, no "
+"houses have been added or removed, and its name, <strong>%(old_name)s</"
+"strong>, is unchanged from the last election."
+msgstr ""
+"9.\tNi chafodd yr adolygiad ffiniau effaith sylweddol ar eich "
+"%(division_unit)s. Efallai bod y ffiniau wedi cael eu haddasu ychydig, ond "
+"nid oes unrhyw dai wedi'u hychwanegu na’u tynnu, ac nid yw ei enw, "
+"<strong>%(old_name)s</strong>, wedi newid ers yr etholiad diwethaf."
+
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:100
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:120
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:140
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:168
+msgid "Map"
+msgstr "Map"
+
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:108
+#, python-format
+msgid "Your %(division_unit_cap)s has changed shape"
+msgstr "Mae siâp eich %(division_unit_cap)s wedi newid."
+
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:113
+#, python-format
+msgid ""
+"Your %(division_unit)s, <strong>%(old_name)s</strong>, has changed shape "
+"since the last election. These changes might be minor but will affect some "
+"electors. View the map below to understand these changes. Your "
+"%(division_unit)s’s name has not been changed."
+msgstr ""
+"Mae siâp eich %(division_unit)s, <strong>%(old_name)s</strong>, wedi newid "
+"ers yr etholiad diwethaf. Er mai newidiadau bychain yw’r rhain, byddan nhw’n "
+"cael effaith ar rai etholwyr. Edrychwch ar y map isod i ddeall y newidiadau "
+"hyn. Nid yw enw eich %(division_unit)s wedi ei newid."
+
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:128
+#, python-format
+msgid "Your %(division_unit_cap)s has a new name"
+msgstr "Mae gan eich %(division_unit_cap)s enw newydd"
+
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:133
+#, python-format
+msgid ""
+"At the last parliamentary election your %(division_unit)s was "
+"<strong>%(old_name)s</strong>. It has been renamed <strong>%(new_name)s</"
+"strong>. The %(division_unit)s’s boundaries have not been significantly "
+"changed."
+msgstr ""
+"Yn yr etholiad seneddol diwethaf, <strong>%(old_name)s</strong> oedd eich "
+"%(division_unit)s chi. Mae ganddo enw newydd bellach, sef "
+"<strong>%(new_name)s</strong>. Nid yw ffiniau'r %(division_unit)s wedi newid "
+"yn sylweddol."
+
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:149
+#, python-format
+msgid ""
+"Your new constituency is <strong>%(new_name)s</strong>. View your new "
+"constituency on the map below."
+msgstr ""
+"Eich etholaeth newydd yw <strong>%(new_name)s</strong>. Gallwch weld eich "
+"etholaeth newydd ar y map isod."
+
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:155
+#, python-format
+msgid "Your %(division_unit_cap)s has changed"
+msgstr "Mae eich %(division_unit_cap)s wedi newid."
+
+#: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:160
+#, python-format
+msgid ""
+"At the last parliamentary election your %(division_unit)s was "
+"<strong>%(old_name)s</strong>. On %(date)s it will be <strong>%(new_name)s</"
+"strong>. View the map below to understand these changes."
+msgstr ""
+"Yn yr etholiad seneddol diwethaf, <strong>%(old_name)s</strong> oedd eich "
+"%(division_unit)s chi. Ar %(date)s, <strong>%(new_name)s</strong> fydd yr "
+"enw. Edrychwch ar y map isod i ddeall y newidiadau hyn."
 
 #: wcivf/apps/elections/templates/elections/election_view.html:9
 #: wcivf/apps/elections/templates/elections/election_view.html:19
@@ -57,7 +457,7 @@ msgstr "Cynhelir yr %(election)s cynhelir ar %(date)s."
 msgid "The %(election)s will be held on %(date)s."
 msgstr "Cynhelir yr %(election)s cynhelir ar %(date)s."
 
-#: wcivf/apps/elections/templates/elections/election_view.html:36
+#: wcivf/apps/elections/templates/elections/election_view.html:37
 #, python-format
 msgid ""
 "The %(election)s <strong>is being held today</strong>. Polls are open from"
@@ -65,23 +465,23 @@ msgstr ""
 "Cynhelir yr %(election)s <strong>heddiw</strong>. Bydd y gorsafoedd "
 "pleidleisio ar agor o"
 
-#: wcivf/apps/elections/templates/elections/election_view.html:37
-msgid "till"
+#: wcivf/apps/elections/templates/elections/election_view.html:41
+msgid "until"
 msgstr "tan"
 
-#: wcivf/apps/elections/templates/elections/election_view.html:41
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:36
+#: wcivf/apps/elections/templates/elections/election_view.html:45
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:44
 #, python-format
 msgid "This election was held <strong>%(election_date)s</strong>."
 msgstr "Cynhaliwyd yr etholiad hwn <strong>%(election_date)s</strong>"
 
-#: wcivf/apps/elections/templates/elections/election_view.html:45
+#: wcivf/apps/elections/templates/elections/election_view.html:49
 #, python-format
 msgid "This election will be held on <strong>%(election_date)s</strong>."
 msgstr ""
-"Bydd yr etholiad hwn yn cael ei gynnal <strong>%(election_date)s</strong>."
+"Bydd yr etholiad yn cael ei gynnal ar <strong>%(election_date)s</strong>."
 
-#: wcivf/apps/elections/templates/elections/election_view.html:58
+#: wcivf/apps/elections/templates/elections/election_view.html:63
 #, python-format
 msgid ""
 "%(stood_or_standing)s for this election, in <strong>%(post_count)s</strong> "
@@ -90,21 +490,21 @@ msgstr ""
 "Ymgeisiodd%(stood_or_standing)s yn yr etholiad hwn, mewn "
 "<strong>%(post_count)s</strong> swydd."
 
-#: wcivf/apps/elections/templates/elections/election_view.html:64
+#: wcivf/apps/elections/templates/elections/election_view.html:69
 msgid "Add more at our candidate crowd-sourcing site"
 msgstr "Ychwanegwch ragor ar ein gwefan torfoli ymgeiswyr"
 
-#: wcivf/apps/elections/templates/elections/election_view.html:69
+#: wcivf/apps/elections/templates/elections/election_view.html:74
 msgid "Add some candidates at our candidate crowd-sourcing site"
 msgstr "Ychwanegwch rai ymgeiswyr at ein gwefan torfoli ymgeiswyr"
 
-#: wcivf/apps/elections/templates/elections/election_view.html:73
+#: wcivf/apps/elections/templates/elections/election_view.html:79
 #, fuzzy, python-format
 #| msgid " %(title)s"
 msgid "%(title)s"
-msgstr " %(title)s"
+msgstr "%(title)s"
 
-#: wcivf/apps/elections/templates/elections/election_view.html:77
+#: wcivf/apps/elections/templates/elections/election_view.html:83
 #, python-format
 msgid ""
 "<a href=\"%(postelection_url)s\">%(post_label)s</a> %(cancelled_message)s"
@@ -295,45 +695,13 @@ msgstr "Bydd yn awr yn digwydd ar"
 msgid "Read more"
 msgstr "Darllenwch ragor"
 
-#: wcivf/apps/elections/templates/elections/includes/_city_of_london_registration_details.html:7
-#: wcivf/apps/elections/templates/elections/includes/_registration_details.html:10
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:141
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:90
-msgid "Register to vote"
-msgstr "Cofrestru i bleidleisio"
-
-#: wcivf/apps/elections/templates/elections/includes/_city_of_london_registration_details.html:11
-msgid ""
-"City of London council elections do not use the same electoral register as "
-"other elections."
-msgstr ""
-
-#: wcivf/apps/elections/templates/elections/includes/_city_of_london_registration_details.html:16
-msgid ""
-"Both residents and city workers are eligible to vote. There is one register "
-"published annually, and the deadline to apply is 30 November each year. The "
-"new register comes into force on 16 February each year, and cannot be "
-"modified after that date. For more information, visit the <a href=\"https://"
-"www.speakforthecity.com/\">Speak for the City</a> website or contact City of "
-"London electoral services."
-msgstr ""
-
-#: wcivf/apps/elections/templates/elections/includes/_city_of_london_registration_details.html:27
-msgid ""
-"For questions about your poll card, polling place, or about returning your "
-"postal voting ballot, contact your council."
-msgstr ""
-"Ar gyfer cwestiynau ynghylch eich cerdyn pleidleisio, eich gorsaf "
-"bleidleisio, neu ynghylch dychwelyd eich pleidlais drwy'r post, cysylltwch "
-"â'ch cyngor."
-
 #: wcivf/apps/elections/templates/elections/includes/_contact_details_registration.html:5
 msgid "Electoral Registration"
-msgstr ""
+msgstr "Cofrestru Etholiadol"
 
 #: wcivf/apps/elections/templates/elections/includes/_contact_details_registration.html:7
-msgid "Your Local Council"
-msgstr ""
+msgid "Your Returning Officer"
+msgstr "Eich Swyddog Canlyniadau"
 
 #: wcivf/apps/elections/templates/elections/includes/_elections_breadcrumbs.html:3
 #: wcivf/apps/parties/templates/parties/parties_view.html:9
@@ -401,6 +769,8 @@ msgid ""
 "Mark an X in the first column for your first choice. Mark an X in the second "
 "column for your second choice. You do not have to mark a second choice."
 msgstr ""
+"Rhowch X yn y golofn gyntaf ar gyfer eich dewis cyntaf. Rhowch X yn yr ail "
+"golofn ar gyfer eich ail ddewis. Nid oes rhaid i chi ddewis ail ddewis."
 
 #: wcivf/apps/elections/templates/elections/includes/_how-to-vote.html:63
 msgid "Mark an X in the box for one party or independent candidate."
@@ -421,6 +791,36 @@ msgstr ""
 "Am fwy o wybodaeth, ewch i <a href=%(ec_url)s>Wefan y Comisiwn Etholiadol</"
 "a> neu gofynnwch i swyddog yn eich gorsaf bleidleisio."
 
+#: wcivf/apps/elections/templates/elections/includes/_past_election.html:6
+#, fuzzy, python-format
+#| msgid ""
+#| "<div class=\"ds-status-message\" > This election was scheduled to happen "
+#| "%(time_since)s ago. <a href=\"%(home_view_url)s\">Enter your postcode</a> "
+#| "to find upcoming elections in your area. </div>"
+msgid ""
+"This election was scheduled to happen %(time_since)s ago. <a "
+"href=\"%(home_view_url)s\">Enter your postcode</a> to find upcoming "
+"elections in your area."
+msgstr ""
+"Roedd yr etholiad hwn i fod i ddigwydd %(time_since)s yn ôl. <a "
+"href=\"%(home_view_url)s\">Defnyddiwch eich cod post</a> i ddod o hyd i "
+"etholiadau sydd i ddod yn eich ardal. </div>"
+
+#: wcivf/apps/elections/templates/elections/includes/_past_election.html:14
+#, fuzzy, python-format
+#| msgid ""
+#| "<div class=\"ds-status-message\" > This election was scheduled to happen "
+#| "%(time_since)s ago. <a href=\"%(home_view_url)s\">Enter your postcode</a> "
+#| "to find upcoming elections in your area. </div>"
+msgid ""
+"This election happened %(time_since)s ago. <a "
+"href=\"%(home_view_url)s\">Enter your postcode</a> to find upcoming "
+"elections in your area."
+msgstr ""
+"Roedd yr etholiad hwn i fod i ddigwydd %(time_since)s yn ôl. <a "
+"href=\"%(home_view_url)s\">Defnyddiwch eich cod post</a> i ddod o hyd i "
+"etholiadau sydd i ddod yn eich ardal. </div>"
+
 #: wcivf/apps/elections/templates/elections/includes/_people_list_with_lists.html:15
 #, python-format
 msgid "Photo of %(pp.person.name)s"
@@ -435,6 +835,12 @@ msgid "Party emblem"
 msgstr "Symbol y blaid"
 
 #: wcivf/apps/elections/templates/elections/includes/_people_list_with_lists.html:44
+#, fuzzy
+#| msgid "Find out more about the %(party_name)s in their %(manifesto)s."
+msgid "Find out more about this party's policies in their manifesto:"
+msgstr "Dysgwch fwy am bolisïau'r blaid hon trwy ddarllen eu maniffesto."
+
+#: wcivf/apps/elections/templates/elections/includes/_people_list_with_lists.html:54
 #, python-format
 msgid "Show %(num_candidates)s candidates"
 msgstr "Dangos %(num_candidates)s ymgeiswyr"
@@ -444,7 +850,7 @@ msgid "Elected"
 msgstr "Etholwyd"
 
 #: wcivf/apps/elections/templates/elections/includes/_person_card.html:23
-#: wcivf/apps/people/templates/people/includes/_person_intro_card.html:42
+#: wcivf/apps/people/templates/people/includes/_person_intro_card.html:31
 msgid ""
 "This candidate has been deselected by their party, but their original party "
 "description will remain on the ballot paper."
@@ -453,7 +859,7 @@ msgstr ""
 "bydd y disgrifiad yn aros ar y papur pleidleisio."
 
 #: wcivf/apps/elections/templates/elections/includes/_person_card.html:24
-#: wcivf/apps/people/templates/people/includes/_person_intro_card.html:43
+#: wcivf/apps/people/templates/people/includes/_person_intro_card.html:32
 msgid "Learn more"
 msgstr "Darllenwch ragor"
 
@@ -468,8 +874,8 @@ msgid "Photo of %(person_name)s"
 msgstr "Llun o %(person_name)s"
 
 #: wcivf/apps/elections/templates/elections/includes/_polling_place.html:9
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:133
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:82
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:156
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:86
 msgid "Where to vote"
 msgstr "Ble i bleidleisio"
 
@@ -487,10 +893,6 @@ msgstr ""
 #: wcivf/apps/elections/templates/elections/includes/_polling_place.html:22
 msgid "Vote before polling day"
 msgstr "Pleidleisiwch cyn y diwrnod pleidleisio"
-
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:24
-msgid "Your advance voting station is:"
-msgstr "Eich gorsaf bleidleisio ymlaen llaw yw:"
 
 #: wcivf/apps/elections/templates/elections/includes/_polling_place.html:33
 msgid "Advance voting station opening times"
@@ -517,7 +919,7 @@ msgstr "Eich gorsaf bleidleisio yw"
 #: wcivf/apps/elections/templates/elections/includes/_polling_place.html:53
 #, python-format
 msgid "<address>%(polling_station_address)s</address>"
-msgstr ""
+msgstr "<address>%(polling_station_address)s</address>"
 
 #: wcivf/apps/elections/templates/elections/includes/_polling_place.html:58
 #, python-format
@@ -525,6 +927,7 @@ msgid "It will be open from <strong>%(open_time)s to %(close_time)s</strong>"
 msgstr "Bydd ar agor o <strong>%(open_time)s tan %(close_time)s</strong>"
 
 #: wcivf/apps/elections/templates/elections/includes/_polling_place.html:67
+#: wcivf/apps/parties/templates/parties/speaker_seeking_reelection.html:49
 msgid "and"
 msgstr "a"
 
@@ -553,18 +956,14 @@ msgstr ""
 "Os oes gennych bleidlais bost, gallwch ei chyflwyno yn yr orsaf bleidleisio "
 "hondiwrnod etholiad hyd at 10pm"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:97
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:100
 msgid ""
 "Postal votes cannot be accepted at polling stations in Northern Ireland."
 msgstr ""
 "Ni ellir derbyn pleidleisiau post mewn gorsafoedd pleidleisio yng Ngogledd "
 "Iwerddon."
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:99
-msgid "Learn more about voting by post"
-msgstr "Dysgwch fwy am bleidleisio drwy'r post"
-
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:102
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:104
 #, python-format
 msgid ""
 "<strong>Polling stations are open from %(open_time)s till %(close_time)s "
@@ -573,25 +972,23 @@ msgstr ""
 "<strong>Bydd gorsafoedd pleidleisio ar agor o %(open_time)s tan "
 "%(close_time)s heddiw.</strong>"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:107
-#, python-format
-msgid ""
-"<p>Your polling station in %(postcode)s depends on your address. <a "
-"href=\"https://wheredoivote.co.uk/postcode/%(postcode)s/\">Check the correct "
-"polling station for your address &raquo;</a></p>"
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:110
+msgid "Your polling station in {{ postcode }} depends on your address."
 msgstr ""
-"<p>Mae eich gorsaf bleidleisio yn %(postcode)s yn dibynnu ar eich cyfeiriad. "
-"<a href=\"https://wheredoivote.co.uk/postcode/%(postcode)s/\">Gwiriwch yr "
-"orsaf bleidleisio gywir ar gyfer eich cyfeiriad&raquo;</a></p>"
+"Mae eich gorsaf bleidleisio yn {{ postcode }} yn dibynnu ar eich cyfeiriad."
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:111
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:112
+msgid "Check the correct polling station for your address &raquo;"
+msgstr "Gwiriwch yr orsaf bleidleisio gywir ar gyfer eich cyfeiriad &raquo;"
+
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:117
 msgid ""
 "You should get a \"poll card\" through the post telling you where to vote."
 msgstr ""
 "Dylech dderbyn \"cerdyn pleidleisio\" drwy'r post yn dweud ble y dylech chi "
 "bleidleisio."
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:114
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:123
 #, python-format
 msgid ""
 "If you haven't got one, or for questions about your poll card, polling "
@@ -603,7 +1000,7 @@ msgstr ""
 "ffonio'r Swyddfa Cofrestru Etholiadol <a href=\"tel:"
 "%(council_phone)s\">%(council_phone)s</a>."
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:121
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:131
 #, python-format
 msgid ""
 "If you haven't got one, or aren't sure where to vote, you should call "
@@ -612,7 +1009,7 @@ msgstr ""
 "Os nad oes gennych chi un, neu ddim yn siŵr ble i bleidleisio, dylech ffonio "
 "%(council_name)s ar <a href=\"tel:%(council_phone)s\">%(council_phone)s</a>."
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:128
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:139
 msgid ""
 "If you haven't got one, or aren't sure where to vote, you should call your "
 "local council."
@@ -620,25 +1017,25 @@ msgstr ""
 "Os nad oes gennych chi un, neu ddim yn siŵr ble i bleidleisio, dylech ffonio "
 "eich cyngor lleol."
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:135
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:146
 msgid "You will need photographic identification."
 msgstr "Bydd angen dull adnabod ffotograffig arnoch."
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:141
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:152
 msgid "Read more about how to vote in Northern Ireland"
 msgstr "Darllenwch fwy am sut i bleidleisio yng Ngogledd Iwerddon"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:145
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:156
 msgid "Read more about how to vote"
 msgstr "Darllenwch fwy am sut i bleidleisio"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:154
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:165
 #, fuzzy
 #| msgid "Get walking directions from"
 msgid "Get directions"
 msgstr "Cael cyfarwyddiadau cerdded o"
 
-#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:158
+#: wcivf/apps/elections/templates/elections/includes/_polling_place.html:169
 #, fuzzy
 #| msgid "Get walking directions from"
 msgid "Get directions from"
@@ -674,6 +1071,164 @@ msgstr "%(election_name)s: Canslwyd yr etholiad hwn"
 msgid "%(election_name)s: The %(num_candidates)s candidates in %(post_label)s"
 msgstr "%(election_name)s: Y %(num_candidates)s ymgeisydd yn%(post_label)s"
 
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:10
+msgid "Voting by post"
+msgstr "Pleidleisio drwy'r post"
+
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:16
+#, fuzzy
+#| msgid ""
+#| "If you have a postal vote, you can hand it in at this polling station on "
+#| "election day up to 10pm."
+msgid ""
+"If you know that you won't be able to get to the polling station on polling "
+"day, you can vote by post."
+msgstr ""
+"Os oes gennych bleidlais bost, gallwch ei chyflwyno yn yr orsaf bleidleisio "
+"hondiwrnod etholiad hyd at 10pm"
+
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:20
+#, python-format
+msgid "You have until %(application_deadline)s to"
+msgstr "Mae gennych chi tan %(application_deadline)s i"
+
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:23
+msgid "Apply for a postal vote"
+msgstr "Gwneud cais am bleidlais bost"
+
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:26
+#, fuzzy
+#| msgid "Read more about how to vote"
+msgid "Read more about applying for a postal vote"
+msgstr "Darllenwch fwy am sut i bleidleisio"
+
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:30
+#, python-format
+msgid ""
+"The deadline to apply for a postal vote for the elections taking place on "
+"%(election_date)s was %(application_deadline)s. You can"
+msgstr ""
+"%(application_deadline)s oedd y dyddiad cau i gofrestru am bleidlais bost ar "
+"gyfer yr etholiadau ar %(election_date)s. Gallwch "
+
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:34
+msgid "apply for a postal vote"
+msgstr "wneud cais am bleidlais bost"
+
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:35
+#, fuzzy
+#| msgid "Next election"
+msgid "in future elections."
+msgstr "mewn etholiadau yn y dyfodol."
+
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:39
+#, fuzzy
+#| msgid "Learn more about voting by post"
+msgid "Read more about voting by post"
+msgstr "Dysgwch fwy am bleidleisio drwy'r post"
+
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:45
+msgid "If you have a postal vote"
+msgstr "Os oes gennych bleidlais bost"
+
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:48
+#, fuzzy, python-format
+#| msgid ""
+#| "If you already have a postal vote or successfully apply by %(date0)s, "
+#| "your pack will be sent from %(date1)s.</li>"
+msgid ""
+"If you already have a postal vote or successfully apply by %(date0)s, your "
+"pack will be sent from %(date1)s."
+msgstr ""
+"Os oes pleidlais bost gennych eisoes neu os ydych wedi gwneud cais "
+"llwyddiannus erbyn %(date0)s, bydd eich pecyn yn cael ei anfon o %(date1)s."
+
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:53
+#, python-format
+msgid ""
+"If you apply after %(date0)s up to 5pm on %(application_deadline)s, your "
+"pack will be sent from %(date2)s."
+msgstr ""
+"Os gwnewch gais ar ôl %(date0)s hyd at 5pm ar %(application_deadline)s, bydd "
+"eich pecyn yn cael ei anfon o %(date2)s."
+
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:60
+#, python-format
+msgid ""
+"Ballot papers for the election on %(election_date)s will not be printed "
+"until after %(sopn_date)s. If you have a postal vote, your local council "
+"will send your postal voting pack around three weeks before polling day."
+msgstr ""
+"Ni fydd papurau pleidleisio ar gyfer etholiad %(election_date)s yn cael eu "
+"hargraffu tan ar ôl %(sopn_date)s>. Os oes gennych bleidlais bost, bydd eich "
+"cyngor lleol yn anfon eich pecyn pleidleisio drwy'r post tua thair wythnos "
+"cyn y diwrnod pleidleisio. "
+
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:67
+#, python-format
+msgid ""
+"If you are away from home before or shortly after %(sopn_date)s, and will "
+"not return before polling day, your postal vote will not reach you in time "
+"for you to use it. In this case, you should consider"
+msgstr ""
+"Os byddwch oddi cartref cyn hynny neu yn fuan ar ôl %(sopn_date)s, ac os na "
+"fyddwch yn dychwelyd cyn y diwrnod pleidleisio, ni fyddwch yn cael eich "
+"pleidlais bost mewn da bryd i’w defnyddio. Os digwydda hyn, dylech ystyried "
+
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:72
+msgid "applying for a proxy vote"
+msgstr "gwneud cais am bleidlais drwy ddirprwy"
+
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:74
+msgid "instead."
+msgstr "."
+
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:80
+#, fuzzy, python-format
+#| msgid ""
+#| "If you haven't got one, or for questions about your poll card, polling "
+#| "place, or about returning your postal voting ballot, contact the "
+#| "Electoral Office for Northern Ireland <a href=\"tel:"
+#| "%(council_phone)s\">%(council_phone)s</a>."
+msgid ""
+"If you have not received your postal voting pack, you can contact the "
+"Electoral Office for Northern Ireland on <a href=\"tel:"
+"%(council_phone)s\">%(council_phone)s</a>."
+msgstr ""
+"Os nad oes gennych chi un, neu ddim yn siŵr ble i bleidleisio, dylech "
+"ffonio'r Swyddfa Cofrestru Etholiadol <a href=\"tel:"
+"%(council_phone)s\">%(council_phone)s</a>."
+
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:88
+#, fuzzy, python-format
+#| msgid ""
+#| "If you haven't got one, or aren't sure where to vote, you should call "
+#| "%(council_name)s on <a href=\"tel:%(council_phone)s\">%(council_phone)s</"
+#| "a>."
+msgid ""
+"If you have not received your postal voting pack, you can contact "
+"%(council_name)s on <a href=\"tel:%(council_phone)s\">%(council_phone)s</a>."
+msgstr ""
+"Os nad oes gennych chi un, neu ddim yn siŵr ble i bleidleisio, dylech ffonio "
+"%(council_name)s ar <a href=\"tel:%(council_phone)s\">%(council_phone)s</a>."
+
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:96
+msgid ""
+"You can contact your local council if you have not received your postal "
+"voting pack."
+msgstr ""
+"Gallwch gysylltu â'ch cyngor lleol os nad ydych wedi cael eich pecyn "
+"pleidleisio drwy'r post."
+
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:104
+#, python-format
+msgid ""
+"Replacement packs can only be issued from %(replacement_pack_start)s until "
+"5pm on %(election_date)s."
+msgstr ""
+"Dim ond rhwng %(replacement_pack_start)s a 5pm ar %(election_date)s y gellir "
+"cyhoeddi pecynnau newydd."
+
 #: wcivf/apps/elections/templates/elections/includes/_postcode_breadcrumbs.html:11
 msgid "Candidates in"
 msgstr "Yr ymgeiswyr yn"
@@ -707,17 +1262,27 @@ msgstr[0] ""
 "Mae %(person_name)s wedi datgan eu cysylltiad â'r blaid ganlynol yn y 12 mis "
 "diwethaf:"
 
+#: wcivf/apps/elections/templates/elections/includes/_registration_details.html:10
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:164
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:94
+msgid "Register to vote"
+msgstr "Cofrestru i bleidleisio"
+
 #: wcivf/apps/elections/templates/elections/includes/_registration_details.html:15
+#, fuzzy
+#| msgid ""
+#| "You need to be registered in order to vote. If you aren't registered to "
+#| "vote visit <a href=\"https://www.gov.uk/register-to-vote\"> https://"
+#| "www.gov.uk/register-to-vote </a>"
 msgid ""
 "You need to be registered in order to vote. If you aren't registered to vote "
-"visit <a href=\"https://www.gov.uk/register-to-vote\"> https://www.gov.uk/"
-"register-to-vote </a>"
+"visit"
 msgstr ""
 "Mae angen i chi fod wedi'ch cofrestru i bleidleisio. Os nad ydych wedi "
 "cofrestru i bleidleisio, ewch i <a href=\"https://www.gov.uk/register-to-"
 "vote\"> https://www.gov.uk/register-to-vote </a>"
 
-#: wcivf/apps/elections/templates/elections/includes/_registration_details.html:24
+#: wcivf/apps/elections/templates/elections/includes/_registration_details.html:22
 #, python-format
 msgid ""
 "Register before midnight on %(registration_deadline)s to vote on "
@@ -726,18 +1291,22 @@ msgstr ""
 "Cofrestrwch cyn hanner nos ar %(registration_deadline)s i bleidleisio ar "
 "%(election_date)s."
 
-#: wcivf/apps/elections/templates/elections/includes/_registration_details.html:30
+#: wcivf/apps/elections/templates/elections/includes/_registration_details.html:28
 msgid ""
 "Send your postal and proxy vote applications to your local electoral "
 "registration team. You can also contact them to find out if you’re on the "
 "electoral register, and if you already have a postal or proxy vote."
 msgstr ""
+"Anfonwch eich ceisiadau am bleidlais bost neu bleidlais drwy ddirprwy at "
+"eich tîm cofrestru etholiadol lleol. Gallwch hefyd gysylltu â nhw i wirio "
+"eich bod ar y gofrestr etholiadol ac i weld a oes gennych bleidlais bost neu "
+"drwy ddirprwy yn barod."
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:19
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:26
 msgid "Additional members"
 msgstr "Aelodau ychwanegol"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:30
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:38
 #, python-format
 msgid ""
 "This election <strong>is being held today</strong>. Polls are open from "
@@ -746,23 +1315,43 @@ msgstr ""
 "Cynhelir yr etholiad hwn <strong>heddiw</strong>. Mae gorsafoedd pleidleisio "
 "ar agor o %(open_time)s tan %(close_time)s"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:40
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:48
 #, python-format
 msgid "This election will be held <strong>%(election_date)s</strong>."
 msgstr ""
 "Bydd yr etholiad hwn yn cael ei gynnal <strong>%(election_date)s</strong>."
 
 #: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:57
-msgid "About this position"
-msgstr "Ynglŷn â'r rôl hon"
+#, python-format
+msgid ""
+"There are <a href=\"%(url)s\">boundary changes</a> which affect this "
+"election."
+msgstr ""
+"Mae <a href=\"%(url)s\">newidiadau i'r ffiniau</a> sy’n effeithio ar yr "
+"etholiad hwn."
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:61
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:75
+#, fuzzy
+#| msgid "About this position"
+msgid "About this election"
+msgstr "Gwybodaeth am yr etholiad yma"
+
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:79
 #, fuzzy, python-format
 #| msgid " %(description)s"
 msgid " %(description)s"
 msgstr " %(description)s "
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:75
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:93
+#, python-format
+msgid ""
+"This candidate list is provisional. The complete candidate list will be "
+"published after %(expected_sopn_date)s."
+msgstr ""
+"Mae'r rhestr hon o ymgeiswyr yn un dros dro. Bydd rhestr gyflawn yr "
+"ymgeiswyr yn cael ei chyhoeddi ar ôl %(expected_sopn_date)s"
+
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:102
 #, python-format
 msgid ""
 "<strong>%(num_candidates)s candidate%(plural)s</strong> stood in the "
@@ -771,19 +1360,7 @@ msgstr ""
 "Ymgeisiodd <strong>%(num_candidates)s ymgeisydd%(plural)s</strong> yn "
 "%(postelection)s."
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:80
-msgid ""
-"We don't know of any candidates standing yet. You can help improve this page:"
-msgstr ""
-"Ni wyddwn am unrhyw ymgeiswyr sy'n sefyll eto. Gallwch helpu i wella'r "
-"dudalen hon:"
-
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:81
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:92
-msgid "add information about candidates to our database"
-msgstr "ychwanegwch wybodaeth am ymgeiswyr i'n cronfa ddata"
-
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:86
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:107
 #, python-format
 msgid ""
 "We don't know of any candidates standing yet. The official candidate list "
@@ -794,7 +1371,11 @@ msgstr ""
 "ymgeiswyr yn cael ei chyhoeddi ar ôl %(expected_sopn_date)s, pan fydd y "
 "dudalen hon yn cael ei diweddaru. Gallwch helpu i wella'r dudalen hon:"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:98
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:113
+msgid "add information about candidates to our database"
+msgstr "ychwanegwch wybodaeth am ymgeiswyr i'n cronfa ddata"
+
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:121
 msgid ""
 "You will have one vote, and can vote for a single party list or independent "
 "candidate."
@@ -802,7 +1383,7 @@ msgstr ""
 "Bydd gennych un bleidlais, a gallwch bleidleisio dros un blaid neu ymgeisydd "
 "annibynnol."
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:101
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:124
 #, python-format
 msgid ""
 "You will have <strong>%(winner_count)s vote%(plural)s</strong>, and can "
@@ -813,7 +1394,7 @@ msgstr ""
 "gallwch ddewis o <strong>%(num_candidates)s ymgeisydd%(plural_candidates)s</"
 "strong>."
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:107
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:130
 #, fuzzy, python-format
 msgid ""
 "You will have <strong>one vote</strong>, and can choose from "
@@ -822,7 +1403,7 @@ msgstr ""
 "Bydd gennych ddwy bleidlais, a gallwch ddewis o <strong>%(num_ballots)s</"
 "strong> yn yr %(postelection)s."
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:112
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:135
 #, fuzzy, python-format
 msgid ""
 "You will have <strong>two votes</strong>, and can choose from "
@@ -831,7 +1412,7 @@ msgstr ""
 "Bydd gennych ddwy bleidlais, a gallwch ddewis o <strong>%(num_ballots)s</"
 "strong> yn yr %(postelection)s."
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:119
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:142
 #, python-format
 msgid ""
 "There is <strong>one seat</strong>  up for election, and you can choose from "
@@ -840,7 +1421,7 @@ msgstr ""
 "Mae yna <strong>un sedd</strong>  ar gael yn yr etholiad, a gallwch ddewis o "
 "<strong>%(num_ballots)s ymgeisydd</strong>."
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:123
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:146
 #, python-format
 msgid ""
 "There are <strong>%(winner_count)s seats</strong>  up for election, and you "
@@ -849,27 +1430,30 @@ msgstr ""
 "Mae yna %(winner_count)s seddi sedd ar gael yn yr etholiad, a gallwch ddewis "
 "o %(num_ballots)s ymgeisydd."
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:130
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:79
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:153
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:83
 msgid "Get ready to vote"
 msgstr "Ble i bleidleisio"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:137
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:86
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:160
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:90
 msgid "Voter ID requirements"
 msgstr "Gofynion ID Pleidleisiwr"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:149
-#, python-format
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:172
+#, fuzzy, python-format
+#| msgid ""
+#| "We are currently aware of %(num_candidates)s "
+#| "candidate%(plural_candidates)s for this position."
 msgid ""
 "We are currently aware of %(num_candidates)s candidate%(plural_candidates)s "
-"for this position."
+"for this position. We expect more candidates to be announced in the future."
 msgstr ""
 "Ar hyn o bryd rydym yn ymwybodol o %(num_candidates)s "
 "ymgeisydd%(plural_candidates)s ar gyfer y swydd hon."
 
 # python-format
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:153
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:177
 #, fuzzy, python-format
 #| msgid ""
 #| "The official candidate list will be published after "
@@ -886,47 +1470,53 @@ msgstr ""
 "helpu i wella'r dudalen hon: <a href=\"%(ynr_link)s\"> ychwanegu gwybodaeth "
 "ymgeisydd i'n cronfa ddata</a>."
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:168
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:192
 msgid "Read the official candidate booklet for this election."
 msgstr "Darllenwch y llyfryn ymgeiswyr swyddogol ar gyfer yr etholiad hwn."
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:178
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:202
 msgid "Electorate"
 msgstr "Nifer etholwyr"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:185
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:209
 msgid "Ballot Papers Issued"
 msgstr "Bapurau pleidleisio"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:192
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:216
 msgid "Spoilt Ballots"
 msgstr "Nifer y bleidleisiau a ddifethwyd"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:199
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:223
 msgid "Turnout"
 msgstr "Cyfrif pleidleisiau"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:222
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:233
+#, fuzzy
+#| msgid "Results"
+msgid "See Full Results"
+msgstr "Canlyniadau"
+
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:249
 #, fuzzy
 #| msgid "The official candidate list should have been published on"
 msgid "The official candidate list should have been published after"
 msgstr "Dylai'r rhestr swyddogol o ymgeiswyr fod wedi'i chyhoeddi ar "
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:224
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:251
 #, fuzzy
 #| msgid "The official candidate list should be published on"
 msgid "The official candidate list should be published after"
 msgstr "Dylai'r rhestr swyddogol o ymgeiswyr gael ei chyhoeddi ar"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:235
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:262
 msgid "Can you vote in this election?"
 msgstr "A allwch chi bleidleisio yn yr etholiad hwn?"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:236
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:263
 msgid "Age"
 msgstr "Oedran"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:238
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:265
 #, python-format
 msgid ""
 "You need to be over %(voter_age)s on the %(voter_age_date)s of "
@@ -935,16 +1525,16 @@ msgstr ""
 "Mae angen i chi fod dros %(voter_age)s ar %(voter_age_date)s "
 "%(election_date)s i bleidleisio yn yr etholiad hwn."
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:243
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:270
 msgid "Citizenship"
 msgstr "Dinasyddiaeth"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:259
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:286
 #: wcivf/apps/people/templates/people/includes/_person_about_card.html:7
 msgid "Wikipedia"
 msgstr "Wikipedia"
 
-#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:261
+#: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:288
 #: wcivf/apps/people/templates/people/includes/_person_about_card.html:9
 msgid "Read more on Wikipedia"
 msgstr "Darllenwch fwy ar Wikipedia"
@@ -960,26 +1550,48 @@ msgstr ""
 "Bydd angen i chi dynnu llun ID i bleidleisio mewn gorsaf bleidleisio yn yr "
 "etholiad hwn."
 
-#: wcivf/apps/elections/templates/elections/includes/_voter_id.html:18
+#: wcivf/apps/elections/templates/elections/includes/_voter_id.html:15
+#: wcivf/apps/elections/templates/elections/includes/_voter_id.html:22
+#: wcivf/apps/elections/templates/elections/includes/_voter_id.html:26
 #, fuzzy
-#| msgid ""
-#| "You do not need your poll card to vote. You must vote at your assigned "
-#| "polling station. <ul> <li>Read more about <a href=\"https://www.gov.uk/"
-#| "voting-in-the-uk/polling-stations\">voting in Great Britain</a>.</li> "
-#| "<li>Read more about <a href=\"https://www.gov.uk/how-to-vote/photo-id-"
-#| "youll-need\">photo ID</a>.</li> </ul>"
+#| msgid "Read more"
+msgid "Read more about"
+msgstr "Darllenwch ragor"
+
+#: wcivf/apps/elections/templates/elections/includes/_voter_id.html:17
+#, fuzzy
+#| msgid "Read more about how to vote in Northern Ireland"
+msgid "voting in Northern Ireland"
+msgstr "Darllenwch fwy am sut i bleidleisio yng Ngogledd Iwerddon"
+
+#: wcivf/apps/elections/templates/elections/includes/_voter_id.html:20
 msgid ""
-"<p>You do not need your poll card to vote. You must vote at your assigned "
-"polling station.</p> <ul> <li>Read more about <a href=\"https://www.gov.uk/"
-"voting-in-the-uk/polling-stations\">voting in Great Britain</a>. </li> "
-"<li>Read more about <a href=\"https://www.gov.uk/how-to-vote/photo-id-youll-"
-"need\">photo ID</a>. </li> </ul>"
+"You do not need your poll card to vote. You must vote at your assigned "
+"polling station."
 msgstr ""
 "Nid oes angen eich cerdyn pleidleisio arnoch i bleidleisio. Rhaid i chi "
-"bleidleisio yn yr un a neilltuwyd i chiorsaf bleidleisio. Darllenwch fwy am "
-"<a href=\" https://www.gov.uk/voting-in-the-uk/polling-"
-"stations\">pleidleisio ym Mhrydain Fawr</a>.<li>Darllenwch fwy am <a href=\" "
-"https://www.gov.uk/how-to-vote/photo-id-youll-angen \">ID llun</a>.</li></ul>"
+"bleidleisio yn yr un a neilltuwyd i chiorsaf bleidleisio."
+
+#: wcivf/apps/elections/templates/elections/includes/_voter_id.html:24
+msgid "voting in Great Britain"
+msgstr "pleidleisio ym Mhrydain Fawr"
+
+#: wcivf/apps/elections/templates/elections/includes/_voter_id.html:28
+msgid "photo ID"
+msgstr "ID ffotograffig"
+
+#: wcivf/apps/elections/templates/elections/includes/_voter_id.html:33
+msgid "If you do not have a photo ID that allows you to vote, you can"
+msgstr "Os nad oes gennych ID â llun sy'n eich galluogi i bleidleisio, "
+
+#: wcivf/apps/elections/templates/elections/includes/_voter_id.html:35
+msgid "apply for a Voter Authority Certificate"
+msgstr "gallwch wneud cais am Dystysgrif Awdurdod Pleidleisio."
+
+#: wcivf/apps/elections/templates/elections/includes/_voter_id.html:37
+#, python-format
+msgid "before %(vac_application_deadline)s"
+msgstr "cyn %(vac_application_deadline)s"
 
 #: wcivf/apps/elections/templates/elections/includes/eu_results.html:7
 #: wcivf/apps/elections/templates/elections/includes/eu_results.html:15
@@ -999,18 +1611,23 @@ msgstr ""
 msgid "View results"
 msgstr "Gweld y canlyniadau"
 
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:5
-msgid "We don't know of any upcoming elections in your area."
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:6
+#, fuzzy
+#| msgid "We don't know of any upcoming elections in your area."
+msgid "We don't know of any upcoming elections for your address."
 msgstr "Nid wyddwn am unrhyw etholiadau sydd i ddod"
 
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:6
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:7
 msgid ""
 "Local and devolved elections in the UK typically happen on the first "
 "Thursday in May. By-elections and parliamentary general elections can happen "
 "at any time. Not all areas have elections each year."
 msgstr ""
+"Mae etholiadau lleol a datganoledig yn y DU yn tueddu i ddigwydd ar y dydd "
+"Iau cyntaf ym mis Mai. Gall isetholiadau ac etholiadau cyffredinol seneddol "
+"ddigwydd ar unrhyw adeg. Nid yw pob ardal yn cael etholiad bob blwyddyn."
 
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:7
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:8
 #, fuzzy, python-format
 msgid ""
 "Learn more about elections in the UK <a href=\"%(ec_url)s\">on the Electoral "
@@ -1020,19 +1637,19 @@ msgstr ""
 "am-a/voter/\">Wefan y Comisiwn Etholiadol</a> neu gofynnwch i swyddog yn "
 "eich gorsaf bleidleisio."
 
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:11
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:12
 msgid "Select your address"
 msgstr "Dewiswch eich cyfeiriad"
 
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:13
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:14
 msgid "Elections in your area"
 msgstr "Etholiadau yn eich ardal"
 
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:31
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:32
 msgid "Recently past elections"
 msgstr "Etholiadau diweddar yn y gorffennol"
 
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:44
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:46
 #, python-format
 msgid ""
 "You will have %(num_ballots)s ballot paper%(ballots_pluralised)s to fill out."
@@ -1040,75 +1657,114 @@ msgstr ""
 "Bydd gennych %(num_ballots)s papur pleidleisio%(ballots_pluralised)s i'w "
 "lenwi."
 
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:60
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:64
 #, python-format
 msgid "%(ballot.short_cancelled_message_html)s"
 msgstr "%(ballot.short_cancelled_message_html)s"
 
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:70
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:74
 msgid "(uncontested)"
 msgstr "(dim cystadleuaeth)"
 
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:71
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:75
 msgid "(may be contested)"
 msgstr "(efallai y bydd cystadleuaeth)"
 
-#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:102
+#: wcivf/apps/elections/templates/elections/includes/inline_elections_nav_list.html:107
 msgid ""
 "There may also be parish, town or community council elections in some areas."
 msgstr ""
 "Efallai y bydd etholiadau cyngor plwyf, tref neu gymunedol mewn rhai "
 "ardaloedd."
 
-#: wcivf/apps/elections/templates/elections/party_list_view.html:10
+#: wcivf/apps/elections/templates/elections/party_list_view.html:15
 msgid "emblem"
 msgstr "symbol"
 
-#: wcivf/apps/elections/templates/elections/party_list_view.html:28
-#: wcivf/apps/elections/templates/elections/party_list_view.html:74
+#: wcivf/apps/elections/templates/elections/party_list_view.html:38
+#: wcivf/apps/elections/templates/elections/party_list_view.html:106
 #, python-format
 msgid "%(party_name)s's Facebook profile"
 msgstr "Tudalen Facebook %(party_name)s"
 
-#: wcivf/apps/elections/templates/elections/party_list_view.html:36
-#: wcivf/apps/elections/templates/elections/party_list_view.html:57
+#: wcivf/apps/elections/templates/elections/party_list_view.html:46
+#: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:31
+#, fuzzy, python-format
+#| msgid "%(party_name)s's Facebook profile"
+msgid "%(party_name)s's Instagram profile"
+msgstr "Tudalen Facebook %(party_name)s"
+
+#: wcivf/apps/elections/templates/elections/party_list_view.html:54
+#: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:39
+#, fuzzy, python-format
+#| msgid "%(party_name)s's Facebook profile"
+msgid "%(party_name)s's Bluesky profile"
+msgstr "Tudalen Facebook %(party_name)s"
+
+#: wcivf/apps/elections/templates/elections/party_list_view.html:62
+#, fuzzy, python-format
+#| msgid "%(party_name)s's Facebook profile"
+msgid "%(party_name)s's X profile"
+msgstr "Tudalen Facebook %(party_name)s"
+
+#: wcivf/apps/elections/templates/elections/party_list_view.html:68
+#: wcivf/apps/elections/templates/elections/party_list_view.html:89
 #: wcivf/apps/people/templates/people/includes/_person_contact_card.html:66
 msgid "Home page"
 msgstr "Hafan"
 
-#: wcivf/apps/elections/templates/elections/party_list_view.html:38
-#: wcivf/apps/elections/templates/elections/party_list_view.html:59
+#: wcivf/apps/elections/templates/elections/party_list_view.html:70
+#: wcivf/apps/elections/templates/elections/party_list_view.html:91
 #, python-format
 msgid "%(party_name)s's home page"
 msgstr "Hafan %(party_name)s"
 
-#: wcivf/apps/elections/templates/elections/party_list_view.html:45
-#: wcivf/apps/elections/templates/elections/party_list_view.html:66
+#: wcivf/apps/elections/templates/elections/party_list_view.html:77
+#: wcivf/apps/elections/templates/elections/party_list_view.html:98
 #: wcivf/apps/people/templates/people/includes/_person_contact_card.html:159
-#: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:38
+#: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:54
 #: wcivf/apps/people/templates/people/includes/_person_national_party_card.html:34
 msgid "Email"
 msgstr "E-bost"
 
-#: wcivf/apps/elections/templates/elections/party_list_view.html:89
+#: wcivf/apps/elections/templates/elections/party_list_view.html:121
+#, python-format
+msgid ""
+"This is the %(party_name)s list. In this election you will vote for a party, "
+"not an individual candidate. Each candidate is ranked by the party, and they "
+"will be elected in order of their ranking. For example, if this party wins "
+"two seats, the first two candidates in the list will be elected."
+msgstr ""
+"Dyma restr %(party_name)s. Yn yr etholiad hwn byddwch yn pleidleisio dros "
+"blaid yn hytrach nag ymgeisydd unigol. Mae pob plaid yn rhestru eu "
+"hymgeiswyr, a byddan nhw’n cael eu hethol yn y drefn y maen nhw’n ymddangos "
+"ar y rhestr. Er enghraifft, os yw'r blaid hon yn ennill dwy sedd, y ddau "
+"ymgeisydd cyntaf ar y rhestr fydd yn cael eu hethol."
+
+#: wcivf/apps/elections/templates/elections/party_list_view.html:127
+#, fuzzy, python-format
+#| msgid ""
+#| "See all %(num_candidates)s candidates in the %(election_name)s on "
+#| "%(election_date)s:"
+msgid ""
+"This was the %(party_name)s list for the %(division_name)s in the "
+"%(election_name)s held on %(election_date)s."
+msgstr ""
+"Gweler yr holl%(num_candidates)s ymgeiswyr yn yr %(election_name)s ar "
+"%(election_date)s:"
+
+#: wcivf/apps/elections/templates/elections/party_list_view.html:136
 #: wcivf/apps/people/templates/people/includes/_person_manifesto_card.html:7
 msgid "Party manifesto"
 msgstr "Maniffesto'r blaid"
 
-#: wcivf/apps/elections/templates/elections/party_list_view.html:92
-#, python-format
-msgid "Find out more about the %(party_name)s in their %(manifesto)s."
+#: wcivf/apps/elections/templates/elections/party_list_view.html:138
+#, fuzzy, python-format
+#| msgid "Find out more about the %(party_name)s in their %(manifesto)s."
+msgid "Find out more about this party in the %(party_name)s %(manifesto)s."
 msgstr "Dysgwch fwy am %(party_name)s yn eu %(manifesto)s."
 
-#: wcivf/apps/elections/templates/elections/party_list_view.html:98
-msgid "Latest tweets"
-msgstr "Trydariadau diweddar"
-
-#: wcivf/apps/elections/templates/elections/party_list_view.html:101
-msgid "Tweets by"
-msgstr "Trydariadau gan"
-
-#: wcivf/apps/elections/templates/elections/party_list_view.html:107
+#: wcivf/apps/elections/templates/elections/party_list_view.html:143
 #: wcivf/apps/ppc_2024/templates/ppc_2024/home.html:67
 #: wcivf/apps/ppc_2024/templates/ppc_2024/home.html:92
 msgid "Candidates"
@@ -1134,6 +1790,45 @@ msgstr "heddiw"
 #: wcivf/apps/elections/templates/elections/post_view.html:35
 msgid "due to take place on"
 msgstr "Mae disgwyl iddo gael ei gynnal ar"
+
+#: wcivf/apps/elections/templates/elections/postcode_view.html:50
+#, fuzzy
+#| msgid ""
+#| "As well as your new MP, there are others who represent you in your area. "
+#| "We're working on a new experimental feature to explain who these people "
+#| "are and how everything from your council to your police force works."
+msgid ""
+"As well as your new MP, there are others who represent you in your area.\n"
+"                    We're working on a new experimental feature to explain "
+"who these people are and how everything\n"
+"                    from your council to your police force works.\n"
+"                "
+msgstr ""
+"Yn ogystal â'ch AS newydd, mae eraill yn eich ardal sy'n eich cynrychioli "
+"chi. Rydym yn gweithio ar nodwedd arbrofol newydd i egluro pwy yw'r bobl hyn "
+"a sut mae popeth yn gweithio, e.e. eich Cyngor Lleol a’r Heddlu."
+
+#: wcivf/apps/elections/templates/elections/postcode_view.html:56
+#: wcivf/apps/elections/templates/elections/postcode_view.html:58
+msgid "Find out more"
+msgstr "Dysgwch fwy"
+
+#: wcivf/apps/elections/templates/parl_24_winners_full.html:7
+#, fuzzy
+#| msgid "Candidate selections by political party"
+msgid "Number of winners by political party"
+msgstr "Ymgeiswyr buddugol yn ôl plaid wleidyddol"
+
+#: wcivf/apps/elections/templates/parl_24_winners_full.html:9
+#: wcivf/apps/people/templates/people/includes/_person_previous_elections_card.html:11
+#: wcivf/apps/ppc_2024/templates/ppc_2024/home.html:91
+#: wcivf/apps/ppc_2024/templates/ppc_2024/ppcperson_list.html:45
+msgid "Party"
+msgstr "Plaid"
+
+#: wcivf/apps/elections/templates/parl_24_winners_full.html:10
+msgid "Winners"
+msgstr "Ymgeiswyr buddugol"
 
 #: wcivf/apps/elections/templates/parl_24_winners_full.html:37
 #, fuzzy, python-format
@@ -1162,8 +1857,10 @@ msgid "Less likely"
 msgstr "Llai tebygol"
 
 #: wcivf/apps/feedback/models.py:16
-msgid "I always vote (no change)"
-msgstr "Dwi bob amser yn pleidleisio (dim newid)"
+#, fuzzy
+#| msgid "Boundary changes"
+msgid "No change"
+msgstr "Dim newid"
 
 #: wcivf/apps/feedback/templates/feedback/feedback_form.html:27
 msgid "Did you find what you were looking for?"
@@ -1197,6 +1894,7 @@ msgstr ""
 "marchnata e-bost."
 
 #: wcivf/apps/feedback/templates/feedback/feedback_form.html:79
+#: wcivf/apps/feedback/templates/feedback/no_election_feedback_form.html:26
 msgid "Send feedback"
 msgstr "Anfonwch adborth"
 
@@ -1204,60 +1902,72 @@ msgstr "Anfonwch adborth"
 msgid "Thanks for your feedback!"
 msgstr "Diolch am eich adborth!"
 
-#: wcivf/apps/feedback/templates/feedback/feedback_thanks.html:10
+#: wcivf/apps/feedback/templates/feedback/feedback_thanks.html:11
+#: wcivf/apps/feedback/templates/feedback/feedback_thanks.html:19
 #, fuzzy
-msgid ""
-"<p>The information you see here is gathered publicly, by people like you.</p>"
+msgid "The information you see here is gathered publicly, by people like you."
 msgstr ""
 "<p>Cesglir y wybodaeth y gwelwch chi yma yn gyhoeddus, gan bobl fel chi.</p> "
 "<p>Helpwch ni i wneud mwy er mwyn gwneud i ddemocratiaeth weithio'n well i "
 "bawb</p>"
 
-#: wcivf/apps/feedback/templates/feedback/feedback_thanks.html:14
+#: wcivf/apps/feedback/templates/feedback/feedback_thanks.html:15
 #, fuzzy
-msgid ""
-"<p>We're sorry you didn't find what you were looking for. We'll read your "
-"feedback and pass it on to our volunteers.</p> <p>The information you see "
-"here is gathered publicly, by people like you.</p>"
+#| msgid "Did you find what you were looking for?"
+msgid "We're sorry you didn't find what you were looking for."
+msgstr "A wnaethoch chi ddod o hyd i'r hyn roeddech chi'n chwilio amdano?"
+
+#: wcivf/apps/feedback/templates/feedback/feedback_thanks.html:16
+msgid "We'll read your feedback and pass it on to our volunteers."
+msgstr "Byddwn yn darllen eich adborth ac yn ei roi i'n gwirfoddolwyr."
+
+#: wcivf/apps/feedback/templates/feedback/no_election_feedback_form.html:21
+msgid "Why did you search today? What would make this more useful?"
 msgstr ""
-"<p>Mae'n flin gennym na wnaethoch chi ddod o hyd i'r hyn roeddech chi'n "
-"chwilio amdano</p> <p>Cesglir y wybodaeth y gwelwch chi yma'n gyhoeddus, gan "
-"bobl fel chi.</p> <p>Helpwch ni i wneud yn well yn y dyfodol!</p>"
+"Pam wnaethoch chi chwilio heddiw? Beth fyddai'n gwneud hyn yn fwy defnyddiol?"
+
+#: wcivf/apps/feedback/templates/feedback/no_election_feedback_form.html:22
+msgid "Please don't provide any personal details"
+msgstr "Peidiwch â rhannu unrhyw fanylion personol os gwelwch yn dda"
 
 #: wcivf/apps/hustings/templates/hustings/husting_form.html:7
 #, python-format
 msgid "Tell us about a husting in %(location)s"
-msgstr ""
+msgstr "Dywedwch wrthym am hysting yn %(location)s"
 
 #: wcivf/apps/hustings/templates/hustings/husting_form.html:10
 msgid "We will review your suggestion before adding it to the site."
-msgstr ""
+msgstr "Byddwn yn adolygu eich awgrym cyn ei ychwanegu at y wefan."
 
 #: wcivf/apps/hustings/templates/hustings/husting_form.html:11
-msgid ""
-"\n"
-"            If you know about a lot of hustings, <a href=\"https://"
-"democracyclub.org.uk/contact/\">please get in touch</a>.\n"
-"        "
-msgstr ""
+msgid "If you know about a lot of hustings,"
+msgstr "Os ydych chi'n gwybod am fwy nag un hysting,"
 
-#: wcivf/apps/hustings/templates/hustings/husting_form.html:16
+#: wcivf/apps/hustings/templates/hustings/husting_form.html:12
+msgid "please get in touch"
+msgstr "cysylltwch â ni"
+
+#: wcivf/apps/hustings/templates/hustings/husting_form.html:15
 msgid ""
 "We will only accept hustings that are open to the public and invite all "
 "candidate."
 msgstr ""
+"Dim ond os yw’r hysting yn agored i'r cyhoedd ac yn gwahodd pob ymgeisydd y "
+"byddwn ni’n ei dderbyn."
+
+#: wcivf/apps/hustings/templates/hustings/husting_form.html:16
+msgid "We require a url to verify the husting details."
+msgstr "Mae angen url arnom i wirio manylion yr hysting."
 
 #: wcivf/apps/hustings/templates/hustings/husting_form.html:17
-msgid "We require a url to verify the husting details."
-msgstr ""
-
-#: wcivf/apps/hustings/templates/hustings/husting_form.html:18
 msgid "Single party or paid-for events will not be accepted."
 msgstr ""
+"Ni allwn dderbyn digwyddiadau un plaid na digwyddiadau y mae angen talu i "
+"fynd iddyn nhw."
 
-#: wcivf/apps/hustings/templates/hustings/husting_form.html:25
+#: wcivf/apps/hustings/templates/hustings/husting_form.html:24
 msgid "Submit event"
-msgstr ""
+msgstr "Cyflwyno digwyddiad"
 
 #: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:7
 #: wcivf/apps/hustings/templates/hustings/includes/_person.html:4
@@ -1275,23 +1985,23 @@ msgstr ""
 #: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:13
 msgid "Events are reported by users, if you spot an error, please"
 msgstr ""
-
-#: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:14
-msgid "get in touch"
-msgstr ""
+"Defnyddwyr sy’n ychwanegu ddigwyddiadau. Os byddwch chi'n sylwi ar wall,"
 
 #: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:18
 msgid "Do you know about any other events in the area? If so, please"
 msgstr ""
+"Ydych chi'n gwybod am unrhyw ddigwyddiadau eraill yn yr ardal? Os ydych chi,"
 
 #: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:19
 #: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:27
 msgid "tell us about them"
-msgstr ""
+msgstr "dywedwch wrthym"
 
 #: wcivf/apps/hustings/templates/hustings/includes/_ballot.html:25
 msgid "Do you know about any events (often known as 'hustings')? If so, please"
 msgstr ""
+"Ydych chi'n gwybod am unrhyw ddigwyddiadau (sy’n aml yn cael eu galw’n "
+"‘hysting')? Os ydych chi,"
 
 #: wcivf/apps/hustings/templates/hustings/includes/_list.html:5
 msgid "(Past event)"
@@ -1320,50 +2030,6 @@ msgstr ""
 msgid "News articles"
 msgstr "Erthyglau newyddion"
 
-#: wcivf/apps/parishes/templates/parishes/includes/_card.html:12
-#, python-format
-msgid ""
-"You %(were_also_or_will_also_be)s able to vote for %(ward_seats)s "
-"councillors to sit"
-msgstr ""
-"Gallwch hefyd %(were_also_or_will_also_be)s bleidleisio dros gynghorwyr "
-"%(ward_seats)s i eistedd"
-
-#: wcivf/apps/parishes/templates/parishes/includes/_card.html:16
-#, python-format
-msgid "You are also represented by %(ward_seats)s councillors"
-msgstr "Cewch hefyd eich cynrychioli gan gynghorwyr %(ward_seats)s"
-
-#: wcivf/apps/parishes/templates/parishes/includes/_card.html:21
-#, python-format
-msgid "on <a href=\"%(parish_council_election_url)s\">%(council_name)s</a>"
-msgstr "ar <a href=\"%(parish_council_election_url)s\">%(council_name)s</a>"
-
-#: wcivf/apps/parishes/templates/parishes/includes/_card.html:30
-#, fuzzy, python-format
-msgid ""
-"<a href=\"https://www.localgov.co.uk/What-are-parish-"
-"councils/35176\">%(council_type)s councils are the first tier of local "
-"government</a>, and have a wide range of powers including looking after "
-"community buildings, planning, street lighting and allotments. They also "
-"have the power to raise money through council tax, known as the 'precept'. "
-"In 2020-2021, %(council_name)s raised £%(precept_amount)s through the "
-"precept."
-msgstr ""
-"Cynghorau %(council_type)s yw'r lefel gyntaf o lywodraeth leol</a>, ac mae "
-"ganddynt ystod eang o bwerau, gan gynnwys gofalu am adeiladau cymunedol, "
-"cynllunio, goleuo strydoedd a gerddi cymunedol. Mae ganddynt hefyd y pŵer i "
-"godi arian drwy dreth y cyngor, sy'n cael ei galw'n 'braesept'. Yn "
-"2020-2021, cododd %(council_name)s £%(precept_amount)sdrwy'r praesept."
-
-#: wcivf/apps/parishes/templates/parishes/includes/_card.html:41
-msgid "View the official list of candidates (PDF)."
-msgstr "Gweld y rhestr swyddogol o ymgeiswyr (PDF)."
-
-#: wcivf/apps/parishes/templates/parishes/includes/_card.html:47
-msgid "See who was elected"
-msgstr "Gweld pwy gafodd eu hethol"
-
 #: wcivf/apps/parties/templates/parties/independent_candidate.html:20
 #: wcivf/apps/parties/templates/parties/party_detail.html:20
 #: wcivf/apps/parties/templates/parties/speaker_seeking_reelection.html:20
@@ -1379,7 +2045,7 @@ msgstr "Ar hyn o bryd: %(party_name)s"
 
 #: wcivf/apps/parties/templates/parties/independent_candidate.html:30
 #: wcivf/apps/parties/templates/parties/party_detail.html:38
-#: wcivf/apps/parties/templates/parties/party_detail.html:54
+#: wcivf/apps/parties/templates/parties/party_detail.html:55
 #: wcivf/apps/parties/templates/parties/speaker_seeking_reelection.html:30
 #, python-format
 msgid "%(num_candidates)s candidate%(pluralize_candidates)s in our database."
@@ -1472,13 +2138,23 @@ msgstr ""
 
 #: wcivf/apps/parties/templates/parties/parties_view.html:28
 msgid ""
-"Party names and emblems are taken from the <a href=\"http://www."
-"electoralcommission.org.uk/\">Electoral Commission's register of political "
-"parties."
+"Party names and emblems are taken from the <a href=\"http://"
+"www.electoralcommission.org.uk/\">Electoral Commission's register of "
+"political parties."
 msgstr ""
-"Mae enwau ac arwyddluniau pleidiau yn cael eu cymryd o <a href=\"http://www."
-"electoralcommission.org.uk/\">gofrestr pleidiau gwleidyddol y Comisiwn "
+"Mae enwau ac arwyddluniau pleidiau yn cael eu cymryd o <a href=\"http://"
+"www.electoralcommission.org.uk/\">gofrestr pleidiau gwleidyddol y Comisiwn "
 "Etholiadol.</a>"
+
+#: wcivf/apps/parties/templates/parties/parties_view.html:32
+#, fuzzy
+#| msgid "Filters"
+msgid "Filter:"
+msgstr "Hidlydd"
+
+#: wcivf/apps/parties/templates/parties/parties_view.html:41
+msgid "Advanced filters"
+msgstr "Hidlwyr uwch"
 
 #: wcivf/apps/parties/templates/parties/party_detail.html:36
 #, python-format
@@ -1486,12 +2162,11 @@ msgid "Alternative name: %(alt_name)s"
 msgstr "Enw arall: %(alt_name)s"
 
 #: wcivf/apps/parties/templates/parties/party_detail.html:43
-#: wcivf/apps/parties/templates/parties/party_detail.html:59
+#: wcivf/apps/parties/templates/parties/party_detail.html:64
 msgid "Read more on wikipedia"
 msgstr "Darllenwch fwy ar wikipedia"
 
 #: wcivf/apps/parties/templates/parties/party_detail.html:46
-#: wcivf/apps/parties/templates/parties/party_detail.html:62
 #, python-format
 msgid ""
 "This political party was deregistered on %(dereg_date)s, and can no longer "
@@ -1500,33 +2175,48 @@ msgstr ""
 "Cafodd y blaid wleidyddol hon ei dadgofrestru ar %(dereg_date)s, ac ni all "
 "gynnig ymgeiswyr mwyach."
 
-#: wcivf/apps/parties/templates/parties/party_detail.html:56
+#: wcivf/apps/parties/templates/parties/party_detail.html:60
 #, fuzzy, python-format
 #| msgid " %(description)s"
 msgid "%(description)s"
 msgstr " %(description)s "
 
-#: wcivf/apps/parties/templates/parties/party_detail.html:69
+#: wcivf/apps/parties/templates/parties/party_detail.html:68
+#, fuzzy, python-format
+#| msgid ""
+#| "This political party was deregistered on %(dereg_date)s, and can no "
+#| "longer field candidates. "
+msgid ""
+"This political party was deregistered on %(dereg_date)s, and can no longer "
+"field candidates.\n"
+"                    "
+msgstr ""
+"Cafodd y blaid wleidyddol hon ei dadgofrestru ar %(dereg_date)s, ac ni all "
+"gynnig ymgeiswyr mwyach."
+
+#: wcivf/apps/parties/templates/parties/party_detail.html:77
 #, python-format
 msgid ""
-"<p>This party %(was_is)s on the <strong>%(register)s</strong> register and "
-"%(was_is)s registered to stand candidates in <strong>%(nations)s</strong>.</"
-"p>"
+"This party %(was_is)s on the <strong>%(register)s</strong> register and "
+"%(was_is)s registered to stand candidates in <strong>%(nations)s</strong>."
 msgstr ""
+"%(was_is)s y blaid hon ar y gofrestr <strong>%(register)s</strong> ac "
+"%(was_is)s wedi cofrestru i gyflwyno ymgeiswyr yn <strong>%(nations)s</"
+"strong>."
 
-#: wcivf/apps/parties/templates/parties/party_detail.html:73
-#, python-format
-msgid ""
-"<p>This party %(was_is)s on the <strong>%(register)s</strong> register.</p>"
-msgstr ""
+#: wcivf/apps/parties/templates/parties/party_detail.html:83
+#, fuzzy, python-format
+#| msgid "This election was held <strong>%(election_date)s</strong>."
+msgid "This party %(was_is)s on the <strong>%(register)s</strong> register."
+msgstr "%(was_is)s y blaid hon ar y gofrestr <strong>%(register)s</strong>."
 
-#: wcivf/apps/parties/templates/parties/party_detail.html:85
+#: wcivf/apps/parties/templates/parties/party_detail.html:96
 #, fuzzy
 #| msgid " %(description)s "
 msgid "Joint description"
 msgstr " %(description)s "
 
-#: wcivf/apps/parties/templates/parties/party_detail.html:88
+#: wcivf/apps/parties/templates/parties/party_detail.html:98
 #, fuzzy, python-format
 #| msgid ""
 #| "\n"
@@ -1535,26 +2225,26 @@ msgid ""
 "\"%(joint_name)s\" is a joint description of %(first_name)s and "
 "%(second_name)s."
 msgstr ""
-"\n"
-"                                        %(num_votes)s pleidlais (etholwyd)\n"
+"Mae %(joint_name)s yn ddisgrifiad cyfun o %(first_name)s a %(second_name)s."
 
-#: wcivf/apps/parties/templates/parties/party_detail.html:95
+#: wcivf/apps/parties/templates/parties/party_detail.html:106
 #, python-format
 msgid ""
 "View the entry for the %(party_name)s in the register of political parties."
 msgstr ""
+"Darllenwch y cofnod am %(party_name)s yn y gofrestr o bleidiau gwleidyddol."
 
-#: wcivf/apps/parties/templates/parties/party_detail.html:105
+#: wcivf/apps/parties/templates/parties/party_detail.html:117
 msgid "View this party's entry in the register of political parties."
 msgstr "Gweld cofnod y blaid hon yn y gofrestr o bleidiau gwleidyddol."
 
-#: wcivf/apps/parties/templates/parties/party_detail.html:112
+#: wcivf/apps/parties/templates/parties/party_detail.html:125
 #, fuzzy
 #| msgid " %(description)s "
 msgid "Ballot descriptions"
 msgstr " %(description)s "
 
-#: wcivf/apps/parties/templates/parties/party_detail.html:114
+#: wcivf/apps/parties/templates/parties/party_detail.html:128
 #, python-format
 msgid ""
 "This party may appear on the ballot paper as \"%(ballot_name)s\", or any of "
@@ -1563,7 +2253,7 @@ msgstr ""
 "Gall y blaid hon fod ar y papur pleidleisio fel \"%(ballot_name)s\", neu "
 "unrhyw un o’r enwau canlynol:"
 
-#: wcivf/apps/parties/templates/parties/party_detail.html:126
+#: wcivf/apps/parties/templates/parties/party_detail.html:145
 msgid ""
 "This party currently has no descriptions registered with the Electoral "
 "Commission."
@@ -1571,13 +2261,13 @@ msgstr ""
 "Nid oes gan y blaid hon unrhyw ddisgrifiadau wedi'u cofrestru gyda'r "
 "Comisiwn Etholiadol ar hyn o bryd."
 
-#: wcivf/apps/parties/templates/parties/party_detail.html:133
+#: wcivf/apps/parties/templates/parties/party_detail.html:153
 #, fuzzy
 #| msgid " %(description)s "
 msgid "Previous Descriptions"
 msgstr " %(description)s "
 
-#: wcivf/apps/parties/templates/parties/party_detail.html:135
+#: wcivf/apps/parties/templates/parties/party_detail.html:156
 msgid ""
 "These descriptions are no longer registered with the Electoral Commission "
 "and cannot be used:"
@@ -1585,22 +2275,22 @@ msgstr ""
 "Nid yw'r disgrifiadau hyn bellach wedi'u cofrestru gyda'r Comisiwn "
 "Etholiadol ac ni ellir eu defnyddio."
 
-#: wcivf/apps/parties/templates/parties/party_detail.html:147
+#: wcivf/apps/parties/templates/parties/party_detail.html:169
 msgid "Emblems"
 msgstr "Symbolau"
 
-#: wcivf/apps/parties/templates/parties/party_detail.html:157
+#: wcivf/apps/parties/templates/parties/party_detail.html:180
 msgid ""
 "This party currently has no emblems registered with the Electoral Commission."
 msgstr ""
 "Ar hyn o bryd nid oes gan y blaid hon unrhyw symbolau wedi'u cofrestru "
 "gyda'r Comisiwn Etholiadol."
 
-#: wcivf/apps/parties/templates/parties/party_detail.html:164
+#: wcivf/apps/parties/templates/parties/party_detail.html:188
 msgid "Previous Emblems"
 msgstr "Symbolau blaenorol"
 
-#: wcivf/apps/parties/templates/parties/party_detail.html:166
+#: wcivf/apps/parties/templates/parties/party_detail.html:191
 msgid ""
 "These emblems are no longer registered with the Electoral Commission and "
 "cannot be used:"
@@ -1651,56 +2341,78 @@ msgid "The Speaker generally runs unopposed by the major parties."
 msgstr ""
 "Y Llefarydd yn gyffredinol yn rhedeg yn ddiwrthwynebiad o'r prif bleidiau."
 
-#: wcivf/apps/parties/templates/parties/speaker_seeking_reelection.html:47
-msgid ""
-"Find out more about <a href=\"https://www.parliament.uk/mps-lords-and-"
-"offices/offices/commons/speakers-office/\">The Speaker</a> and <a "
-"href=\"https://www.parliament.uk/about/living-heritage/evolutionofparliament/"
-"parliamentwork/offices-and-ceremonies/overview/the-speaker/elections/"
-"\">their role in elections</a> on the parliament.uk website."
-msgstr ""
-"Darganfod mwy am <a href=\"https://www.parliament.uk/mps-lords-and-offices/"
-"offices/commons/speakers-office/\">Y Llefarydd</a> a <a href=\"https://www."
-"parliament.uk/about/living-heritage/evolutionofparliament/parliamentwork/"
-"offices-and-ceremonies/overview/the-speaker/elections/\">eu rôl mewn "
-"etholiadau</a> ar wefan parliament.uk."
+#: wcivf/apps/parties/templates/parties/speaker_seeking_reelection.html:48
+msgid "Find out more about "
+msgstr "Darganfod mwy am "
 
-#: wcivf/apps/people/models.py:80
+#: wcivf/apps/parties/templates/parties/speaker_seeking_reelection.html:49
+msgid "The Speaker"
+msgstr "Y Llefarydd"
+
+#: wcivf/apps/parties/templates/parties/speaker_seeking_reelection.html:51
+msgid "their role in elections"
+msgstr "eu rôl mewn etholiadau"
+
+#: wcivf/apps/parties/templates/parties/speaker_seeking_reelection.html:52
+msgid "on the parliament.uk website."
+msgstr "ar wefan parliament.uk."
+
+#: wcivf/apps/people/models.py:81
 msgid "Elected unopposed"
 msgstr "Wedi'i ethol yn ddiwrthwynebiad."
 
-#: wcivf/apps/people/models.py:81
+#: wcivf/apps/people/models.py:82
 #, fuzzy
 #| msgid "This election was cancelled."
 msgid "(election cancelled)"
 msgstr "Canslwyd yr etholiad hwn."
 
-#: wcivf/apps/people/models.py:92
+#: wcivf/apps/people/models.py:93
 #, python-format
 msgid "(Results due after %(date)s)"
 msgstr "(Disgwylir canlyniadau ar ôl %(date)s)"
 
-#: wcivf/apps/people/models.py:104
+#: wcivf/apps/people/models.py:105
 #, fuzzy, python-format
 #| msgid "%(num_votes)s votes"
 msgid "%(num_votes)s votes (elected)"
 msgstr "%(num_votes)s pleidlais"
 
-#: wcivf/apps/people/models.py:107
+#: wcivf/apps/people/models.py:108
 msgid "Elected (vote count not available)"
 msgstr "Nid yw'r cyfrif pleidleisiau ar gael"
 
-#: wcivf/apps/people/models.py:113
+#: wcivf/apps/people/models.py:114
 #, fuzzy, python-format
 #| msgid "%(num_votes)s votes"
 msgid "%(num_votes)s votes (not elected)"
 msgstr "%(num_votes)s pleidlais"
 
-#: wcivf/apps/people/models.py:116
+#: wcivf/apps/people/models.py:117
 #, fuzzy
 #| msgid "Not Elected (vote count not available)"
 msgid "Not elected (vote count not available)"
 msgstr "Nid yw'r cyfrif pleidleisiau ar gael"
+
+#: wcivf/apps/people/models.py:150
+#, fuzzy, python-format
+#| msgid "%(person)s is a %(party)s candidate."
+msgid "Joint %(rank)s / %(count)d candidate"
+msgid_plural "Joint %(rank)s / %(count)d candidates"
+msgstr[0] "Mae %(person)s yn ymgeisydd ar ran y %(party)s."
+msgstr[1] "Mae %(person)s yn ymgeisydd ar ran y %(party)s."
+msgstr[2] "Mae %(person)s yn ymgeisydd ar ran y %(party)s."
+msgstr[3] "Mae %(person)s yn ymgeisydd ar ran y %(party)s."
+
+#: wcivf/apps/people/models.py:156
+#, fuzzy, python-format
+#| msgid "%(person)s is a %(party)s candidate."
+msgid "%(rank)s / %(count)d candidate"
+msgid_plural "%(rank)s / %(count)d candidates"
+msgstr[0] "Mae %(person)s yn ymgeisydd ar ran y %(party)s."
+msgstr[1] "Mae %(person)s yn ymgeisydd ar ran y %(party)s."
+msgstr[2] "Mae %(person)s yn ymgeisydd ar ran y %(party)s."
+msgstr[3] "Mae %(person)s yn ymgeisydd ar ran y %(party)s."
 
 #: wcivf/apps/people/templates/people/includes/_person_about_card.html:4
 #, python-format
@@ -1708,13 +2420,17 @@ msgid "About %(name)s"
 msgstr "Ynglyn â %(name)s"
 
 #: wcivf/apps/people/templates/people/includes/_person_about_card.html:12
+msgid "Favourite Biscuit"
+msgstr "Hoff Fisgedyn"
+
+#: wcivf/apps/people/templates/people/includes/_person_about_card.html:15
 #, python-format
-msgid "<h4>Favourite Biscuit</h4> <p>%(biscuit)s</p>"
-msgstr "<h4>Hoff fisgedyn</h4> <p>%(biscuit)s</p>"
+msgid "%(biscuit)s"
+msgstr "%(biscuit)s"
 
 #: wcivf/apps/people/templates/people/includes/_person_contact_card.html:4
 msgid "online"
-msgstr "Ar-lein"
+msgstr "ar-lein"
 
 #: wcivf/apps/people/templates/people/includes/_person_contact_card.html:11
 msgid "Facebook"
@@ -1731,13 +2447,14 @@ msgid "%(person_name)s's Facebook page"
 msgstr "Tudalen Facebook %(person_name)s"
 
 #: wcivf/apps/people/templates/people/includes/_person_contact_card.html:33
-msgid "Twitter"
-msgstr "Trydar"
+#: wcivf/templates/base.html:134
+msgid "X"
+msgstr "X"
 
 #: wcivf/apps/people/templates/people/includes/_person_contact_card.html:35
 #, fuzzy, python-format
 #| msgid "%(person_name)s's LinkedIn profile"
-msgid "%(person_name)s's Twitter profile"
+msgid "%(person_name)s's X profile"
 msgstr "Tudalen LinkedIn %(person_name)s"
 
 #: wcivf/apps/people/templates/people/includes/_person_contact_card.html:44
@@ -1861,7 +2578,7 @@ msgstr ""
 "Dyna'r cyfan a wyddwn! A allwch chi ein helpu i ddarganfod mwy am yr "
 "ymgeisydd hwn?"
 
-#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:6
+#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:7
 msgid ""
 "Our volunteers have been working hard to add information on as many "
 "candidates as possible, but they need help."
@@ -1869,41 +2586,56 @@ msgstr ""
 "Bu ein gwirfoddolwyr yn gweithio'n galed yn ychwanegu gwybodaeth ar gymaint "
 "â phosibl o ymgeiswyr, ond mae angen help arnynt."
 
-#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:8
-msgid "If you can add information that should be on this page"
+#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:10
+#, fuzzy
+#| msgid "If you can add information that should be on this page"
+msgid "If you can add information to this page"
 msgstr "Os gallwch chi, ychwanegwch wybodaeth a ddylai fod ar y dudalen hon"
 
 #: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:11
-#, python-format
-msgid "- such as %(person)s's %(cta)s -"
+#, fuzzy, python-format
+#| msgid "- such as %(person)s's %(cta)s -"
+msgid "- such as %(person)s's"
 msgstr "- fel%(cta)s %(person)s -"
 
+#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:12
+msgid "social media accounts,"
+msgstr "cyfrifon cyfryngau cymdeithasol,"
+
+#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:13
+msgid "policy statement or contact information -"
+msgstr "datganiad polisi neu wybodaeth gyswllt -"
+
 #: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:14
-msgid "please use our crowdsourcing website to add it."
+#, fuzzy
+#| msgid "please use our crowdsourcing website to add it."
+msgid "please use our crowdsourcing website."
 msgstr "defnyddiwch ein gwefan torfoli i'w ychwanegu."
 
-#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:17
+#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:16
 msgid "Add or edit details &raquo;"
 msgstr "Ychwanegwch neu golygwch fanylion &raquo;"
 
-#: wcivf/apps/people/templates/people/includes/_person_intro_card.html:16
-msgid "an,a"
-msgstr "an,a"
+#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:18
+msgid "Upload your leaflets"
+msgstr "Llwytho eich taflenni"
 
-#: wcivf/apps/people/templates/people/includes/_person_intro_card.html:16
-#, fuzzy, python-format
-#| msgid "is %(a_or_an)s %(party_name)s candidate in the following elections:"
-msgid ""
-"is %(a_or_an)s <a href=\"%(party_link)s\">%(party_name)s</a> candidate in "
-"the following elections:"
-msgstr "yw %(a_or_an)s ymgeisydd y %(party_name)s yn yr etholiadau canlynol:"
-
-#: wcivf/apps/people/templates/people/includes/_person_intro_card.html:24
+#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:20
 #, python-format
-msgid "%(election)s for"
-msgstr "%(election)s ar gyfer"
+msgid ""
+"If you've received election leaflets from %(person)s, please take a photo of "
+"them and upload them to ElectionLeaflets.org"
+msgstr ""
+"Os ydych wedi cael taflenni etholiadol gan %(person)s, tynnwch lun ohonynt "
+"a'u llwytho i ElectionLeaflets.org"
 
-#: wcivf/apps/people/templates/people/includes/_person_intro_card.html:56
+#: wcivf/apps/people/templates/people/includes/_person_edit_details_card.html:23
+#, fuzzy
+#| msgid "Add or edit details &raquo;"
+msgid "Add leaflets &raquo;"
+msgstr "Ychwanegwch neu golygwch fanylion &raquo;"
+
+#: wcivf/apps/people/templates/people/includes/_person_intro_card.html:45
 #, python-format
 msgid "profile photo of %(person)s"
 msgstr "Llun proffil %(person)s"
@@ -1959,40 +2691,40 @@ msgstr "Plaid leol %(person)s yw %(party_label)s."
 msgid "%(person)s is a %(party)s candidate."
 msgstr "Mae %(person)s yn ymgeisydd ar ran y %(party)s."
 
-#: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:30
+#: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:46
 #: wcivf/apps/people/templates/people/includes/_person_national_party_card.html:10
 msgid "Party Homepage"
 msgstr "Hafan y Blaid"
 
-#: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:32
+#: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:48
 #: wcivf/apps/people/templates/people/includes/_person_national_party_card.html:12
 #, python-format
 msgid "%(party)s's website"
 msgstr "Gwefan y %(party)s"
 
-#: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:40
+#: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:56
 #: wcivf/apps/people/templates/people/includes/_person_national_party_card.html:36
 #, python-format
 msgid "%(party)s's email"
 msgstr "E-bost y %(party)s"
 
-#: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:46
+#: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:62
 #: wcivf/apps/people/templates/people/includes/_person_national_party_card.html:42
 msgid "Contact page"
 msgstr "Tudalen gyswllt"
 
-#: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:48
+#: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:64
 #: wcivf/apps/people/templates/people/includes/_person_national_party_card.html:44
 #, python-format
 msgid "%(party)s's contact page"
 msgstr "Tudalen gyswllt y %(party)s"
 
-#: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:54
+#: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:70
 #: wcivf/apps/people/templates/people/includes/_person_national_party_card.html:50
 msgid "Youtube page"
 msgstr "Tudalen Youtube"
 
-#: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:56
+#: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:72
 #: wcivf/apps/people/templates/people/includes/_person_national_party_card.html:52
 #, python-format
 msgid "%(party)s's Youtube profile"
@@ -2028,6 +2760,29 @@ msgid "%(intro)sGet the latest information on this candidate at %(SITE_TITLE)s"
 msgstr ""
 "%(intro)sCael y wybodaeth ddiweddaraf am yr ymgeisydd hwn ar %(SITE_TITLE)s"
 
+#: wcivf/apps/people/templates/people/includes/_person_multiple_current_candidacies.html:5
+#, fuzzy, python-format
+#| msgid "is %(a_or_an)s %(party_name)s candidate in the following elections:"
+msgid "%(verb)s a candidate in the following elections:"
+msgstr "yw %(a_or_an)s ymgeisydd y %(party_name)s yn yr etholiadau canlynol:"
+
+#: wcivf/apps/people/templates/people/includes/_person_multiple_current_candidacies.html:8
+msgid "an,a"
+msgstr "an,a"
+
+#: wcivf/apps/people/templates/people/includes/_person_multiple_current_candidacies.html:8
+#, fuzzy, python-format
+#| msgid "is %(a_or_an)s %(party_name)s candidate in the following elections:"
+msgid ""
+"%(verb)s %(a_or_an)s <a href=\"%(party_link)s\">%(party_name)s</a> candidate "
+"in the following elections:"
+msgstr "yw %(a_or_an)s ymgeisydd y %(party_name)s yn yr etholiadau canlynol:"
+
+#: wcivf/apps/people/templates/people/includes/_person_multiple_current_candidacies.html:18
+#, python-format
+msgid "%(election)s for"
+msgstr "%(election)s ar gyfer"
+
 #: wcivf/apps/people/templates/people/includes/_person_national_party_card.html:5
 #, fuzzy, python-format
 #| msgid "%(person)s's local party is %(party_label)s."
@@ -2036,12 +2791,12 @@ msgstr "Plaid leol %(person)s yw %(party_label)s."
 
 #: wcivf/apps/people/templates/people/includes/_person_national_party_card.html:58
 msgid "Party Political Broadcast"
-msgstr ""
+msgstr "Darllediadau Gwleidyddol"
 
 #: wcivf/apps/people/templates/people/includes/_person_national_party_card.html:60
 #, python-format
 msgid "%(party)s's Party Political Broadcast"
-msgstr ""
+msgstr "Darllediad Gwleidyddol %(party)s"
 
 #: wcivf/apps/people/templates/people/includes/_person_policy_card.html:7
 #, python-format
@@ -2099,19 +2854,13 @@ msgstr "Etholiadau %(person_name)s"
 msgid "Election"
 msgstr "Etholiad"
 
-#: wcivf/apps/people/templates/people/includes/_person_previous_elections_card.html:11
-#: wcivf/apps/ppc_2024/templates/ppc_2024/home.html:91
-#: wcivf/apps/ppc_2024/templates/ppc_2024/ppcperson_list.html:45
-msgid "Party"
-msgstr "Plaid"
-
 #: wcivf/apps/people/templates/people/includes/_person_previous_elections_card.html:12
 msgid "Results"
 msgstr "Canlyniadau"
 
 #: wcivf/apps/people/templates/people/includes/_person_previous_elections_card.html:14
 msgid "Other party affiliations in the past 12 months"
-msgstr ""
+msgstr "Cysylltiadau â phleidiau eraill yn ystod y 12 mis diwethaf"
 
 #: wcivf/apps/people/templates/people/includes/_person_previous_elections_card.html:16
 msgid "Position"
@@ -2180,24 +2929,85 @@ msgstr ""
 "title=\"%(election_name)s\">%(election_name)s</a>.\n"
 "        "
 
+#: wcivf/apps/people/templates/people/includes/intros/_independent_mayor_or_pcc.html:6
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "            %(person_name)s is an independent candidate in <a "
+#| "href=\"%(post_url)s\">%(post_label)s</a>\n"
+#| "            in the <a href=\"%(election_url)s\" "
+#| "title=\"%(election_name)s\">%(election_name)s</a>.\n"
+#| "        "
+msgid ""
+"%(person_name)s is an independent candidate for <a href=\"%(election_url)s\" "
+"title=\"%(election_name)s\">%(election_name)s</a>."
+msgstr ""
+"\n"
+"          Mae %(person_name)s ymgeisydd annibynnol yn <a "
+"href=\"%(post_url)s\">%(post_label)s</a>\n"
+"            yn yr <a href=\"%(election_url)s\" "
+"title=\"%(election_name)s\">%(election_name)s</a>.\n"
+"        "
+
+#: wcivf/apps/people/templates/people/includes/intros/_independent_mayor_or_pcc.html:11
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "            %(person_name)s is an independent candidate in <a "
+#| "href=\"%(post_url)s\">%(post_label)s</a>\n"
+#| "            in the <a href=\"%(election_url)s\" "
+#| "title=\"%(election_name)s\">%(election_name)s</a>.\n"
+#| "        "
+msgid ""
+"%(person_name)s was an independent candidate for <a "
+"href=\"%(election_url)s\" title=\"%(election_name)s\">%(election_name)s</a>."
+msgstr ""
+"\n"
+"          Mae %(person_name)s ymgeisydd annibynnol yn <a "
+"href=\"%(post_url)s\">%(post_label)s</a>\n"
+"            yn yr <a href=\"%(election_url)s\" "
+"title=\"%(election_name)s\">%(election_name)s</a>.\n"
+"        "
+
 #: wcivf/apps/people/templates/people/includes/intros/_list_ballot.html:8
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "%(person_name)s is a <a href=\"%(party_url)s\" "
+#| "title=\"%(party_name)s\">%(party_name)s</a> candidate in <a "
+#| "href=\"%(post_url)s\">%(post_label)s</a> in the <a "
+#| "href=\"%(election_url)s\" title=\"%(election_name)s\">%(election_name)s</"
+#| "a>."
 msgid ""
 "%(person_name)s is the %(list_position_ordinal)s place candidate for the <a "
-"href=\"%(party_url)s\" title=\"%(party_name)s\">%(party_name)s</a> in the <a "
+"href=\"%(party_url)s\" title=\"%(party_name)s\">%(party_name)s</a> in <a "
+"href=\"%(post_url)s\" title=\"%(post_label)s\">%(post_label)s</a> in the <a "
 "href=\"%(election_url)s\" title=\"%(election_name)s\">%(election_name)s</a>."
 msgstr ""
+"Mae%(person_name)s yn ymgeisydd ar ran y <a href=\"%(party_url)s\" "
+"title=\"%(party_name)s\">%(party_name)s</a> yn <a "
+"href=\"%(post_url)s\">%(post_label)s</a> yn yr <a href=\"%(election_url)s\" "
+"title=\"%(election_name)s\">%(election_name)s</a>."
 
 #: wcivf/apps/people/templates/people/includes/intros/_list_ballot.html:14
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "%(person_name)s was a <a href=\"%(party_url)s\" "
+#| "title=\"%(party_name)s\">%(party_name)s</a> candidate in <a "
+#| "href=\"%(post_url)s\">%(post_label)s</a> in the <a "
+#| "href=\"%(election_url)s\" title=\"%(election_name)s\">%(election_name)s</"
+#| "a>."
 msgid ""
 "%(person_name)s was the %(list_position_ordinal)s place candidate for the <a "
-"href=\"%(party_url)s\" title=\"%(party_name)s\">%(party_name)s</a> in the <a "
+"href=\"%(party_url)s\" title=\"%(party_name)s\">%(party_name)s</a> in <a "
+"href=\"%(post_url)s\" title=\"%(post_label)s\">%(post_label)s</a> in the <a "
 "href=\"%(election_url)s\" title=\"%(election_name)s\">%(election_name)s</a>."
 msgstr ""
+"Roedd%(person_name)s yn ymgeisydd ar ran y <a href=\"%(party_url)s\" "
+"title=\"%(party_name)s\">%(party_name)s</a> yn <a "
+"href=\"%(post_url)s\">%(post_label)s</a> yn yr <a href=\"%(election_url)s\" "
+"title=\"%(election_name)s\">%(election_name)s</a>."
 
-#: wcivf/apps/people/templates/people/includes/intros/_mayor.html:6
-#: wcivf/apps/people/templates/people/includes/intros/_pcc.html:6
+#: wcivf/apps/people/templates/people/includes/intros/_mayor_or_pcc.html:6
 #, python-format
 msgid ""
 "%(person_name)s is the <a href=\"%(party_url)s\" "
@@ -2208,8 +3018,7 @@ msgstr ""
 "title=\"%(party_name)s\">%(party_name)s</a> ar gyfer <a "
 "href=\"%(election_url)s\" title=\"%(election_name)s\">%(election_name)s</a>."
 
-#: wcivf/apps/people/templates/people/includes/intros/_mayor.html:11
-#: wcivf/apps/people/templates/people/includes/intros/_pcc.html:13
+#: wcivf/apps/people/templates/people/includes/intros/_mayor_or_pcc.html:11
 #, python-format
 msgid ""
 "%(person_name)s was the <a href=\"%(party_url)s\" "
@@ -2307,22 +3116,20 @@ msgstr ""
 "href=\"%(post_url)s\">%(post_label)s</a> yn yr <a href=\"%(election_url)s\" "
 "title=\"%(election_name)s\">%(election_name)s</a>."
 
-#: wcivf/apps/people/templates/people/not_current_person_detail.html:25
-#, fuzzy, python-format
-msgid "<p>%(person_name)s stood for election twice.</p>"
+#: wcivf/apps/people/templates/people/not_current_person_detail.html:26
+#, fuzzy
+#| msgid "<p>%(person_name)s stood for election once.</p>"
+#| msgid_plural ""
+#| "<p>%(person_name)s stood for election %(past_candidacy_count)s times.</p>"
+msgid "stood for election once."
 msgstr "<p>safodd %(person_name)s am etholiad unwaith.</p>"
 
-#: wcivf/apps/people/templates/people/not_current_person_detail.html:29
-#, python-format
-msgid "<p>%(person_name)s stood for election once.</p>"
-msgid_plural ""
-"<p>%(person_name)s stood for election %(past_candidacy_count)s times.</p>"
-msgstr[0] "<p>safodd %(person_name)s am etholiad unwaith.</p>"
-msgstr[1] "<p>safodd %(person_name)s mewn etholiad ddwywaith.</p>"
-msgstr[2] ""
-"<p>safodd %(person_name)s mewn etholiad %(past_candidacy_count)s.</p>"
+#: wcivf/apps/people/templates/people/not_current_person_detail.html:30
+#, fuzzy
+msgid "stood for election twice."
+msgstr "<p>safodd %(person_name)s am etholiad unwaith.</p>"
 
-#: wcivf/apps/people/templates/people/not_current_person_detail.html:39
+#: wcivf/apps/people/templates/people/not_current_person_detail.html:43
 #, python-format
 msgid "profile photo of %(object.name)s"
 msgstr "Llun proffil %(object.name)s"
@@ -2331,7 +3138,7 @@ msgstr "Llun proffil %(object.name)s"
 msgid "You are here:"
 msgstr "Rydych chi yma:"
 
-#: wcivf/apps/people/templates/people/person_detail.html:79
+#: wcivf/apps/people/templates/people/person_detail.html:78
 msgid "Back to candidates in"
 msgstr "Dychwelyd at ymgeiswyr yn"
 
@@ -2451,15 +3258,15 @@ msgstr "Y data"
 #, python-format
 msgid ""
 "The full list of prospective parliamentary candidates is available as a <a "
-"href=\"%(details_url)s\">browsable table</a> or a <a href=\"https://docs."
-"google.com/spreadsheets/d/"
-"e/2PACX-1vRhZbBrU2AdJDYyBZViMs6irvH7zVUiZm2rDoADw5B18drp6hILJBr-"
+"href=\"%(details_url)s\">browsable table</a> or a <a href=\"https://"
+"docs.google.com/spreadsheets/d/e/"
+"2PACX-1vRhZbBrU2AdJDYyBZViMs6irvH7zVUiZm2rDoADw5B18drp6hILJBr-"
 "duSXCmHJ18SmYWm3iq0bbfoR/pub?gid=0&single=true&output=csv\">CSV</a>."
 msgstr ""
 "Mae'r rhestr lawn o ddarpar ymgeiswyr seneddol ar gael fel a <a "
-"href=\"%(details_url)s\"> tabl i bori</a> neu <a href=\"https://docs.google."
-"com/spreadsheets/d/"
-"e/2PACX-1vRhZbBrU2AdJDYyBZViMs6irvH7zVUiZm2rDoADw5B18drp6hILJBr-"
+"href=\"%(details_url)s\"> tabl i bori</a> neu <a href=\"https://"
+"docs.google.com/spreadsheets/d/e/"
+"2PACX-1vRhZbBrU2AdJDYyBZViMs6irvH7zVUiZm2rDoADw5B18drp6hILJBr-"
 "duSXCmHJ18SmYWm3iq0bbfoR/pub?gid=0&single=true&output=csv\">CSV</a>."
 
 #: wcivf/apps/ppc_2024/templates/ppc_2024/home.html:59
@@ -2557,7 +3364,7 @@ msgstr "Hidlydd"
 #: wcivf/apps/ppc_2024/templates/ppc_2024/ppcperson_list.html:29
 #, python-format
 msgid "%(field)s"
-msgstr ""
+msgstr "%(field)s"
 
 #: wcivf/apps/ppc_2024/templates/ppc_2024/ppcperson_list.html:38
 #, python-format
@@ -2594,10 +3401,13 @@ msgid "Today"
 msgstr "Heddiw"
 
 #: wcivf/apps/referendums/templates/referendums/includes/_card.html:20
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "voters in <strong>%(council_name)s</strong> able to vote in a governance "
+#| "referendum."
 msgid ""
-"voters in <strong>%(council_name)s</strong> able to vote in a governance "
-"referendum."
+"voters in <strong>%(council_name)s</strong> %(were_or_will_be)s able to vote "
+"in a governance referendum."
 msgstr ""
 "roedd pleidleiswyr yn <strong>%(council_name)s</strong> yn gallu pleidleisio "
 "mewn refferendwm llywodraethu."
@@ -2610,24 +3420,32 @@ msgstr "Y cwestiwn ar y papur pleidleisio oedd:"
 msgid "The question you will be asked on the ballot paper is:"
 msgstr "Y cwestiwn a ofynnir i chi ar y papur pleidleisio yw:"
 
-#: wcivf/apps/referendums/templates/referendums/includes/_card.html:30
-#, fuzzy, python-format
-#| msgid ""
-#| "<h4>%(referendum_question)s</h4> <blockquote>%(referendum.answer_one)s</"
-#| "blockquote> or <blockquote>%(referendum_answer_two)s</blockquote>"
-msgid ""
-"<h4>%(referendum_question)s</h4> <blockquote>%(referendum_answer_one)s</"
-"blockquote> or <blockquote>%(referendum_answer_two)s</blockquote>"
-msgstr ""
-"<h4>%(referendum_question)s</h4> <blockquote>%(referendum.answer_one)s</"
-"blockquote> or <blockquote>%(referendum_answer_two)s</blockquote>"
-
-#: wcivf/apps/referendums/templates/referendums/includes/_card.html:37
+#: wcivf/apps/referendums/templates/referendums/includes/_card.html:31
 #, python-format
-msgid "Find more information on the %(council_name)s council website."
+msgid "%(referendum_question)s"
+msgstr "%(referendum_question)s"
+
+#: wcivf/apps/referendums/templates/referendums/includes/_card.html:36
+#, python-format
+msgid "%(referendum_answer_one)s"
+msgstr "%(referendum_answer_one)s"
+
+#: wcivf/apps/referendums/templates/referendums/includes/_card.html:42
+#, python-format
+msgid "%(referendum_answer_two)s"
+msgstr "%(referendum_answer_two)s"
+
+#: wcivf/apps/referendums/templates/referendums/includes/_card.html:51
+#, fuzzy, python-format
+#| msgid "Find more information on the %(council_name)s council website."
+msgid ""
+"\n"
+"                        Find more information on the %(council_name)s "
+"council website.\n"
+"                    "
 msgstr "Mae mwy o wybodaeth ar wefan %(council_name)s."
 
-#: wcivf/apps/referendums/templates/referendums/includes/_card.html:41
+#: wcivf/apps/referendums/templates/referendums/includes/_card.html:59
 msgid "Here are some other links about the campaign that we know about:"
 msgstr "Dyma rai dolenni eraill am yr ymgyrch y gwyddwn amdanynt:"
 
@@ -2681,37 +3499,33 @@ msgstr "Ynglŷn â'r Clwb Democratiaeth"
 
 #: wcivf/templates/base.html:121
 msgid "About"
-msgstr ""
+msgstr "Ynglŷn â"
 
 #: wcivf/templates/base.html:122
 #, fuzzy
 #| msgid "Donate now"
 msgid "Donate"
-msgstr "Cyfrannwch nawr"
+msgstr "Cyfrannwch"
 
 #: wcivf/templates/base.html:124
 msgid "Blog RSS/Atom feed"
-msgstr ""
+msgstr "Blog RSS / ffrwd Atom"
 
 #: wcivf/templates/base.html:125
 msgid "Privacy &amp; Terms"
-msgstr ""
+msgstr "Preifatrwydd &amp; Thelerau"
 
 #: wcivf/templates/base.html:126
 msgid "Code of Conduct"
-msgstr ""
+msgstr "Cod Ymddygiad"
 
 #: wcivf/templates/base.html:130
 msgid "Connect with us"
-msgstr ""
+msgstr "Cysylltu â ni"
 
 #: wcivf/templates/base.html:132
 msgid "Contact Us"
 msgstr "Cysylltwch â Ni"
-
-#: wcivf/templates/base.html:134
-msgid "X"
-msgstr ""
 
 #: wcivf/templates/base.html:135
 msgid "GitHub"
@@ -2719,11 +3533,11 @@ msgstr "GitHub"
 
 #: wcivf/templates/base.html:137
 msgid "Join our Mailing List"
-msgstr ""
+msgstr "Ymunwch â'n Rhestr Bostio"
 
 #: wcivf/templates/base.html:138
 msgid "Newsletter Archive"
-msgstr ""
+msgstr "Archif Cylchlythyrau"
 
 #: wcivf/templates/home.html:12
 msgid "Find out about candidates in your area"
@@ -2750,34 +3564,181 @@ msgid ""
 "elections, and parliamentary elections across the UK, on and after 4 May "
 "2023."
 msgstr ""
+"Mae angen ID ffotograffig i bleidleisio mewn etholiadau lleol yn Lloegr ac "
+"mewn etholiadau seneddol ledled y DU ers 4 Mai 2023."
 
 #: wcivf/templates/home.html:36
 msgid ""
 "Learn more about photographic identification for voters on the website of "
 "the Electoral Commission."
 msgstr ""
+"Gallwch ddysgu mwy am ID ffotograffig ar gyfer pleidleiswyr ar wefan y "
+"Comisiwn Etholiadol."
 
 #: wcivf/templates/home.html:36
 msgid "Learn more on the website of the Electoral Commission."
-msgstr ""
+msgstr "Gallwch ddysgu mwy ar wefan y Comisiwn Etholiadol."
 
 #: wcivf/templates/home.html:39
 msgid ""
 "You can apply for a free 'Voter Authority Certificate' if you do not already "
 "possess a valid ID."
 msgstr ""
+"Gallwch wneud cais am 'Dystysgrif Awdurdod Pleidleisio' am ddim os nad oes "
+"gennych ID dilys."
 
 #: wcivf/templates/home.html:41
 msgid "Apply for free voter ID."
-msgstr ""
+msgstr "Gwnewch gais am ID pleidleisiwr am ddim."
 
 #: wcivf/templates/home.html:43
 msgid "You do not need photo ID to vote by post."
-msgstr ""
+msgstr "Nid oes angen ID ffotograffig arnoch i bleidleisio drwy'r post."
 
 #: wcivf/templates/home.html:47
 msgid "Upcoming Elections"
 msgstr "Etholiadau i ddod"
+
+#, python-format
+#~ msgid ""
+#~ "You %(were_also_or_will_also_be)s able to vote for %(ward_seats)s "
+#~ "councillors to sit"
+#~ msgstr ""
+#~ "Gallwch hefyd %(were_also_or_will_also_be)s bleidleisio dros gynghorwyr "
+#~ "%(ward_seats)s i eistedd"
+
+#, python-format
+#~ msgid "You are also represented by %(ward_seats)s councillors"
+#~ msgstr "Cewch hefyd eich cynrychioli gan gynghorwyr %(ward_seats)s"
+
+#, python-format
+#~ msgid "on <a href=\"%(parish_council_election_url)s\">%(council_name)s</a>"
+#~ msgstr "ar <a href=\"%(parish_council_election_url)s\">%(council_name)s</a>"
+
+#, fuzzy, python-format
+#~ msgid ""
+#~ "and have a wide range of powers including looking after community "
+#~ "buildings, planning, street lighting and allotments. They also have the "
+#~ "power to raise money through council tax, known as the 'precept'. In "
+#~ "2020-2021, %(council_name)s raised £%(precept_amount)s through the "
+#~ "precept."
+#~ msgstr ""
+#~ "Cynghorau %(council_type)s yw'r lefel gyntaf o lywodraeth leol</a>, ac "
+#~ "mae ganddynt ystod eang o bwerau, gan gynnwys gofalu am adeiladau "
+#~ "cymunedol, cynllunio, goleuo strydoedd a gerddi cymunedol. Mae ganddynt "
+#~ "hefyd y pŵer i godi arian drwy dreth y cyngor, sy'n cael ei galw'n "
+#~ "'braesept'. Yn 2020-2021, cododd %(council_name)s £"
+#~ "%(precept_amount)sdrwy'r praesept."
+
+#~ msgid "View the official list of candidates (PDF)."
+#~ msgstr "Gweld y rhestr swyddogol o ymgeiswyr (PDF)."
+
+#~ msgid "See who was elected"
+#~ msgstr "Gweld pwy gafodd eu hethol"
+
+#~ msgid ""
+#~ "For questions about your poll card, polling place, or about returning "
+#~ "your postal voting ballot, contact your council."
+#~ msgstr ""
+#~ "Ar gyfer cwestiynau ynghylch eich cerdyn pleidleisio, eich gorsaf "
+#~ "bleidleisio, neu ynghylch dychwelyd eich pleidlais drwy'r post, "
+#~ "cysylltwch â'ch cyngor."
+
+#~ msgid "till"
+#~ msgstr "tan"
+
+#~ msgid "Your advance voting station is:"
+#~ msgstr "Eich gorsaf bleidleisio ymlaen llaw yw:"
+
+#, python-format
+#~ msgid ""
+#~ "<p>Your polling station in %(postcode)s depends on your address. <a "
+#~ "href=\"https://wheredoivote.co.uk/postcode/%(postcode)s/\">Check the "
+#~ "correct polling station for your address &raquo;</a></p>"
+#~ msgstr ""
+#~ "<p>Mae eich gorsaf bleidleisio yn %(postcode)s yn dibynnu ar eich "
+#~ "cyfeiriad. <a href=\"https://wheredoivote.co.uk/postcode/%(postcode)s/"
+#~ "\">Gwiriwch yr orsaf bleidleisio gywir ar gyfer eich cyfeiriad&raquo;</"
+#~ "a></p>"
+
+#~ msgid ""
+#~ "We don't know of any candidates standing yet. You can help improve this "
+#~ "page:"
+#~ msgstr ""
+#~ "Ni wyddwn am unrhyw ymgeiswyr sy'n sefyll eto. Gallwch helpu i wella'r "
+#~ "dudalen hon:"
+
+#, fuzzy
+#~| msgid ""
+#~| "You do not need your poll card to vote. You must vote at your assigned "
+#~| "polling station. <ul> <li>Read more about <a href=\"https://www.gov.uk/"
+#~| "voting-in-the-uk/polling-stations\">voting in Great Britain</a>.</li> "
+#~| "<li>Read more about <a href=\"https://www.gov.uk/how-to-vote/photo-id-"
+#~| "youll-need\">photo ID</a>.</li> </ul>"
+#~ msgid ""
+#~ "<p>You do not need your poll card to vote. You must vote at your assigned "
+#~ "polling station.</p> <ul> <li>Read more about <a href=\"https://"
+#~ "www.gov.uk/voting-in-the-uk/polling-stations\">voting in Great Britain</"
+#~ "a>. </li> <li>Read more about <a href=\"https://www.gov.uk/how-to-vote/"
+#~ "photo-id-youll-need\">photo ID</a>. </li> </ul>"
+#~ msgstr ""
+#~ "Nid oes angen eich cerdyn pleidleisio arnoch i bleidleisio. Rhaid i chi "
+#~ "bleidleisio yn yr un a neilltuwyd i chiorsaf bleidleisio. Darllenwch fwy "
+#~ "am <a href=\" https://www.gov.uk/voting-in-the-uk/polling-"
+#~ "stations\">pleidleisio ym Mhrydain Fawr</a>.<li>Darllenwch fwy am <a "
+#~ "href=\" https://www.gov.uk/how-to-vote/photo-id-youll-angen \">ID llun</"
+#~ "a>.</li></ul>"
+
+#~ msgid "Latest tweets"
+#~ msgstr "Trydariadau diweddar"
+
+#~ msgid "Tweets by"
+#~ msgstr "Trydariadau gan"
+
+#~ msgid "I always vote (no change)"
+#~ msgstr "Dwi bob amser yn pleidleisio (dim newid)"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>We're sorry you didn't find what you were looking for. We'll read your "
+#~ "feedback and pass it on to our volunteers.</p> <p>The information you see "
+#~ "here is gathered publicly, by people like you.</p>"
+#~ msgstr ""
+#~ "<p>Mae'n flin gennym na wnaethoch chi ddod o hyd i'r hyn roeddech chi'n "
+#~ "chwilio amdano</p> <p>Cesglir y wybodaeth y gwelwch chi yma'n gyhoeddus, "
+#~ "gan bobl fel chi.</p> <p>Helpwch ni i wneud yn well yn y dyfodol!</p>"
+
+#~ msgid ""
+#~ "Find out more about <a href=\"https://www.parliament.uk/mps-lords-and-"
+#~ "offices/offices/commons/speakers-office/\">The Speaker</a> and <a "
+#~ "href=\"https://www.parliament.uk/about/living-heritage/"
+#~ "evolutionofparliament/parliamentwork/offices-and-ceremonies/overview/the-"
+#~ "speaker/elections/\">their role in elections</a> on the parliament.uk "
+#~ "website."
+#~ msgstr ""
+#~ "Darganfod mwy am <a href=\"https://www.parliament.uk/mps-lords-and-"
+#~ "offices/offices/commons/speakers-office/\">Y Llefarydd</a> a <a "
+#~ "href=\"https://www.parliament.uk/about/living-heritage/"
+#~ "evolutionofparliament/parliamentwork/offices-and-ceremonies/overview/the-"
+#~ "speaker/elections/\">eu rôl mewn etholiadau</a> ar wefan parliament.uk."
+
+#, python-format
+#~ msgid "<h4>Favourite Biscuit</h4> <p>%(biscuit)s</p>"
+#~ msgstr "<h4>Hoff fisgedyn</h4> <p>%(biscuit)s</p>"
+
+#~ msgid "Twitter"
+#~ msgstr "Trydar"
+
+#, fuzzy, python-format
+#~| msgid ""
+#~| "<h4>%(referendum_question)s</h4> <blockquote>%(referendum.answer_one)s</"
+#~| "blockquote> or <blockquote>%(referendum_answer_two)s</blockquote>"
+#~ msgid ""
+#~ "<h4>%(referendum_question)s</h4> <blockquote>%(referendum_answer_one)s</"
+#~ "blockquote> or <blockquote>%(referendum_answer_two)s</blockquote>"
+#~ msgstr ""
+#~ "<h4>%(referendum_question)s</h4> <blockquote>%(referendum.answer_one)s</"
+#~ "blockquote> or <blockquote>%(referendum_answer_two)s</blockquote>"
 
 #, python-format
 #~ msgid ""
@@ -2812,15 +3773,6 @@ msgstr "Etholiadau i ddod"
 #~ msgstr ""
 #~ "Mae etholiad cyffredinol seneddol wedi ei alw ar gyfer 4 Gorffennaf. "
 #~ "Rhowch eich côd post i ddod o hyd i'ch etholaeth a'ch ymgeiswyr."
-
-#~ msgid ""
-#~ "A new set of constituency boundaries will be used for the 2024 election. "
-#~ "This means that your constituency may have changed since the last "
-#~ "election."
-#~ msgstr ""
-#~ "Bydd set newydd o ffiniau etholaethau yn cael eu defnyddio ar gyfer "
-#~ "etholiad 2024. Mae hyn yn golygu y gallai eich etholaeth fod wedi newid "
-#~ "ers yr etholiad diwethaf."
 
 #~ msgid ""
 #~ "You will need to show photo ID to vote at a polling station in these "

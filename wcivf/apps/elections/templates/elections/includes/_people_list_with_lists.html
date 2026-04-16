@@ -1,7 +1,8 @@
 {% load static %}
 {% load i18n %}
 {% load humanize %}
-{% regroup people by party.party_name as people_by_party %}
+{% regroup people.by_party by party.party_name as people_by_party %}
+
 {% for person_post in people_by_party %}
     {% with party=person_post.list.0.party %}
         {% if party.is_independent %}
@@ -40,7 +41,7 @@
                             {% with manifesto=party.manifestos.0 %}
                                 {% if manifesto %}
                                     <p>
-                                        Find out more this party's policies in their manifesto:
+                                        {% trans "Find out more about this party's policies in their manifesto:" %}
                                     </p>
                                     <ul>
                                         {% include "parties/single_manifesto.html" with manifesto=manifesto %}
