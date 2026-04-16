@@ -80,7 +80,8 @@ Resources:
       Handler: wcivf.lambda_handler.handler
       MemorySize: 256
       Runtime: python3.12
-      Timeout: 360
+      Timeout: 720
+      ReservedConcurrentExecutions: 1
       Environment:
         Variables:
           DJANGO_SETTINGS_MODULE: !Ref AppDjangoSettingsModule
