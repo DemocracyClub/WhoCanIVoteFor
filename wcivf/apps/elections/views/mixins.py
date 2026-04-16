@@ -48,6 +48,29 @@ class PostcodeToPostsMixin(object):
 
         return self.render_to_response(context)
 
+    def split_hubs_by_date(self, hubs, election_date):
+        polling_day_hubs = []
+        advance_hubs = []
+        if election_date and hubs:
+            for hub in hubs:
+                opening_times = hub["opening_times"]
+                polling_day_times = [
+                    row for row in opening_times if row[0] == election_date
+                ]
+                advance_times = [
+                    row for row in opening_times if row[0] < election_date
+                ]
+                if polling_day_times:
+                    polling_day_hubs.append(
+                        {**hub, "filtered_opening_times": polling_day_times}
+                    )
+                if advance_times:
+                    advance_hubs.append(
+                        {**hub, "filtered_opening_times": advance_times}
+                    )
+
+        return polling_day_hubs, advance_hubs
+
     def postcode_to_ballots(self, postcode, uprn=None, compact=False):
         kwargs = {"postcode": postcode}
         if uprn:
@@ -71,6 +94,8 @@ class PostcodeToPostsMixin(object):
             "postcode_location": json.dumps(
                 results_json.get("postcode_location", "")
             ),
+            "polling_day_hubs": [],
+            "advance_hubs": [],
         }
 
         if include_boundary_reviews:
@@ -86,6 +111,14 @@ class PostcodeToPostsMixin(object):
             if election_date["polling_station"]["polling_station_known"]:
                 ret["polling_station_known"] = True
                 ret["polling_station"] = election_date["polling_station"]
+            if election_date.get("alternative_polling_stations"):
+                (
+                    ret["polling_day_hubs"],
+                    ret["advance_hubs"],
+                ) = self.split_hubs_by_date(
+                    election_date["alternative_polling_stations"],
+                    election_date["date"],
+                )
 
         from ..models import PostElection
 
