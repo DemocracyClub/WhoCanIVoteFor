@@ -227,6 +227,7 @@ USE_TZ = True
 # Homepage feature switches
 SHOW_GB_ID_MESSAGING = False
 SHOW_RESULTS_CHART = False
+SHOW_UPCOMING_ELECTIONS = False
 
 # Boundary Changes Feature switch
 SHOW_BOUNDARY_CHANGES = os.environ.get("SHOW_BOUNDARY_CHANGES", "").lower() in (
