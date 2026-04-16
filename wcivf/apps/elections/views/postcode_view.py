@@ -121,9 +121,8 @@ class PostcodeView(
             context["postelections"], context["council"]
         )
 
-        context[
-            "advance_voting_station"
-        ] = self.get_advance_voting_station_info(context["polling_station"])
+        context["advance_hubs"] = self.ballot_dict.get("advance_hubs")
+        context["polling_day_hubs"] = self.ballot_dict.get("polling_day_hubs")
 
         context["ballots_today"] = self.get_todays_ballots()
         context[
