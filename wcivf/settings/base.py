@@ -227,6 +227,7 @@ USE_TZ = True
 # Homepage feature switches
 SHOW_GB_ID_MESSAGING = False
 SHOW_RESULTS_CHART = False
+SHOW_UPCOMING_ELECTIONS = False
 
 # Boundary Changes Feature switch
 SHOW_BOUNDARY_CHANGES = os.environ.get("SHOW_BOUNDARY_CHANGES", "").lower() in (
@@ -240,7 +241,7 @@ SHOW_BOUNDARY_CHANGES = os.environ.get("SHOW_BOUNDARY_CHANGES", "").lower() in (
 
 STATIC_URL = "/static/"
 
-STATICFILES_DIRS = (root("assets"),)
+STATICFILES_DIRS = (root("assets"), root("../node_modules"))
 STATIC_ROOT = root("static")
 
 PIPELINE = get_pipeline_settings(
@@ -250,6 +251,28 @@ PIPELINE = get_pipeline_settings(
 
 PIPELINE["SASS_ARGUMENTS"] += (
     " -I " + dc_design_system.DC_SYSTEM_PATH + "/system"
+)
+PIPELINE["STYLESHEETS"].update(
+    {
+        "maplibre-gl": {
+            "source_filenames": [
+                "maplibre-gl/dist/maplibre-gl.css",
+            ],
+            "output_filename": "css/maplibre.css",
+        },
+    }
+)
+
+PIPELINE["JAVASCRIPT"].update(
+    {
+        "pmtiles": {
+            "source_filenames": [
+                "pmtiles/dist/pmtiles.js",
+                "js/custom.js",
+            ],
+            "output_filename": "js/pmtiles.js",
+        },
+    }
 )
 
 CACHES = {

@@ -52,6 +52,9 @@ hooks:
     - location: deploy/after_install/install_python_deps.sh
       timeout: 300
       runas: wcivf
+    - location: deploy/after_install/install_npm_deps.sh
+      timeout: 300
+      runas: wcivf
     - location: deploy/after_install/write_envfile.py
       timeout: 300
       runas: wcivf
