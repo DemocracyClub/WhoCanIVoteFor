@@ -59,6 +59,8 @@ class PostcodeToPostsMixin(object):
         if include_boundary_reviews:
             kwargs["include_boundary_reviews"] = 1
 
+        kwargs["include_2026_pilots"] = 1
+
         results_json = DEVS_DC_CLIENT.make_request(**kwargs)
         all_ballots = []
         ret = {
