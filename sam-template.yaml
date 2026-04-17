@@ -537,7 +537,7 @@ Resources:
           Arn: !GetAtt WCIVFJobsQueue.Arn
           SqsParameters:
             MessageGroupId: wcivf-jobs
-          Input: '{"command": "import_local_parties", "args": ["--date=2026-5-7"]}'
+          Input: '{"command": "import_local_parties", "args": ["--date=2026-05-07"]}'
 Outputs:
   WCIVFControllerFunctionArn:
     Description: "WCIVF Controller Lambda Function ARN"
