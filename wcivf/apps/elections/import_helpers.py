@@ -326,15 +326,10 @@ class YNRBallotImporter:
         if not replaced_ballot_id:
             return False
 
-        try:
-            replaced_ballot = PostElection.objects.get(
-                ballot_paper_id=replaced_ballot_id,
-            )
-        except PostElection.DoesNotExist:
-            return False
-
-        ballot.replaces.add(replaced_ballot)
-        return True
+        updated = PostElection.objects.filter(
+            ballot_paper_id=replaced_ballot_id,
+        ).update(replaced_by_id=ballot.pk)
+        return bool(updated)
 
     @time_function_length
     @transaction.atomic()
