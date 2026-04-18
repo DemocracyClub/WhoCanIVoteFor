@@ -118,7 +118,7 @@ class LocalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
         # only create local parties for ballots where a candidate is standing
         # for the parent party
         ballots = ballots.filter(personpost__party=party)
-        for post_election in ballots.distinct():
+        for post_election in ballots.select_related("election").distinct():
             country = self.get_country(
                 election_type=post_election.election.election_type
             )
