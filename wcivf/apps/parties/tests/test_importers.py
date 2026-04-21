@@ -8,7 +8,7 @@ from parties.importers import (
     NationalElection,
     NationalPartyImporter,
 )
-from parties.models import LocalParty, NationalParty
+from parties.models import LocalParty, Manifesto, NationalParty
 
 
 class TestLocalPartyImporter:
@@ -136,7 +136,7 @@ class TestLocalPartyImporter:
         mocker.patch.object(importer, "read_from", return_value=[row])
 
         mocker.patch.object(importer, "add_local_party")
-        mocker.patch.object(importer, "add_manifesto")
+        mocker.patch.object(importer, "add_manifestos")
         mock_elections = mocker.MagicMock()
         mock_elections.distinct.return_value = ["election_obj"]
         mocker.patch.object(
@@ -155,7 +155,7 @@ class TestLocalPartyImporter:
             row, party, ballots, file_url
         )
 
-        importer.add_manifesto.assert_called_once_with(
+        importer.add_manifestos.assert_called_once_with(
             row, party, "election_obj", file_url
         )
         Election.objects.filter.assert_called_once_with(
@@ -226,6 +226,55 @@ class TestLocalPartyImporter:
             expected = case[1]
             with subtests.test(msg=case[0]):
                 assert importer.get_country(election_slug) == expected
+
+    def test_add_manifestos(self, importer, row, mocker):
+        row["CYM Manifesto PDF URL"] = "http://example.com/manifesto-cym.pdf"
+        row[
+            "CYM Manifesto Easy Read PDF"
+        ] = "http://example.com/manifesto-cym-easy.pdf"
+        party = mocker.MagicMock()
+        election = mocker.MagicMock(election_type="senedd")
+        mock_manifesto = mocker.MagicMock(spec=Manifesto)
+        update_or_create = mocker.patch.object(
+            Manifesto.objects,
+            "update_or_create",
+            return_value=(mock_manifesto, True),
+        )
+
+        importer.add_manifestos(
+            row=row,
+            party=party,
+            election=election,
+            file_url=importer.election.csv_files[0],
+        )
+
+        assert update_or_create.call_count == 2
+        # First call for English manifesto
+        update_or_create.assert_any_call(
+            election=election,
+            party=party,
+            country="Wales",
+            language="English",
+            defaults={
+                "web_url": row["Manifesto Website URL"],
+                "pdf_url": row["Manifesto PDF URL"],
+                "easy_read_url": "",
+                "file_url": importer.election.csv_files[0],
+            },
+        )
+        # Second call for Welsh manifesto
+        update_or_create.assert_any_call(
+            election=election,
+            party=party,
+            country="Wales",
+            language="Welsh",
+            defaults={
+                "web_url": "",
+                "pdf_url": row["CYM Manifesto PDF URL"],
+                "easy_read_url": row["CYM Manifesto Easy Read PDF"],
+                "file_url": importer.election.csv_files[0],
+            },
+        )
 
 
 class TestNationalPartyImporter:
