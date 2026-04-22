@@ -3,10 +3,10 @@
 <li>
     <a href="{{ manifesto.canonical_url }}" rel="noopener noreferrer">
         {% blocktrans trimmed with manifesto_country=manifesto.country %}
-            {{ manifesto_country }} manifesto
+            Manifesto for {{ manifesto_country }}
         {% endblocktrans %}
         {% if manifesto.canonical_url != manifesto.pdf_url %}{% trans "website" %}{% endif %}
-        {% if manifesto.language != "English" %}{% blocktrans with manifest_language=manifesto.language %} in {{ manifesto_language }}{% endblocktrans %}{% endif %}
+        {% if manifesto.language != "English" %}{% blocktrans with manifesto_language=manifesto.language %} in {{ manifesto_language }}{% endblocktrans %}{% endif %}
         {% if manifesto.canonical_url == manifesto.pdf_url %}(PDF){% endif %}
     </a>
 
@@ -17,7 +17,13 @@
     </li>
 {% endif %}
 {% if manifesto.easy_read_url %}
-    <li>
-        <a href="{{ manifesto.easy_read_url }}">{% trans "Easy Read version" %}</a>
-    </li>
+    {% if manifesto.language == "English"%}
+        <li>
+            <a href="{{ manifesto.easy_read_url }}">{% trans "Easy Read version" %}</a>
+        </li>
+    {% else %}
+        <li>
+            <a href="{{ manifesto.easy_read_url }}">{% blocktrans with manifesto_language=manifesto.language %}Easy Read version in {{ manifesto_language }}{% endblocktrans %}</a>
+        </li>
+    {% endif %}
 {% endif %}
