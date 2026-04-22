@@ -1,20 +1,21 @@
 {% load postcode_tags %}
 {% load humanize %}
 {% load i18n %}
-<p>
+<div class="ds-status-message">
     {% blocktrans trimmed %}
-        Your council is trialling a system that allows you to vote in person
-        at either your assigned station or a central voting hub.
+        Your council is running a trial that allows you to vote in person
+        at either your <a href="#assigned-station">assigned station</a>
+        or a <a href="#central-hub">central voting hub</a>.
     {% endblocktrans %}
-</p>
-<p>
+    <br>
+    <br>
     <a target="_blank" rel="noopener noreferrer" href="{{ polling_day_hubs.0.pilot_info_url }}">
         {% trans "Read more about the voting trial." %}
     </a>
-</p>
+</div>
 
 
-<h3 >{% trans "Central voting hub" %}</h3>
+<h3 id="central-hub">{% trans "Central voting hub" %}</h3>
 {% for hub in polling_day_hubs %}
     <address>
         {{ hub.name }}<br>
@@ -36,4 +37,4 @@
         {% endfor %}
     </p>
 {% endfor %}
-<h3 >{% trans "Your assigned station" %}</h3>
+<h3 id="assigned-station">{% trans "Your assigned station" %}</h3>
