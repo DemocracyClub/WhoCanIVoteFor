@@ -47,9 +47,10 @@
 
             {% if administrations %}
                 <h3>{% trans "Your area" %}</h3>
-                <p>{% blocktrans %}As well as your new MP, there are others who represent you in your area.
-                    We're working on a new experimental feature to explain who these people are and how everything
-                    from your council to your police force works.
+                <p>{% blocktrans trimmed%}
+                    As well as your new MP, there are others who represent you in your area.
+                    We're working on a new experimental feature to explain who these people
+                    are and how everything from your council to your police force works.
                 {% endblocktrans %}
                 </p>
                 {% if uprn %}
