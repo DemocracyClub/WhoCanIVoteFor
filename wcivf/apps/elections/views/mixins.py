@@ -254,7 +254,7 @@ class PollingStationInfoMixin(object):
         }
 
     def get_global_postal_vote_card(self, post_elections, council):
-        if not post_elections:
+        if not post_elections or all(pe.cancelled for pe in post_elections):
             return {"show": False}
         next_ballot = post_elections[0]
         election = next_ballot.election
