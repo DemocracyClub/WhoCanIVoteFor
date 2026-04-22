@@ -1,19 +1,19 @@
 {% load i18n %}
 {% load postcode_tags %}
 
-<p>
+<div class="ds-status-message">
     {% blocktrans trimmed %}
-        Your council is trialling a system that allows you to vote in person
-        before polling day. You can vote in advance at one of these locations,
-        or vote at your assigned polling station as normal on polling day.
+        Your council is running a trial that allows you to vote in person
+        before polling day. You can <a href="#advance-hubs">vote in advance at one of these locations</a>,
+        or <a href="#assigned-station">vote at your assigned polling station as normal on polling day</a>.
     {% endblocktrans %}
-</p>
-<p>
+    <br>
+    <br>
     <a target="_blank" rel="noopener noreferrer" href="{{ advance_hubs.0.pilot_info_url }}">
         {% trans "Read more about the voting trial." %}
     </a>
-</p>
-<h3>{% trans "Vote before polling day" %}</h3>
+</div>
+<h3 id="advance-hubs">{% trans "Vote before polling day" %}</h3>
 <ul class="ds-details voting-hubs">
     {% for hub in advance_hubs %}
         <li>
@@ -43,4 +43,4 @@
         </li>
     {% endfor %}
 </ul>
-<h3>{% trans "Vote on polling day" %}</h3>
+<h3 id="assigned-station">{% trans "Vote on polling day" %}</h3>
