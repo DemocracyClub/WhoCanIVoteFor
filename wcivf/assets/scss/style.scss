@@ -174,3 +174,10 @@ input[type=url], input[type=date], input[type=time] {
     display: none;
   }
 }
+
+// Scope the open/closed arrow to the hub's own <summary>.
+// This works around nested details.
+.voting-hubs {
+  details:not([open]) > summary::before { content: '▸\0020\0020'; }
+  details[open] > summary::before       { content: '▾\0020\0020'; }
+}

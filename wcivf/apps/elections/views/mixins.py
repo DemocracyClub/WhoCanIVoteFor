@@ -1,6 +1,5 @@
 import json
 from datetime import date, datetime
-from typing import Optional
 
 from core.utils import LastWord
 from django.conf import settings
@@ -48,6 +47,29 @@ class PostcodeToPostsMixin(object):
 
         return self.render_to_response(context)
 
+    def split_hubs_by_date(self, hubs, election_date):
+        polling_day_hubs = []
+        advance_hubs = []
+        if election_date and hubs:
+            for hub in hubs:
+                opening_times = hub["opening_times"]
+                polling_day_times = [
+                    row for row in opening_times if row[0] == election_date
+                ]
+                advance_times = [
+                    row for row in opening_times if row[0] < election_date
+                ]
+                if polling_day_times:
+                    polling_day_hubs.append(
+                        {**hub, "filtered_opening_times": polling_day_times}
+                    )
+                if advance_times:
+                    advance_hubs.append(
+                        {**hub, "filtered_opening_times": advance_times}
+                    )
+
+        return polling_day_hubs, advance_hubs
+
     def postcode_to_ballots(self, postcode, uprn=None, compact=False):
         kwargs = {"postcode": postcode}
         if uprn:
@@ -59,6 +81,8 @@ class PostcodeToPostsMixin(object):
         if include_boundary_reviews:
             kwargs["include_boundary_reviews"] = 1
 
+        kwargs["include_2026_pilots"] = 1
+
         results_json = DEVS_DC_CLIENT.make_request(**kwargs)
         all_ballots = []
         ret = {
@@ -69,6 +93,8 @@ class PostcodeToPostsMixin(object):
             "postcode_location": json.dumps(
                 results_json.get("postcode_location", "")
             ),
+            "polling_day_hubs": [],
+            "advance_hubs": [],
         }
 
         if include_boundary_reviews:
@@ -77,13 +103,20 @@ class PostcodeToPostsMixin(object):
         if ret["address_picker"]:
             ret["addresses"] = results_json["addresses"]
             return ret
-
         for election_date in results_json.get("dates"):
             for ballot in election_date.get("ballots", []):
                 all_ballots.append(ballot["ballot_paper_id"])
             if election_date["polling_station"]["polling_station_known"]:
                 ret["polling_station_known"] = True
                 ret["polling_station"] = election_date["polling_station"]
+            if election_date.get("alternative_voting_stations"):
+                (
+                    ret["polling_day_hubs"],
+                    ret["advance_hubs"],
+                ) = self.split_hubs_by_date(
+                    election_date["alternative_voting_stations"],
+                    election_date["date"],
+                )
 
         from ..models import PostElection
 
@@ -200,25 +233,6 @@ class PostelectionsToPeopleMixin(object):
 class PollingStationInfoMixin(object):
     def show_polling_card(self, post_elections):
         return any(p.contested and not p.cancelled for p in post_elections)
-
-    def get_advance_voting_station_info(self, polling_station: Optional[dict]):
-        if not polling_station or not polling_station.get(
-            "advance_voting_station"
-        ):
-            return None
-        advance_voting_station = polling_station["advance_voting_station"]
-
-        last_open_row = advance_voting_station["opening_times"][-1]
-        last_date, last_open, last_close = last_open_row
-        open_in_future = (
-            datetime.combine(
-                datetime.strptime(last_date, "%Y-%m-%d").date(),
-                datetime.strptime(last_close, "%H:%M:%S").time(),
-            )
-            > datetime.now()
-        )
-        advance_voting_station["open_in_future"] = open_in_future
-        return advance_voting_station
 
     def get_global_registration_card(self, post_elections):
         # City of London local elections have different
