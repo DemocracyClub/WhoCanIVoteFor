@@ -50,7 +50,7 @@
           {% endblocktrans %}
         </li>
         <li>
-          {% blocktrans trimmed with date1=card.dispatch_dates.1|naturalday:"j F Y" date2=card.dispatch_dates.2|naturalday:"j F Y" application_deadline=card.application_deadline|naturalday:"j F Y" %}
+          {% blocktrans trimmed with date0=card.dispatch_dates.0|naturalday:"j F Y" date2=card.dispatch_dates.2|naturalday:"j F Y" application_deadline=card.application_deadline|naturalday:"j F Y" %}
             If you apply after {{ date0 }} up to 5pm on {{ application_deadline }}, your pack will be sent from {{ date2 }}.
           {% endblocktrans %}
         </li>
