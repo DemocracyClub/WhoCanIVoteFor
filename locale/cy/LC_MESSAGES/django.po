@@ -1168,12 +1168,7 @@ msgid "instead."
 msgstr "."
 
 #: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:80
-#, fuzzy, python-format
-#| msgid ""
-#| "If you haven't got one, or for questions about your poll card, polling "
-#| "place, or about returning your postal voting ballot, contact the "
-#| "Electoral Office for Northern Ireland <a href=\"tel:"
-#| "%(council_phone)s\">%(council_phone)s</a>."
+#, python-format
 msgid ""
 "If you have not received your postal voting pack, you can contact the "
 "Electoral Office for Northern Ireland on <a href=\"tel:"
@@ -1689,16 +1684,11 @@ msgstr ""
 "ymgeisydd cyntaf ar y rhestr fydd yn cael eu hethol."
 
 #: wcivf/apps/elections/templates/elections/party_list_view.html:127
-#, fuzzy, python-format
-#| msgid ""
-#| "See all %(num_candidates)s candidates in the %(election_name)s on "
-#| "%(election_date)s:"
+#, python-format
 msgid ""
 "This was the %(party_name)s list for the %(division_name)s in the "
 "%(election_name)s held on %(election_date)s."
 msgstr ""
-"Gweler yr holl%(num_candidates)s ymgeiswyr yn yr %(election_name)s ar "
-"%(election_date)s:"
 
 #: wcivf/apps/elections/templates/elections/party_list_view.html:136
 #: wcivf/apps/people/templates/people/includes/_person_manifesto_card.html:7
@@ -2446,8 +2436,7 @@ msgid "Other contact info"
 msgstr "Gwybodaeth gyswllt arall"
 
 #: wcivf/apps/people/templates/people/includes/_person_contact_card.html:150
-#, fuzzy, python-format
-#| msgid "%(person_name)sother contact info"
+#, python-format
 msgid "%(person_name)s other contact info"
 msgstr "Gwybodaeth gyswllt arall %(person_name)s"
 
@@ -2546,19 +2535,14 @@ msgstr ""
 "%(leaflet_id)s\" class=\"cta\">Gweld y daflen</a>"
 
 #: wcivf/apps/people/templates/people/includes/_person_leaflets.html:32
-#, fuzzy, python-format
-#| msgid ""
-#| "<a class=\"ds-cta\" href=\"https://electionleaflets.org/person/"
-#| "%(object.ynr_id)s\">More leaflets from %(object.name)s</a> <a class=\"ds-"
-#| "cta\" href=\"https://electionleaflets.org/leaflets/add/\">Upload a "
-#| "leaflet</a>"
+#, python-format
 msgid ""
 "<a class=\"ds-cta\" href=\"https://electionleaflets.org/person/"
 "%(person_id)s\"> More leaflets from %(person_name)s</a> <a class=\"ds-cta\" "
 "href=\"https://electionleaflets.org/leaflets/add/\"> Upload a leaflet </a>"
 msgstr ""
 "<a class=\"ds-cta\" href=\"https://electionleaflets.org/person/"
-"%(object.ynr_id)s\">Mwy o daflenni gan %(object.name)s</a> <a class=\"ds-"
+"%(person_id)s\">Mwy o daflenni gan %(person_name)s</a> <a class=\"ds-"
 "cta\" href=\"https://electionleaflets.org/leaflets/add/\">Uwchlwythwch "
 "daflen</a>"
 
@@ -2641,8 +2625,7 @@ msgstr ""
 "%(intro)sCael y wybodaeth ddiweddaraf am yr ymgeisydd hwn ar %(SITE_TITLE)s"
 
 #: wcivf/apps/people/templates/people/includes/_person_multiple_current_candidacies.html:5
-#, fuzzy, python-format
-#| msgid "is %(a_or_an)s %(party_name)s candidate in the following elections:"
+#, python-format
 msgid "%(verb)s a candidate in the following elections:"
 msgstr "%(verb)s ymgeisydd yn yr etholiadau canlynol:"
 
@@ -2651,13 +2634,12 @@ msgid "an,a"
 msgstr "an,a"
 
 #: wcivf/apps/people/templates/people/includes/_person_multiple_current_candidacies.html:8
-#, fuzzy, python-format
-#| msgid "is %(a_or_an)s %(party_name)s candidate in the following elections:"
+#, python-format
 msgid ""
 "%(verb)s %(a_or_an)s <a href=\"%(party_link)s\">%(party_name)s</a> candidate "
 "in the following elections:"
 msgstr ""
-"%(verb)s %(a_or_an)s ymgeisydd y %(party_name)s yn yr etholiadau canlynol:"
+"%(verb)s %(a_or_an)s ymgeisydd y <a href=\"%(party_link)s\">%(party_name)s</a> yn yr etholiadau canlynol:"
 
 #: wcivf/apps/people/templates/people/includes/_person_multiple_current_candidacies.html:18
 #, python-format
@@ -2789,21 +2771,12 @@ msgstr ""
 "href=\"%(election_url)s\" title=\"%(election)s\">%(election_name)s</a>."
 
 #: wcivf/apps/people/templates/people/includes/intros/_independent.html:6
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "            %(person_name)s is an independent candidate in <a "
-#| "href=\"%(post_url)s\">%(post_label)s</a>\n"
-#| "            in the <a href=\"%(election_url)s\" "
-#| "title=\"%(election_name)s\">%(election_name)s</a>.\n"
-#| "        "
+#, python-format
 msgid ""
 "%(person_name)s is an independent candidate in <a "
 "href=\"%(post_url)s\">%(post_label)s</a> in the <a href=\"%(election_url)s\" "
 "title=\"%(election_name)s\">%(election_name)s</a>."
 msgstr ""
-"Mae %(person_name)s ymgeisydd annibynnol yn yr <a href=\"%(election_url)s\" "
-"title=\"%(election_name)s\">%(election_name)s</a>."
 
 #: wcivf/apps/people/templates/people/includes/intros/_independent_mayor_or_pcc.html:6
 #, python-format
@@ -3265,8 +3238,7 @@ msgid "%(referendum_answer_two)s"
 msgstr "%(referendum_answer_two)s"
 
 #: wcivf/apps/referendums/templates/referendums/includes/_card.html:51
-#, fuzzy, python-format
-#| msgid "Find more information on the %(council_name)s council website."
+#, python-format
 msgid "Find more information on the %(council_name)s council website."
 msgstr "Mae mwy o wybodaeth ar wefan %(council_name)s."
 
