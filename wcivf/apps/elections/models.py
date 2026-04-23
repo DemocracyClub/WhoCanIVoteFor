@@ -47,7 +47,7 @@ class ByElectionReason(models.TextChoices):
     """
 
     DEATH = "DEATH", _("The elected member died")
-    RESIGNATION = "RESIGNATION", "The elected member resigned"
+    RESIGNATION = "RESIGNATION", _("The elected member resigned")
     ELECTORAL_COURT = (
         "ELECTORAL_COURT",
         _(
