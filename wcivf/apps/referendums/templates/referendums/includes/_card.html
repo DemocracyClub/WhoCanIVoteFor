@@ -48,7 +48,7 @@
         {% if referendum.council_url %}
             <p>
                 <a href="{{ referendum.council_url }}">
-                    {% blocktrans with council_name=referendum.council_name %}
+                    {% blocktrans trimmed with council_name=referendum.council_name %}
                         Find more information on the {{ council_name }} council website.
                     {% endblocktrans %}</a>
             </p>
