@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-23 11:31+0000\n"
+"POT-Creation-Date: 2026-04-23 14:10+0000\n"
 "PO-Revision-Date: 2022-03-24 09:04+0000\n"
 "Last-Translator: Sym Roe <sym@talusdesign.co.uk>, 2022\n"
 "Language-Team: Welsh (https://www.transifex.com/democracy-club/teams/61326/"
@@ -221,34 +221,37 @@ msgstr "Rhowch eich côd post"
 
 #: wcivf/apps/elections/models.py:49
 msgid "The elected member died"
-msgstr "Bu farw'r aelod etholedig."
+msgstr "Bu farw'r aelod etholedig"
+
+#: wcivf/apps/elections/models.py:50
+msgid "The elected member resigned"
+msgstr ""
 
 #: wcivf/apps/elections/models.py:54
 msgid ""
 "The election of the elected member was declared void by an election court"
 msgstr ""
-"Penderfynodd llys etholiadol fod etholiad yr aelod etholedig yn ddi-rym."
+"Penderfynodd llys etholiadol fod etholiad yr aelod etholedig yn ddi-rym"
 
 #: wcivf/apps/elections/models.py:60
 msgid "The previous election winner did not sign a declaration of acceptance"
-msgstr "Ni wnaeth enillydd yr etholiad blaenorol lofnodi datganiad derbyn."
+msgstr "Ni wnaeth enillydd yr etholiad blaenorol lofnodi datganiad derbyn"
 
 #: wcivf/apps/elections/models.py:65
 msgid "The elected member failed to attend meetings for six months"
-msgstr "Ni aeth yr aelod etholedig i gyfarfod am chwe mis."
+msgstr "Ni aeth yr aelod etholedig i gyfarfod am chwe mis"
 
 #: wcivf/apps/elections/models.py:69
 msgid "The elected member was disqualified"
-msgstr "Cafodd yr aelod etholedig ei anghymhwyso."
+msgstr "Cafodd yr aelod etholedig ei anghymhwyso"
 
 #: wcivf/apps/elections/models.py:73
 msgid "The elected member no longer qualified as a registered elector"
-msgstr ""
-"Nid oedd yr aelod etholedig bellach yn gymwys fel etholwr cofrestredig."
+msgstr "Nid oedd yr aelod etholedig bellach yn gymwys fel etholwr cofrestredig"
 
 #: wcivf/apps/elections/models.py:77
 msgid "The elected member was recalled by a successful recall petition"
-msgstr "Cafodd yr aelod etholedig ei alw'n ôl gan ddeiseb adalw lwyddiannus."
+msgstr "Cafodd yr aelod etholedig ei alw'n ôl gan ddeiseb adalw lwyddiannus"
 
 #: wcivf/apps/elections/models.py:79
 msgid "Other"
@@ -260,7 +263,7 @@ msgstr "Anadnabyddus"
 
 #: wcivf/apps/elections/models.py:81
 msgid "Neither a by-election nor a ballot"
-msgstr "Nid trwy isetholiad na phleidlais."
+msgstr "Nid trwy isetholiad na phleidlais"
 
 #: wcivf/apps/elections/models.py:739
 #, python-brace-format
@@ -277,7 +280,7 @@ msgstr "(dim cystadleuaeth)"
 
 #: wcivf/apps/elections/models.py:826
 #, python-format
-msgid "This by-election was called because %(reason)s"
+msgid "This by-election was called because %(reason)s."
 msgstr "Canslwyd yr etholiad hwn %(reason)s."
 
 #: wcivf/apps/elections/models.py:963
@@ -482,23 +485,23 @@ msgstr ""
 "Cynhelir yr %(election)s <strong>heddiw</strong>. Bydd y gorsafoedd "
 "pleidleisio ar agor o"
 
-#: wcivf/apps/elections/templates/elections/election_view.html:41
+#: wcivf/apps/elections/templates/elections/election_view.html:40
 msgid "until"
 msgstr "tan"
 
-#: wcivf/apps/elections/templates/elections/election_view.html:45
+#: wcivf/apps/elections/templates/elections/election_view.html:44
 #: wcivf/apps/elections/templates/elections/includes/_single_ballot.html:44
 #, python-format
 msgid "This election was held <strong>%(election_date)s</strong>."
 msgstr "Cynhaliwyd yr etholiad hwn <strong>%(election_date)s</strong>"
 
-#: wcivf/apps/elections/templates/elections/election_view.html:49
+#: wcivf/apps/elections/templates/elections/election_view.html:48
 #, python-format
 msgid "This election will be held on <strong>%(election_date)s</strong>."
 msgstr ""
 "Bydd yr etholiad yn cael ei gynnal ar <strong>%(election_date)s</strong>."
 
-#: wcivf/apps/elections/templates/elections/election_view.html:63
+#: wcivf/apps/elections/templates/elections/election_view.html:62
 #, python-format
 msgid ""
 "%(stood_or_standing)s for this election, in <strong>%(post_count)s</strong> "
@@ -507,20 +510,20 @@ msgstr ""
 "Ymgeisiodd%(stood_or_standing)s yn yr etholiad hwn, mewn "
 "<strong>%(post_count)s</strong> swydd."
 
-#: wcivf/apps/elections/templates/elections/election_view.html:69
+#: wcivf/apps/elections/templates/elections/election_view.html:68
 msgid "Add more at our candidate crowd-sourcing site"
 msgstr "Ychwanegwch ragor ar ein gwefan torfoli ymgeiswyr"
 
-#: wcivf/apps/elections/templates/elections/election_view.html:74
+#: wcivf/apps/elections/templates/elections/election_view.html:73
 msgid "Add some candidates at our candidate crowd-sourcing site"
 msgstr "Ychwanegwch rai ymgeiswyr at ein gwefan torfoli ymgeiswyr"
 
-#: wcivf/apps/elections/templates/elections/election_view.html:79
+#: wcivf/apps/elections/templates/elections/election_view.html:78
 #, python-format
 msgid "%(title)s"
 msgstr "%(title)s"
 
-#: wcivf/apps/elections/templates/elections/election_view.html:83
+#: wcivf/apps/elections/templates/elections/election_view.html:82
 #, python-format
 msgid ""
 "<a href=\"%(postelection_url)s\">%(post_label)s</a> %(cancelled_message)s"
@@ -2539,9 +2542,8 @@ msgid ""
 "href=\"https://electionleaflets.org/leaflets/add/\"> Upload a leaflet </a>"
 msgstr ""
 "<a class=\"ds-cta\" href=\"https://electionleaflets.org/person/"
-"%(person_id)s\">Mwy o daflenni gan %(person_name)s</a> <a class=\"ds-"
-"cta\" href=\"https://electionleaflets.org/leaflets/add/\">Uwchlwythwch "
-"daflen</a>"
+"%(person_id)s\">Mwy o daflenni gan %(person_name)s</a> <a class=\"ds-cta\" "
+"href=\"https://electionleaflets.org/leaflets/add/\">Uwchlwythwch daflen</a>"
 
 #: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:6
 #, python-format
@@ -2636,7 +2638,8 @@ msgid ""
 "%(verb)s %(a_or_an)s <a href=\"%(party_link)s\">%(party_name)s</a> candidate "
 "in the following elections:"
 msgstr ""
-"%(verb)s %(a_or_an)s ymgeisydd y <a href=\"%(party_link)s\">%(party_name)s</a> yn yr etholiadau canlynol:"
+"%(verb)s %(a_or_an)s ymgeisydd y <a href=\"%(party_link)s\">%(party_name)s</"
+"a> yn yr etholiadau canlynol:"
 
 #: wcivf/apps/people/templates/people/includes/_person_multiple_current_candidacies.html:18
 #, python-format
