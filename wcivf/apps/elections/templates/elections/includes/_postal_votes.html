@@ -14,33 +14,29 @@
     {% if card.before_application_deadline %}
       <p>
         {% blocktrans trimmed %}
-          If you know that you won't be able to get to the polling station on polling day, you can vote by post.
+          If you know that you won't be able to get to the polling station on polling day,
+          you can vote by post.
         {% endblocktrans %}
         {% blocktrans trimmed with application_deadline=card.application_deadline|naturalday:"j F Y" %}
           You have until {{ application_deadline }} to
         {% endblocktrans %}
         <a href="https://www.gov.uk/apply-postal-vote">{% trans "Apply for a postal vote" %}</a>.
       </p>
+      <a href="https://www.electoralcommission.org.uk/voting-and-elections/ways-vote/apply-vote-post"
+      >{% trans "Read more about applying for a postal vote" %}</a>.
       <p>
-        {% blocktrans trimmed %}
-          <a
-            href="https://www.electoralcommission.org.uk/voting-and-elections/ways-vote/apply-vote-post"
-          >Read more about applying for a postal vote</a>.
-        {% endblocktrans %}
-        <p>
     {% else %}
       <p>
         {% blocktrans trimmed with application_deadline=card.application_deadline|naturalday:"j F Y" election_date=card.election_date|naturalday:"j F Y" %}
           The deadline to apply for a postal vote for the elections taking place on {{ election_date }} was {{ application_deadline }}.
-          You can <a href="https://www.gov.uk/apply-postal-vote">apply for a postal vote</a> in future elections.
+          You can
         {% endblocktrans %}
+        <a href="https://www.gov.uk/apply-postal-vote">{% trans "apply for a postal vote" %}</a>
+        {% trans "in future elections." %}"
       </p>
       <p>
-        {% blocktrans trimmed %}
-          <a
-            href="https://www.electoralcommission.org.uk/voting-and-elections/ways-vote/how-vote-post"
-          >Read more about voting by post</a>.
-        {% endblocktrans %}
+        <a href="https://www.electoralcommission.org.uk/voting-and-elections/ways-vote/how-vote-post"
+        >{% trans "Read more about voting by post" %}</a>.
         <p>
     {% endif %}
 
@@ -50,29 +46,33 @@
       <ul>
         <li>
           {% blocktrans trimmed with date0=card.dispatch_dates.0|naturalday:"j F Y" date1=card.dispatch_dates.1|naturalday:"j F Y" %}
-            If you already have a postal vote or successfully apply by {{ date0 }}, your pack will be sent from {{ date1 }}.</li>
+            If you already have a postal vote or successfully apply by {{ date0 }}, your pack will be sent from {{ date1 }}.
           {% endblocktrans %}
-          <li>
-            {% blocktrans trimmed with date0=card.dispatch_dates.0|naturalday:"j F Y" date2=card.dispatch_dates.2|naturalday:"j F Y" application_deadline=card.application_deadline|naturalday:"j F Y" %}
-              If you apply after {{ date0 }} up to 5pm on {{ application_deadline }}, your pack will be sent from {{ date2 }}.
-            {% endblocktrans %}
-          </li>
-        </ul>
+        </li>
+        <li>
+          {% blocktrans trimmed with date0=card.dispatch_dates.0|naturalday:"j F Y" date2=card.dispatch_dates.2|naturalday:"j F Y" application_deadline=card.application_deadline|naturalday:"j F Y" %}
+            If you apply after {{ date0 }} up to 5pm on {{ application_deadline }}, your pack will be sent from {{ date2 }}.
+          {% endblocktrans %}
+        </li>
+      </ul>
     {% else %}
-      {% blocktrans trimmed with election_date=card.election_date|naturalday:"j F Y" sopn_date=card.sopn_date|naturalday:"j F Y" %}
-        <p>
-          Ballot papers for the election on {{ election_date }} will not be printed until after {{ sopn_date }}.
-          If you have a postal vote, your local council will send your postal voting pack around three weeks before polling day.
-        </p>
-        <p>
+      <p>
+        {% blocktrans trimmed with election_date=card.election_date|naturalday:"j F Y" sopn_date=card.sopn_date|naturalday:"j F Y" %}
+          Ballot papers for the election on {{ election_date }} will not be printed until
+          after {{ sopn_date }}. If you have a postal vote, your local council will send
+          your postal voting pack around three weeks before polling day.
+        {% endblocktrans %}
+      </p>
+      <p>
+        {% blocktrans trimmed with election_date=card.election_date|naturalday:"j F Y" sopn_date=card.sopn_date|naturalday:"j F Y" %}
           If you are away from home before or shortly after {{ sopn_date }}, and will not return before polling day,
           your postal vote will not reach you in time for you to use it. In this case, you should consider
-          <a  href='https://www.electoralcommission.org.uk/voting-and-elections/ways-vote/apply-vote-proxy'>
-            applying for a proxy vote
-          </a>
-          instead.
-        </p>
-      {% endblocktrans %}
+        {% endblocktrans %}
+        <a  href='https://www.electoralcommission.org.uk/voting-and-elections/ways-vote/apply-vote-proxy'>
+          {% trans "applying for a proxy vote" %}
+        </a>
+        {% trans "instead." %}
+      </p>
     {% endif %}
 
     {% if postcode|ni_postcode %}

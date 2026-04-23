@@ -1,7 +1,11 @@
 {% load markdown_filter %}
+{% load humanize %}
+{% load i18n %}
 
 {# fmt:off #}
 {% filter markdown %}
+
+{% blocktrans %}
 Members of Parliament (MPs) represent your interests and concerns in the House of Commons.
 
 MPs consider and can propose new laws as well as raising issues that matter to you in the House. This includes asking government
@@ -10,5 +14,9 @@ ministers questions about current issues including those which affect local cons
 MPs split their time between working in Parliament itself, working in the constituency that elected them and working
 for their political party.
 
-[Find out more about MPs](https://www.parliament.uk/about/mps-and-lords/members/mps/)
+{% endblocktrans %}
+
+[{% trans "Find out more about MPs" %}](https://www.parliament.uk/about/mps-and-lords/members/mps/)
+
+
 {% endfilter %}
