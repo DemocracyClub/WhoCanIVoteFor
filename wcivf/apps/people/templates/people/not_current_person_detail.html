@@ -25,7 +25,7 @@
                         <p>
                             {{ person_name }} {% trans "stood for election once." %}
                         </p>
-                    {% else if object.past_not_current_candidacies.count == 2 %}
+                    {% elif object.past_not_current_candidacies.count == 2 %}
                         <p>
                             {{ person_name }} {% trans "stood for election twice." %}
                         </p>
