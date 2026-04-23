@@ -30,8 +30,7 @@
                             {{ person_name }} {% trans "stood for election twice." %}
                         </p>
                     {% else %}
-                        <p>{% blocktrans trimmed count past_candidacy_count=object.past_not_current_candidacies.count %}
-                        {% plural %}
+                        <p>{% blocktrans trimmed with past_candidacy_count=object.past_not_current_candidacies.count %}
                             {{ person_name }} stood for election {{ past_candidacy_count }} times.
                         {% endblocktrans %}
                         </p>
