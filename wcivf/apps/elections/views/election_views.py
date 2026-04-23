@@ -142,7 +142,7 @@ class PartyListView(TemplateView):
             election=context["ballot"].election
         )
         if manifestos.exists():
-            context["manifesto"] = manifestos.get()
+            context["manifestos"] = manifestos
 
         context["person_posts"] = PersonPost.objects.filter(
             party=context["party"], post_election=context["ballot"]

@@ -131,12 +131,17 @@
             </p>
         {% endif %}
     </div>
-    {% if manifesto %}
+    {% if manifestos %}
         <div>
             <h3>{% trans "Party manifesto" %}</h3>
             <p>
-                {% blocktrans trimmed with party_name=party.party_name manifesto=manifesto|safe %}Find out more about this party in the {{ party_name }} {{ manifesto }}.{% endblocktrans %}
+                {% trans "Find out more about this party in their manifesto:" %}
             </p>
+            <ul>
+                {% for manifesto in manifestos %}
+                    {% include "parties/single_manifesto.html" %}
+                {% endfor %}
+            </ul>
         </div>
     {% endif %}
 
