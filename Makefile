@@ -34,17 +34,13 @@ lambda-migrate:  ## Invoke lambda to migrate the database
 	echo "$$output"; \
 	echo "$$output" | grep -q '"FunctionError"' && exit 1 || exit 0
 
-lib/dc_utils:
-	mkdir -p lib
-	ln -s `python -c 'import dc_utils; print(dc_utils.__path__[0])'` lib/dc_utils
-
 .PHONY: makemessages
-makemessages: lib/dc_utils
-	${VIRTUAL_ENV}/bin/python manage.py makemessages -l cy --ignore='env*'
+makemessages:
+	${VIRTUAL_ENV}/bin/python manage.py makemessages -l cy --ignore='.venv*'
 
 .PHONY: compilemessages
 compilemessages:
-	${VIRTUAL_ENV}/bin/python manage.py compilemessages --ignore='env*'
+	${VIRTUAL_ENV}/bin/python manage.py compilemessages --ignore='.venv*'
 
 
 build-WCIVFControllerFunction:
