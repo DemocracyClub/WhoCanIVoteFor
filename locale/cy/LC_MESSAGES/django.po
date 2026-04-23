@@ -1144,7 +1144,7 @@ msgid ""
 "will send your postal voting pack around three weeks before polling day."
 msgstr ""
 "Ni fydd papurau pleidleisio ar gyfer etholiad %(election_date)s yn cael eu "
-"hargraffu tan ar ôl %(sopn_date)s>. Os oes gennych bleidlais bost, bydd eich "
+"hargraffu tan ar ôl %(sopn_date)s. Os oes gennych bleidlais bost, bydd eich "
 "cyngor lleol yn anfon eich pecyn pleidleisio drwy'r post tua thair wythnos "
 "cyn y diwrnod pleidleisio. "
 
