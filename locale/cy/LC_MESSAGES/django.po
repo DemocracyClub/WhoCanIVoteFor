@@ -334,9 +334,6 @@ msgid ""
 "Scottish parliament elections. The boundaries of all constituencies and "
 "regions have been reviewed by the independent organisation"
 msgstr ""
-"Bydd set newydd o ffiniau etholaethau yn cael eu defnyddio ar gyfer etholiad "
-"2024. Mae hyn yn golygu y gallai eich etholaeth fod wedi newid ers yr "
-"etholiad diwethaf."
 
 #: wcivf/apps/elections/templates/elections/boundary_reviews_view.html:60
 msgid "to take account of population changes since 2011."
