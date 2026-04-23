@@ -72,8 +72,8 @@ class ElectionViewTests(TestCase):
         )
         PostElectionFactory(election=not_city_of_london)
         for election in [
-            (self.election, "Polls are open from 8a.m. till 8p.m."),
-            (not_city_of_london, "Polls are open from 7a.m. till 10p.m."),
+            (self.election, "Polls are open from 8a.m. until 8p.m."),
+            (not_city_of_london, "Polls are open from 7a.m. until 10p.m."),
         ]:
             with self.subTest(election=election):
                 response = self.client.get(

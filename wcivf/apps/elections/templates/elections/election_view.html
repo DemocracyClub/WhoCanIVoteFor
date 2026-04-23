@@ -37,8 +37,7 @@
                         {% blocktrans trimmed with election=object.nice_election_name %}
                             The {{ election }} <strong>is being held today</strong>.
                             Polls are open from
-                        {% endblocktrans %}
-                        {{ object.polls_open|time:"ga" }} {% trans "until" %} {{ object.polls_close|time:"ga" }}
+                        {% endblocktrans %} {{ object.polls_open|time:"ga" }} {% trans "until" %} {{ object.polls_close|time:"ga" }}
                     {% elif object.in_past %}
                       {% comment %} TO DO: Change text when the election is "tomorrow" {% endcomment %}
                         {% blocktrans trimmed with election_date=object.election_date|naturalday:"\o\n l j F Y" %}
