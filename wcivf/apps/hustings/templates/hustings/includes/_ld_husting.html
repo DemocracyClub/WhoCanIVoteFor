@@ -10,7 +10,7 @@
             "endDate": "{{ husting.ends | date:'Y-m-d H:i' }}",
         {% endif %}
         "name": "{{ husting.title}}",
-        "description": _("Husting event for {{ husting.post_election.friendly_name}}"),
+        "description": "Husting event for {{ husting.post_election.friendly_name}}",
         {% if husting.location and husting.postcode %}
             "location": {
                 "@type": "Place",
