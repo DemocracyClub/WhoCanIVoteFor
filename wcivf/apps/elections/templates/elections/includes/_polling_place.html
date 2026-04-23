@@ -10,43 +10,12 @@
             </h2>
         </summary>
         {% if polling_station.polling_station_known %}
-            {% if advance_voting_station and advance_voting_station.open_in_future %}
-                <p>
-                    {% blocktrans trimmed %}
-                        Your council is trialling a system that allows you to vote in person before polling day.
-                        You can vote in advance at this location, or vote at your polling station
-                        as normal on polling day.
-                    {% endblocktrans %}
-                </p>
-
-                <h3>{% trans "Vote before polling day" %}</h3>
-                <p>
-                    {% trans "Your advance voting station is:" %}
-                </p>
-                <address>
-                    {{ advance_voting_station.name }}<br>
-                    {{ advance_voting_station.address|linebreaksbr }}<br>
-                    {{ advance_voting_station.postcode }}
-                </address>
-                <div class="ds-table">
-                    <table>
-                        <caption>{% trans "Advance voting station opening times" %}</caption>
-                        <tr>
-                            <th>{% trans "Date" %}</th>
-                            {% comment %}Translators: Opening times, from and to{% endcomment %}
-                            <th>{% trans "Open" %}</th>
-                        </tr>
-                        {% for opening_time in advance_voting_station.opening_times %}
-                            <tr>
-                                <td>{% ifchanged opening_time.0 %}{{ opening_time.0|todate }}{% endifchanged %}</td>
-                                <td>{{ opening_time.1|totime }} — {{ opening_time.2|totime }}</td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-                <hr>
-                <h3>{% trans "Vote on polling day" %}</h3>
+            {% if advance_hubs %}
+                {% include "elections/includes/_advance_hubs.html" %}
+            {% elif polling_day_hubs %}
+                {% include "elections/includes/_polling_day_hubs.html" %}
             {% endif %}
+
             <p>
                 {% trans "Your polling station is" %}:
             </p>
@@ -151,10 +120,9 @@
                 <a href="http://www.eoni.org.uk/Vote/Voting-at-a-polling-place" target="_top">
                     {% trans "Read more about how to vote in Northern Ireland" %}</a>.
             {% else %}
-                {% if not polling_station.advance_voting_station %}
-                    <a href="https://www.gov.uk/voting-in-the-uk/polling-stations" target="_top">
-                        {% trans "Read more about how to vote" %}</a>.
-                {% endif %}
+                <a href="https://www.gov.uk/voting-in-the-uk/polling-stations" target="_top">
+                    {% trans "Read more about how to vote" %}
+                </a>.
             {% endif %}
         </p>
 

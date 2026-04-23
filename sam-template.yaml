@@ -80,7 +80,7 @@ Resources:
       Handler: wcivf.lambda_handler.handler
       MemorySize: 256
       Runtime: python3.12
-      Timeout: 360
+      Timeout: 720
       Environment:
         Variables:
           DJANGO_SETTINGS_MODULE: !Ref AppDjangoSettingsModule
@@ -97,97 +97,10 @@ Resources:
         dc-product: wcivf
         CreatedVia: CloudFormation
       Events:
-        ImportPeopleRecentlyUpdated:
-          Type: Schedule # More info about API Event Source: https://github.com/aws/serverless-application-model/blob/master/versions/2016-10-31.md#schedule
+        WCIVFJobsQueueEvent:
+          Type: SQS
           Properties:
-            Schedule: cron(*/5 * ? * * *) # using the ? as you cannot use * wildcard for both day-of-month and day-of-week field. See https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions
-            Name: import-people-recently-updated
-            Description: Update all people updated in YNR recently
-            Input: '{"command": "import_people", "args": ["--recently-updated"]}'
-            RetryPolicy:
-              MaximumRetryAttempts: 0
-        DeleteDeletedPeople:
-          Type: Schedule # More info about API Event Source: https://github.com/aws/serverless-application-model/blob/master/versions/2016-10-31.md#schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: delete-deleted-people
-            Description: Deletes people deleted in YNR in the last hour
-            Input: '{"command": "delete_deleted_people"}'
-            RetryPolicy:
-              MaximumRetryAttempts: 0
-        ImportBallotsRecentlyUpdated:
-          Type: Schedule # More info about API Event Source: https://github.com/aws/serverless-application-model/blob/master/versions/2016-10-31.md#schedule
-          Properties:
-            Schedule: cron(2-57/5 * ? * * *) # using the ? as you cannot use * wildcard for both day-of-month and day-of-week field. See https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions
-            Name: import-ballots-recently-updated
-            Description: Update all ballots updated in YNR recently
-            Input: '{"command": "import_ballots", "args": ["--recently-updated"]}'
-            RetryPolicy:
-              MaximumRetryAttempts: 0
-        ImportParties:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 day)
-            Name: import-parties
-            Description: Import parties
-            Input: '{"command": "import_parties"}'
-            RetryPolicy:
-              MaximumRetryAttempts: 0
-        ImportNationalParties:
-          Type: Schedule
-          Properties:
-            Schedule: rate(6 hours) # every 6 hours
-            Name: import-national-parties
-            Description: Import national parties
-            Input: '{"command": "import_national_parties"}'
-            RetryPolicy:
-              MaximumRetryAttempts: 0
-        BatchFeedbackToSlack:
-          Type: Schedule
-          Properties:
-            Schedule: cron(0 9 ? * * *) # using the ? as you cannot use * wildcard for both day-of-month and day-of-week field. See https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions
-            Name: batch-feedback-to-slack
-            Description: Send feedback entries for the last week to slack
-            Input: '{"command": "batch_feedback_to_slack", "args": ["--hours=24"]}'
-#        ImportHustings:
-#          Type: Schedule
-#          Properties:
-#            Schedule: rate(1 hour)
-#            Name: import-hustings
-#            Description: Import hustings from google spreadsheets
-#            Input: '{"command": "import_hustings"}'
-        ImportLeaflets:
-         Type: Schedule
-         Properties:
-           Schedule: rate(1 hour)
-           Name: import-leaflets
-           Description: Import leaflets
-           Input: '{"command": "import_leaflets", "args": ["--recently-uploaded", "--uploaded-since=2024-05-22"]}'
-        ImportWikipediaBios:
-          Type: Schedule
-          Properties:
-            Schedule: cron(0 9 * * ? *)
-            Name: import-wikipedia-bios
-            Description: Import wikipedia bio extracts
-            Input: '{"command": "import_wikipedia_bios", "args": ["--current"]}'
-            RetryPolicy:
-              MaximumRetryAttempts: 0
-        # Import2024PPCs:
-        #   Type: Schedule
-        #   Properties:
-        #     Schedule: rate(1 hour)
-        #     Name: import-2024-ppcs
-        #     Description: Import 2024 PPCs
-        #     Input: '{"command": "import_2024_ppcs"}'
-        #     RetryPolicy:
-        #       MaximumRetryAttempts: 0
-        ILPGlobal:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 hour)
-            Name: import-local-parties-global
-            Description: Import LocalParty objects from google spreadsheets
-            Input: '{"command": "import_local_parties", "args": ["--date=2026-5-7"]}'
+            Queue: !GetAtt WCIVFJobsQueue.Arn
 
   WCIVFCodeDeployApp:
     Type: AWS::CodeDeploy::Application
@@ -462,8 +375,168 @@ Resources:
       HostedZoneName: !Sub "${Domain}."
       Name: !Sub "www.${Domain}."
       Type: A
+  # SQS queue for running background jobs, with a dead letter queue for failed jobs
+  WCIVFJobsDlq:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: wcivf-jobs-dlq.fifo
+        FifoQueue: true
+        ContentBasedDeduplication: true
 
+  WCIVFJobsQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: wcivf-jobs.fifo
+      FifoQueue: true
+      ContentBasedDeduplication: true
+      # This should be comfortably larger than the Lambda timeout.
+      # AWS guidance is to make this larger, often much larger, than the function timeout.
+      VisibilityTimeout: 1500
+      ReceiveMessageWaitTimeSeconds: 20
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt WCIVFJobsDlq.Arn
+        maxReceiveCount: 5
 
+  WCIVFJobsQueuePolicy:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      Queues:
+        - !Ref WCIVFJobsQueue
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: AllowEventBridgeToSend
+            Effect: Allow
+            Principal:
+              Service: events.amazonaws.com
+            Action: sqs:SendMessage
+            Resource: !GetAtt WCIVFJobsQueue.Arn
+  # Rules to trigger background jobs
+  ImportPeopleRecentlyUpdatedRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: import-people-recently-updated-rule
+      Description: Update all people updated in YNR recently
+      ScheduleExpression: cron(*/5 * ? * * *)
+      State: ENABLED
+      Targets:
+        - Id: WCIVFJobsQueue
+          Arn: !GetAtt WCIVFJobsQueue.Arn
+          SqsParameters:
+            MessageGroupId: wcivf-jobs
+          Input: '{"command": "import_people", "args": ["--recently-updated"]}'
+
+  DeleteDeletedPeopleRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: delete-deleted-people-rule
+      Description: Deletes people deleted in YNR in the last hour
+      ScheduleExpression: rate(1 hour)
+      State: ENABLED
+      Targets:
+        - Id: WCIVFJobsQueue
+          Arn: !GetAtt WCIVFJobsQueue.Arn
+          SqsParameters:
+            MessageGroupId: wcivf-jobs
+          Input: '{"command": "delete_deleted_people"}'
+
+  ImportBallotsRecentlyUpdatedRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: import-ballots-recently-updated-rule
+      Description: Update all ballots updated in YNR recently
+      ScheduleExpression: cron(2-57/5 * ? * * *)
+      State: ENABLED
+      Targets:
+        - Id: WCIVFJobsQueue
+          Arn: !GetAtt WCIVFJobsQueue.Arn
+          SqsParameters:
+            MessageGroupId: wcivf-jobs
+          Input: '{"command": "import_ballots", "args": ["--recently-updated"]}'
+
+  ImportPartiesRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: import-parties-rule
+      Description: Import parties
+      ScheduleExpression: rate(1 day)
+      State: ENABLED
+      Targets:
+        - Id: WCIVFJobsQueue
+          Arn: !GetAtt WCIVFJobsQueue.Arn
+          SqsParameters:
+            MessageGroupId: wcivf-jobs
+          Input: '{"command": "import_parties"}'
+
+  ImportNationalPartiesRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: import-national-parties-rule
+      Description: Import national parties
+      ScheduleExpression: rate(6 hours)
+      State: ENABLED
+      Targets:
+        - Id: WCIVFJobsQueue
+          Arn: !GetAtt WCIVFJobsQueue.Arn
+          SqsParameters:
+            MessageGroupId: wcivf-jobs
+          Input: '{"command": "import_national_parties"}'
+
+  BatchFeedbackToSlackRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: batch-feedback-to-slack-rule
+      Description: Send feedback entries for the last 24 hours to slack
+      ScheduleExpression: cron(0 9 ? * * *)
+      State: ENABLED
+      Targets:
+        - Id: WCIVFJobsQueue
+          Arn: !GetAtt WCIVFJobsQueue.Arn
+          SqsParameters:
+            MessageGroupId: wcivf-jobs
+          Input: '{"command": "batch_feedback_to_slack", "args": ["--hours=24"]}'
+
+  ImportLeafletsRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: import-leaflets-rule
+      Description: Import leaflets
+      ScheduleExpression: rate(1 hour)
+      State: ENABLED
+      Targets:
+        - Id: WCIVFJobsQueue
+          Arn: !GetAtt WCIVFJobsQueue.Arn
+          SqsParameters:
+            MessageGroupId: wcivf-jobs
+          Input: '{"command": "import_leaflets", "args": ["--recently-uploaded", "--uploaded-since=2024-05-22"]}'
+
+  ImportWikipediaBiosRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: import-wikipedia-bios-rule
+      Description: Import wikipedia bio extracts
+      ScheduleExpression: cron(0 9 * * ? *)
+      State: ENABLED
+      Targets:
+        - Id: WCIVFJobsQueue
+          Arn: !GetAtt WCIVFJobsQueue.Arn
+          SqsParameters:
+            MessageGroupId: wcivf-jobs
+          Input: '{"command": "import_wikipedia_bios", "args": ["--current"]}'
+
+  ILPGlobalRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: import-local-parties-global-rule
+      Description: Import LocalParty objects from google spreadsheets
+      ScheduleExpression: rate(1 hour)
+      State: ENABLED
+      Targets:
+        - Id: WCIVFJobsQueue
+          Arn: !GetAtt WCIVFJobsQueue.Arn
+          SqsParameters:
+            MessageGroupId: wcivf-jobs
+          Input: '{"command": "import_local_parties", "args": ["--date=2026-05-07"]}'
 Outputs:
   WCIVFControllerFunctionArn:
     Description: "WCIVF Controller Lambda Function ARN"

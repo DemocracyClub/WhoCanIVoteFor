@@ -311,37 +311,35 @@ class TestYNRBallotImporter:
         ballot = mocker.Mock()
         test_cases = [
             {
-                "side_effect": PostElection.DoesNotExist,
+                "update_return": 0,
                 "expected": False,
-                "assert": ballot.replaces.add.assert_not_called,
                 "replaced_ballot_id": None,
             },
             {
-                "side_effect": PostElection.DoesNotExist,
+                "update_return": 0,
                 "expected": False,
-                "assert": ballot.replaces.add.assert_not_called,
                 "replaced_ballot_id": "not.a.valid.ballot.paper.id",
             },
             {
-                "side_effect": None,
+                "update_return": 1,
                 "expected": True,
-                "assert": ballot.replaces.add.assert_called_once,
                 "replaced_ballot_id": "local.sheffield.fulwood.2020-05-07",
             },
         ]
         for test_case in test_cases:
             with subtests.test(msg=str(test_case)):
+                mock_qs = mocker.MagicMock()
+                mock_qs.update.return_value = test_case["update_return"]
                 mocker.patch.object(
                     PostElection.objects,
-                    "get",
-                    side_effect=test_case["side_effect"],
+                    "filter",
+                    return_value=mock_qs,
                 )
                 result = importer.add_replaced_ballot(
                     ballot=ballot,
                     replaced_ballot_id=test_case["replaced_ballot_id"],
                 )
                 assert result is test_case["expected"]
-                test_case["assert"]()
 
 
 class TestYNRImporterAddBallots:

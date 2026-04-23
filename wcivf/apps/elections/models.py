@@ -297,6 +297,10 @@ class Election(models.Model):
             "mayor.greater-lincolnshire-cca.2025-05-01": f"{s3_bucket}/2025-05-01/mayoral/mayor.greater-lincolnshire-cca.2025-05-01.pdf",
             "mayor.doncaster.2025-05-01": f"{s3_bucket}/2025-05-01/mayoral/mayor.doncaster.2025-05-01.pdf",
             "mayor.north-tyneside.2025-05-01": f"{s3_bucket}/2025-05-01/mayoral/mayor.north-tyneside.2025-05-01.pdf",
+            "mayor.tower-hamlets.2026-05-07": f"{s3_bucket}/2026-05-07/mayoral/mayor.tower-hamlets.2026-05-07.pdf",
+            "mayor.newham.2026-05-07": f"{s3_bucket}/2026-05-07/mayoral/mayor.newham.2026-05-07.pdf",
+            "mayor.hackney.2026-05-07": f"{s3_bucket}/2026-05-07/mayoral/mayor.hackney.2026-05-07.pdf",
+            "mayor.lewisham.2026-05-07": f"{s3_bucket}/2026-05-07/mayoral/mayor.lewisham.2026-05-07.pdf",
         }
 
         return election_to_booklet.get(self.slug)
@@ -529,7 +533,7 @@ class PostElection(TimeStampedModel):
     electorate = models.IntegerField(blank=True, null=True)
     turnout = models.IntegerField(blank=True, null=True)
     spoilt_ballots = models.IntegerField(blank=True, null=True)
-    results_source_url = models.URLField(blank=True, null=True)
+    results_source_url = models.URLField(blank=True, null=True, max_length=800)
 
     objects = PostElectionQuerySet.as_manager()
 

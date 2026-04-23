@@ -161,6 +161,44 @@ class LocalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
         }
         return country_mapping.get(election_type, "UK")
 
+    def get_manifesto_rows(self, row):
+        english_row = {
+            "language": "English",
+            "web_url": row["Manifesto Website URL"].strip(),
+            "pdf_url": row["Manifesto PDF URL"].strip(),
+            "easy_read_url": row.get("Manifesto Easy Read PDF", "").strip(),
+        }
+        welsh_row = {
+            "language": "Welsh",
+            "web_url": row.get("CYM Manifesto Website URL", "").strip(),
+            "pdf_url": row.get("CYM Manifesto PDF URL", "").strip(),
+            "easy_read_url": row.get("CYM Manifesto Easy Read PDF", "").strip(),
+        }
+        return [
+            data
+            for data in [english_row, welsh_row]
+            if any([data["web_url"], data["pdf_url"]])
+        ]
+
+    def create_or_update_manifesto(
+        self, party, election, country, file_url, manifesto_data
+    ):
+        defaults = {
+            "web_url": manifesto_data["web_url"],
+            "pdf_url": manifesto_data["pdf_url"],
+            "easy_read_url": manifesto_data["easy_read_url"],
+            "file_url": file_url,
+        }
+        manifesto_obj, created = Manifesto.objects.update_or_create(
+            election=election,
+            party=party,
+            country=country,
+            language=manifesto_data["language"],
+            defaults=defaults,
+        )
+        manifesto_obj.save()
+        self.write(f"{'Created' if created else 'Updated'} {manifesto_obj}")
+
     def import_parties(self):
         """
         This is the main action that is run by the class. First existing
@@ -211,38 +249,24 @@ class LocalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):
                 ).distinct()
                 for party in parties:
                     self.add_local_party(row, party, ballots, file_url)
-                    manifesto_web = row["Manifesto Website URL"].strip()
-                    manifesto_pdf = row["Manifesto PDF URL"].strip()
-                    if not any([manifesto_web, manifesto_pdf]):
+                    manifesto_rows = self.get_manifesto_rows(row)
+                    if not manifesto_rows:
                         self.write("No links to create Manifesto, skipping")
                         continue
 
                     for election in elections:
-                        self.add_manifesto(row, party, election, file_url)
+                        self.add_manifestos(row, party, election, file_url)
 
-    def add_manifesto(self, row, party, election, file_url):
-        manifesto_web = row["Manifesto Website URL"].strip()
-        manifesto_pdf = row["Manifesto PDF URL"].strip()
+    def add_manifestos(self, row, party, election, file_url):
         country = self.get_country(election_type=election.election_type)
-        # These columns aren't guaranteed to be part of the csv so we use .get()
-        language = row.get("Manifesto Language", "English").strip()
-        easy_read_url = row.get("Manifesto Easy Read PDF", "").strip()
-        if any([manifesto_web, manifesto_pdf]):
-            defaults = {
-                "web_url": manifesto_web,
-                "pdf_url": manifesto_pdf,
-                "easy_read_url": easy_read_url,
-                "file_url": file_url,
-            }
-            manifesto_obj, created = Manifesto.objects.update_or_create(
-                election=election,
+        for manifesto_data in self.get_manifesto_rows(row):
+            self.create_or_update_manifesto(
                 party=party,
+                election=election,
                 country=country,
-                language=language or "English",
-                defaults=defaults,
+                file_url=file_url,
+                manifesto_data=manifesto_data,
             )
-            manifesto_obj.save()
-            self.write(f"{'Created' if created else 'Updated'} {manifesto_obj}")
 
 
 class NationalPartyImporter(ReadFromUrlMixin, ReadFromFileMixin):

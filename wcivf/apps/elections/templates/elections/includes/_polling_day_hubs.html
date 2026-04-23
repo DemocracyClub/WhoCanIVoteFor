@@ -1,0 +1,40 @@
+{% load postcode_tags %}
+{% load humanize %}
+{% load i18n %}
+<div class="ds-status-message">
+    {% blocktrans trimmed %}
+        Your council is running a trial that allows you to vote in person
+        at either your <a href="#assigned-station">assigned station</a>
+        or a <a href="#central-hub">central voting hub</a>.
+    {% endblocktrans %}
+    <br>
+    <br>
+    <a target="_blank" rel="noopener noreferrer" href="{{ polling_day_hubs.0.pilot_info_url }}">
+        {% trans "Read more about the voting trial." %}
+    </a>
+</div>
+
+
+<h3 id="central-hub">{% trans "Central voting hub" %}</h3>
+{% for hub in polling_day_hubs %}
+    <address>
+        {{ hub.name }}<br>
+        {{ hub.address|linebreaksbr }}<br>
+        {{ hub.postcode }}
+    </address>
+    <p>
+        {% blocktrans with open_time=hub.filtered_opening_times.0.1|totime close_time=hub.filtered_opening_times.0.2|totime %}
+            It will be open from <strong>{{ open_time }} to {{ close_time }}</strong>
+        {% endblocktrans %}
+        {% for election in elections_by_date %}
+            {{ election.grouper|naturalday:"\o\n l j F Y" }}
+            {% if not forloop.last %}
+                {% if forloop.revcounter == 2 %}
+                    {% trans "and" %}
+                {% else %},
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </p>
+{% endfor %}
+<h3 id="assigned-station">{% trans "Your assigned station" %}</h3>

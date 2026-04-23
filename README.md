@@ -104,8 +104,8 @@ edited in `sam-template.yaml` for this change to take effect.
 
 ## Mayoral Booklets
 
-PDF booklets can be manually added here wcivf/assets/booklets following the same naming convention as the other booklets. The file name should be the same as the election slug.
-Then, add the slug and corresponding booklet file name to the list here /wcivf/apps/elections/models.py#L187.
+PDF booklets can be uploaded to the s3 bucket: `https://wcivf-mayoral-booklets.s3.eu-west-2.amazonaws.com/booklets`. The file name should be the same as the election slug.
+Then, add the slug and corresponding booklet file name to the `election_to_booklet` dict lookup in `Election.election_booklet` in `/wcivf/apps/elections/models.py`.
 
 ## Disable upcoming elections
 

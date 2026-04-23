@@ -6,17 +6,36 @@
 <div class="ds-stack">
     <div id="election_{{ postelection.election.slug }}" class="ds-stack">
 
-        <h2>
-            <span aria-hidden="true">🗳️</span>
-            {{ postelection.election.name_without_brackets }} {{ postelection.cancellation_suffix }}
-        </h2>
-
         {% if postelection.cancelled %}
+            {% if postelection.is_pcc or postelection.is_mayoral %}
+                <h2>
+                    <span aria-hidden="true">🗳️</span>
+                    {{ postelection.election.name_without_brackets }} {{ postelection.cancellation_suffix }}
+                </h2>
+            {% else %}
+                <h2>
+                    <span aria-hidden="true">🗳️</span>
+                    {{ postelection.election.name_without_brackets }}
+                </h2>
+                <h3>
+                    {% if postelection.is_london_assembly_additional %}
+                        {% trans "Additional members" %} {{ postelection.cancellation_suffix }}
+                    {% else %}
+                        {{ postelection.friendly_name }} {# friendly_name already includes cancellation_suffix #}
+                    {% endif %}
+                </h3>
+            {% endif %}
+
             {% if postelection.election.in_past %}
                 {% include "elections/includes/_past_election.html" %}
             {% endif %}
             {% include "elections/includes/_cancelled_election.html" with object=postelection only %}
         {% else %}
+
+            <h2>
+                <span aria-hidden="true">🗳️</span>
+                {{ postelection.election.name_without_brackets }} {{ postelection.cancellation_suffix }}
+            </h2>
 
             {% if postelection.election.in_past %}
                 {% include "elections/includes/_past_election.html" %}

@@ -1,0 +1,46 @@
+{% load i18n %}
+{% load postcode_tags %}
+
+<div class="ds-status-message">
+    {% blocktrans trimmed %}
+        Your council is running a trial that allows you to vote in person
+        before polling day. You can <a href="#advance-hubs">vote in advance at one of these locations</a>,
+        or <a href="#assigned-station">vote at your assigned polling station as normal on polling day</a>.
+    {% endblocktrans %}
+    <br>
+    <br>
+    <a target="_blank" rel="noopener noreferrer" href="{{ advance_hubs.0.pilot_info_url }}">
+        {% trans "Read more about the voting trial." %}
+    </a>
+</div>
+<h3 id="advance-hubs">{% trans "Vote before polling day" %}</h3>
+<ul class="ds-details voting-hubs">
+    {% for hub in advance_hubs %}
+        <li>
+            <details{% if forloop.first %} open{% endif %}>
+                <summary>{{ hub.name }}</summary>
+                <address>
+                    {{ hub.name }}<br>
+                    {{ hub.address|linebreaksbr }}<br>
+                    {{ hub.postcode }}
+                </address>
+                <div class="ds-table">
+                    <table>
+                        <caption>{% trans "Opening times" %}</caption>
+                        <tr>
+                            <th>{% trans "Date" %}</th>
+                            <th>{% trans "Open" %}</th>
+                        </tr>
+                        {% for opening_time in hub.filtered_opening_times %}
+                            <tr>
+                                <td>{{ opening_time.0|todate }}</td>
+                                <td>{{ opening_time.1|totime }} — {{ opening_time.2|totime }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </details>
+        </li>
+    {% endfor %}
+</ul>
+<h3 id="assigned-station">{% trans "Vote on polling day" %}</h3>

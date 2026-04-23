@@ -17,7 +17,13 @@
                     {% trans "voting in Northern Ireland" %}</a>
             </p>
         {% else %}
-            <p>{% trans "You do not need your poll card to vote. You must vote at your assigned polling station." %}</p>
+            <p>
+                {% trans "You do not need your poll card to vote." %}
+                {# 2026 pilots - delete condition after May 2026 #}
+                {% if not advance_hubs and not polling_day_hubs %}
+                    {% trans "You must vote at your assigned polling station." %}
+                {% endif %}
+            </p>
             <ul>
                 <li>{% trans "Read more about" %}
                     <a href="https://www.gov.uk/voting-in-the-uk/polling-stations">
@@ -28,6 +34,7 @@
                         {% trans "photo ID" %}</a>.
                 </li>
             </ul>
+
             {% if not postelections.0.past_vac_application_deadline %}
                 <p>
                     {% trans "If you do not have a photo ID that allows you to vote, you can" %}

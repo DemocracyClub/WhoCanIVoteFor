@@ -6,14 +6,15 @@ from django.core.management import call_command
 
 
 def handler(event, context):
-    """Sample pure Lambda function
-
+    """
     Parameters
     ----------
     event: dict, required
-        API Gateway Lambda Proxy Input Format
+        Either an SQS event (when invoked via the SQS event source mapping) or
+        a direct invocation payload. SQS events wrap the command payload in
+        Records[0].body as a JSON string.
 
-        Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
+        SQS event doc: https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html
 
     context: object, required
         Lambda Context runtime methods and attributes
@@ -22,10 +23,10 @@ def handler(event, context):
 
     Returns
     ------
-    API Gateway Lambda Proxy Output Format: dict
-
-        Return doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html
+    dict with statusCode and body
     """
+    if "Records" in event:
+        event = json.loads(event["Records"][0]["body"])
 
     cmd = event["command"]
     args = event.get("args", [])
