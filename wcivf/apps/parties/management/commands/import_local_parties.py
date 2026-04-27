@@ -1,7 +1,10 @@
+from core.db_routers import get_principal_db_name
 from dateutil.parser import parse
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from parties.importers import LocalElection, LocalPartyImporter
+
+DB_NAME = get_principal_db_name()
 
 
 class Command(BaseCommand):
@@ -101,7 +104,7 @@ class Command(BaseCommand):
         )
         importer.import_parties()
 
-    @transaction.atomic
+    @transaction.atomic(using=DB_NAME)
     def handle(self, **options):
         self.options = options
 
