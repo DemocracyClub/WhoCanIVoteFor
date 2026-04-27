@@ -63,11 +63,10 @@ class PersonPost(models.Model):
     @property
     def get_results_text(self) -> str:
         """
-        Text describing the outcome of the election, as relates to this person.
+        Returns text describing whether or not this person was elected.
+        For example, if they were elected, return:
 
-        For example, if they were elected and we have the vote count, return:
-
-            "Elected (12345 votes)"
+            "Elected"
         """
 
         # Cancelled ballot:
@@ -79,42 +78,30 @@ class PersonPost(models.Model):
         if self.post_election.cancelled:
             if self.elected:
                 return _("Elected unopposed")
-            return _("(election cancelled)")
+            return _("(Election cancelled)")
 
-        # If the election is in the past, we can't have results!
-        # NOTE: this needs to be after the cancelled checks, as an election
-        # is always cancelled before the election day(!)
-        if "election" in self._state.fields_cache:
-            election = self._state.fields_cache["election"]
-        else:
-            election = self.post_election.election
-
-        if election and not election.in_past:
-            return _("(Results due after %(date)s)") % {
-                "date": election.election_date.strftime("%d %B %Y")
-            }
-
-        # If this candidacy was marked as elected, we need to show that!
-        # But we might not always have votes case for them.
-        # This is either because no one has gone and entered them, or
-        # because it's not an election we don't support votes cast for
-        # (e.g. non-FPTP)
-        num_votes = intcomma(self.votes_cast)
         if self.elected:
-            if self.votes_cast:
-                return _("%(num_votes)s votes (elected)") % {
-                    "num_votes": num_votes
-                }
-            return _("Elected (vote count not available)")
+            return _("Elected")
+        return _("Not elected")
 
-        # If we have votes cast, but we've not marked the candidacy as elected
-        # then the person wasn't elected, but we should still show the votes
-        # they got.
-        if self.votes_cast:
-            return _("%(num_votes)s votes (not elected)") % {
-                "num_votes": num_votes
+    @property
+    def get_vote_count_text(self) -> str:
+        """
+        Returns text describing the vote count for this candidacy, formatted with commas.
+
+        For example, "12,345 votes".
+        """
+        if self.post_election.get_voting_system.slug != "FPTP":
+            return _(
+                "We do not collect voting data for %(voting_system)s elections"
+            ) % {"voting_system": self.post_election.get_voting_system.get_name}
+
+        if self.votes_cast is not None:
+            return _("%(vote_count)s votes") % {
+                "vote_count": intcomma(self.votes_cast)
             }
-        return _("Not elected (vote count not available)")
+
+        return _("vote count not available")
 
     @property
     def get_results_rank(self):
