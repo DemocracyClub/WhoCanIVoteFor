@@ -27,3 +27,9 @@ class PrincipalRDSRouter:
 
     def allow_migrate(self, db, app_label, model_name=None, **hints):
         return True
+
+
+def get_principal_db_name():
+    if PRINCIPAL in settings.DATABASES:
+        return PRINCIPAL
+    return REPLICA
