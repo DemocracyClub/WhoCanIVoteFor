@@ -184,6 +184,7 @@ WSGI_APPLICATION = "wcivf.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
+PRINCIPAL_DB_NAME = "principal"
 
 DATABASES = {
     "default": {
@@ -199,7 +200,7 @@ if not os.environ.get("IGNORE_ROUTERS") and os.environ.get(
     "RDS_DB_NAME", False
 ):
     DATABASE_ROUTERS.append("core.db_routers.PrincipalRDSRouter")
-    DATABASES["principal"] = {
+    DATABASES[PRINCIPAL_DB_NAME] = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.environ.get("RDS_DB_NAME"),
         "USER": "wcivf",
