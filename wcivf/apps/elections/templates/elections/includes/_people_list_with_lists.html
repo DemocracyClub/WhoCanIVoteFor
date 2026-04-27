@@ -40,7 +40,7 @@
                             {% with manifesto=party.manifestos.0 %}
                                 {% if manifesto %}
                                     <p>
-                                        Find out more this party's policies in their manifesto:
+                                        {% trans "Find out more about this party's policies in their manifesto:" %}
                                     </p>
                                     <ul>
                                         {% include "parties/single_manifesto.html" with manifesto=manifesto %}

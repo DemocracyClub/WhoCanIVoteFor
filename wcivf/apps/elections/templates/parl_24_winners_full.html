@@ -4,10 +4,10 @@
 {% block content %}
     {% if table_data %}
         <table class="ds-table" style="width:100%;">
-            <caption>Number of winners by political party</caption>
+            <caption>{% trans "Number of winners by political party" %}</caption>
             <tr>
-                <th>Party</th>
-                <th>Winners</th>
+                <th>{% trans "Party" %}</th>
+                <th>{% trans "Winners" %}</th>
             </tr>
             {% for party in table_data %}
                 <tr>

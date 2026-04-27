@@ -7,15 +7,17 @@
         <ul class="ds-stack">
             <li class="ds-status-message">
                 {% if object.found_useful == "YES" %}
-                    {% blocktrans trimmed %}
-                        <p>The information you see here is gathered publicly, by people like you.</p>
-                    {% endblocktrans %}
+                    <p>
+                        {% trans "The information you see here is gathered publicly, by people like you." %}
+                    </p>
                 {% else %}
-                    {% blocktrans trimmed %}
-                        <p>We're sorry you didn't find what you were looking for. We'll read your feedback and pass it on to our volunteers.</p>
-
-                        <p>The information you see here is gathered publicly, by people like you.</p>
-                    {% endblocktrans %}
+                    <p>
+                        {% trans "We're sorry you didn't find what you were looking for." %}
+                        {% trans "We'll read your feedback and pass it on to our volunteers." %}
+                    </p>
+                    <p>
+                        {% trans "The information you see here is gathered publicly, by people like you." %}
+                    </p>
                 {% endif %}
             </li>
         </ul>

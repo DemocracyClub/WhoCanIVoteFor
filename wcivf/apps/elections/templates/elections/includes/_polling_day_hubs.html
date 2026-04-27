@@ -23,7 +23,7 @@
         {{ hub.postcode }}
     </address>
     <p>
-        {% blocktrans with open_time=hub.filtered_opening_times.0.1|totime close_time=hub.filtered_opening_times.0.2|totime %}
+        {% blocktrans trimmed with open_time=hub.filtered_opening_times.0.1|totime close_time=hub.filtered_opening_times.0.2|totime %}
             It will be open from <strong>{{ open_time }} to {{ close_time }}</strong>
         {% endblocktrans %}
         {% for election in elections_by_date %}

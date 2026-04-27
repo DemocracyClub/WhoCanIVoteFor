@@ -29,7 +29,7 @@
     <aside class="ds-filter" aria-labelledby="filter-label">
         <div class="ds-filter-cluster">
             <ul>
-                <li id="filter-label" class="ds-filter-label" aria-hidden="true">Filter:</li>
+                <li id="filter-label" class="ds-filter-label" aria-hidden="true">{% trans "Filter:" %}</li>
                 <li><a href="{{ photo_list_review_url }}" {% if request.get_full_path == photo_list_review_url %}aria-current="true" {% endif %}>All</a></li>
                 {% for shortcut in shortcuts.list %}
                     <li><a href="{{ photo_list_review_url }}?{{ shortcut.querystring }}" {% if shortcut.active %}aria-current="true" {% endif %}>{{ shortcut.label }}</a></li>
@@ -38,7 +38,7 @@
         </div>
         <form>
             <details {% if filter.data %}open=""{% endif %}>
-                <summary>Advanced filters</summary>
+                <summary>{% trans "Advanced filters" %}</summary>
                 <div class="ds-advanced-filters">
                     <div class="ds-filter-cluster">
                         {% for field in filter.form.visible_fields %}

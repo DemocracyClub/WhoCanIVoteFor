@@ -9,10 +9,14 @@
         <a href="{{ object.wikipedia_url }}" class="link-button">{% trans "Read more on Wikipedia" %}</a>
     {% endif %}
     {% if object.favourite_biscuit %}
-        {% blocktrans trimmed with biscuit=object.favourite_biscuit%}
-            <h4>Favourite Biscuit</h4>
-            <p>{{ biscuit }}</p>
-        {% endblocktrans %}
+        <h4>{% trans "Favourite Biscuit" %}</h4>
+
+        <p>
+            {% blocktrans trimmed with biscuit=object.favourite_biscuit%}
+                {{ biscuit }}
+            {% endblocktrans %}
+        </p>
+
     {% endif %}
 
 {% endif %}

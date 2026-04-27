@@ -27,18 +27,37 @@
             <p>{% trans "The question you will be asked on the ballot paper is:" %}</p>
         {% endif %}
 
-        {% blocktrans trimmed with referendum_question=referendum.question referendum_answer_one=referendum.answer_one referendum_answer_two=referendum.answer_two %}
-            <h4>{{ referendum_question}}</h4>
-            <blockquote>{{ referendum_answer_one }}</blockquote> or <blockquote>{{ referendum_answer_two }}</blockquote>
-        {% endblocktrans %}
+        <h4>
+            {% blocktrans trimmed with referendum_question=referendum.question %}
+                {{ referendum_question}}
+            {% endblocktrans %}
+        </h4>
+        <blockquote>
+            {% blocktrans trimmed with referendum_answer_one=referendum.answer_one %}
+                {{ referendum_answer_one }}
+            {% endblocktrans %}
+        </blockquote>
+        or
+        <blockquote>
+            {% blocktrans trimmed with referendum_answer_two=referendum.answer_two %}
+                {{ referendum_answer_two }}
+            {% endblocktrans %}
+        </blockquote>
+
 
         {% if referendum.council_url %}
-            <p><a href="{{ referendum.council_url }}">
-                {% blocktrans with council_name=referendum.council_name %}Find more information on the {{ council_name }} council website.{% endblocktrans %}</a></p>
+            <p>
+                <a href="{{ referendum.council_url }}">
+                    {% blocktrans trimmed with council_name=referendum.council_name %}
+                        Find more information on the {{ council_name }} council website.
+                    {% endblocktrans %}</a>
+            </p>
         {% endif %}
 
         {% if referendum.campaign_urls %}
-            <p>{% trans "Here are some other links about the campaign that we know about:" %}</p>
+            <p>
+                {% trans "Here are some other links about the campaign that we know about:" %}
+            </p>
             <dl class="ds-descriptions">
                 {% for url in referendum.campaign_urls %}
                     <div>

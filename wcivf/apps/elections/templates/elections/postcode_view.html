@@ -46,15 +46,17 @@
             {% endfor %}
 
             {% if administrations %}
-                <h3>Your area</h3>
-                <p>As well as your new MP, there are others who represent you in your area.
-                    We're working on a new experimental feature to explain who these people are and how everything
-                    from your council to your
-                    police force works.</p>
+                <h3>{% trans "Your area" %}</h3>
+                <p>{% blocktrans trimmed%}
+                    As well as your new MP, there are others who represent you in your area.
+                    We're working on a new experimental feature to explain who these people
+                    are and how everything from your council to your police force works.
+                {% endblocktrans %}
+                </p>
                 {% if uprn %}
-                    <a href="{% url "your_area_view" postcode uprn %}" class="ds-cta">Find out more</a>
+                    <a href="{% url "your_area_view" postcode uprn %}" class="ds-cta">{% trans "Find out more" %}</a>
                 {% else %}
-                    <a href="{% url "your_area_view" postcode %}" class="ds-cta">Find out more</a>
+                    <a href="{% url "your_area_view" postcode %}" class="ds-cta">{% trans "Find out more" %}</a>
                 {% endif %}
             {% endif %}
 

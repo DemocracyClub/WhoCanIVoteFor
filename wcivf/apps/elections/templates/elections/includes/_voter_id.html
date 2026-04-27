@@ -12,8 +12,10 @@
             </h2>
         </summary>
         {% if requires_voter_id == "EFA-2002" %}
-            <p>Read more about <a href="https://www.eoni.org.uk/Vote/Voting-at-a-polling-place">voting in Northern
-                Ireland</a></p>
+            <p>{% trans "Read more about" %}
+                <a href="https://www.eoni.org.uk/Vote/Voting-at-a-polling-place">
+                    {% trans "voting in Northern Ireland" %}</a>
+            </p>
         {% else %}
             <p>
                 {% trans "You do not need your poll card to vote." %}
@@ -23,20 +25,21 @@
                 {% endif %}
             </p>
             <ul>
-                <li>{% blocktrans trimmed %}Read more about
-                    <a href="https://www.gov.uk/voting-in-the-uk/polling-stations">voting in Great Britain</a>.{% endblocktrans %}
+                <li>{% trans "Read more about" %}
+                    <a href="https://www.gov.uk/voting-in-the-uk/polling-stations">
+                        {% trans "voting in Great Britain" %}</a>.
                 </li>
-                <li>{% blocktrans trimmed %}Read more about
-                    <a href="https://www.gov.uk/how-to-vote/photo-id-youll-need">photo ID</a>.{% endblocktrans %}
+                <li>{% trans "Read more about" %}
+                    <a href="https://www.gov.uk/how-to-vote/photo-id-youll-need">
+                        {% trans "photo ID" %}</a>.
                 </li>
             </ul>
 
             {% if not postelections.0.past_vac_application_deadline %}
                 <p>
-                    {% blocktrans trimmed %}
-                        If you do not have a photo ID that allows you to vote, you can
-                        <a href="https://www.gov.uk/apply-for-photo-id-voter-authority-certificate">apply for a Voter Authority Certificate</a>
-                    {% endblocktrans %}
+                    {% trans "If you do not have a photo ID that allows you to vote, you can" %}
+                    <a href="https://www.gov.uk/apply-for-photo-id-voter-authority-certificate">
+                        {% trans "apply for a Voter Authority Certificate" %}</a>
                     {% if postelections.0.vac_application_deadline %}
                         {% blocktrans trimmed with vac_application_deadline=postelections.0.vac_application_deadline|naturalday:"j F Y" %}
                             before {{ vac_application_deadline }}

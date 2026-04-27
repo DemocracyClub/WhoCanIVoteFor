@@ -15,10 +15,8 @@
             {% blocktrans trimmed %}
                 You need to be registered in order to vote.
                 If you aren't registered to vote visit
-                <a href="https://www.gov.uk/register-to-vote">
-                    https://www.gov.uk/register-to-vote
-                </a>
             {% endblocktrans %}
+            <a href="https://www.gov.uk/register-to-vote">https://www.gov.uk/register-to-vote</a>
         </p>
         <p>
             {% blocktrans trimmed with registration_deadline=card.registration_deadline|naturalday:"j F Y" election_date=card.election_date|naturalday:"j F Y" %}
