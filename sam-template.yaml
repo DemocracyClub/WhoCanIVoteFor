@@ -92,6 +92,7 @@ Resources:
           DC_ENVIRONMENT: !Ref AppDcEnvironment
           SLACK_FEEDBACK_WEBHOOK_URL: !Ref AppSlackFeedbackWebhookUrl
           YNR_API_KEY: !Ref AppYnrApiKey
+          IGNORE_ROUTERS: "1"
       Tags:
         dc-environment: !Ref AppDcEnvironment
         dc-product: wcivf
