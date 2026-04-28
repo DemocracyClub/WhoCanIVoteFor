@@ -4,6 +4,15 @@ from django.utils.text import slugify
 from elections.models import Election, Post, PostElection
 
 
+class VotingSystemFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = "elections.VotingSystem"
+        django_get_or_create = ("slug",)
+
+    slug = "FPTP"
+    name = "First Past the Post"
+
+
 class ElectionFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Election
@@ -14,6 +23,7 @@ class ElectionFactory(factory.django.DjangoModelFactory):
     current = True
     name = "UK General Election 2015"
     any_non_by_elections = True
+    voting_system = factory.SubFactory(VotingSystemFactory)
 
 
 class ElectionFactoryLazySlug(ElectionFactory):
