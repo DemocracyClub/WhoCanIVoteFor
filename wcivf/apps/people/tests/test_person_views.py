@@ -397,6 +397,75 @@ class PersonViewTests(TestCase):
         self.assertContains(response, "Not elected")
         self.assertContains(response, """1st / 1 candidate""")
 
+    def test_previous_elections_card_future_cancelled_election(self):
+        """Test that the postcode search results with the text
+        'Election cancelled'
+        """
+        election = ElectionFactory(
+            name="Welsh Assembly Election",
+            current=False,
+            election_date="2100-05-01",
+            slug="local.welsh.assembly.2100-05-01",
+        )
+        future_cancelled_post_election = PostElectionFactory(
+            election=election,
+            post=PostFactory(label="Welsh Assembly", territory="WLS"),
+            ballot_paper_id="local.welsh.assembly.2100-05-01",
+            voting_system=VotingSystem(slug="FPTP"),
+            cancelled=True,
+        )
+        party = PartyFactory(
+            party_name="Conservative and Unionist Party",
+            party_id="party:52",
+        )
+        PersonPostFactory(
+            person=self.person,
+            post_election=future_cancelled_post_election,
+            election=election,
+            party=party,
+        )
+        response = self.client.get(self.person_url, follow=True)
+        self.assertTemplateUsed(
+            "people/includes/_person_previous_elections_card.html"
+        )
+        self.assertContains(response, "2100")
+        self.assertContains(response, "Welsh Assembly: Welsh Assembly Election")
+        self.assertContains(response, "Election cancelled")
+
+    def test_previous_elections_card_future_election(self):
+        """Test that the postcode search results with the text
+        'Results due after [election date]'
+        """
+        election = ElectionFactory(
+            name="Welsh Assembly Election",
+            current=False,
+            election_date="2100-05-01",
+            slug="local.welsh.assembly.2100-05-01",
+        )
+        future_post_election = PostElectionFactory(
+            election=election,
+            post=PostFactory(label="Welsh Assembly", territory="WLS"),
+            ballot_paper_id="local.welsh.assembly.2100-05-01",
+            voting_system=VotingSystem(slug="FPTP"),
+        )
+        party = PartyFactory(
+            party_name="Conservative and Unionist Party",
+            party_id="party:52",
+        )
+        PersonPostFactory(
+            person=self.person,
+            post_election=future_post_election,
+            election=election,
+            party=party,
+        )
+        response = self.client.get(self.person_url, follow=True)
+        self.assertTemplateUsed(
+            "people/includes/_person_previous_elections_card.html"
+        )
+        self.assertContains(response, "2100")
+        self.assertContains(response, "Welsh Assembly: Welsh Assembly Election")
+        self.assertContains(response, "(Results due after 01 May 2100)")
+
     def test_previous_elections_card_for_STV(self):
         """Test that the postcode search results have a
         table of previous elections with the text:

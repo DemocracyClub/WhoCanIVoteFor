@@ -26,7 +26,7 @@
                     </td>
                     <td>{{ person_post.party_name }}</td>
                     <td>
-                        {% if not person_post.election.in_past %}
+                        {% if not person_post.election.in_past and not person_post.post_election.cancelled %}
                             (Results due after {{ person_post.election.election_date|date:"d M Y" }})
                         {% else %}
                             <strong>{{ person_post.get_results_text }}</strong> <span class="ds-font-size-s1">({{ person_post.get_vote_count_text }})</span>
