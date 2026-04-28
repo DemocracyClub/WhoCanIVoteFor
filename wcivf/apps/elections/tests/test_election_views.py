@@ -397,7 +397,7 @@ class ElectionPostViewTests(TestCase):
         self.post_election.save()
         response = self.client.get(self.person.get_absolute_url(), follow=True)
         self.assertContains(response, "{}'s elections".format(self.person.name))
-        self.assertContains(response, "(election cancelled")
+        self.assertContains(response, "(Election cancelled")
 
     def test_previous_elections_elected_with_count(self):
         """Previous elections table with elected candidate and vote count"""
@@ -414,8 +414,9 @@ class ElectionPostViewTests(TestCase):
         self.post_election.save()
         response = self.client.get(self.person.get_absolute_url(), follow=True)
         self.assertContains(response, "{}'s elections".format(self.person.name))
+        self.assertContains(response, "Elected")
         self.assertContains(
-            response, "{} votes (elected)".format(self.person_post.votes_cast)
+            response, "({} votes)".format(self.person_post.votes_cast)
         )
 
     def test_previous_elections_not_elected_with_count(self):
@@ -431,9 +432,10 @@ class ElectionPostViewTests(TestCase):
         self.post_election.cancelled = False
         self.post_election.save()
         response = self.client.get(self.person.get_absolute_url(), follow=True)
+        self.assertContains(response, "Not elected")
         self.assertContains(
             response,
-            "{} votes (not elected)".format(self.person_post.votes_cast),
+            "({} votes)".format(self.person_post.votes_cast),
         )
 
     def test_previous_elections_elected_no_count(self):
@@ -451,7 +453,8 @@ class ElectionPostViewTests(TestCase):
         self.post_election.save()
         response = self.client.get(self.person.get_absolute_url(), follow=True)
         self.assertContains(response, "{}'s elections".format(self.person.name))
-        self.assertContains(response, "Elected (vote count not available")
+        self.assertContains(response, "Elected")
+        self.assertContains(response, "(vote count not available)")
 
     def test_previous_elections_not_elected_no_count(self):
         """Previous elections table with no wins and no vote count"""
@@ -468,7 +471,8 @@ class ElectionPostViewTests(TestCase):
         self.post_election.save()
         response = self.client.get(self.person.get_absolute_url(), follow=True)
         self.assertContains(response, "{}'s elections".format(self.person.name))
-        self.assertContains(response, "Not elected (vote count not available)")
+        self.assertContains(response, "Not elected")
+        self.assertContains(response, "(vote count not available)")
 
     def test_deselected_person(self):
         self.person = PersonFactory()

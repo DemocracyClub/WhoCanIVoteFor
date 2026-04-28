@@ -393,7 +393,8 @@ class PersonViewTests(TestCase):
         )
         self.assertContains(response, "2021")
         self.assertContains(response, "Welsh Assembly: Welsh Assembly Election")
-        self.assertContains(response, "1,000 votes (not elected)")
+        self.assertContains(response, "(1,000 votes)")
+        self.assertContains(response, "Not elected")
         self.assertContains(response, """1st / 1 candidate""")
 
     def test_previous_elections_card_for_STV(self):
@@ -427,14 +428,14 @@ class PersonViewTests(TestCase):
         )
         self.assertContains(
             response,
-            """We do not collect voting data for Single Transferable Vote elections.""",
+            """(We do not collect voting data for Single Transferable Vote elections)""",
             html=True,
         )
 
     def test_previous_elections_card_for_sv(self):
         """Test that the postcode search results have a
         table of previous elections with the text:
-        "We do not collect voting data for Supplementary Vote elections."
+        "(We do not collect voting data for Supplementary Vote elections)"
         """
         past_election = ElectionFactory(
             name="Welsh Assembly Election",
@@ -461,7 +462,7 @@ class PersonViewTests(TestCase):
         )
         self.assertContains(
             response,
-            """We do not collect voting data for Supplementary Vote elections.""",
+            """(We do not collect voting data for Supplementary Vote elections)""",
             html=True,
         )
 
