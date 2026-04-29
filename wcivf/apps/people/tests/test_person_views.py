@@ -397,6 +397,75 @@ class PersonViewTests(TestCase):
         self.assertContains(response, "Not elected")
         self.assertContains(response, """1st / 1 candidate""")
 
+    def test_previous_elections_card_cancelled_election(self):
+        """Test that the postcode search results with the text
+        'Election cancelled'
+        """
+        election = ElectionFactory(
+            name="Welsh Assembly Election",
+            current=False,
+            election_date="2021-05-01",
+            slug="local.welsh.assembly.2021-05-01",
+        )
+        cancelled_post_election = PostElectionFactory(
+            election=election,
+            post=PostFactory(label="Welsh Assembly", territory="WLS"),
+            ballot_paper_id="local.welsh.assembly.2021-05-01",
+            cancelled=True,
+        )
+        party = PartyFactory(
+            party_name="Conservative and Unionist Party",
+            party_id="party:52",
+        )
+        PersonPostFactory(
+            person=self.person,
+            post_election=cancelled_post_election,
+            election=election,
+            party=party,
+            votes_cast=0,
+        )
+        response = self.client.get(self.person_url, follow=True)
+        self.assertTemplateUsed(
+            "people/includes/_person_previous_elections_card.html"
+        )
+        self.assertNotContains(response, "0 votes")
+        self.assertContains(response, "Election cancelled")
+
+    def test_previous_elections_card_unopposed_election(self):
+        """Test that the postcode search results with the text:
+        'Elected unopposed'
+        """
+        election = ElectionFactory(
+            name="Welsh Assembly Election",
+            current=False,
+            election_date="2021-05-01",
+            slug="local.welsh.assembly.2021-05-01",
+        )
+        unopposed_post_election = PostElectionFactory(
+            election=election,
+            post=PostFactory(label="Welsh Assembly", territory="WLS"),
+            ballot_paper_id="local.welsh.assembly.2021-05-01",
+            cancelled=True,
+        )
+        party = PartyFactory(
+            party_name="Conservative and Unionist Party",
+            party_id="party:52",
+        )
+        PersonPostFactory(
+            person=self.person,
+            post_election=unopposed_post_election,
+            election=election,
+            party=party,
+            elected=True,
+            votes_cast=0,
+        )
+        response = self.client.get(self.person_url, follow=True)
+        self.assertTemplateUsed(
+            "people/includes/_person_previous_elections_card.html"
+        )
+        self.assertNotContains(response, "0 votes")
+        self.assertContains(response, "Elected unopposed")
+
     def test_previous_elections_card_future_cancelled_election(self):
         """Test that the postcode search results with the text
         'Election cancelled'
