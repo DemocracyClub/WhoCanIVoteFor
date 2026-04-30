@@ -26,12 +26,15 @@
                     </td>
                     <td>{{ person_post.party_name }}</td>
                     <td>
-                        {% if person_post.election.voting_system.slug == "sv" %}
-                            {% trans "We do not collect voting data for Supplementary Vote elections." %}
-                        {% elif person_post.election.voting_system.slug == "STV" %}
-                            {% trans "We do not collect voting data for Single Transferable Vote elections." %}
-                        {% else  %}
-                            {{ person_post.get_results_text }}
+                        {% if not person_post.election.in_past and not person_post.post_election.cancelled %}
+                            {% blocktrans trimmed with date=person_post.election.election_date|date:"d M Y" %}
+                                (Results due after {{ date }})
+                            {% endblocktrans %}
+                        {% else %}
+                            <strong>{{ person_post.get_results_text }}</strong>
+                            {% if not person_post.post_election.cancelled %}
+                                <span class="ds-font-size-s1">({{ person_post.get_vote_count_text }})</span>
+                            {% endif %}
                         {% endif %}
                     </td>
                     {% if object.previous_party_count %}

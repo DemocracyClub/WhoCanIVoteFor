@@ -393,8 +393,147 @@ class PersonViewTests(TestCase):
         )
         self.assertContains(response, "2021")
         self.assertContains(response, "Welsh Assembly: Welsh Assembly Election")
-        self.assertContains(response, "1,000 votes (not elected)")
+        self.assertContains(response, "(1,000 votes)")
+        self.assertContains(response, "Not elected")
         self.assertContains(response, """1st / 1 candidate""")
+
+    def test_previous_elections_card_cancelled_election(self):
+        """Test that the postcode search results with the text
+        'Election cancelled'
+        """
+        election = ElectionFactory(
+            name="Welsh Assembly Election",
+            current=False,
+            election_date="2021-05-01",
+            slug="local.welsh.assembly.2021-05-01",
+        )
+        cancelled_post_election = PostElectionFactory(
+            election=election,
+            post=PostFactory(label="Welsh Assembly", territory="WLS"),
+            ballot_paper_id="local.welsh.assembly.2021-05-01",
+            cancelled=True,
+        )
+        party = PartyFactory(
+            party_name="Conservative and Unionist Party",
+            party_id="party:52",
+        )
+        PersonPostFactory(
+            person=self.person,
+            post_election=cancelled_post_election,
+            election=election,
+            party=party,
+            votes_cast=0,
+        )
+        response = self.client.get(self.person_url, follow=True)
+        self.assertTemplateUsed(
+            "people/includes/_person_previous_elections_card.html"
+        )
+        self.assertNotContains(response, "0 votes")
+        self.assertContains(response, "Election cancelled")
+
+    def test_previous_elections_card_unopposed_election(self):
+        """Test that the postcode search results with the text:
+        'Elected unopposed'
+        """
+        election = ElectionFactory(
+            name="Welsh Assembly Election",
+            current=False,
+            election_date="2021-05-01",
+            slug="local.welsh.assembly.2021-05-01",
+        )
+        unopposed_post_election = PostElectionFactory(
+            election=election,
+            post=PostFactory(label="Welsh Assembly", territory="WLS"),
+            ballot_paper_id="local.welsh.assembly.2021-05-01",
+            cancelled=True,
+        )
+        party = PartyFactory(
+            party_name="Conservative and Unionist Party",
+            party_id="party:52",
+        )
+        PersonPostFactory(
+            person=self.person,
+            post_election=unopposed_post_election,
+            election=election,
+            party=party,
+            elected=True,
+            votes_cast=0,
+        )
+        response = self.client.get(self.person_url, follow=True)
+        self.assertTemplateUsed(
+            "people/includes/_person_previous_elections_card.html"
+        )
+        self.assertNotContains(response, "0 votes")
+        self.assertContains(response, "Elected unopposed")
+
+    def test_previous_elections_card_future_cancelled_election(self):
+        """Test that the postcode search results with the text
+        'Election cancelled'
+        """
+        election = ElectionFactory(
+            name="Welsh Assembly Election",
+            current=False,
+            election_date="2100-05-01",
+            slug="local.welsh.assembly.2100-05-01",
+        )
+        future_cancelled_post_election = PostElectionFactory(
+            election=election,
+            post=PostFactory(label="Welsh Assembly", territory="WLS"),
+            ballot_paper_id="local.welsh.assembly.2100-05-01",
+            voting_system=VotingSystem(slug="FPTP"),
+            cancelled=True,
+        )
+        party = PartyFactory(
+            party_name="Conservative and Unionist Party",
+            party_id="party:52",
+        )
+        PersonPostFactory(
+            person=self.person,
+            post_election=future_cancelled_post_election,
+            election=election,
+            party=party,
+        )
+        response = self.client.get(self.person_url, follow=True)
+        self.assertTemplateUsed(
+            "people/includes/_person_previous_elections_card.html"
+        )
+        self.assertContains(response, "2100")
+        self.assertContains(response, "Welsh Assembly: Welsh Assembly Election")
+        self.assertContains(response, "Election cancelled")
+
+    def test_previous_elections_card_future_election(self):
+        """Test that the postcode search results with the text
+        'Results due after [election date]'
+        """
+        election = ElectionFactory(
+            name="Welsh Assembly Election",
+            current=False,
+            election_date="2100-05-01",
+            slug="local.welsh.assembly.2100-05-01",
+        )
+        future_post_election = PostElectionFactory(
+            election=election,
+            post=PostFactory(label="Welsh Assembly", territory="WLS"),
+            ballot_paper_id="local.welsh.assembly.2100-05-01",
+            voting_system=VotingSystem(slug="FPTP"),
+        )
+        party = PartyFactory(
+            party_name="Conservative and Unionist Party",
+            party_id="party:52",
+        )
+        PersonPostFactory(
+            person=self.person,
+            post_election=future_post_election,
+            election=election,
+            party=party,
+        )
+        response = self.client.get(self.person_url, follow=True)
+        self.assertTemplateUsed(
+            "people/includes/_person_previous_elections_card.html"
+        )
+        self.assertContains(response, "2100")
+        self.assertContains(response, "Welsh Assembly: Welsh Assembly Election")
+        self.assertContains(response, "(Results due after 01 May 2100)")
 
     def test_previous_elections_card_for_STV(self):
         """Test that the postcode search results have a
@@ -427,14 +566,14 @@ class PersonViewTests(TestCase):
         )
         self.assertContains(
             response,
-            """We do not collect voting data for Single Transferable Vote elections.""",
+            """(We do not collect voting data for Single Transferable Vote elections)""",
             html=True,
         )
 
     def test_previous_elections_card_for_sv(self):
         """Test that the postcode search results have a
         table of previous elections with the text:
-        "We do not collect voting data for Supplementary Vote elections."
+        "(We do not collect voting data for Supplementary Vote elections)"
         """
         past_election = ElectionFactory(
             name="Welsh Assembly Election",
@@ -461,7 +600,7 @@ class PersonViewTests(TestCase):
         )
         self.assertContains(
             response,
-            """We do not collect voting data for Supplementary Vote elections.""",
+            """(We do not collect voting data for Supplementary Vote elections)""",
             html=True,
         )
 
