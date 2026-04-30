@@ -84,15 +84,21 @@ class PersonView(DetailView, PersonMixin):
         obj.post_country = self.get_post_country(obj)
         if obj.featured_candidacy:
             # We can't show manifestos if they've never stood for a party
-            obj.manifestos = Manifesto.objects.filter(
-                party=obj.featured_candidacy.party,
-                election__in=obj.current_or_future_candidacies.values(
-                    "election"
-                ),
-            ).filter(
-                Q(country="Local")
-                | Q(country="UK")
-                | Q(country=obj.post_country)
+            obj.manifestos = (
+                Manifesto.objects.filter(
+                    party=obj.featured_candidacy.party,
+                    election__in=obj.current_or_future_candidacies.values(
+                        "election"
+                    ),
+                )
+                .filter(
+                    Q(country="Local")
+                    | Q(country="UK")
+                    | Q(country=obj.post_country)
+                )
+                # remove duplicates if person is standing for the same party in multiple elections
+                .order_by("pdf_url", "web_url")
+                .distinct("pdf_url", "web_url")
             )
             obj.manifestos = sorted(
                 obj.manifestos, key=lambda n: n.country != "UK"
