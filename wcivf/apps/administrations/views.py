@@ -1,8 +1,8 @@
 # Create your views here.
-
 from administrations.forms import YourAreaPostcodeForm
 from administrations.helpers import AdministrationsHelper
 from core.helpers import clean_postcode
+from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import TemplateView
@@ -11,6 +11,19 @@ from django.views.generic import TemplateView
 class YourArea(TemplateView):
     template_name = "elections/your_area.html"
     form_class = YourAreaPostcodeForm
+
+    def dispatch(self, request, *args, **kwargs):
+        if not settings.ENABLE_LAYERS_OF_STATE_FEATURE:
+            kwargs = {}
+            view_name = "home_view"
+            if postcode := self.kwargs.get("postcode"):
+                view_name = "postcode_view"
+                kwargs = {"postcode": postcode}
+            if uprn := self.kwargs.get("uprn"):
+                view_name = "uprn_view"
+                kwargs = {"uprn": uprn}
+            return HttpResponseRedirect(reverse(view_name, kwargs=kwargs))
+        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
