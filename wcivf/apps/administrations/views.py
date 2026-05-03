@@ -16,13 +16,15 @@ class YourArea(TemplateView):
         if not settings.ENABLE_LAYERS_OF_STATE_FEATURE:
             redirect_kwargs = {}
             view_name = "home_view"
-            if postcode:= kwargs.get("postcode"):
+            if postcode := kwargs.get("postcode"):
                 view_name = "postcode_view"
                 redirect_kwargs["postcode"] = postcode
             if uprn := self.kwargs.get("uprn"):
                 view_name = "uprn_view"
                 redirect_kwargs["uprn"] = uprn
-            return HttpResponseRedirect(reverse(view_name, kwargs=redirect_kwargs))
+            return HttpResponseRedirect(
+                reverse(view_name, kwargs=redirect_kwargs)
+            )
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
