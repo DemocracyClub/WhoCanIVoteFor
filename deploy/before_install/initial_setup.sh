@@ -37,6 +37,7 @@ done
 echo "Apt finished, continuing"
 
 # Install apt packages
+apt-get upgrade --yes
 apt-get install --yes postgresql-16 redis-server
 
 # Cloudwatch agent
