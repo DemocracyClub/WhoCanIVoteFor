@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-23 14:46+0000\n"
+"POT-Creation-Date: 2026-04-30 13:19+0000\n"
 "PO-Revision-Date: 2022-03-24 09:04+0000\n"
 "Last-Translator: Sym Roe <sym@talusdesign.co.uk>, 2022\n"
 "Language-Team: Welsh (https://www.transifex.com/democracy-club/teams/61326/"
@@ -639,8 +639,8 @@ msgid ""
 msgstr ""
 "Ni chafwyd cystadleuaeth yn yr etholiad hwn, oherwydd roedd nifer yr "
 "ymgeiswyr a'r seddi ar gael yn gyfartal. Roedd %(is_or_are)s "
-"%(winner_count)s sedd%(pluralise_seat)s yn %(post)s, a dim ond %(num_people)s "
-"ymgeisydd%(pluralise_candidates)s."
+"%(winner_count)s sedd%(pluralise_seat)s yn %(post)s, a dim ond "
+"%(num_people)s ymgeisydd%(pluralise_candidates)s."
 
 #: wcivf/apps/elections/templates/elections/includes/_cancelled_election.html:16
 #, python-format
@@ -877,6 +877,7 @@ msgid "Show %(num_candidates)s candidates"
 msgstr "Dangos %(num_candidates)s ymgeiswyr"
 
 #: wcivf/apps/elections/templates/elections/includes/_person_card.html:18
+#: wcivf/apps/people/models.py:84
 msgid "Elected"
 msgstr "Etholwyd"
 
@@ -1711,11 +1712,10 @@ msgid "Party manifesto"
 msgstr "Maniffesto'r blaid"
 
 #: wcivf/apps/elections/templates/elections/party_list_view.html:138
-#, python-format
-msgid "Find out more about this party in the %(party_name)s %(manifesto)s."
-msgstr "Dysgwch fwy am %(party_name)s yn eu %(manifesto)s."
+msgid "Find out more about this party in their manifesto:"
+msgstr "Dysgwch fwy am y blaid hon trwy ddarllen eu maniffesto:"
 
-#: wcivf/apps/elections/templates/elections/party_list_view.html:143
+#: wcivf/apps/elections/templates/elections/party_list_view.html:148
 #: wcivf/apps/ppc_2024/templates/ppc_2024/home.html:67
 #: wcivf/apps/ppc_2024/templates/ppc_2024/home.html:92
 msgid "Candidates"
@@ -1831,18 +1831,18 @@ msgstr "Anfonwch adborth"
 msgid "Thanks for your feedback!"
 msgstr "Diolch am eich adborth!"
 
-#: wcivf/apps/feedback/templates/feedback/feedback_thanks.html:11
-#: wcivf/apps/feedback/templates/feedback/feedback_thanks.html:19
+#: wcivf/apps/feedback/templates/feedback/feedback_thanks.html:6
+#: wcivf/apps/feedback/templates/feedback/feedback_thanks.html:10
 msgid "The information you see here is gathered publicly, by people like you."
 msgstr "Cesglir y wybodaeth y gwelwch chi yma yn gyhoeddus, gan bobl fel chi."
 
-#: wcivf/apps/feedback/templates/feedback/feedback_thanks.html:15
+#: wcivf/apps/feedback/templates/feedback/feedback_thanks.html:8
 msgid "We're sorry you didn't find what you were looking for."
 msgstr ""
 "Mae'n ddrwg gennym na wnaethoch chi ddod o hyd i'r hyn yr oeddech chi'n "
 "chwilio amdano."
 
-#: wcivf/apps/feedback/templates/feedback/feedback_thanks.html:16
+#: wcivf/apps/feedback/templates/feedback/feedback_thanks.html:9
 msgid "We'll read your feedback and pass it on to our volunteers."
 msgstr "Byddwn yn darllen eich adborth ac yn ei roi i'n gwirfoddolwyr."
 
@@ -2208,8 +2208,8 @@ msgstr ""
 
 #: wcivf/apps/parties/templates/parties/single_manifesto.html:5
 #, python-format
-msgid "%(manifesto_country)s manifesto"
-msgstr "Maniffesto %(manifesto_country)s"
+msgid "Manifesto for %(manifesto_country)s"
+msgstr "Maniffesto i %(manifesto_country)s"
 
 #: wcivf/apps/parties/templates/parties/single_manifesto.html:8
 msgid "website"
@@ -2224,9 +2224,14 @@ msgstr "yn %(manifesto_language)s"
 msgid "PDF Version"
 msgstr "Fersiwn PDF"
 
-#: wcivf/apps/parties/templates/parties/single_manifesto.html:21
+#: wcivf/apps/parties/templates/parties/single_manifesto.html:22
 msgid "Easy Read version"
 msgstr "Fersiwn Hawdd ei Darllen"
+
+#: wcivf/apps/parties/templates/parties/single_manifesto.html:26
+#, python-format
+msgid "Easy Read version in %(manifesto_language)s"
+msgstr "Fersiwn Hawdd ei Darllen yn %(manifesto_language)s"
 
 #: wcivf/apps/parties/templates/parties/speaker_seeking_reelection.html:37
 msgid ""
@@ -2265,38 +2270,34 @@ msgstr "eu rôl mewn etholiadau"
 msgid "on the parliament.uk website."
 msgstr "ar wefan parliament.uk."
 
-#: wcivf/apps/people/models.py:81
+#: wcivf/apps/people/models.py:80
 msgid "Elected unopposed"
 msgstr "Wedi'i ethol yn ddiwrthwynebiad."
 
-#: wcivf/apps/people/models.py:82
-msgid "(election cancelled)"
+#: wcivf/apps/people/models.py:81
+msgid "(Election cancelled)"
 msgstr "(canslwyd yr etholiad hwn)"
 
-#: wcivf/apps/people/models.py:93
-#, python-format
-msgid "(Results due after %(date)s)"
-msgstr "(Disgwylir canlyniadau ar ôl %(date)s)"
+#: wcivf/apps/people/models.py:85
+msgid "Not elected"
+msgstr ""
 
-#: wcivf/apps/people/models.py:105
+#: wcivf/apps/people/models.py:96
 #, python-format
-msgid "%(num_votes)s votes (elected)"
-msgstr "%(num_votes)s pleidlais (etholedig)"
+msgid "We do not collect voting data for %(voting_system)s elections"
+msgstr ""
+"Nid ydym yn casglu data pleidleisio ar gyfer etholiadau %(voting_system)s."
 
-#: wcivf/apps/people/models.py:108
-msgid "Elected (vote count not available)"
+#: wcivf/apps/people/models.py:100
+#, python-format
+msgid "%(vote_count)s votes"
+msgstr "%(vote_count)s pleidlais"
+
+#: wcivf/apps/people/models.py:104
+msgid "vote count not available"
 msgstr "Nid yw'r cyfrif pleidleisiau ar gael"
 
-#: wcivf/apps/people/models.py:114
-#, python-format
-msgid "%(num_votes)s votes (not elected)"
-msgstr "%(num_votes)s pleidlais (heb ei ethol)"
-
-#: wcivf/apps/people/models.py:117
-msgid "Not elected (vote count not available)"
-msgstr "Heb ei ethol (nid yw'r cyfrif pleidleisiau ar gael)"
-
-#: wcivf/apps/people/models.py:150
+#: wcivf/apps/people/models.py:137
 #, python-format
 msgid "Joint %(rank)s / %(count)d candidate"
 msgid_plural "Joint %(rank)s / %(count)d candidates"
@@ -2305,7 +2306,7 @@ msgstr[1] "%(rank)s ar y cyd / %(count)d ymgeisydd"
 msgstr[2] "%(rank)s ar y cyd / %(count)d ymgeisydd"
 msgstr[3] "%(rank)s ar y cyd / %(count)d ymgeisydd"
 
-#: wcivf/apps/people/models.py:156
+#: wcivf/apps/people/models.py:143
 #, python-format
 msgid "%(rank)s / %(count)d candidate"
 msgid_plural "%(rank)s / %(count)d candidates"
@@ -2744,21 +2745,15 @@ msgid "Position"
 msgstr "Sefyllfa"
 
 #: wcivf/apps/people/templates/people/includes/_person_previous_elections_card.html:30
-msgid "We do not collect voting data for Supplementary Vote elections."
-msgstr ""
-"Nid ydym yn casglu data pleidleisio ar gyfer etholiadau Pleidlais Atodol."
+#, python-format
+msgid "(Results due after %(date)s)"
+msgstr "(Disgwylir canlyniadau ar ôl %(date)s)"
 
-#: wcivf/apps/people/templates/people/includes/_person_previous_elections_card.html:32
-msgid "We do not collect voting data for Single Transferable Vote elections."
-msgstr ""
-"Nid ydym yn casglu data pleidleisio ar gyfer etholiad Pleidlais Sengl "
-"Drosglwyddadwy."
-
-#: wcivf/apps/people/templates/people/includes/_person_previous_elections_card.html:48
+#: wcivf/apps/people/templates/people/includes/_person_previous_elections_card.html:51
 msgid "Position not available"
 msgstr "Nid yw'r cyfrif pleidleisiau ar gael"
 
-#: wcivf/apps/people/templates/people/includes/_person_previous_elections_card.html:54
+#: wcivf/apps/people/templates/people/includes/_person_previous_elections_card.html:57
 msgid "Please note our local elections database only goes back to 2016."
 msgstr ""
 "Sylwch fod ein cronfa ddata etholiadau lleol yn mynd yn ôl i 2016 yn unig."
