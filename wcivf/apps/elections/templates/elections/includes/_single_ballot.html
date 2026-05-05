@@ -95,7 +95,45 @@
                                     </span>
                                 </h2>
                             </summary>
-                            {% blocktrans with description=postelection.election.description|markdown %} {{ description }}{% endblocktrans%}
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% if postelection.election.election_date|date:"Y-m-d" == "2026-05-07" and postelection.election.election_type == "senedd" and LANGUAGE_CODE == "cy" %}
+                                <p>
+                                    Mae Senedd Cymru yn bodoli i alluogi pobl Cymru
+                                    i gael mwy o ddylanwad ar y gyfraith yng Nghymru.
+                                    Mae gan y Senedd gyfrifoldeb dros sawl maes,
+                                    gan gynnwys iechyd, addysg a thrafnidiaeth,
+                                    yn ogystal â rhai pwerau codi trethi.
+                                    <a href="https://senedd.cymru/sut-rydym-yn-gweithio/ein-rol/">
+                                        Dysgwch fwy am y Senedd.
+                                    </a>
+                                </p>
+
+                                <p>
+                                    <strong>Mae sut rydych chi'n pleidleisio wedi newid.</strong>
+                                    Yn awr, pan fyddwch chi'n pleidleisio dros
+                                    ymgeisydd i fod yn Aelod o'r Senedd,
+                                    byddwch yn defnyddio un papur pleidleisio
+                                    yn hytrach na dau. Byddwch yn bwrw un bleidlais
+                                    i un blaid neu ymgeisydd annibynnol, a bydd
+                                    y seddau'n cael eu dyrannu gan ddefnyddio
+                                    cynrychiolaeth gyfrannol. Bydd ymgeiswyr y
+                                    pleidiau'n cael eu hethol yn y drefn y maen
+                                    nhw'n ymddangos ar restr eu plaid.
+                                </p>
+
+                                <p>
+                                    Mae'r newidiadau hyn yn golygu y bydd
+                                    gennych chi etholaeth newydd. Bydd pob
+                                    etholaeth yn ethol chwe aelod, ac mae nifer
+                                    o aelodau'r Senedd yn cynyddu o 60 i 96.
+                                    Bydd etholiadau'r Senedd yn digwydd bob pedair blynedd.
+                                    <a href="https://senedd.cymru/sut-rydym-yn-gweithio/ein-rol/newidiadau-i-etholiadau-ac-aelodau-r-senedd/">
+                                        Dysgwch fwy am y newidiadau i'r Senedd.
+                                    </a>
+                                </p>
+                            {% else %}
+                                {{ postelection.election.description|markdown }}
+                            {% endif %}
                         </details>
                     </li>
                 {% endif %}
