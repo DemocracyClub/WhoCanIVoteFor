@@ -346,9 +346,9 @@ workflows:
       - code_deploy:
           name: code_deploy_production
           dc-environment: production
-          min-size: 4
+          min-size: 2
           max-size: 20
-          desired-capacity: 4
+          desired-capacity: 2
           requires:
           - build_and_test
           - sam_deploy_staging
