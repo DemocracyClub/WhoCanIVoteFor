@@ -524,6 +524,15 @@ class PostcodeBoundaryReviewView(PostcodeToPostsMixin, TemplateView):
     postcode = None
     uprn = None
 
+    def get(self, request, *args, **kwargs):
+        if not settings.SHOW_BOUNDARY_CHANGES:
+            return HttpResponseRedirect(
+                reverse(
+                    "postcode_view", kwargs={"postcode": kwargs["postcode"]}
+                )
+            )
+        return super().get(request, *args, **kwargs)
+
     def get_ballot_dict(self):
         """
         Returns a QuerySet of PostElection objects. Calls postcode_to_ballots
