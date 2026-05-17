@@ -49,6 +49,14 @@ class TestPersonModel(TestCase):
         )
         assert self.person.facebook_username == "vicky4chelmsford"
 
+    def test_facebook_username_strips_query_string(self):
+        # Regression for #2356: a URL with a query string used to render as
+        # "?locale=en_GB" because split("/") picked up the query.
+        self.person.facebook_page_url = (
+            "https://m.facebook.com/Tony.Blair/?locale=en_GB"
+        )
+        assert self.person.facebook_username == "Tony.Blair"
+
     def test_instagram_username(self):
         self.person.instagram_url = "https://www.instagram.com/vickyfordmp"
         assert self.person.instagram_username == "vickyfordmp"

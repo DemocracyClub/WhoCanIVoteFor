@@ -275,21 +275,23 @@ class Person(models.Model):
 
     @property
     def facebook_personal_username(self):
-        facebook_personal_url = self.facebook_personal_url
-        facebook_split = list(filter(None, facebook_personal_url.split("/")))
-        return facebook_split[-1]
+        return self._username_from_url(self.facebook_personal_url)
 
     @property
     def facebook_username(self):
-        facebook_page_url = self.facebook_page_url
-        facebook_split = list(filter(None, facebook_page_url.split("/")))
-        return facebook_split[-1]
+        return self._username_from_url(self.facebook_page_url)
 
     @property
     def instagram_username(self):
-        instagram_url = self.instagram_url
-        instagram_split = list(filter(None, instagram_url.split("/")))
-        return instagram_split[-1]
+        return self._username_from_url(self.instagram_url)
+
+    @staticmethod
+    def _username_from_url(url):
+        # Pull the last path segment, ignoring any query string or fragment.
+        # Otherwise a URL like https://m.facebook.com/Tony.Blair/?locale=en_GB
+        # would render as "?locale=en_GB" (see #2356).
+        path_parts = list(filter(None, urlparse(url).path.split("/")))
+        return path_parts[-1] if path_parts else ""
 
     @property
     def linkedin_username(self):
