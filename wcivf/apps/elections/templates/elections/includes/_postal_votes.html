@@ -59,9 +59,14 @@
       <p>
         {% blocktrans trimmed with election_date=card.election_date|naturalday:"j F Y" sopn_date=card.sopn_date|naturalday:"j F Y" %}
           Ballot papers for the election on {{ election_date }} will not be printed until
-          after {{ sopn_date }}. If you have a postal vote, your local council will send
-          your postal voting pack around three weeks before polling day.
+          after {{ sopn_date }}.
         {% endblocktrans %}
+        {% if card.show_dispatch_date_fallback %}
+          {% blocktrans trimmed %}
+            If you have a postal vote, your local council will send your postal
+            voting pack around three weeks before polling day.
+          {% endblocktrans %}
+        {% endif %}
       </p>
       <p>
         {% blocktrans trimmed with election_date=card.election_date|naturalday:"j F Y" sopn_date=card.sopn_date|naturalday:"j F Y" %}
