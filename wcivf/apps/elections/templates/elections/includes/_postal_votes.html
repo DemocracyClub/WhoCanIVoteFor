@@ -22,9 +22,11 @@
         {% endblocktrans %}
         <a href="https://www.gov.uk/apply-postal-vote">{% trans "Apply for a postal vote" %}</a>.
       </p>
-      <a href="https://www.electoralcommission.org.uk/voting-and-elections/ways-vote/apply-vote-post"
-      >{% trans "Read more about applying for a postal vote" %}</a>.
       <p>
+        <a href="https://www.electoralcommission.org.uk/voting-and-elections/ways-vote/apply-vote-post">
+          {% trans "Read more about applying for a postal vote" %}
+        </a>.
+      </p>
     {% else %}
       <p>
         {% blocktrans trimmed with application_deadline=card.application_deadline|naturalday:"j F Y" election_date=card.election_date|naturalday:"j F Y" %}
@@ -35,9 +37,10 @@
         {% trans "in future elections." %}"
       </p>
       <p>
-        <a href="https://www.electoralcommission.org.uk/voting-and-elections/ways-vote/how-vote-post"
-        >{% trans "Read more about voting by post" %}</a>.
-        <p>
+        <a href="https://www.electoralcommission.org.uk/voting-and-elections/ways-vote/how-vote-post">
+          {% trans "Read more about voting by post" %}
+        </a>.
+      </p>
     {% endif %}
 
 
