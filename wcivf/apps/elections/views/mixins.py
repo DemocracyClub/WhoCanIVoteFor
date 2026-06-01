@@ -292,11 +292,13 @@ class PollingStationInfoMixin(object):
             "application_deadline": next_ballot.postal_vote_application_deadline,
             "election_date": next_ballot.election.election_date,
             "sopn_date": next_ballot.expected_sopn_date,
+            "show_dispatch_date_fallback": False,
         }
 
         # we only hold postal votes dispatch data data for one
         # election. TODO: remove/review after 2026-05-07
         if next_ballot.election.election_date == date(2026, 5, 7):
+            card["show_dispatch_date_fallback"] = True
             # hard-coded for May 2026
             # this is the date when replacement packs can be issued from
             # for ALL councils

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-30 13:19+0000\n"
+"POT-Creation-Date: 2026-05-28 14:50+0000\n"
 "PO-Revision-Date: 2022-03-24 09:04+0000\n"
 "Last-Translator: Sym Roe <sym@talusdesign.co.uk>, 2022\n"
 "Language-Team: Welsh (https://www.transifex.com/democracy-club/teams/61326/"
@@ -1104,11 +1104,11 @@ msgstr "Mae gennych chi tan %(application_deadline)s i"
 msgid "Apply for a postal vote"
 msgstr "Gwneud cais am bleidlais bost"
 
-#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:26
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:27
 msgid "Read more about applying for a postal vote"
 msgstr "Darllenwch fwy am gwneud cais am bleidlais bost"
 
-#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:30
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:32
 #, python-format
 msgid ""
 "The deadline to apply for a postal vote for the elections taking place on "
@@ -1117,23 +1117,23 @@ msgstr ""
 "%(application_deadline)s oedd y dyddiad cau i gofrestru am bleidlais bost ar "
 "gyfer yr etholiadau ar %(election_date)s. Gallwch "
 
-#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:34
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:36
 msgid "apply for a postal vote"
 msgstr "wneud cais am bleidlais bost"
 
-#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:35
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:37
 msgid "in future elections."
 msgstr "mewn etholiadau yn y dyfodol."
 
-#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:39
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:41
 msgid "Read more about voting by post"
 msgstr "Dysgwch fwy am bleidleisio drwy'r post"
 
-#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:45
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:48
 msgid "If you have a postal vote"
 msgstr "Os oes gennych bleidlais bost"
 
-#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:48
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:51
 #, python-format
 msgid ""
 "If you already have a postal vote or successfully apply by %(date0)s, your "
@@ -1142,7 +1142,7 @@ msgstr ""
 "Os oes pleidlais bost gennych eisoes neu os ydych wedi gwneud cais "
 "llwyddiannus erbyn %(date0)s, bydd eich pecyn yn cael ei anfon o %(date1)s."
 
-#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:53
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:56
 #, python-format
 msgid ""
 "If you apply after %(date0)s up to 5pm on %(application_deadline)s, your "
@@ -1151,19 +1151,24 @@ msgstr ""
 "Os gwnewch gais ar ôl %(date0)s hyd at 5pm ar %(application_deadline)s, bydd "
 "eich pecyn yn cael ei anfon o %(date2)s."
 
-#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:60
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:63
 #, python-format
 msgid ""
 "Ballot papers for the election on %(election_date)s will not be printed "
-"until after %(sopn_date)s. If you have a postal vote, your local council "
-"will send your postal voting pack around three weeks before polling day."
+"until after %(sopn_date)s."
 msgstr ""
 "Ni fydd papurau pleidleisio ar gyfer etholiad %(election_date)s yn cael eu "
-"hargraffu tan ar ôl %(sopn_date)s. Os oes gennych bleidlais bost, bydd eich "
-"cyngor lleol yn anfon eich pecyn pleidleisio drwy'r post tua thair wythnos "
-"cyn y diwrnod pleidleisio. "
+"hargraffu tan ar ôl %(sopn_date)s."
 
-#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:67
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:68
+msgid ""
+"If you have a postal vote, your local council will send your postal voting "
+"pack around three weeks before polling day."
+msgstr ""
+"Os oes gennych bleidlais bost, bydd eich cyngor lleol yn anfon eich pecyn "
+"pleidleisio drwy'r post tua thair wythnos cyn y diwrnod pleidleisio. "
+
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:75
 #, python-format
 msgid ""
 "If you are away from home before or shortly after %(sopn_date)s, and will "
@@ -1174,15 +1179,15 @@ msgstr ""
 "fyddwch yn dychwelyd cyn y diwrnod pleidleisio, ni fyddwch yn cael eich "
 "pleidlais bost mewn da bryd i’w defnyddio. Os digwydda hyn, dylech ystyried "
 
-#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:72
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:80
 msgid "applying for a proxy vote"
 msgstr "gwneud cais am bleidlais drwy ddirprwy"
 
-#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:74
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:82
 msgid "instead."
 msgstr "."
 
-#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:80
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:88
 #, python-format
 msgid ""
 "If you have not received your postal voting pack, you can contact the "
@@ -1193,7 +1198,7 @@ msgstr ""
 "Swyddfa Cofrestru Etholiadol <a href=\"tel:"
 "%(council_phone)s\">%(council_phone)s</a>."
 
-#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:88
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:96
 #, python-format
 msgid ""
 "If you have not received your postal voting pack, you can contact "
@@ -1202,7 +1207,7 @@ msgstr ""
 "Os nad ydych wedi derbyn eich pecyn pleidleisio drwy'r post, dylech ffonio "
 "%(council_name)s ar <a href=\"tel:%(council_phone)s\">%(council_phone)s</a>."
 
-#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:96
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:104
 msgid ""
 "You can contact your local council if you have not received your postal "
 "voting pack."
@@ -1210,7 +1215,7 @@ msgstr ""
 "Gallwch gysylltu â'ch cyngor lleol os nad ydych wedi cael eich pecyn "
 "pleidleisio drwy'r post."
 
-#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:104
+#: wcivf/apps/elections/templates/elections/includes/_postal_votes.html:112
 #, python-format
 msgid ""
 "Replacement packs can only be issued from %(replacement_pack_start)s until "
