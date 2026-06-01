@@ -100,15 +100,13 @@ jobs:
 
   sam_build:
     docker:
-      - image: public.ecr.aws/sam/build-python3.12:latest
+      - image: public.ecr.aws/sam/build-python3.12:1.158
     working_directory: ~/repo
     steps:
       - checkout
-      - run: uv --version
       - run:
           name: Install UV
           command: deploy/files/scripts/install-uv.sh
-      - run: uv --version
       - run:
           name: sam build
           command: |
@@ -119,7 +117,7 @@ jobs:
 
   sam_deploy:
     docker:
-      - image: public.ecr.aws/sam/build-python3.12:latest
+      - image: public.ecr.aws/sam/build-python3.12:1.158
     working_directory: ~/repo
     parameters:
       dc-environment:
