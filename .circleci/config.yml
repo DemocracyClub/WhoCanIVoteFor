@@ -104,9 +104,11 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
+      - run: uv --version
       - run:
           name: Install UV
           command: deploy/files/scripts/install-uv.sh
+      - run: uv --version
       - run:
           name: sam build
           command: |
