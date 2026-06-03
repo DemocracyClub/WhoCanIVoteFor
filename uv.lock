@@ -1525,11 +1525,11 @@ wheels = [
 
 [[package]]
 name = "uk-election-ids"
-version = "0.10.0"
+version = "0.10.1"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/b6/06/0c5388f56583deddd63cb200ed6447943442fbba0834a79a9557996a7fdc/uk_election_ids-0.10.0.tar.gz", hash = "sha256:f024cdfb4bf5688b2c5a3269458a7ff503fe50869a87ad5fe56faebd36b02c34", size = 11121, upload-time = "2025-07-16T11:47:34.142Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/15/90/3d8e1a6f854ef1985835f25efa25625c9237a2ecc1064e8c4924d9d84859/uk_election_ids-0.10.1.tar.gz", hash = "sha256:80d2a737eea3b3ea9ba38d047efe70aa369ec9777f01152108664f5be62b5a45", size = 11140, upload-time = "2026-06-03T09:51:12.846Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ad/8e/592e156eeffec70751324298a455d486c93d83c9996b4e3edbb1f8785172/uk_election_ids-0.10.0-py3-none-any.whl", hash = "sha256:873cdd297e5977187fb437f82418d8ce4748b1fc66a183eca3142794a949c7d6", size = 12303, upload-time = "2025-07-16T11:47:32.823Z" },
+    { url = "https://files.pythonhosted.org/packages/c6/bb/e6ea1d9e3900598d71bb9189e41eca0d2b51228ec88f2e49dd92105bbd44/uk_election_ids-0.10.1-py3-none-any.whl", hash = "sha256:121fa5fa7df02a51f2c94660c4982b7a481242ab15937158d7490ea519672b54", size = 12321, upload-time = "2026-06-03T09:51:11.799Z" },
 ]
 
 [[package]]
@@ -1715,7 +1715,7 @@ requires-dist = [
     { name = "psycopg2-binary", specifier = "==2.9.9" },
     { name = "requests", specifier = "==2.33.0" },
     { name = "slacker2", specifier = ">=22.8.4" },
-    { name = "uk-election-ids", specifier = "==0.10.0" },
+    { name = "uk-election-ids", specifier = "==0.10.1" },
     { name = "uk-election-timetables", specifier = "==4.4.0" },
 ]
 
