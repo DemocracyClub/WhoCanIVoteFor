@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-28 14:50+0000\n"
+"POT-Creation-Date: 2026-06-03 12:13+0000\n"
 "PO-Revision-Date: 2022-03-24 09:04+0000\n"
 "Last-Translator: Sym Roe <sym@talusdesign.co.uk>, 2022\n"
 "Language-Team: Welsh (https://www.transifex.com/democracy-club/teams/61326/"
@@ -253,53 +253,83 @@ msgstr "Nid oedd yr aelod etholedig bellach yn gymwys fel etholwr cofrestredig"
 msgid "The elected member was recalled by a successful recall petition"
 msgstr "Cafodd yr aelod etholedig ei alw'n ôl gan ddeiseb adalw lwyddiannus"
 
-#: wcivf/apps/elections/models.py:79
+#: wcivf/apps/elections/models.py:82
+msgid ""
+"This by-election was called because the elected member was elected mayor of "
+"the council, and cannot hold both positions."
+msgstr ""
+
+#: wcivf/apps/elections/models.py:88
+msgid ""
+"This by-election was called because the elected member was elected Member of "
+"the UK Parliament, and cannot hold both positions."
+msgstr ""
+
+#: wcivf/apps/elections/models.py:94
+msgid ""
+"This by-election was called because the elected member was elected mayor of "
+"a strategic authority, and cannot hold both positions."
+msgstr ""
+
+#: wcivf/apps/elections/models.py:100
+msgid ""
+"This by-election was called because the elected member was elected Member of "
+"the Senedd, and cannot hold both positions."
+msgstr ""
+
+#: wcivf/apps/elections/models.py:106
+msgid ""
+"This by-election was called because the elected member was elected Member of "
+"the Scottish Parliament, and cannot hold both positions."
+msgstr ""
+
+#: wcivf/apps/elections/models.py:109
 msgid "Other"
 msgstr "Arall"
 
-#: wcivf/apps/elections/models.py:80
+#: wcivf/apps/elections/models.py:110
 msgid "Unknown"
 msgstr "Anadnabyddus"
 
-#: wcivf/apps/elections/models.py:81
+#: wcivf/apps/elections/models.py:111
 msgid "Neither a by-election nor a ballot"
 msgstr "Nid trwy isetholiad na phleidlais"
 
-#: wcivf/apps/elections/models.py:743
+#: wcivf/apps/elections/models.py:773
 #, python-brace-format
 msgid "{ballot_label} by-election"
 msgstr ""
 
-#: wcivf/apps/elections/models.py:778 wcivf/apps/elections/models.py:781
+#: wcivf/apps/elections/models.py:808 wcivf/apps/elections/models.py:811
 msgid " (postponed)"
 msgstr " (wedi'i ohirio)"
 
-#: wcivf/apps/elections/models.py:784
+#: wcivf/apps/elections/models.py:814
 msgid " (uncontested)"
 msgstr "(dim cystadleuaeth)"
 
-#: wcivf/apps/elections/models.py:830
+#: wcivf/apps/elections/models.py:860
 #, python-format
 msgid "This by-election was called because %(reason)s."
 msgstr "Canslwyd yr etholiad hwn %(reason)s."
 
-#: wcivf/apps/elections/models.py:967
+#: wcivf/apps/elections/models.py:997
 msgid "First-past-the-post"
 msgstr "Y Cyntaf i’r Felin"
 
-#: wcivf/apps/elections/models.py:969
+#: wcivf/apps/elections/models.py:999
 msgid "Additional Member System"
 msgstr "Y System Aelodau Ychwanegol"
 
-#: wcivf/apps/elections/models.py:971
+#: wcivf/apps/elections/models.py:1001
 msgid "Supplementary Vote"
 msgstr "Pleidlais Atodol"
 
-#: wcivf/apps/elections/models.py:973
+#: wcivf/apps/elections/models.py:1003
 msgid "Single Transferable Vote"
 msgstr "Pleidlais Sengl Drosglwyddadwy"
 
-#: wcivf/apps/elections/models.py:975
+#: wcivf/apps/elections/models.py:1005
 msgid "Closed-List Proportional Representation"
 msgstr "Cynrychiolaeth Gyfrannol â Rhestrau Caeedig"
 
