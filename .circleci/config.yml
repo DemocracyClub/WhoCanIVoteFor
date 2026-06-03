@@ -109,7 +109,7 @@ jobs:
           name: Install UV
           command: deploy/files/scripts/install-uv.sh
       - run: uv --version
-      - run: which uv
+      - run: type -a uv
       - run: python -m pip show uv
       - run: /var/lang/bin/uv --version
       - run:
