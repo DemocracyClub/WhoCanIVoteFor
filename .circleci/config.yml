@@ -108,10 +108,8 @@ jobs:
       - run:
           name: Install UV
           command: deploy/files/scripts/install-uv.sh
+      - run: echo 'export PATH=/var/lang/bin:$PATH' >> "$BASH_ENV"
       - run: uv --version
-      - run: type -a uv
-      - run: python -m pip show uv
-      - run: /var/lang/bin/uv --version
       - run:
           name: sam build
           command: |
