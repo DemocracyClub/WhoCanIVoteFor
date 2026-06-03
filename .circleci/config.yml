@@ -100,13 +100,16 @@ jobs:
 
   sam_build:
     docker:
-      - image: public.ecr.aws/sam/build-python3.12:1.158
+      - image: public.ecr.aws/sam/build-python3.12:latest
     working_directory: ~/repo
     steps:
       - checkout
       - run:
           name: Install UV
           command: deploy/files/scripts/install-uv.sh
+      - run:
+          name: Prioritise our UV over the UV pre-installed in the SAM image
+          command: echo 'export PATH=/var/lang/bin:$PATH' >> "$BASH_ENV"
       - run:
           name: sam build
           command: |
@@ -117,7 +120,7 @@ jobs:
 
   sam_deploy:
     docker:
-      - image: public.ecr.aws/sam/build-python3.12:1.158
+      - image: public.ecr.aws/sam/build-python3.12:latest
     working_directory: ~/repo
     parameters:
       dc-environment:
