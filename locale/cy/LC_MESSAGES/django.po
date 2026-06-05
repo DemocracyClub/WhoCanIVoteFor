@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-03 12:13+0000\n"
+"POT-Creation-Date: 2026-06-05 14:28+0000\n"
 "PO-Revision-Date: 2022-03-24 09:04+0000\n"
 "Last-Translator: Sym Roe <sym@talusdesign.co.uk>, 2022\n"
 "Language-Team: Welsh (https://www.transifex.com/democracy-club/teams/61326/"
@@ -255,32 +255,32 @@ msgstr "Cafodd yr aelod etholedig ei alw'n ôl gan ddeiseb adalw lwyddiannus"
 
 #: wcivf/apps/elections/models.py:82
 msgid ""
-"This by-election was called because the elected member was elected mayor of "
-"the council, and cannot hold both positions."
+"The elected member was elected mayor of the council, and cannot hold both "
+"positions."
 msgstr ""
 
 #: wcivf/apps/elections/models.py:88
 msgid ""
-"This by-election was called because the elected member was elected Member of "
-"the UK Parliament, and cannot hold both positions."
+"The elected member was elected Member of the UK Parliament, and cannot hold "
+"both positions."
 msgstr ""
 
 #: wcivf/apps/elections/models.py:94
 msgid ""
-"This by-election was called because the elected member was elected mayor of "
-"a strategic authority, and cannot hold both positions."
+"The elected member was elected mayor of a strategic authority, and cannot "
+"hold both positions."
 msgstr ""
 
 #: wcivf/apps/elections/models.py:100
 msgid ""
-"This by-election was called because the elected member was elected Member of "
-"the Senedd, and cannot hold both positions."
+"The elected member was elected Member of the Senedd, and cannot hold both "
+"positions."
 msgstr ""
 
 #: wcivf/apps/elections/models.py:106
 msgid ""
-"This by-election was called because the elected member was elected Member of "
-"the Scottish Parliament, and cannot hold both positions."
+"The elected member was elected Member of the Scottish Parliament, and cannot "
+"hold both positions."
 msgstr ""
 
 #: wcivf/apps/elections/models.py:109
