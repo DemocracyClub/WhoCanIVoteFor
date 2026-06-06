@@ -514,7 +514,11 @@ class PostElectionQuerySet(models.QuerySet):
                 | Q(ballot_paper_id__startswith="ref.")
             )
             .select_related("election", "post")
-            .order_by("election__election_date")
+            .order_by(
+                "election__election_date",
+                "-election__election_weight",
+                "election__slug",
+            )
         )
 
 
