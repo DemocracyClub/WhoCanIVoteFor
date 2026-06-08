@@ -38,36 +38,161 @@ class TestPersonModel(TestCase):
         )
 
     def test_facebook_personal_username(self):
-        self.person.facebook_personal_url = (
-            "https://www.facebook.com/vicky.ford.142"
-        )
-        assert self.person.facebook_personal_username == "vicky.ford.142"
+        test_cases = [
+            (
+                "without trailing slash",
+                "https://www.facebook.com/vicky.ford.142",
+                "vicky.ford.142",
+            ),
+            (
+                "with trailing slash",
+                "https://www.facebook.com/vicky.ford.142/",
+                "vicky.ford.142",
+            ),
+            (
+                "with query string",
+                "https://www.facebook.com/vicky.ford.142?fref=ts",
+                "vicky.ford.142",
+            ),
+            (
+                "with fragment",
+                "https://www.facebook.com/vicky.ford.142#about",
+                "vicky.ford.142",
+            ),
+        ]
+        for label, url, expected in test_cases:
+            with self.subTest(msg=label):
+                self.person.facebook_personal_url = url
+                self.assertEqual(
+                    self.person.facebook_personal_username, expected
+                )
 
     def test_facebook_username(self):
-        self.person.facebook_page_url = (
-            "https://www.facebook.com/vicky4chelmsford"
-        )
-        assert self.person.facebook_username == "vicky4chelmsford"
+        test_cases = [
+            (
+                "without trailing slash",
+                "https://www.facebook.com/vicky4chelmsford",
+                "vicky4chelmsford",
+            ),
+            (
+                "with trailing slash",
+                "https://www.facebook.com/vicky4chelmsford/",
+                "vicky4chelmsford",
+            ),
+            (
+                "with query string",
+                "https://www.facebook.com/vicky4chelmsford/?ref=br_rs",
+                "vicky4chelmsford",
+            ),
+            (
+                "with fragment",
+                "https://www.facebook.com/vicky4chelmsford#about",
+                "vicky4chelmsford",
+            ),
+        ]
+        for label, url, expected in test_cases:
+            with self.subTest(msg=label):
+                self.person.facebook_page_url = url
+                self.assertEqual(self.person.facebook_username, expected)
 
     def test_instagram_username(self):
-        self.person.instagram_url = "https://www.instagram.com/vickyfordmp"
-        assert self.person.instagram_username == "vickyfordmp"
+        test_cases = [
+            (
+                "without trailing slash",
+                "https://www.instagram.com/vickyfordmp",
+                "vickyfordmp",
+            ),
+            (
+                "with trailing slash",
+                "https://www.instagram.com/vickyfordmp/",
+                "vickyfordmp",
+            ),
+            (
+                "with query string",
+                "https://www.instagram.com/vickyfordmp/?hl=en",
+                "vickyfordmp",
+            ),
+            (
+                "with fragment",
+                "https://www.instagram.com/vickyfordmp#posts",
+                "vickyfordmp",
+            ),
+        ]
+        for label, url, expected in test_cases:
+            with self.subTest(msg=label):
+                self.person.instagram_url = url
+                self.assertEqual(self.person.instagram_username, expected)
 
     def test_linkedin_username(self):
-        # Trailing slash
-        self.person.linkedin_url = "https://www.linkedin.com/in/vicky-ford/"
-        assert self.person.linkedin_username == "vicky-ford"
-        # No trailing slash
-        self.person.linkedin_url = (
-            "https://uk.linkedin.com/in/marianne-overton-mbe-54b88917"
-        )
-        assert self.person.linkedin_username == "marianne-overton-mbe-54b88917"
+        test_cases = [
+            (
+                "without trailing slash",
+                "https://uk.linkedin.com/in/marianne-overton-mbe-54b88917",
+                "marianne-overton-mbe-54b88917",
+            ),
+            (
+                "with trailing slash",
+                "https://www.linkedin.com/in/vicky-ford/",
+                "vicky-ford",
+            ),
+            (
+                "with query string",
+                "https://www.linkedin.com/in/vicky-ford/?trk=nav_responsive_tab_profile",
+                "vicky-ford",
+            ),
+            (
+                "with fragment",
+                "https://www.linkedin.com/in/vicky-ford#experience",
+                "vicky-ford",
+            ),
+        ]
+        for label, url, expected in test_cases:
+            with self.subTest(msg=label):
+                self.person.linkedin_url = url
+                self.assertEqual(self.person.linkedin_username, expected)
 
     def test_youtube_username(self):
-        self.person.youtube_profile = (
-            "https://www.youtube.com/user/pierscorbyn2"
-        )
-        assert self.person.youtube_username == "pierscorbyn2"
+        test_cases = [
+            (
+                "without trailing slash",
+                "https://www.youtube.com/user/pierscorbyn2",
+                "pierscorbyn2",
+            ),
+            (
+                "with trailing slash",
+                "https://www.youtube.com/user/pierscorbyn2/",
+                "pierscorbyn2",
+            ),
+            (
+                "with query string",
+                "https://www.youtube.com/user/pierscorbyn2/?view=0",
+                "pierscorbyn2",
+            ),
+            (
+                "with fragment",
+                "https://www.youtube.com/user/pierscorbyn2#videos",
+                "pierscorbyn2",
+            ),
+            (
+                "channel URL",
+                "https://www.youtube.com/channel/UCxxxxxx",
+                "UCxxxxxx",
+            ),
+            (
+                "modern @handle without trailing slash",
+                "https://www.youtube.com/@pierscorbyn2",
+                "pierscorbyn2",
+            ),
+            (
+                "modern @handle with trailing slash",
+                "https://www.youtube.com/@pierscorbyn2/",
+                "pierscorbyn2",
+            ),
+        ]
+        for label, url, expected in test_cases:
+            with self.subTest(msg=label):
+                self.person.youtube_profile = url
+                self.assertEqual(self.person.youtube_username, expected)
 
     def test_intro_template(self):
         candidacies = [
