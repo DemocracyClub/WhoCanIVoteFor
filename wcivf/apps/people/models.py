@@ -275,33 +275,30 @@ class Person(models.Model):
 
     @property
     def facebook_personal_username(self):
-        facebook_personal_url = self.facebook_personal_url
-        facebook_split = list(filter(None, facebook_personal_url.split("/")))
-        return facebook_split[-1]
+        return (
+            urlparse(self.facebook_personal_url).path.rstrip("/").split("/")[-1]
+        )
 
     @property
     def facebook_username(self):
-        facebook_page_url = self.facebook_page_url
-        facebook_split = list(filter(None, facebook_page_url.split("/")))
-        return facebook_split[-1]
+        return urlparse(self.facebook_page_url).path.rstrip("/").split("/")[-1]
 
     @property
     def instagram_username(self):
-        instagram_url = self.instagram_url
-        instagram_split = list(filter(None, instagram_url.split("/")))
-        return instagram_split[-1]
+        return urlparse(self.instagram_url).path.rstrip("/").split("/")[-1]
 
     @property
     def linkedin_username(self):
-        return urlparse(self.linkedin_url.rstrip("/")).path.split("/")[-1]
+        return urlparse(self.linkedin_url).path.rstrip("/").split("/")[-1]
 
     @property
     def youtube_username(self):
-        youtube_url = self.youtube_profile
-        if "channel" in youtube_url:
-            return self.name + "'s Channel"
-        youtube_split = list(filter(None, youtube_url.split("/")))
-        return youtube_split[-1]
+        username = (
+            urlparse(self.youtube_profile).path.rstrip("/").split("/")[-1]
+        )
+        if username.startswith("@"):
+            username = username[1:]
+        return username
 
     @property
     def long_statement(self):
