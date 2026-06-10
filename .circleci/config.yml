@@ -162,6 +162,11 @@ jobs:
       - run:
           name: deploy
           command: |
+            WEB_ACL_ARN=$(aws cloudformation describe-stacks \
+                --stack-name WCIVFWaf \
+                --region us-east-1 \
+                --query "Stacks[0].Outputs[?OutputKey=='WebACLArn'].OutputValue" \
+                --output text)
             sam deploy \
                 --no-confirm-changeset \
                 --config-file ~/repo/samconfig.toml \
@@ -181,7 +186,8 @@ jobs:
                    SubnetIdsParameter=<<parameters.subnet-ids>> \
                    SSLCertificateArn=<<parameters.ssl-certificate-arn>> \
                    InstanceType='<<parameters.instance-type>>' \
-                   Domain='<<parameters.domain>>'
+                   Domain='<<parameters.domain>>' \
+                   WebACLArn='$WEB_ACL_ARN'
                   "
   post_deploy_tests:
     docker:
