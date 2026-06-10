@@ -68,6 +68,17 @@ Parameters:
     Description: "API key used to import data from YNR"
     Type: String
 
+  WebACLArn:
+    Description: >
+      ARN of the CloudFront WAF WebACL (from the WebACLArn output of
+      waf-template.yaml, deployed separately in us-east-1). Leave blank to
+      deploy without WAF protection attached.
+    Type: String
+    Default: ""
+
+Conditions:
+  HasWebAcl: !Not [!Equals [!Ref WebACLArn, ""]]
+
 Resources:
   WCIVFControllerFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
@@ -308,6 +319,9 @@ Resources:
                 HeaderValue: https
 
         Enabled: true
+        # CloudFront WAF WebACL (scope CLOUDFRONT, lives in us-east-1).
+        # Defined in waf-template.yaml and passed in via the WebACLArn parameter.
+        WebACLId: !If [HasWebAcl, !Ref WebACLArn, !Ref "AWS::NoValue"]
         HttpVersion: 'http2'
         Aliases:
           - !Ref Domain
