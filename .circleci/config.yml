@@ -147,8 +147,26 @@ jobs:
           at: ~/repo/
       - run: echo <<parameters.instance-type>>
       - run:
+          name: deploy CloudFront WAF (us-east-1)
+          # CloudFront-scoped WAFv2 resources MUST live in us-east-1, so the
+          # WAF is a separate stack from the main app (which deploys to
+          # eu-west-2). It is plain CloudFormation - no SAM build artifacts -
+          # so it deploys straight from the checked-out template.
+          command: |
+            aws cloudformation deploy \
+                --template-file ~/repo/waf-template.yaml \
+                --stack-name WCIVFWaf \
+                --region us-east-1 \
+                --no-fail-on-empty-changeset \
+                --tags dc-environment="$DC_ENVIRONMENT" dc-product=wcivf CreatedVia=CloudFormation
+      - run:
           name: deploy
           command: |
+            WEB_ACL_ARN=$(aws cloudformation describe-stacks \
+                --stack-name WCIVFWaf \
+                --region us-east-1 \
+                --query "Stacks[0].Outputs[?OutputKey=='WebACLArn'].OutputValue" \
+                --output text)
             sam deploy \
                 --no-confirm-changeset \
                 --config-file ~/repo/samconfig.toml \
@@ -168,7 +186,8 @@ jobs:
                    SubnetIdsParameter=<<parameters.subnet-ids>> \
                    SSLCertificateArn=<<parameters.ssl-certificate-arn>> \
                    InstanceType='<<parameters.instance-type>>' \
-                   Domain='<<parameters.domain>>'
+                   Domain='<<parameters.domain>>' \
+                   WebACLArn='$WEB_ACL_ARN'
                   "
   post_deploy_tests:
     docker:

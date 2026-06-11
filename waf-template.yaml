@@ -1,0 +1,259 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+  WCIVF WAF
+
+  Simple bot-protection Web ACL for the WCIVF CloudFront distribution.
+
+  IMPORTANT: CloudFront-scoped WAFv2 resources MUST be created in us-east-1,
+  regardless of which region the main application stack is deployed to. This
+  template is therefore deployed as a SEPARATE stack in us-east-1, and its
+  output WebACL ARN is passed into the main sam-template.yaml as the
+  `WebACLArn` parameter.
+
+  This is a direct port of the CDK WafStack used by yournextrepresentative
+  (cdk/stack/waf.py) - same rules, same blocks, same managed rule overrides.
+
+  Tagging is applied at the stack level via the deploy command's `--tags`
+  flag (dc-environment / dc-product / CreatedVia) and propagates to every
+  resource here, so the resources themselves carry no Tags blocks.
+
+Resources:
+
+  # WAF regex pattern sets are capped at 10 patterns each, so the list of
+  # known bot user-agent substrings is split across several sets and combined
+  # with an OrStatement in the known-bots rule below.
+  KnownBotsPatternSet0:
+    Type: AWS::WAFv2::RegexPatternSet
+    Properties:
+      Name: KnownBotsPatternSet0
+      Scope: CLOUDFRONT
+      RegularExpressionList:
+        - "pcore-http/v0.24.5"
+        - "semrushbot"
+        - "megaindex.ru"
+        - "mj12bot"
+        - "ahrefsbot"
+        - "sogou"
+        - "mauibot"
+        - "gofeed"
+        - "msnbot"
+        - "aspiegelbot"
+
+  KnownBotsPatternSet1:
+    Type: AWS::WAFv2::RegexPatternSet
+    Properties:
+      Name: KnownBotsPatternSet1
+      Scope: CLOUDFRONT
+      RegularExpressionList:
+        - "yandex"
+        - "goodbot"
+        - "seekport"
+        - "barkrowler"
+        - "screaming frog"
+        - "petalbot"
+        - "dataforsebot"
+        - "codemantra"
+        - "scrapy"
+        - "dotbot"
+
+  KnownBotsPatternSet2:
+    Type: AWS::WAFv2::RegexPatternSet
+    Properties:
+      Name: KnownBotsPatternSet2
+      Scope: CLOUDFRONT
+      RegularExpressionList:
+        - "homeassistant"
+        - "seokicks"
+        - "okhttp"
+        - "blexbot"
+        - "turnitin"
+        - "anthropic-ai"
+        - "bytespider"
+        - "go-http-client"
+        - "gptbot"
+        - "fidget-spinner-bot"
+
+  KnownBotsPatternSet3:
+    Type: AWS::WAFv2::RegexPatternSet
+    Properties:
+      Name: KnownBotsPatternSet3
+      Scope: CLOUDFRONT
+      RegularExpressionList:
+        - "thesis-research-bot"
+        - "backgroundshortcutrunner"
+        - "amazonbot"
+        - "claudebot"
+        - "happywing"
+        - "googleother"
+        - "aiohttp"
+        - "imagesiftbot"
+        - "oai-searchbot"
+        - "friendlycrawler"
+
+  KnownBotsPatternSet4:
+    Type: AWS::WAFv2::RegexPatternSet
+    Properties:
+      Name: KnownBotsPatternSet4
+      Scope: CLOUDFRONT
+      RegularExpressionList:
+        - "timpibot"
+        - "awariobot"
+        - "meta-externalagent"
+        - "serpstatbot"
+        - "yisoupspider"
+        - "google-cloudvertexbot"
+        - "lanai"
+        - "baiduspider"
+        - "webscanner"
+        - "perplexity"
+
+  KnownBotsPatternSet5:
+    Type: AWS::WAFv2::RegexPatternSet
+    Properties:
+      Name: KnownBotsPatternSet5
+      Scope: CLOUDFRONT
+      RegularExpressionList:
+        - "findfiles.net"
+        - "headlesschrome"
+        - "amazon-quick"
+        - "sleepbot"
+        - "seamus the search engine"
+
+  SimpleBotProtectionWAF:
+    Type: AWS::WAFv2::WebACL
+    Properties:
+      Name: SimpleBotProtectionWAF
+      Scope: CLOUDFRONT
+      DefaultAction:
+        Allow: {}
+      VisibilityConfig:
+        CloudWatchMetricsEnabled: true
+        MetricName: SimpleBotProtectionWAF
+        SampledRequestsEnabled: true
+      Rules:
+        # Allow traffic to the candidates-for-ballots API. DemocracyClub's
+        # BallotCacheWriter polls this endpoint every couple of minutes with a
+        # default python-requests user-agent, and the endpoint is CachingDisabled
+        # on CloudFront. Evaluated first (priority 0) so matching requests are
+        # exempt from BOTH the rate-limit and known-bots rules below.
+        # NOTE: this exempts ALL traffic to this path, not only BallotCacheWriter.
+        - Name: allow-candidates-for-ballots
+          Priority: 0
+          Action:
+            Allow: {}
+          Statement:
+            ByteMatchStatement:
+              FieldToMatch:
+                UriPath: {}
+              PositionalConstraint: STARTS_WITH
+              SearchString: /api/candidates_for_ballots/
+              TextTransformations:
+                - Priority: 0
+                  Type: NONE
+          VisibilityConfig:
+            CloudWatchMetricsEnabled: true
+            MetricName: allow-candidates-for-ballots
+            SampledRequestsEnabled: true
+
+        # Rate limiting rule: 500 requests per 5 min per IP
+        - Name: RateLimitRule
+          Priority: 1
+          Action:
+            Block: {}
+          Statement:
+            RateBasedStatement:
+              Limit: 500
+              AggregateKeyType: IP
+          VisibilityConfig:
+            CloudWatchMetricsEnabled: true
+            MetricName: RateLimitRule
+            SampledRequestsEnabled: true
+
+        # AWS managed common rule set, run in count (monitor) mode. The
+        # SizeRestrictions_BODY sub-rule is also forced to count.
+        - Name: AWSCommonRuleSet
+          Priority: 100
+          OverrideAction:
+            Count: {}
+          Statement:
+            ManagedRuleGroupStatement:
+              VendorName: AWS
+              Name: AWSManagedRulesCommonRuleSet
+              RuleActionOverrides:
+                - Name: SizeRestrictions_BODY
+                  ActionToUse:
+                    Count: {}
+          VisibilityConfig:
+            CloudWatchMetricsEnabled: true
+            MetricName: AWSCommonRuleSet
+            SampledRequestsEnabled: true
+
+        # Block known bots and scrapers by user-agent (returns 418)
+        - Name: known-bots
+          Priority: 101
+          Action:
+            Block:
+              CustomResponse:
+                ResponseCode: 418
+          Statement:
+            OrStatement:
+              Statements:
+                - RegexPatternSetReferenceStatement:
+                    Arn: !GetAtt KnownBotsPatternSet0.Arn
+                    FieldToMatch:
+                      SingleHeader:
+                        Name: user-agent
+                    TextTransformations:
+                      - Priority: 0
+                        Type: LOWERCASE
+                - RegexPatternSetReferenceStatement:
+                    Arn: !GetAtt KnownBotsPatternSet1.Arn
+                    FieldToMatch:
+                      SingleHeader:
+                        Name: user-agent
+                    TextTransformations:
+                      - Priority: 0
+                        Type: LOWERCASE
+                - RegexPatternSetReferenceStatement:
+                    Arn: !GetAtt KnownBotsPatternSet2.Arn
+                    FieldToMatch:
+                      SingleHeader:
+                        Name: user-agent
+                    TextTransformations:
+                      - Priority: 0
+                        Type: LOWERCASE
+                - RegexPatternSetReferenceStatement:
+                    Arn: !GetAtt KnownBotsPatternSet3.Arn
+                    FieldToMatch:
+                      SingleHeader:
+                        Name: user-agent
+                    TextTransformations:
+                      - Priority: 0
+                        Type: LOWERCASE
+                - RegexPatternSetReferenceStatement:
+                    Arn: !GetAtt KnownBotsPatternSet4.Arn
+                    FieldToMatch:
+                      SingleHeader:
+                        Name: user-agent
+                    TextTransformations:
+                      - Priority: 0
+                        Type: LOWERCASE
+                - RegexPatternSetReferenceStatement:
+                    Arn: !GetAtt KnownBotsPatternSet5.Arn
+                    FieldToMatch:
+                      SingleHeader:
+                        Name: user-agent
+                    TextTransformations:
+                      - Priority: 0
+                        Type: LOWERCASE
+          VisibilityConfig:
+            CloudWatchMetricsEnabled: true
+            MetricName: known-bots
+            SampledRequestsEnabled: true
+
+Outputs:
+  WebACLArn:
+    Description: "ARN of the CloudFront WAF WebACL. Pass this as the WebACLArn parameter to sam-template.yaml."
+    Value: !GetAtt SimpleBotProtectionWAF.Arn
+    Export:
+      Name: WCIVFWebAclArn
