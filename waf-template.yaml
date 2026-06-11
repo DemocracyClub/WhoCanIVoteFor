@@ -131,6 +131,30 @@ Resources:
         MetricName: SimpleBotProtectionWAF
         SampledRequestsEnabled: true
       Rules:
+        # Allow traffic to the candidates-for-ballots API. DemocracyClub's
+        # BallotCacheWriter polls this endpoint every couple of minutes with a
+        # default python-requests user-agent, and the endpoint is CachingDisabled
+        # on CloudFront. Evaluated first (priority 0) so matching requests are
+        # exempt from BOTH the rate-limit and known-bots rules below.
+        # NOTE: this exempts ALL traffic to this path, not only BallotCacheWriter.
+        - Name: allow-candidates-for-ballots
+          Priority: 0
+          Action:
+            Allow: {}
+          Statement:
+            ByteMatchStatement:
+              FieldToMatch:
+                UriPath: {}
+              PositionalConstraint: STARTS_WITH
+              SearchString: /api/candidates_for_ballots/
+              TextTransformations:
+                - Priority: 0
+                  Type: NONE
+          VisibilityConfig:
+            CloudWatchMetricsEnabled: true
+            MetricName: allow-candidates-for-ballots
+            SampledRequestsEnabled: true
+
         # Rate limiting rule: 500 requests per 5 min per IP
         - Name: RateLimitRule
           Priority: 1
