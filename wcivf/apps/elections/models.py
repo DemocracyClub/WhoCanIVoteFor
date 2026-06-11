@@ -229,6 +229,10 @@ class Election(models.Model):
     @property
     def nice_election_name(self):
         name = self.name
+
+        if self.slug.startswith("pcc.") or self.slug.startswith("mayor."):
+            return name
+
         if not self.any_non_by_elections:
             name = name.replace("elections", "")
             name = name.replace("election", "")
