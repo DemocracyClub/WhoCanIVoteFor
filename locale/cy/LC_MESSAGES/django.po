@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-05 14:28+0000\n"
+"POT-Creation-Date: 2026-06-17 14:25+0000\n"
 "PO-Revision-Date: 2022-03-24 09:04+0000\n"
 "Last-Translator: Sym Roe <sym@talusdesign.co.uk>, 2022\n"
 "Language-Team: Welsh (https://www.transifex.com/democracy-club/teams/61326/"
@@ -256,31 +256,31 @@ msgstr "Cafodd yr aelod etholedig ei alw'n ôl gan ddeiseb adalw lwyddiannus"
 #: wcivf/apps/elections/models.py:82
 msgid ""
 "The elected member was elected mayor of the council, and cannot hold both "
-"positions."
+"positions"
 msgstr ""
 
 #: wcivf/apps/elections/models.py:88
 msgid ""
 "The elected member was elected Member of the UK Parliament, and cannot hold "
-"both positions."
+"both positions"
 msgstr ""
 
 #: wcivf/apps/elections/models.py:94
 msgid ""
 "The elected member was elected mayor of a strategic authority, and cannot "
-"hold both positions."
+"hold both positions"
 msgstr ""
 
 #: wcivf/apps/elections/models.py:100
 msgid ""
 "The elected member was elected Member of the Senedd, and cannot hold both "
-"positions."
+"positions"
 msgstr ""
 
 #: wcivf/apps/elections/models.py:106
 msgid ""
 "The elected member was elected Member of the Scottish Parliament, and cannot "
-"hold both positions."
+"hold both positions"
 msgstr ""
 
 #: wcivf/apps/elections/models.py:109
@@ -295,41 +295,41 @@ msgstr "Anadnabyddus"
 msgid "Neither a by-election nor a ballot"
 msgstr "Nid trwy isetholiad na phleidlais"
 
-#: wcivf/apps/elections/models.py:773
+#: wcivf/apps/elections/models.py:781
 #, python-brace-format
 msgid "{ballot_label} by-election"
 msgstr ""
 
-#: wcivf/apps/elections/models.py:808 wcivf/apps/elections/models.py:811
+#: wcivf/apps/elections/models.py:816 wcivf/apps/elections/models.py:819
 msgid " (postponed)"
 msgstr " (wedi'i ohirio)"
 
-#: wcivf/apps/elections/models.py:814
+#: wcivf/apps/elections/models.py:822
 msgid " (uncontested)"
 msgstr "(dim cystadleuaeth)"
 
-#: wcivf/apps/elections/models.py:860
+#: wcivf/apps/elections/models.py:870
 #, python-format
 msgid "This by-election was called because %(reason)s."
 msgstr "Canslwyd yr etholiad hwn %(reason)s."
 
-#: wcivf/apps/elections/models.py:997
+#: wcivf/apps/elections/models.py:1007
 msgid "First-past-the-post"
 msgstr "Y Cyntaf i’r Felin"
 
-#: wcivf/apps/elections/models.py:999
+#: wcivf/apps/elections/models.py:1009
 msgid "Additional Member System"
 msgstr "Y System Aelodau Ychwanegol"
 
-#: wcivf/apps/elections/models.py:1001
+#: wcivf/apps/elections/models.py:1011
 msgid "Supplementary Vote"
 msgstr "Pleidlais Atodol"
 
-#: wcivf/apps/elections/models.py:1003
+#: wcivf/apps/elections/models.py:1013
 msgid "Single Transferable Vote"
 msgstr "Pleidlais Sengl Drosglwyddadwy"
 
-#: wcivf/apps/elections/models.py:1005
+#: wcivf/apps/elections/models.py:1015
 msgid "Closed-List Proportional Representation"
 msgstr "Cynrychiolaeth Gyfrannol â Rhestrau Caeedig"
 

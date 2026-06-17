@@ -79,31 +79,31 @@ class ByElectionReason(models.TextChoices):
     ELECTED_COUNCIL_MAYOR = (
         "ELECTED_COUNCIL_MAYOR",
         _(
-            "The elected member was elected mayor of the council, and cannot hold both positions."
+            "The elected member was elected mayor of the council, and cannot hold both positions"
         ),
     )
     ELECTED_PARLIAMENT = (
         "ELECTED_PARLIAMENT",
         _(
-            "The elected member was elected Member of the UK Parliament, and cannot hold both positions."
+            "The elected member was elected Member of the UK Parliament, and cannot hold both positions"
         ),
     )
     ELECTED_STRATEGIC_AUTHORITY_MAYOR = (
         "ELECTED_STRATEGIC_AUTHORITY_MAYOR",
         _(
-            "The elected member was elected mayor of a strategic authority, and cannot hold both positions."
+            "The elected member was elected mayor of a strategic authority, and cannot hold both positions"
         ),
     )
     ELECTED_SENEDD = (
         "ELECTED_SENEDD",
         _(
-            "The elected member was elected Member of the Senedd, and cannot hold both positions."
+            "The elected member was elected Member of the Senedd, and cannot hold both positions"
         ),
     )
     ELECTED_SCOTTISH_PARLIAMENT = (
         "ELECTED_SCOTTISH_PARLIAMENT",
         _(
-            "The elected member was elected Member of the Scottish Parliament, and cannot hold both positions."
+            "The elected member was elected Member of the Scottish Parliament, and cannot hold both positions"
         ),
     )
     OTHER = "OTHER", _("Other")
