@@ -536,7 +536,9 @@ class ElectionPostViewTests(TestCase):
                 self.assertContains(
                     response, "This by-election was called because"
                 )
-                self.assertContains(response, reason_display.lower())
+
+                expected_reason = reason_display[0].lower() + reason_display[1:]
+                self.assertContains(response, expected_reason)
 
 
 @pytest.mark.django_db

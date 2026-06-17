@@ -865,8 +865,14 @@ class PostElection(TimeStampedModel):
         ]:
             return ""
 
+        by_election_reason_display = self.get_by_election_reason_display()
+        reason_str = (
+            by_election_reason_display[0].lower()
+            + by_election_reason_display[1:]
+        )
+
         return _("This by-election was called because %(reason)s.") % {
-            "reason": self.get_by_election_reason_display().lower()
+            "reason": reason_str
         }
 
     @property
