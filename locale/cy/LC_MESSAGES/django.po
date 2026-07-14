@@ -2594,7 +2594,7 @@ msgstr ""
 #: wcivf/apps/people/templates/people/includes/_person_leaflets.html:51
 #, python-format
 msgid "Leaflets from %(person_name)s"
-msgstr "Taflenni gan %(person_name)s"
+msgstr ""
 
 #: wcivf/apps/people/templates/people/includes/_person_leaflets.html:56
 #, python-format
@@ -2603,9 +2603,6 @@ msgid ""
 "%(person_id)s\"> View leaflets from %(person_name)s</a> <a class=\"ds-cta\" "
 "href=\"https://electionleaflets.org/leaflets/add/\"> Upload a leaflet </a>"
 msgstr ""
-"<a class=\"ds-cta\" href=\"https://electionleaflets.org/person/"
-"%(person_id)s\">Gweld taflenni gan %(person_name)s</a> <a class=\"ds-cta\" "
-"href=\"https://electionleaflets.org/leaflets/add/\">Uwchlwythwch daflen</a>"
 
 #: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:6
 #, python-format
