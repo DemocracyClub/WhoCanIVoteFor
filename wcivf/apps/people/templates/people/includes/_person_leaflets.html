@@ -5,10 +5,13 @@
 
 
 {% if object.leaflet_set.latest_four %}
+    <h2 class="ds-h3">
+        {% blocktrans with person_name=object.name %}Leaflets from {{ person_name }}{% endblocktrans %}
+    </h2>
     <details class="ds-stack">
         <summary>
             <h4>
-                {% blocktrans with person_name=object.name %}Recent leaflets from {{ person_name }}{% endblocktrans %}
+                {% blocktrans with person_name=object.name %}Recent leaflets{% endblocktrans %}
             </h4>
         </summary>
 
@@ -31,18 +34,19 @@
             {% endfor %}
         </ul>
 
-        <div class="ds-cluster-left">
-            <div>
-                {% blocktrans trimmed with person_name=object.name person_id=object.ynr_id %}
-                    <a class="ds-cta" href="https://electionleaflets.org/person/{{ person_id }}">
-                        More leaflets from {{ person_name }}</a>
-                    <a class="ds-cta" href="https://electionleaflets.org/leaflets/add/">
-                        Upload a leaflet
-                    </a>
-                {% endblocktrans %}
-            </div>
-        </div>
+
     </details>
+    <div class="ds-cluster-left">
+        <div>
+            {% blocktrans trimmed with person_name=object.name person_id=object.ynr_id %}
+                <a class="ds-cta" href="https://electionleaflets.org/person/{{ person_id }}">
+                    More leaflets from {{ person_name }}</a>
+                <a class="ds-cta" href="https://electionleaflets.org/leaflets/add/">
+                    Upload a leaflet
+                </a>
+            {% endblocktrans %}
+        </div>
+    </div>
 {% else %}
 
     {# We know one or more leaflets exist #}

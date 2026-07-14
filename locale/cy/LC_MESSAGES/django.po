@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-09 10:18+0000\n"
+"POT-Creation-Date: 2026-07-14 07:14+0000\n"
 "PO-Revision-Date: 2022-03-24 09:04+0000\n"
 "Last-Translator: Sym Roe <sym@talusdesign.co.uk>, 2022\n"
 "Language-Team: Welsh (https://www.transifex.com/democracy-club/teams/61326/"
@@ -2561,17 +2561,22 @@ msgstr "Ychwanegu taflenni &raquo;"
 msgid "profile photo of %(person)s"
 msgstr "Llun proffil %(person)s"
 
-#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:11
+#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:9
+#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:55
 #, python-format
-msgid "Recent leaflets from %(person_name)s"
-msgstr "Taflenni diweddar gan %(person_name)s"
+msgid "Leaflets from %(person_name)s"
+msgstr ""
 
-#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:21
+#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:14
+msgid "Recent leaflets"
+msgstr ""
+
+#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:24
 #, python-format
 msgid "Thumbnail of leaflet from %(person_name)s"
 msgstr "Thumbnail o daflen gan %(person_name)s"
 
-#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:25
+#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:28
 #, python-format
 msgid ""
 "Uploaded %(date)s<br/> <a href=\"https://electionleaflets.org/leaflets/"
@@ -2580,7 +2585,7 @@ msgstr ""
 "Uwchlwythwyd %(date)s<br /> <a href=\"https://electionleaflets.org/leaflets/"
 "%(leaflet_id)s\" class=\"cta\">Gweld y daflen</a>"
 
-#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:36
+#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:41
 #, python-format
 msgid ""
 "<a class=\"ds-cta\" href=\"https://electionleaflets.org/person/"
@@ -2591,12 +2596,7 @@ msgstr ""
 "%(person_id)s\">Mwy o daflenni gan %(person_name)s</a> <a class=\"ds-cta\" "
 "href=\"https://electionleaflets.org/leaflets/add/\">Uwchlwythwch daflen</a>"
 
-#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:51
-#, python-format
-msgid "Leaflets from %(person_name)s"
-msgstr ""
-
-#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:56
+#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:60
 #, python-format
 msgid ""
 "<a class=\"ds-cta\" href=\"https://electionleaflets.org/person/"
