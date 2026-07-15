@@ -12,6 +12,7 @@ from django.http import (
     HttpResponseRedirect,
 )
 from django.urls import reverse
+from django.utils import timezone
 from django.views import View
 from elections.constants import (
     PEOPLE_FOR_BALLOT_KEY_FMT,
@@ -25,9 +26,6 @@ from elections.devs_dc_client import (
 from hustings.models import Husting
 from leaflets.models import Leaflet
 from parties.models import Manifesto
-from uk_election_timetables.calendars import Country
-from uk_election_timetables.election import TimetableEvent
-from uk_election_timetables.election_ids import from_election_id
 
 from ..postal_votes import get_postal_vote_dispatch_dates
 
@@ -247,22 +245,12 @@ class PollingStationInfoMixin(object):
         if not non_city_of_london_ballots:
             return {"show": False}
         next_ballot = non_city_of_london_ballots[0]
-        election = next_ballot.election
-        country = next_ballot.post.territory
 
-        if not country:
-            country = Country.ENGLAND
-        else:
-            country = {
-                "ENG": Country.ENGLAND,
-                "SCT": Country.SCOTLAND,
-                "WLS": Country.WALES,
-                "NIR": Country.NORTHERN_IRELAND,
-            }.get(country)
-        election = from_election_id(election_id=election.slug, country=country)
-        event = TimetableEvent.REGISTRATION_DEADLINE
         return {
-            "show": election.is_before(event),
+            "show": (
+                next_ballot.registration_deadline
+                and next_ballot.registration_deadline >= timezone.now().date()
+            ),
             "registration_deadline": next_ballot.registration_deadline,
             "election_date": next_ballot.election.election_date,
         }
@@ -271,24 +259,15 @@ class PollingStationInfoMixin(object):
         if not post_elections or all(pe.cancelled for pe in post_elections):
             return {"show": False}
         next_ballot = post_elections[0]
-        election = next_ballot.election
         country = next_ballot.post.territory
-
-        if not country:
-            country = Country.ENGLAND
-        else:
-            country = {
-                "ENG": Country.ENGLAND,
-                "SCT": Country.SCOTLAND,
-                "WLS": Country.WALES,
-                "NIR": Country.NORTHERN_IRELAND,
-            }.get(country)
-        election = from_election_id(election_id=election.slug, country=country)
-        event = TimetableEvent.POSTAL_VOTE_APPLICATION_DEADLINE
 
         card = {
             "show": True,
-            "before_application_deadline": election.is_before(event),
+            "before_application_deadline": (
+                next_ballot.postal_vote_application_deadline
+                and next_ballot.postal_vote_application_deadline
+                >= timezone.now().date()
+            ),
             "application_deadline": next_ballot.postal_vote_application_deadline,
             "election_date": next_ballot.election.election_date,
             "sopn_date": next_ballot.expected_sopn_date,
@@ -302,8 +281,8 @@ class PollingStationInfoMixin(object):
             # hard-coded for May 2026
             # this is the date when replacement packs can be issued from
             # for ALL councils
-            # TODO: add this to the timetable library
-            if country == Country.SCOTLAND:
+            # TODO: add this to the timetable library/API
+            if country == "SCT":
                 card["replacement_pack_start"] = None
             else:
                 card["replacement_pack_start"] = datetime.strptime(

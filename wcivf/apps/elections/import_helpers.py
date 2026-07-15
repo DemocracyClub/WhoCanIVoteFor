@@ -476,6 +476,7 @@ class YNRBallotImporter:
         self.set_by_election_reason(ballot)
         self.set_organisation_type(ballot)
         self.set_division_type(ballot)
+        self.set_timetable(ballot)
         ballot.save()
 
     def set_territory(self, ballot):
@@ -561,6 +562,24 @@ class YNRBallotImporter:
         # ensures the division_type is valid, or will raise a ValidationError
         ballot.post.full_clean()
         ballot.post.save()
+
+    def set_timetable(self, ballot):
+        ee_data = self.ee_helper.get_data(ballot.ballot_paper_id)
+        if not ee_data:
+            return
+        timetable = ee_data.get("timetable")
+        if not timetable:
+            return
+        timetable_fields = [
+            "notice_of_election_deadline",
+            "close_of_nominations",
+            "sopn_publish_deadline",
+            "registration_deadline",
+            "postal_vote_application_deadline",
+            "vac_application_deadline",
+        ]
+        for field in timetable_fields:
+            setattr(ballot, field, timetable.get(field))
 
     def get_replacement_ballot(self, ballot_id):
         replacement_ballot = None

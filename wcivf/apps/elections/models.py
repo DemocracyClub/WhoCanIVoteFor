@@ -19,7 +19,6 @@ from uk_election_ids.metadata_tools import (
     PostalVotingRequirementsMatcher,
 )
 
-from .helpers import get_election_timetable
 from .managers import ElectionManager
 
 LOCAL_TZ = pytz.timezone("Europe/London")
@@ -573,6 +572,28 @@ class PostElection(TimeStampedModel):
     spoilt_ballots = models.IntegerField(blank=True, null=True)
     results_source_url = models.URLField(blank=True, null=True, max_length=800)
 
+    # timetable
+    notice_of_election_deadline = models.DateField(
+        blank=True,
+        null=True,
+        help_text="Deadline to publish Notice of Election document",
+    )
+    close_of_nominations = models.DateField(
+        blank=True, null=True, help_text="Close of Nominations"
+    )
+    sopn_publish_deadline = models.DateField(
+        blank=True, null=True, help_text="Deadline to publish SOPN document"
+    )
+    registration_deadline = models.DateField(
+        blank=True, null=True, help_text="Register to vote deadline"
+    )
+    postal_vote_application_deadline = models.DateField(
+        blank=True, null=True, help_text="Postal vote application deadline"
+    )
+    vac_application_deadline = models.DateField(
+        blank=True, null=True, help_text="VAC application deadline"
+    )
+
     objects = PostElectionQuerySet.as_manager()
 
     class Meta:
@@ -621,66 +642,40 @@ class PostElection(TimeStampedModel):
                 candidate.save()
 
     @property
-    def expected_sopn_date(self):
-        try:
-            return get_election_timetable(
-                self.ballot_paper_id, self.post.territory
-            ).sopn_publish_date
-        except (AttributeError, NotImplementedError):
-            return None
-
-    @property
-    def registration_deadline(self):
-        try:
-            date = get_election_timetable(
-                self.ballot_paper_id, self.post.territory
-            ).registration_deadline
-        except AttributeError:
-            return None
-
-        return date.strftime("%d %B %Y")
-
-    @property
     def past_registration_deadline(self):
-        try:
-            registration_deadline = get_election_timetable(
-                self.ballot_paper_id, self.post.territory
-            ).registration_deadline
-        except AttributeError:
-            return None
+        if not self.registration_deadline:
+            """
+            There are a handful of very old elections that don't have a
+            registration_deadline deadline set.
+            If we have one of these in scope,
+            assume we don't want to prompt the person to register to vote
+            so saying we're passed the deadline is probably safer
+            """
+            return True
 
-        return registration_deadline < datetime.date.today()
-
-    @property
-    def postal_vote_application_deadline(self):
-        try:
-            date = get_election_timetable(
-                self.ballot_paper_id, self.post.territory
-            ).postal_vote_application_deadline
-        except AttributeError:
-            return None
-
-        return date.strftime("%d %B %Y")
+        return self.registration_deadline < datetime.date.today()
 
     @property
     def past_vac_application_deadline(self):
-        try:
-            vac_application_deadline = get_election_timetable(
-                self.ballot_paper_id, self.post.territory
-            ).vac_application_deadline
-        except AttributeError:
-            return None
+        if not self.vac_application_deadline:
+            """
+            We have to return a boolean here.
+            vac_application_deadline is None for any ballot
+            where a VAC can not be obtained e.g:
+            - ID is not required (Wales & Scotland)
+            - Different ID rules (Northern Ireland)
+            If we have one of these in scope,
+            assume we don't want to prompt the person to apply for a VAC
+            so saying we're passed the deadline is probably safer
+            """
+            return True
 
-        return vac_application_deadline < datetime.date.today()
+        return self.vac_application_deadline < datetime.date.today()
 
     @property
-    def vac_application_deadline(self):
-        try:
-            return get_election_timetable(
-                self.ballot_paper_id, self.post.territory
-            ).vac_application_deadline
-        except AttributeError:
-            return None
+    def expected_sopn_date(self):
+        # alias
+        return self.close_of_nominations
 
     @property
     def postal_vote_requires_form(self):
