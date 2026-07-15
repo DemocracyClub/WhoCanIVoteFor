@@ -59,6 +59,11 @@ class TestPersonModel(TestCase):
                 "https://www.facebook.com/vicky.ford.142#about",
                 "vicky.ford.142",
             ),
+            (
+                "legacy URL style",
+                "https://www.facebook.com/profile.php?id=123",
+                "https://www.facebook.com/profile.php?id=123",
+            ),
         ]
         for label, url, expected in test_cases:
             with self.subTest(msg=label):
@@ -88,6 +93,11 @@ class TestPersonModel(TestCase):
                 "with fragment",
                 "https://www.facebook.com/vicky4chelmsford#about",
                 "vicky4chelmsford",
+            ),
+            (
+                "legacy URL style",
+                "https://www.facebook.com/profile.php?id=123",
+                "https://www.facebook.com/profile.php?id=123",
             ),
         ]
         for label, url, expected in test_cases:
