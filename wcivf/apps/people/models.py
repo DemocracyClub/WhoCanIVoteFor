@@ -275,12 +275,16 @@ class Person(models.Model):
 
     @property
     def facebook_personal_username(self):
+        if "profile.php" in self.facebook_personal_url:
+            return self.facebook_personal_url
         return (
             urlparse(self.facebook_personal_url).path.rstrip("/").split("/")[-1]
         )
 
     @property
     def facebook_username(self):
+        if "profile.php" in self.facebook_page_url:
+            return self.facebook_page_url
         return urlparse(self.facebook_page_url).path.rstrip("/").split("/")[-1]
 
     @property
