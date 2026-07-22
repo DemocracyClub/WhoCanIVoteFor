@@ -334,6 +334,7 @@ class Election(models.Model):
             "mayor.newham.2026-05-07": f"{s3_bucket}/2026-05-07/mayoral/mayor.newham.2026-05-07.pdf",
             "mayor.hackney.2026-05-07": f"{s3_bucket}/2026-05-07/mayoral/mayor.hackney.2026-05-07.pdf",
             "mayor.lewisham.2026-05-07": f"{s3_bucket}/2026-05-07/mayoral/mayor.lewisham.2026-05-07.pdf",
+            "mayor.greater-manchester-ca.by.2026-07-30": f"{s3_bucket}/2026-07-30/mayoral/mayor.greater-manchester-ca.by.2026-07-30.pdf",
         }
 
         return election_to_booklet.get(self.slug)
