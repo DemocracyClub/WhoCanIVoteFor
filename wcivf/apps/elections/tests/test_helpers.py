@@ -1,14 +1,11 @@
 import sys
-from datetime import date
 
 import pytest
 from django.conf import settings
-from django.test import TestCase
 from django.utils import timezone
 from elections.helpers import (
     EEHelper,
     JsonPaginator,
-    get_election_timetable,
 )
 from elections.import_helpers import YNRBallotImporter, YNRPostImporter
 from elections.models import Election, Post, PostElection
@@ -19,33 +16,6 @@ from elections.tests.factories import (
 )
 from parties.models import Party
 from people.models import PersonPost
-
-
-class GetElectionTimetable(TestCase):
-    def test_with_territory_code_eng(self):
-        expected = get_election_timetable("local.2019-05-02", "ENG")
-
-        assert expected.poll_date == date(2019, 5, 2)
-
-    def test_with_territory_code_nir(self):
-        expected = get_election_timetable("local.2019-05-02", "NIR")
-
-        assert expected.poll_date == date(2019, 5, 2)
-
-    def test_with_territory_code_unknown(self):
-        expected = get_election_timetable("local.2019-05-02", "-")
-
-        assert expected is None
-
-    def test_with_territory_code_unambiguous_election_type(self):
-        expected = get_election_timetable("nia.belfast-east.2017-03-02", "NIR")
-
-        assert expected.poll_date == date(2017, 3, 2)
-
-    def test_with_territory_code_malformed_id(self):
-        expected = get_election_timetable("whoknows", "ENG")
-
-        assert expected is None
 
 
 class TestEEHelper:

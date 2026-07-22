@@ -234,6 +234,7 @@ class TestPostElectionModel:
             election=ElectionFactoryLazySlug(
                 election_date="2019-5-6", current=False, election_type="parl"
             ),
+            registration_deadline=datetime.date(2019, 4, 16),
         )
         future = PostElectionFactory(
             ballot_paper_id="parl.cities-of-london-and-westminster.2021-05-06",
@@ -241,6 +242,7 @@ class TestPostElectionModel:
             election=ElectionFactoryLazySlug(
                 election_date="2021-5-6", current=True, election_type="parl"
             ),
+            registration_deadline=datetime.date(2021, 4, 19),
         )
 
         assert oldest.past_registration_deadline is True

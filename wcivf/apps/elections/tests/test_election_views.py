@@ -185,6 +185,7 @@ class ElectionPostViewTests(TestCase):
             election=future_election,
             post=future_post,
             ballot_paper_id="local.adur.churchill.2024-05-06",
+            close_of_nominations=datetime.date(2024, 4, 9),
         )
         future_post.territory = "ENG"
         future_post.save()
