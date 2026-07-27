@@ -41,7 +41,7 @@ hooks:
 
   BeforeInstall:
     - location: deploy/before_install/initial_setup.sh
-      timeout: 300
+      timeout: 400
       runas: root
 # During the AfterInstall deployment lifecycle event, run the commands
 #   in the script specified in "location".
