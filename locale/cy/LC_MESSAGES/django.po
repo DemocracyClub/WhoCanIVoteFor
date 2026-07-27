@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-14 07:14+0000\n"
+"POT-Creation-Date: 2026-07-27 09:19+0000\n"
 "PO-Revision-Date: 2022-03-24 09:04+0000\n"
 "Last-Translator: Sym Roe <sym@talusdesign.co.uk>, 2022\n"
 "Language-Team: Welsh (https://www.transifex.com/democracy-club/teams/61326/"
@@ -2562,7 +2562,7 @@ msgid "profile photo of %(person)s"
 msgstr "Llun proffil %(person)s"
 
 #: wcivf/apps/people/templates/people/includes/_person_leaflets.html:9
-#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:55
+#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:52
 #, python-format
 msgid "Leaflets from %(person_name)s"
 msgstr ""
@@ -2589,20 +2589,22 @@ msgstr ""
 #, python-format
 msgid ""
 "<a class=\"ds-cta\" href=\"https://electionleaflets.org/person/"
-"%(person_id)s\"> More leaflets from %(person_name)s</a> <a class=\"ds-cta\" "
-"href=\"https://electionleaflets.org/leaflets/add/\"> Upload a leaflet </a>"
+"%(person_id)s\"> More leaflets from %(person_name)s</a>"
 msgstr ""
 "<a class=\"ds-cta\" href=\"https://electionleaflets.org/person/"
-"%(person_id)s\">Mwy o daflenni gan %(person_name)s</a> <a class=\"ds-cta\" "
-"href=\"https://electionleaflets.org/leaflets/add/\">Uwchlwythwch daflen</a>"
+"%(person_id)s\">Mwy o daflenni gan %(person_name)s</a>"
 
-#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:60
+#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:57
 #, python-format
+# TODO This translation is actually "View leaflets from %(person_name)s"
+# Update to a transalation for "View past leaflets from %(person_name)s"
+# next time we review/update
 msgid ""
 "<a class=\"ds-cta\" href=\"https://electionleaflets.org/person/"
-"%(person_id)s\"> View leaflets from %(person_name)s</a> <a class=\"ds-cta\" "
-"href=\"https://electionleaflets.org/leaflets/add/\"> Upload a leaflet </a>"
+"%(person_id)s\"> View past leaflets from %(person_name)s</a>"
 msgstr ""
+"<a class=\"ds-cta\" href=\"https://electionleaflets.org/person/"
+"%(person_id)s\">Mwy o daflenni gan %(person_name)s</a>"
 
 #: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:6
 #, python-format

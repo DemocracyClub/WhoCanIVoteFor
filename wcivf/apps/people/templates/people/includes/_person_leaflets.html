@@ -41,9 +41,6 @@
             {% blocktrans trimmed with person_name=object.name person_id=object.ynr_id %}
                 <a class="ds-cta" href="https://electionleaflets.org/person/{{ person_id }}">
                     More leaflets from {{ person_name }}</a>
-                <a class="ds-cta" href="https://electionleaflets.org/leaflets/add/">
-                    Upload a leaflet
-                </a>
             {% endblocktrans %}
         </div>
     </div>
@@ -59,10 +56,7 @@
         <div>
             {% blocktrans trimmed with person_name=object.name person_id=object.ynr_id %}
                 <a class="ds-cta" href="https://electionleaflets.org/person/{{ person_id }}">
-                    View leaflets from {{ person_name }}</a>
-                <a class="ds-cta" href="https://electionleaflets.org/leaflets/add/">
-                    Upload a leaflet
-                </a>
+                    View past leaflets from {{ person_name }}</a>
             {% endblocktrans %}
         </div>
     </div>
