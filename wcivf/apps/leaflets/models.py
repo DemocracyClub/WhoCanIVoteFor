@@ -1,10 +1,16 @@
+import datetime as dt
+
 from django.db import models
+from django.utils import timezone
 from people.models import Person
 
 
 class LeafletQuerySet(models.QuerySet):
     def latest_four(self):
-        return self.order_by("date_uploaded_to_electionleaflets")[:4]
+        return self.filter(
+            date_uploaded_to_electionleaflets__gte=timezone.now()
+            - dt.timedelta(days=365)
+        ).order_by("-date_uploaded_to_electionleaflets")[:4]
 
 
 class Leaflet(models.Model):

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-17 14:25+0000\n"
+"POT-Creation-Date: 2026-07-27 09:19+0000\n"
 "PO-Revision-Date: 2022-03-24 09:04+0000\n"
 "Last-Translator: Sym Roe <sym@talusdesign.co.uk>, 2022\n"
 "Language-Team: Welsh (https://www.transifex.com/democracy-club/teams/61326/"
@@ -308,28 +308,28 @@ msgstr " (wedi'i ohirio)"
 msgid " (uncontested)"
 msgstr "(dim cystadleuaeth)"
 
-#: wcivf/apps/elections/models.py:870
+#: wcivf/apps/elections/models.py:874
 #, python-format
 msgid "This by-election was called because %(reason)s."
 msgstr "Canslwyd yr etholiad hwn %(reason)s."
 
-#: wcivf/apps/elections/models.py:1007
+#: wcivf/apps/elections/models.py:1011
 msgid "First-past-the-post"
 msgstr "Y Cyntaf i’r Felin"
 
-#: wcivf/apps/elections/models.py:1009
+#: wcivf/apps/elections/models.py:1013
 msgid "Additional Member System"
 msgstr "Y System Aelodau Ychwanegol"
 
-#: wcivf/apps/elections/models.py:1011
+#: wcivf/apps/elections/models.py:1015
 msgid "Supplementary Vote"
 msgstr "Pleidlais Atodol"
 
-#: wcivf/apps/elections/models.py:1013
+#: wcivf/apps/elections/models.py:1017
 msgid "Single Transferable Vote"
 msgstr "Pleidlais Sengl Drosglwyddadwy"
 
-#: wcivf/apps/elections/models.py:1015
+#: wcivf/apps/elections/models.py:1019
 msgid "Closed-List Proportional Representation"
 msgstr "Cynrychiolaeth Gyfrannol â Rhestrau Caeedig"
 
@@ -2562,16 +2562,21 @@ msgid "profile photo of %(person)s"
 msgstr "Llun proffil %(person)s"
 
 #: wcivf/apps/people/templates/people/includes/_person_leaflets.html:9
+#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:52
 #, python-format
-msgid "Recent leaflets from %(person_name)s"
-msgstr "Taflenni diweddar gan %(person_name)s"
+msgid "Leaflets from %(person_name)s"
+msgstr ""
 
-#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:18
+#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:14
+msgid "Recent leaflets"
+msgstr ""
+
+#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:24
 #, python-format
 msgid "Thumbnail of leaflet from %(person_name)s"
 msgstr "Thumbnail o daflen gan %(person_name)s"
 
-#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:22
+#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:28
 #, python-format
 msgid ""
 "Uploaded %(date)s<br/> <a href=\"https://electionleaflets.org/leaflets/"
@@ -2580,16 +2585,26 @@ msgstr ""
 "Uwchlwythwyd %(date)s<br /> <a href=\"https://electionleaflets.org/leaflets/"
 "%(leaflet_id)s\" class=\"cta\">Gweld y daflen</a>"
 
-#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:32
+#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:41
 #, python-format
 msgid ""
 "<a class=\"ds-cta\" href=\"https://electionleaflets.org/person/"
-"%(person_id)s\"> More leaflets from %(person_name)s</a> <a class=\"ds-cta\" "
-"href=\"https://electionleaflets.org/leaflets/add/\"> Upload a leaflet </a>"
+"%(person_id)s\"> More leaflets from %(person_name)s</a>"
 msgstr ""
 "<a class=\"ds-cta\" href=\"https://electionleaflets.org/person/"
-"%(person_id)s\">Mwy o daflenni gan %(person_name)s</a> <a class=\"ds-cta\" "
-"href=\"https://electionleaflets.org/leaflets/add/\">Uwchlwythwch daflen</a>"
+"%(person_id)s\">Mwy o daflenni gan %(person_name)s</a>"
+
+#: wcivf/apps/people/templates/people/includes/_person_leaflets.html:57
+#, python-format
+# TODO This translation is actually "View leaflets from %(person_name)s"
+# Update to a transalation for "View past leaflets from %(person_name)s"
+# next time we review/update
+msgid ""
+"<a class=\"ds-cta\" href=\"https://electionleaflets.org/person/"
+"%(person_id)s\"> View past leaflets from %(person_name)s</a>"
+msgstr ""
+"<a class=\"ds-cta\" href=\"https://electionleaflets.org/person/"
+"%(person_id)s\">Mwy o daflenni gan %(person_name)s</a>"
 
 #: wcivf/apps/people/templates/people/includes/_person_local_party_card.html:6
 #, python-format
