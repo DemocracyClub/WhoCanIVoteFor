@@ -287,7 +287,7 @@ workflows:
           vpc-id: vpc-fa2e0792
           subnet-ids: "subnet-890877f3,subnet-be093ad7,subnet-3524a679"
           ssl-certificate-arn: arn:aws:acm:us-east-1:061126312678:certificate/ece58cd4-6192-474a-a8ed-84e3635d9180
-          instance-type: t3a.medium
+          instance-type: t3a.small
           domain: "dev.wcivf.club"
           requires:
           - build_and_test
@@ -317,7 +317,7 @@ workflows:
           vpc-id: vpc-69cef901
           subnet-ids: "subnet-e2b4f198,subnet-5a911a16,subnet-818bb2e8"
           ssl-certificate-arn: arn:aws:acm:us-east-1:897471774344:certificate/b7580cc7-4e31-49ad-a08c-3bf9ae43e328
-          instance-type: t3a.medium
+          instance-type: t3a.small
           domain: "wcivf.club"
           requires:
           - build_and_test
