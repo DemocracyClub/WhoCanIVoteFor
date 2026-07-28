@@ -65,7 +65,7 @@ dev = [
     "django-debug-toolbar==6.0.0",
     "djhtml==3.0.6",
     "ruff==0.15.22",
-    "pytest-ruff==0.2.1",
+    "pytest-ruff==0.5",
     "pytidylib==0.3.2",
 ]
 
