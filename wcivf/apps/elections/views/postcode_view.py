@@ -8,6 +8,7 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
 from django.views.generic import TemplateView, View
+from elections.constants import DIVISION_TYPE_TO_UNIT
 from elections.devs_dc_client import InvalidPostcodeError, InvalidUprnError
 from elections.dummy_models import DummyPostElection, dummy_polling_station
 from elections.models import LOCAL_TZ
@@ -588,16 +589,14 @@ class PostcodeBoundaryReviewView(PostcodeToPostsMixin, TemplateView):
                 f"No boundary reviews found for this postcode in {self.org_gss}"
             )
 
-        # TODO: division_unit would be good to add to the API
         for review in org_boundary_reviews:
             review["effective_date"] = timezone.datetime.strptime(
                 review["effective_date"], "%Y-%m-%d"
             )
             for change in review["boundary_changes"]:
-                if change["division_type"].endswith("E"):
-                    change["division_unit"] = "region"
-                else:
-                    change["division_unit"] = "constituency"
+                change["division_unit"] = DIVISION_TYPE_TO_UNIT.get(
+                    change["division_type"], "Post"
+                )
 
         context["boundary_reviews"] = org_boundary_reviews
         postcode_location = ballot_dict.get("postcode_location", None)
