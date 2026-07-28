@@ -77,3 +77,22 @@ UPDATED_SLUGS = {
     "parl.stoke-on-trent-central.2017-02-23": "parl.2017-02-23",
     "sp-2016-05-05-c": "sp.c.2016-05-05",
 }
+
+DIVISION_TYPE_TO_UNIT = {
+    "CED": "Division",
+    "COP": "Parish",
+    "DIW": "Ward",
+    "EUR": "Region",
+    "LAC": "Constituency",
+    "LBW": "Ward",
+    "LGE": "Electoral Area",
+    "MTW": "Ward",
+    "NIE": "Constituency",
+    "SPC": "Constituency",
+    "SPE": "Region",
+    "UTE": "Division",
+    "UTW": "Ward",
+    "WAC": "Constituency",
+    "WAE": "Region",
+    "WMC": "Constituency",
+}
