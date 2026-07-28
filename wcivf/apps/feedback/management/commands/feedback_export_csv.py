@@ -17,7 +17,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, **options):
-        since_date = options.get("since_date", None)
+        since_date = options.get("since_date")
 
         feedback_to_export = Feedback.objects.exclude(
             flagged_as_spam=True
