@@ -1,6 +1,7 @@
 """
 Importer for all the corporate overlords
 """
+
 import collections
 import csv
 import datetime

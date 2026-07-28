@@ -13,9 +13,9 @@ from parties.tests.factories import PartyFactory
 from people.tests.factories import PersonFactory, PersonPostFactory
 
 TEST_STORAGES_DICT = deepcopy(settings.STORAGES)
-TEST_STORAGES_DICT["staticfiles"][
-    "BACKEND"
-] = "pipeline.storage.NonPackagingPipelineStorage"
+TEST_STORAGES_DICT["staticfiles"]["BACKEND"] = (
+    "pipeline.storage.NonPackagingPipelineStorage"
+)
 
 
 @override_settings(

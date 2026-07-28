@@ -109,9 +109,9 @@ class PostcodeView(
         for postelection in context["postelections"]:
             postelection.people = self.people_for_ballot(postelection)
         context["polling_station"] = self.ballot_dict.get("polling_station")
-        context[
-            "polling_station_opening_times"
-        ] = self.get_polling_station_opening_times()
+        context["polling_station_opening_times"] = (
+            self.get_polling_station_opening_times()
+        )
         context["council"] = self.ballot_dict.get("electoral_services")
         context["registration"] = self.ballot_dict.get("registration")
         context["postcode_location"] = self.ballot_dict.get(
@@ -125,9 +125,9 @@ class PostcodeView(
         context["polling_day_hubs"] = self.ballot_dict.get("polling_day_hubs")
 
         context["ballots_today"] = self.get_todays_ballots()
-        context[
-            "multiple_city_of_london_elections_on_next_poll_date"
-        ] = self.multiple_city_of_london_elections_on_next_poll_date()
+        context["multiple_city_of_london_elections_on_next_poll_date"] = (
+            self.multiple_city_of_london_elections_on_next_poll_date()
+        )
         context["referendums"] = list(self.get_referendums())
         context["parish_council_election"] = self.get_parish_council_election()
         context["num_ballots"] = self.num_ballots()
@@ -470,17 +470,17 @@ class DummyPostcodeView(PostcodeView):
         )
         context["show_polling_card"] = True
         context["polling_station"] = self.get_polling_station()
-        context[
-            "global_registration_card"
-        ] = PostcodeView().get_global_registration_card(
-            context["postelections"]
+        context["global_registration_card"] = (
+            PostcodeView().get_global_registration_card(
+                context["postelections"]
+            )
         )
         context["registration"] = self.get_registration()
         context["council"] = self.get_electoral_services()
-        context[
-            "global_postal_vote_card"
-        ] = PostcodeView().get_global_postal_vote_card(
-            context["postelections"], context["council"]
+        context["global_postal_vote_card"] = (
+            PostcodeView().get_global_postal_vote_card(
+                context["postelections"], context["council"]
+            )
         )
         context["requires_voter_id"] = "EA-2022"
         context["num_ballots"] = 1

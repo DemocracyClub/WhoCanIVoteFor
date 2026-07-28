@@ -229,9 +229,9 @@ class TestLocalPartyImporter:
 
     def test_add_manifestos(self, importer, row, mocker):
         row["CYM Manifesto PDF URL"] = "http://example.com/manifesto-cym.pdf"
-        row[
-            "CYM Manifesto Easy Read PDF"
-        ] = "http://example.com/manifesto-cym-easy.pdf"
+        row["CYM Manifesto Easy Read PDF"] = (
+            "http://example.com/manifesto-cym-easy.pdf"
+        )
         party = mocker.MagicMock()
         election = mocker.MagicMock(election_type="senedd")
         mock_manifesto = mocker.MagicMock(spec=Manifesto)
