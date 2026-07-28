@@ -134,16 +134,9 @@ class PostcodeView(
         context["requires_voter_id"] = self.get_voter_id_status()
         context["show_parish_text"] = self.show_parish_text(context["council"])
         if ballot_dict.get("boundary_reviews"):
-            context["has_boundary_changes"] = True
-            if self.uprn:
-                context["boundary_review__view_url"] = reverse(
-                    "uprn_boundary_review_view",
-                    kwargs={"postcode": self.postcode, "uprn": self.uprn},
-                )
-            else:
-                context["boundary_review__view_url"] = reverse(
-                    "postcode_boundary_review_view",
-                    kwargs={"postcode": self.postcode},
+            for review in ballot_dict.get("boundary_reviews"):
+                self.match_boundary_changes_to_postelections(
+                    review, context["postelections"]
                 )
 
         return context
@@ -311,6 +304,29 @@ class PostcodeView(
             identifier.startswith("E09")
             for identifier in council["identifiers"]
         )
+
+    def match_boundary_changes_to_postelections(self, review, postelections):
+        for change in review["boundary_changes"]:
+            for pe in postelections:
+                if pe.ballot_paper_id in change["related_ballots"]:
+                    pe.boundary_change = change
+                    self.set_boundary_change_url_for_postelection(pe)
+
+    def set_boundary_change_url_for_postelection(self, postelection):
+        """
+        Set the boundary change URL for a given postelection based on whether
+        the user has provided a UPRN or not.
+        """
+        if self.uprn:
+            postelection.boundary_change_url = reverse(
+                "uprn_boundary_review_view",
+                kwargs={"postcode": self.postcode, "uprn": self.uprn},
+            )
+        else:
+            postelection.boundary_change_url = reverse(
+                "postcode_boundary_review_view",
+                kwargs={"postcode": self.postcode},
+            )
 
 
 class PostcodeiCalView(
