@@ -12,9 +12,7 @@ register = template.Library()
 @register.filter(name="ni_postcode")
 @stringfilter
 def ni_postcode(postcode):
-    if re.match("^BT.*", postcode):
-        return True
-    return False
+    return bool(re.match("^BT.*", postcode))
 
 
 @register.filter(name="todate")

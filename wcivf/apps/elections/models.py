@@ -688,9 +688,7 @@ class PostElection(TimeStampedModel):
             matcher.get_postal_voting_requirements()
         )
 
-        if voting_requirements_legislation == "EA-2022":
-            return True
-        return False
+        return voting_requirements_legislation == "EA-2022"
 
     @property
     def is_mayoral(self):
@@ -725,12 +723,8 @@ class PostElection(TimeStampedModel):
     @property
     def is_constituency(self):
         if self.ballot_paper_id.startswith("senedd."):
-            if self.ballot_paper_id.startswith("senedd.r."):
-                return False
-            return True
-        if self.ballot_paper_id.startswith(("gla.c.", "senedd.c.", "sp.c.")):
-            return True
-        return False
+            return not self.ballot_paper_id.startswith("senedd.r.")
+        return self.ballot_paper_id.startswith(("gla.c.", "senedd.c.", "sp.c."))
 
     @property
     def is_regional(self):
@@ -880,12 +874,10 @@ class PostElection(TimeStampedModel):
 
     @property
     def display_as_party_list(self):
-        if (
+        return bool(
             self.get_voting_system
             and self.get_voting_system.slug in settings.PARTY_LIST_VOTING_TYPES
-        ):
-            return True
-        return False
+        )
 
     @cached_property
     def next_ballot(self):

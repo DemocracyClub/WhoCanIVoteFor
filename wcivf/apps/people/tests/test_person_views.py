@@ -56,7 +56,7 @@ class PersonViewTests(TestCase):
         )
         self.assertContains(response, f"{self.person.name}")
         self.assertContains(response, "stood for election")
-        self.assertNotContains(response, f"{ self.person.name} Online")
+        self.assertNotContains(response, f"{self.person.name} Online")
         self.assertContains(response, '<meta name="robots" content="noindex">')
 
     def test_not_current_person_with_twfy_id(self):
@@ -778,7 +778,7 @@ class PersonViewTests(TestCase):
         )
         response = self.client.get(self.person_url, follow=True)
         self.assertEqual(response.template_name, ["people/person_detail.html"])
-        self.assertNotContains(response, f"{ self.person.name }'s Blog")
+        self.assertNotContains(response, f"{self.person.name}'s Blog")
 
     def test_blog_url(self):
         self.person.blog_url = "https://www.bloglovin.com/john"
@@ -788,7 +788,7 @@ class PersonViewTests(TestCase):
         )
         response = self.client.get(self.person_url, follow=True)
         self.assertEqual(response.template_name, ["people/person_detail.html"])
-        self.assertContains(response, f"{ self.person.name }'s blog")
+        self.assertContains(response, f"{self.person.name}'s blog")
 
     def test_party_page(self):
         self.person.party_ppc_page_url = "https://www.voteforme.com/bob"

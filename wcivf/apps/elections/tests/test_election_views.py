@@ -27,9 +27,9 @@ from people.tests.factories import (
 from pytest_django.asserts import assertContains, assertNotContains
 
 TEST_STORAGES_DICT = deepcopy(settings.STORAGES)
-TEST_STORAGES_DICT["staticfiles"][
-    "BACKEND"
-] = "pipeline.storage.NonPackagingPipelineStorage"
+TEST_STORAGES_DICT["staticfiles"]["BACKEND"] = (
+    "pipeline.storage.NonPackagingPipelineStorage"
+)
 
 
 @override_settings(

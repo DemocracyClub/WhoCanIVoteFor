@@ -22,9 +22,9 @@ from parishes.models import ParishCouncilElection
 from pytest_django import asserts
 
 TEST_STORAGES_DICT = deepcopy(settings.STORAGES)
-TEST_STORAGES_DICT["staticfiles"][
-    "BACKEND"
-] = "pipeline.storage.NonPackagingPipelineStorage"
+TEST_STORAGES_DICT["staticfiles"]["BACKEND"] = (
+    "pipeline.storage.NonPackagingPipelineStorage"
+)
 
 
 @override_settings(

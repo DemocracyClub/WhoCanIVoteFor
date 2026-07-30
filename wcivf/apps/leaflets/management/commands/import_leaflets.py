@@ -41,7 +41,7 @@ class Command(BaseCommand):
                 "-date_uploaded_to_electionleaflets"
             ).first()
 
-            since = options.get("uploaded_since", None)
+            since = options.get("uploaded_since")
             if since and " " not in since:
                 since = f"{since} 00:00"
             if not since:
