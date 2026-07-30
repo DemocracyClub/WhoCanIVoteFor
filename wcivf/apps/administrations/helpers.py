@@ -134,10 +134,7 @@ class Administration:
         if self.seats_total == 1:
             return True
 
-        if self.ballot_obj.winner_count == self.seats_total:
-            return True
-
-        return False
+        return self.ballot_obj.winner_count == self.seats_total
 
     @cached_property
     def ballot_obj(self):

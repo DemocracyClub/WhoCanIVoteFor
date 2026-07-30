@@ -472,17 +472,13 @@ class Person(models.Model):
         Return the national party manifesto for the featured candidacy
         """
         try:
-            if (
+            return bool(
                 self.current_or_future_candidacies
                 and self.featured_candidacy
                 and self.national_party
-                and (
-                    self.featured_candidacy.party == self.national_party.parent
-                )
+                and self.featured_candidacy.party == self.national_party.parent
                 and self.manifestos
-            ):
-                return True
-            return False
+            )
         except AttributeError:
             return False
 

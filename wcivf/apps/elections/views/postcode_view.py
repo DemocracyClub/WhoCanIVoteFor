@@ -307,12 +307,10 @@ class PostcodeView(
         if self.postcode.startswith("BT"):
             return False
         # All London borough GSS codes start with E09
-        if any(
+        return not any(
             identifier.startswith("E09")
             for identifier in council["identifiers"]
-        ):
-            return False
-        return True
+        )
 
 
 class PostcodeiCalView(
