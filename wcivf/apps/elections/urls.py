@@ -93,12 +93,12 @@ urlpatterns = [
         name="dummy_postcode_ical_view",
     ),
     re_path(
-        r"^(?P<postcode>[^/]+)/boundary_changes/$",
+        r"^(?P<organisation_gss>[^/]+)/(?P<postcode>[^/]+)/boundary_changes/$",
         PostcodeBoundaryReviewView.as_view(),
         name="postcode_boundary_review_view",
     ),
     re_path(
-        r"^(?P<postcode>[^/]+)/(?P<uprn>[^/]+)/boundary_changes/$",
+        r"^(?P<organisation_gss>[^/]+)/(?P<postcode>[^/]+)/(?P<uprn>[^/]+)/boundary_changes/$",
         PostcodeBoundaryReviewView.as_view(),
         name="uprn_boundary_review_view",
     ),
