@@ -533,7 +533,7 @@ Resources:
           Arn: !GetAtt WCIVFJobsQueue.Arn
           SqsParameters:
             MessageGroupId: wcivf-jobs
-          Input: '{"command": "import_leaflets", "args": ["--recently-uploaded", "--uploaded-since=2024-05-22"]}'
+          Input: '{"command": "import_leaflets"}'
 
   ImportWikipediaBiosRule:
     Type: AWS::Events::Rule
