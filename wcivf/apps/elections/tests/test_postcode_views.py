@@ -955,6 +955,63 @@ class TestPostcodeViewMethods:
         council_context = {"identifiers": [lnd_gss]}
         assert view_obj.show_parish_text(council_context) is False
 
+    @pytest.mark.django_db
+    def test_match_boundary_changes_to_postelections_postcode(
+        self, view_obj, post_elections
+    ):
+        view_obj.postcode = "postcode"
+        post_elections = [PostElectionFactory(election__slug="test.id.1")]
+        review = {
+            "organisation_gss": "E06000001",
+            "boundary_changes": [
+                {
+                    "related_ballots": [
+                        post_elections[0].ballot_paper_id,
+                    ],
+                }
+            ],
+        }
+
+        view_obj.match_boundary_changes_to_postelections(
+            review=review, postelections=post_elections
+        )
+        assert (
+            post_elections[0].boundary_change == review["boundary_changes"][0]
+        )
+        assert (
+            post_elections[0].boundary_change_url
+            == f"/elections/{review['organisation_gss']}/{view_obj.postcode}/boundary_changes/"
+        )
+
+    @pytest.mark.django_db
+    def test_match_boundary_changes_to_postelections_uprn(
+        self, view_obj, post_elections
+    ):
+        view_obj.postcode = "postcode"
+        view_obj.uprn = "uprn"
+        post_elections = [PostElectionFactory(election__slug="test.id.1")]
+        review = {
+            "organisation_gss": "E06000001",
+            "boundary_changes": [
+                {
+                    "related_ballots": [
+                        post_elections[0].ballot_paper_id,
+                    ],
+                }
+            ],
+        }
+
+        view_obj.match_boundary_changes_to_postelections(
+            review=review, postelections=post_elections
+        )
+        assert (
+            post_elections[0].boundary_change == review["boundary_changes"][0]
+        )
+        assert (
+            post_elections[0].boundary_change_url
+            == f"/elections/{review['organisation_gss']}/{view_obj.postcode}/{view_obj.uprn}/boundary_changes/"
+        )
+
 
 class TestPostcodeiCalView:
     def test_invalid_postcode_redirects(self, mocker, client):
