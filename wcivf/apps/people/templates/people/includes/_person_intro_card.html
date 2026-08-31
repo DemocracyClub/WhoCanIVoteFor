@@ -32,9 +32,9 @@
         {% endfor %}
 
 
-        {% if object.previous_party_count %}
+        {% comment %} {% if object.previous_party_count %}
             {% include "elections/includes/_previous_party_affiliations.html" with person=object candidacies=object.current_or_future_candidacies %}
-        {% endif %}
+        {% endif %} {% endcomment %}
     </div>
 
     <div class="ds-candidate-image">
