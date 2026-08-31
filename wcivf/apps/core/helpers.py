@@ -24,7 +24,7 @@ def show_data_on_error(variable_name, data):
 
     try:
         yield
-    except:
+    except Exception:
         message = "An exception was thrown while processing {0}:"
         print(message.format(variable_name))
         print(json.dumps(data, indent=4, sort_keys=True))
