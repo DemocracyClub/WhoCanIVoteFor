@@ -47,10 +47,10 @@ class Party(models.Model):
         max_length=25,
         unique=True,
         null=True,
-        verbose_name="Electoral Commission Idenfitier",
+        verbose_name="Electoral Commission Identifier",
         help_text="""
             An ID issued by The Electoral Commission in their party register,
-            with the exception of Democracy Club psuedo IDs for special parties
+            with the exception of Democracy Club pseudo IDs for special parties
         """,
     )
     register = models.CharField(
