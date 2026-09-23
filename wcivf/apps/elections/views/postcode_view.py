@@ -137,11 +137,9 @@ class PostcodeView(
         context["num_ballots"] = self.num_ballots()
         context["requires_voter_id"] = self.get_voter_id_status()
         context["show_parish_text"] = self.show_parish_text(context["council"])
-        if ballot_dict.get("boundary_reviews"):
-            for review in ballot_dict.get("boundary_reviews"):
-                self.match_boundary_changes_to_postelections(
-                    review, context["postelections"]
-                )
+        boundary_reviews = ballot_dict.get("boundary_reviews")
+        if boundary_reviews:
+            self.process_boundary_reviews(context, boundary_reviews)
 
         return context
 
@@ -318,6 +316,37 @@ class PostcodeView(
                     pe.boundary_change_url = self.set_boundary_change_url(
                         review_org_gss
                     )
+
+    def process_boundary_reviews(self, context, boundary_reviews):
+        """
+        Add reviews to context with org boundary change url and
+        match boundary reviews with ballots to postelections.
+        """
+
+        for r in boundary_reviews:
+            r["boundary_change_url"] = self.set_boundary_change_url(
+                r["organisation_gss"]
+            )
+
+        context["boundary_reviews"] = boundary_reviews
+
+        mappable_boundary_reviews = [
+            r for r in boundary_reviews if self.review_has_ballots(r)
+        ]
+
+        for r in mappable_boundary_reviews:
+            self.match_boundary_changes_to_postelections(
+                r, context["postelections"]
+            )
+
+    def review_has_ballots(self, review):
+        """
+        Returns True if the given boundary review has any related ballots.
+        """
+        for change in review.get("boundary_changes", []):
+            if change.get("related_ballots"):
+                return True
+        return False
 
     def set_boundary_change_url(self, org_gss):
         """

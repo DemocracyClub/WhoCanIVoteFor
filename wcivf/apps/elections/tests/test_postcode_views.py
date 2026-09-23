@@ -1012,6 +1012,51 @@ class TestPostcodeViewMethods:
             == f"/elections/{review['organisation_gss']}/{view_obj.postcode}/{view_obj.uprn}/boundary_changes/"
         )
 
+    @pytest.mark.django_db
+    def test_review_has_ballots_no_changes(self, view_obj):
+        review_no_changes = {
+            "id": "fake-review-no-changes",
+            "boundary_changes": [],
+        }
+
+        assert view_obj.review_has_ballots(review_no_changes) is False
+
+    @pytest.mark.django_db
+    def test_review_has_ballots_changes_but_no_ballots(self, view_obj):
+        review_no_changes = {
+            "id": "fake-review-change-no-ballot",
+            "boundary_changes": [
+                {
+                    "change_scenario": "NAME_CHANGED",
+                    "related_ballots": [],
+                },
+                {
+                    "change_scenario": "NO_CHANGE",
+                    "related_ballots": [],
+                },
+            ],
+        }
+
+        assert view_obj.review_has_ballots(review_no_changes) is False
+
+    @pytest.mark.django_db
+    def test_review_has_ballots_changes_with_ballot(self, view_obj):
+        review_no_changes = {
+            "id": "fake-review-change-no-ballot",
+            "boundary_changes": [
+                {
+                    "change_scenario": "NAME_CHANGED",
+                    "related_ballots": ["ballot1"],
+                },
+                {
+                    "change_scenario": "BOUNDARY_CHANGED",
+                    "related_ballots": ["ballot2"],
+                },
+            ],
+        }
+
+        assert view_obj.review_has_ballots(review_no_changes) is True
+
 
 class TestPostcodeiCalView:
     def test_invalid_postcode_redirects(self, mocker, client):
