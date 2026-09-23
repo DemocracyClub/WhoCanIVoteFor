@@ -1,0 +1,9 @@
+{% load i18n %}
+<p>{% trans "We are aware of the following electoral boundary reviews in your area:"%} </p>
+<ul>
+    {% for r in boundary_reviews %}
+        <li>
+            {% include "elections/includes/_review_text.html" with r=r only %}
+        </li>
+    {% endfor %}
+</ul>

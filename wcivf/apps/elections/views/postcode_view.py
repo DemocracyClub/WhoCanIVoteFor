@@ -324,6 +324,11 @@ class PostcodeView(
             r["boundary_change_url"] = self.make_boundary_change_url(
                 r["organisation_gss"]
             )
+            if not r["effective_date"]:
+                continue
+            r["effective_date"] = timezone.datetime.strptime(
+                r["effective_date"], "%Y-%m-%d"
+            )
 
         context["boundary_reviews"] = boundary_reviews
 
