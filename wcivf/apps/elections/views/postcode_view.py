@@ -309,10 +309,7 @@ class PostcodeView(
             for pe in postelections:
                 if pe.ballot_paper_id in change["related_ballots"]:
                     pe.boundary_change = change
-                    review_org_gss = review["organisation_gss"]
-                    pe.boundary_change_url = self.set_boundary_change_url(
-                        review_org_gss
-                    )
+                    pe.boundary_change_url = review["boundary_change_url"]
 
     def process_boundary_reviews(self, context, boundary_reviews):
         """
@@ -321,7 +318,7 @@ class PostcodeView(
         """
 
         for r in boundary_reviews:
-            r["boundary_change_url"] = self.set_boundary_change_url(
+            r["boundary_change_url"] = self.make_boundary_change_url(
                 r["organisation_gss"]
             )
 
@@ -345,28 +342,22 @@ class PostcodeView(
                 return True
         return False
 
-    def set_boundary_change_url(self, org_gss):
+    def make_boundary_change_url(self, org_gss):
         """
-        Set the boundary change URL for a given postelection based on whether
+        Make the boundary change URL for a given org based on whether
         the user has provided a UPRN or not.
         """
-        if self.uprn:
-            return reverse(
-                "uprn_boundary_review_view",
-                kwargs={
-                    "postcode": self.postcode,
-                    "uprn": self.uprn,
-                    "organisation_gss": org_gss,
-                },
-            )
+        url = "postcode_boundary_review_view"
+        url_kwargs = {
+            "postcode": self.postcode,
+            "organisation_gss": org_gss,
+        }
 
-        return reverse(
-            "postcode_boundary_review_view",
-            kwargs={
-                "postcode": self.postcode,
-                "organisation_gss": org_gss,
-            },
-        )
+        if self.uprn:
+            url = "uprn_boundary_review_view"
+            url_kwargs["uprn"] = self.uprn
+
+        return reverse(url, kwargs=url_kwargs)
 
 
 class PostcodeiCalView(
