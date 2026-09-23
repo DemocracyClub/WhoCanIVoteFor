@@ -963,6 +963,7 @@ class TestPostcodeViewMethods:
         post_elections = [PostElectionFactory(election__slug="test.id.1")]
         review = {
             "organisation_gss": "E06000001",
+            "boundary_change_url": "url",
             "boundary_changes": [
                 {
                     "related_ballots": [
@@ -978,10 +979,7 @@ class TestPostcodeViewMethods:
         assert (
             post_elections[0].boundary_change == review["boundary_changes"][0]
         )
-        assert (
-            post_elections[0].boundary_change_url
-            == f"/elections/{review['organisation_gss']}/{view_obj.postcode}/boundary_changes/"
-        )
+        assert post_elections[0].boundary_change_url == "url"
 
     @pytest.mark.django_db
     def test_match_boundary_changes_to_postelections_uprn(
@@ -992,6 +990,7 @@ class TestPostcodeViewMethods:
         post_elections = [PostElectionFactory(election__slug="test.id.1")]
         review = {
             "organisation_gss": "E06000001",
+            "boundary_change_url": "url",
             "boundary_changes": [
                 {
                     "related_ballots": [
@@ -1007,10 +1006,7 @@ class TestPostcodeViewMethods:
         assert (
             post_elections[0].boundary_change == review["boundary_changes"][0]
         )
-        assert (
-            post_elections[0].boundary_change_url
-            == f"/elections/{review['organisation_gss']}/{view_obj.postcode}/{view_obj.uprn}/boundary_changes/"
-        )
+        assert post_elections[0].boundary_change_url == "url"
 
     @pytest.mark.django_db
     def test_review_has_ballots_no_changes(self, view_obj):
