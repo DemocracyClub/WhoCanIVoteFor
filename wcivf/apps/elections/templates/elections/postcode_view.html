@@ -93,6 +93,31 @@
                     {% endif %}
                 </ul>
             {% endif %}
+
+            {% if boundary_reviews %}
+                <div class="ds-stack-smaller">
+                    <h2>{% trans "Boundary reviews in your area "%}</h2>
+                    <p>{% trans "We are aware of the following electoral boundary reviews in your area:"%} </p>
+                    {% for r in boundary_reviews %}
+                        <ul>
+                            {% if r.dc_stage == "MAP" %}
+                                <li>
+                                    {% blocktrans trimmed with url=r.boundary_change_url org_name=r.organisation_official_name %}
+                                        {{ org_name }} has recently had a boundary review. <a href="{{ url }}"> See changes in your area.</a>.
+                                    {% endblocktrans %}
+                                </li>
+                            {% else %}
+                                <li>
+                                    {% blocktrans trimmed with url=r.consultation_url org_name=r.organisation_official_name %}
+                                        {{ org_name }} is undergoing a boundary review. <a href="{{ url }}"> Find out more about the process</a>.
+                                    {% endblocktrans %}
+                                </li>
+                            {% endif %}
+                        </ul>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
             {% if postelections %}
                 {% include "feedback/feedback_form.html" %}
             {% else %}
