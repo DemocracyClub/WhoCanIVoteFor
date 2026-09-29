@@ -569,7 +569,7 @@ class DummyPostcodeView(PostcodeView):
 
 class PostcodeBoundaryReviewView(PostcodeToPostsMixin, TemplateView):
     """
-    This view is used to show the boundary review information for a given postcode in an organisation.
+    This view is used to show mappable boundary review information for a given postcode in an organisation.
     """
 
     template_name = "elections/boundary_reviews_view.html"
@@ -610,6 +610,7 @@ class PostcodeBoundaryReviewView(PostcodeToPostsMixin, TemplateView):
             br
             for br in ballot_dict.get("boundary_reviews")
             if br["organisation_gss"] == self.org_gss
+            and br["dc_stage"] == "MAP"
         ]
 
         if not org_boundary_reviews:
