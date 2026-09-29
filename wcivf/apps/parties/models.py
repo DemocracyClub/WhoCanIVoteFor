@@ -21,8 +21,12 @@ class PartyManager(models.Manager):
             "nations": party["nations"],
         }
 
+        # Always set emblem_url so a party that drops its emblem upstream
+        # doesn't keep showing the old one (see #2295).
         if party["default_emblem"]:
             defaults["emblem_url"] = party["default_emblem"]["image"]
+        else:
+            defaults["emblem_url"] = None
 
         party_obj, _ = self.update_or_create(
             party_id=party["legacy_slug"], defaults=defaults
