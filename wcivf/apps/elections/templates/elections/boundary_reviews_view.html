@@ -50,9 +50,14 @@
             <div class="ds-stack-smaller">
                 <h3>{% blocktrans trimmed with org_name=review.organisation_official_name %} {{ org_name }} has new boundaries{% endblocktrans %}</h3>
                 <p>
-                    {% blocktrans trimmed with  org_name=review.organisation_official_name consultation_url=review.consultation_url date=review.effective_date|date:"j M Y" %}
-                        The Local Government and Boundary Commission for England has recently completed a review of {{ org_name }} boundaries.
+                    {% blocktrans trimmed with  org_name=review.organisation_official_name consultation_url=review.consultation_url%}
+                        The Local Government Boundary Commission for England has recently completed a review of {{ org_name }} boundaries.
+                        This has been done to take account of population changes since the boundaries were last reviewed.
                         You can read their final report and recommendations on <a href="{{ consultation_url }}">their website</a>.
+                    {% endblocktrans %}
+                </p>
+                <p>
+                    {% blocktrans trimmed with  date=review.effective_date|date:"j M Y" %}
                         <strong>The recommendations are due to take effect on {{ date }}.</strong> Please see below for details of how your local area will be affected.
                     {% endblocktrans %}
                 </p>
