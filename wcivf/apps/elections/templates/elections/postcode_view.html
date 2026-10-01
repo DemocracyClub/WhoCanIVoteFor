@@ -102,14 +102,14 @@
                         <ul>
                             {% if r.dc_stage == "MAP" %}
                                 <li>
-                                    {% blocktrans trimmed with url=r.boundary_change_url org_name=r.organisation_official_name %}
-                                        {{ org_name }} has recently had a boundary review. <a href="{{ url }}"> See changes in your area</a>.
+                                    {% blocktrans trimmed with url=r.boundary_change_url org_name=r.organisation_official_name date=r.effective_date|date:"j M Y" %}
+                                        {{ org_name }} has undergone an independent boundary review to take account of recent changes in population. This will modify {{ org_name }}'s electoral boundaries for elections held on and after {{ date }}. <a href="{{ url }}"> Find out more</a>.
                                     {% endblocktrans %}
                                 </li>
                             {% else %}
                                 <li>
                                     {% blocktrans trimmed with url=r.consultation_url org_name=r.organisation_official_name %}
-                                        {{ org_name }} is undergoing a boundary review. <a href="{{ url }}"> Find out more about the process</a>.
+                                        {{ org_name }} is undergoing an independent boundary review to take account of recent changes in population. This will modify {{ org_name }}'s electoral boundaries for future elections. <a href="{{ url }}"> Find out more</a>.
                                     {% endblocktrans %}
                                 </li>
                             {% endif %}
