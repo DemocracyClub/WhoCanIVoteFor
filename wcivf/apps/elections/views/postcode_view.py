@@ -595,7 +595,7 @@ class PostcodeBoundaryReviewView(PostcodeToPostsMixin, TemplateView):
             )
             for change in review["boundary_changes"]:
                 change["division_unit"] = DIVISION_TYPE_TO_UNIT.get(
-                    change["division_type"], "Post"
+                    change["division_type"], "post"
                 )
 
         context["boundary_reviews"] = org_boundary_reviews

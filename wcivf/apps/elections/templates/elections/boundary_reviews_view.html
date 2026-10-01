@@ -42,7 +42,7 @@
 {% endblock extra_site_css%}
 
 {% block content %}
-    <h2>{% trans "Boundary Changes in your area" %}</h2>
+    <h2>{% trans "Boundary changes in your area" %}</h2>
     <div class="ds-stack">
         <p>{% trans "There's been a boundary review in your area. Please see below for details." %}</p>
         <p> {% trans "Looking for election information?" %} <a href="{% url 'postcode_view' postcode %}">{% trans "Find elections in your area" %}</a>.</p>
@@ -66,12 +66,12 @@
                         {% if change_scenario == "NO_CHANGE" %}
                             <div class="ds-stack-smaller">
                                 <h4>
-                                    {% blocktrans trimmed with division_unit_cap=division_unit|capfirst %}
-                                        Your {{division_unit_cap}} has not changed
+                                    {% blocktrans trimmed %}
+                                        Your {{division_unit}} has not changed
                                     {% endblocktrans %}
                                 </h4>
                                 <p>
-                                    {% blocktrans trimmed with division_unit_cap=division_unit|capfirst old_name=change.old_division_name%}
+                                    {% blocktrans trimmed with old_name=change.old_division_name%}
                                         Your {{division_unit}} has not been significantly affected by the boundary review.
                                         Whilst there may have been minor adjustments to the boundary, no houses have been added or removed,
                                         and its name, <strong>{{old_name}}</strong>, is unchanged from the last election.
@@ -86,12 +86,12 @@
                         {% elif change_scenario == "BOUNDARY_CHANGED"%}
                             <div class="ds-stack-smaller">
                                 <h4>
-                                    {% blocktrans trimmed with division_unit_cap=division_unit|capfirst %}
-                                        Your {{division_unit_cap}} has changed shape
+                                    {% blocktrans trimmed %}
+                                        Your {{division_unit}} has changed shape
                                     {% endblocktrans %}
                                 </h4>
                                 <p>
-                                    {% blocktrans trimmed with division_unit_cap=division_unit|capfirst old_name=change.old_division_name %}
+                                    {% blocktrans trimmed with old_name=change.old_division_name %}
                                         Your {{division_unit}}, <strong>{{old_name}}</strong>, has changed shape since the last election.
                                         These changes might be minor but will affect some electors.
                                         View the map below to understand these changes.
@@ -106,12 +106,12 @@
                         {% elif change_scenario == "NAME_CHANGED"%}
                             <div class="ds-stack-smaller">
                                 <h4>
-                                    {% blocktrans trimmed with division_unit_cap=division_unit|capfirst %}
-                                        Your {{division_unit_cap}} has a new name
+                                    {% blocktrans trimmed %}
+                                        Your {{division_unit}} has a new name
                                     {% endblocktrans %}
                                 </h4>
                                 <p>
-                                    {% blocktrans trimmed with division_unit_cap=division_unit|capfirst old_name=change.old_division_name new_name=change.new_division_name %}
+                                    {% blocktrans trimmed with old_name=change.old_division_name new_name=change.new_division_name %}
                                         At the last election your {{division_unit}} was <strong>{{old_name}}</strong>.
                                         It has been renamed <strong>{{new_name}}</strong>.
                                         The {{division_unit}}’s boundaries have not been significantly changed.
@@ -126,12 +126,12 @@
                         {% elif change_scenario == "BOTH_CHANGED"%}
                             <div class="ds-stack-smaller">
                                 <h4>
-                                    {% blocktrans trimmed with division_unit_cap=division_unit|capfirst %}
-                                        Your {{division_unit_cap}} has changed
+                                    {% blocktrans trimmed %}
+                                        Your {{division_unit}} has changed
                                     {% endblocktrans %}
                                 </h4>
                                 <p>
-                                    {% blocktrans trimmed with division_unit_cap=division_unit|capfirst date=review.effective_date|date:"j M Y" old_name=change.old_division_name new_name=change.new_division_name%}
+                                    {% blocktrans trimmed with date=review.effective_date|date:"j M Y" old_name=change.old_division_name new_name=change.new_division_name%}
                                         At the last election your {{division_unit}} was <strong>{{old_name}}</strong>.
                                         On {{date}} it will be <strong>{{new_name}}</strong>.
                                         View the map below to understand these changes.
