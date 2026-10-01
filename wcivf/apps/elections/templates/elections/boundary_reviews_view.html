@@ -42,6 +42,9 @@
 {% endblock extra_site_css%}
 
 {% block content %}
+    {% if referer_postcode%}
+        {% include 'elections/includes/_review_breadcrumbs.html' %}
+    {% endif %}
     <h2>{% trans "Boundary changes in your area" %}</h2>
     <div class="ds-stack">
         <p>{% trans "There's been a boundary review in your area. Please see below for details." %}</p>
@@ -147,6 +150,14 @@
                 {% endfor %}
             </div>
         {% endfor %}
+        {% if referer_postcode %}
+            <div class="back">
+                <p>
+                    <a href="{% url 'postcode_view' referer_postcode %}">&laquo; {% trans "Back to elections in"%} {{ referer_postcode }}</a>
+                </p>
+            </div>
+        {% endif %}
+
     </div>
 {% endblock content %}
 {% block extra_javascript %}
