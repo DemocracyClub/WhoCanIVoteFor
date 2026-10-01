@@ -22,7 +22,7 @@
 {% block content %}
     {% if referer_postcode %}
         {# We've come from the postcode page #}
-        {% include 'elections/includes/_postcode_breadcrumbs.html' %}
+        {% include 'elections/includes/_person_breadcrumbs.html' %}
     {% elif object.featured_candidacy %}
         {# There's a current post #}
         <nav class="ds-breadcrumbs ds-stack" aria-label="{% trans 'You are here:'%}{{ request.path }}">
