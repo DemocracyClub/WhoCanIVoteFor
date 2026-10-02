@@ -82,7 +82,6 @@ DIVISION_TYPE_TO_UNIT = {
     "CED": "division",
     "COP": "parish",
     "DIW": "ward",
-    "EUR": "region",
     "LAC": "constituency",
     "LBW": "ward",
     "LGE": "electoral area",
@@ -95,4 +94,22 @@ DIVISION_TYPE_TO_UNIT = {
     "WAC": "constituency",
     "WAE": "region",
     "WMC": "constituency",
+}
+
+DIVISION_TYPE_TO_ELECTION_ADJECTIVE = {
+    "CED": "local",
+    "COP": "local",
+    "DIW": "local",
+    "LAC": "assembly",
+    "LBW": "local",
+    "LGE": "local",
+    "MTW": "local",
+    "NIE": "assembly",
+    "SPC": "Scottish parliament",
+    "SPE": "Scottish parliament",
+    "UTE": "local",
+    "UTW": "local",
+    "WAC": "Senedd",
+    "WAE": "Senedd",
+    "WMC": "parliamentary",
 }

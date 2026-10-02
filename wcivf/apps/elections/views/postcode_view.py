@@ -8,7 +8,10 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
 from django.views.generic import TemplateView, View
-from elections.constants import DIVISION_TYPE_TO_UNIT
+from elections.constants import (
+    DIVISION_TYPE_TO_ELECTION_ADJECTIVE,
+    DIVISION_TYPE_TO_UNIT,
+)
 from elections.devs_dc_client import InvalidPostcodeError, InvalidUprnError
 from elections.dummy_models import DummyPostElection, dummy_polling_station
 from elections.models import LOCAL_TZ
@@ -596,6 +599,11 @@ class PostcodeBoundaryReviewView(PostcodeToPostsMixin, TemplateView):
             for change in review["boundary_changes"]:
                 change["division_unit"] = DIVISION_TYPE_TO_UNIT.get(
                     change["division_type"], "post"
+                )
+                change["election_adjective"] = (
+                    DIVISION_TYPE_TO_ELECTION_ADJECTIVE.get(
+                        change["division_type"], ""
+                    )
                 )
 
         context["boundary_reviews"] = org_boundary_reviews
