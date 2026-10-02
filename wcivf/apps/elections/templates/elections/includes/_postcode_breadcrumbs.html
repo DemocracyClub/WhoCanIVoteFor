@@ -1,15 +1,16 @@
 {% load i18n %}
+
 <nav class="ds-breadcrumbs ds-stack" aria-label="You are here: {{ request.path }}">
     <ol>
         <li>
             <a href="{% url 'home_view' %}">{% trans "Home" %}</a>
         </li>
         <li>
-            <a href="{% url 'postcode_view' referer_postcode as postcode_view %}">{{ referer_postcode }}</a>
+            <a href="{% url 'postcode_view' referer_postcode %}">{% trans "Elections in" %} {{ referer_postcode }}</a>
         </li>
-        <li>
-            <a href="{% url 'postcode_view' referer_postcode as postcode_view %}">{% trans "Candidates in" %} {{ referer_postcode }}</a>
-        </li>
-        <li>{{ object.name }}</li>
+        {% block extra_crumbs %}
+        {% endblock %}
+        {% block post_crumbs %}
+        {% endblock %}
     </ol>
 </nav>
