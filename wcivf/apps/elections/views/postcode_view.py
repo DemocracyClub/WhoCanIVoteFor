@@ -8,6 +8,10 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
 from django.views.generic import TemplateView, View
+from elections.constants import (
+    DIVISION_TYPE_TO_ELECTION_ADJECTIVE,
+    DIVISION_TYPE_TO_UNIT,
+)
 from elections.devs_dc_client import InvalidPostcodeError, InvalidUprnError
 from elections.dummy_models import DummyPostElection, dummy_polling_station
 from elections.models import LOCAL_TZ
@@ -133,18 +137,9 @@ class PostcodeView(
         context["num_ballots"] = self.num_ballots()
         context["requires_voter_id"] = self.get_voter_id_status()
         context["show_parish_text"] = self.show_parish_text(context["council"])
-        if ballot_dict.get("boundary_reviews"):
-            context["has_boundary_changes"] = True
-            if self.uprn:
-                context["boundary_review__view_url"] = reverse(
-                    "uprn_boundary_review_view",
-                    kwargs={"postcode": self.postcode, "uprn": self.uprn},
-                )
-            else:
-                context["boundary_review__view_url"] = reverse(
-                    "postcode_boundary_review_view",
-                    kwargs={"postcode": self.postcode},
-                )
+        boundary_reviews = ballot_dict.get("boundary_reviews")
+        if boundary_reviews:
+            self.process_boundary_reviews(context, boundary_reviews)
 
         return context
 
@@ -311,6 +306,66 @@ class PostcodeView(
             identifier.startswith("E09")
             for identifier in council["identifiers"]
         )
+
+    def match_boundary_changes_to_postelections(self, review, postelections):
+        for change in review["boundary_changes"]:
+            for pe in postelections:
+                if pe.ballot_paper_id in change["related_ballots"]:
+                    pe.boundary_change = change
+                    pe.boundary_change_url = review["boundary_change_url"]
+
+    def process_boundary_reviews(self, context, boundary_reviews):
+        """
+        Add reviews to context with org boundary change url and
+        match boundary reviews with ballots to postelections.
+        """
+
+        for r in boundary_reviews:
+            r["boundary_change_url"] = self.make_boundary_change_url(
+                r["organisation_gss"]
+            )
+            if not r["effective_date"]:
+                continue
+            r["effective_date"] = timezone.datetime.strptime(
+                r["effective_date"], "%Y-%m-%d"
+            )
+
+        context["boundary_reviews"] = boundary_reviews
+
+        mappable_boundary_reviews = [
+            r for r in boundary_reviews if self.review_has_ballots(r)
+        ]
+
+        for r in mappable_boundary_reviews:
+            self.match_boundary_changes_to_postelections(
+                r, context["postelections"]
+            )
+
+    def review_has_ballots(self, review):
+        """
+        Returns True if the given boundary review has any related ballots.
+        """
+        for change in review.get("boundary_changes", []):
+            if change.get("related_ballots"):
+                return True
+        return False
+
+    def make_boundary_change_url(self, org_gss):
+        """
+        Make the boundary change URL for a given org based on whether
+        the user has provided a UPRN or not.
+        """
+        url = "postcode_boundary_review_view"
+        url_kwargs = {
+            "postcode": self.postcode,
+            "organisation_gss": org_gss,
+        }
+
+        if self.uprn:
+            url = "uprn_boundary_review_view"
+            url_kwargs["uprn"] = self.uprn
+
+        return reverse(url, kwargs=url_kwargs)
 
 
 class PostcodeiCalView(
@@ -514,13 +569,14 @@ class DummyPostcodeView(PostcodeView):
 
 class PostcodeBoundaryReviewView(PostcodeToPostsMixin, TemplateView):
     """
-    This view is used to show the boundary review information for a given postcode.
+    This view is used to show mappable boundary review information for a given postcode in an organisation.
     """
 
     template_name = "elections/boundary_reviews_view.html"
     ballot_dict = None
     postcode = None
     uprn = None
+    org_gss = None
 
     def get(self, request, *args, **kwargs):
         if not settings.SHOW_BOUNDARY_CHANGES:
@@ -548,24 +604,35 @@ class PostcodeBoundaryReviewView(PostcodeToPostsMixin, TemplateView):
         self.postcode = clean_postcode(kwargs["postcode"])
         context["postcode"] = self.postcode
         self.uprn = self.kwargs.get("uprn")
+        self.org_gss = self.kwargs.get("organisation_gss")
         ballot_dict = self.get_ballot_dict()
-        boundary_reviews = ballot_dict.get("boundary_reviews")
+        org_boundary_reviews = [
+            br
+            for br in ballot_dict.get("boundary_reviews")
+            if br["organisation_gss"] == self.org_gss
+            and br["dc_stage"] == "MAP"
+        ]
 
-        if not boundary_reviews:
-            raise Http404("No boundary reviews found for this postcode")
+        if not org_boundary_reviews:
+            raise Http404(
+                f"No boundary reviews found for this postcode in {self.org_gss}"
+            )
 
-        # TODO: division_unit would be good to add to the API
-        for review in boundary_reviews:
+        for review in org_boundary_reviews:
             review["effective_date"] = timezone.datetime.strptime(
                 review["effective_date"], "%Y-%m-%d"
             )
             for change in review["boundary_changes"]:
-                if change["division_type"].endswith("E"):
-                    change["division_unit"] = "region"
-                else:
-                    change["division_unit"] = "constituency"
+                change["division_unit"] = DIVISION_TYPE_TO_UNIT.get(
+                    change["division_type"], "post"
+                )
+                change["election_adjective"] = (
+                    DIVISION_TYPE_TO_ELECTION_ADJECTIVE.get(
+                        change["division_type"], ""
+                    )
+                )
 
-        context["boundary_reviews"] = ballot_dict.get("boundary_reviews")
+        context["boundary_reviews"] = org_boundary_reviews
         postcode_location = ballot_dict.get("postcode_location", None)
         context["postcode_location"] = json.loads(postcode_location)
         context["nation"] = ballot_dict.get("electoral_services")["nation"]

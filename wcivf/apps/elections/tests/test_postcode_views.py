@@ -955,6 +955,104 @@ class TestPostcodeViewMethods:
         council_context = {"identifiers": [lnd_gss]}
         assert view_obj.show_parish_text(council_context) is False
 
+    @pytest.mark.django_db
+    def test_match_boundary_changes_to_postelections_postcode(
+        self, view_obj, post_elections
+    ):
+        view_obj.postcode = "postcode"
+        post_elections = [PostElectionFactory(election__slug="test.id.1")]
+        review = {
+            "organisation_gss": "E06000001",
+            "boundary_change_url": "url",
+            "boundary_changes": [
+                {
+                    "related_ballots": [
+                        post_elections[0].ballot_paper_id,
+                    ],
+                }
+            ],
+        }
+
+        view_obj.match_boundary_changes_to_postelections(
+            review=review, postelections=post_elections
+        )
+        assert (
+            post_elections[0].boundary_change == review["boundary_changes"][0]
+        )
+        assert post_elections[0].boundary_change_url == "url"
+
+    @pytest.mark.django_db
+    def test_match_boundary_changes_to_postelections_uprn(
+        self, view_obj, post_elections
+    ):
+        view_obj.postcode = "postcode"
+        view_obj.uprn = "uprn"
+        post_elections = [PostElectionFactory(election__slug="test.id.1")]
+        review = {
+            "organisation_gss": "E06000001",
+            "boundary_change_url": "url",
+            "boundary_changes": [
+                {
+                    "related_ballots": [
+                        post_elections[0].ballot_paper_id,
+                    ],
+                }
+            ],
+        }
+
+        view_obj.match_boundary_changes_to_postelections(
+            review=review, postelections=post_elections
+        )
+        assert (
+            post_elections[0].boundary_change == review["boundary_changes"][0]
+        )
+        assert post_elections[0].boundary_change_url == "url"
+
+    @pytest.mark.django_db
+    def test_review_has_ballots_no_changes(self, view_obj):
+        review_no_changes = {
+            "id": "fake-review-no-changes",
+            "boundary_changes": [],
+        }
+
+        assert view_obj.review_has_ballots(review_no_changes) is False
+
+    @pytest.mark.django_db
+    def test_review_has_ballots_changes_but_no_ballots(self, view_obj):
+        review_no_changes = {
+            "id": "fake-review-change-no-ballot",
+            "boundary_changes": [
+                {
+                    "change_scenario": "NAME_CHANGED",
+                    "related_ballots": [],
+                },
+                {
+                    "change_scenario": "NO_CHANGE",
+                    "related_ballots": [],
+                },
+            ],
+        }
+
+        assert view_obj.review_has_ballots(review_no_changes) is False
+
+    @pytest.mark.django_db
+    def test_review_has_ballots_changes_with_ballot(self, view_obj):
+        review_no_changes = {
+            "id": "fake-review-change-no-ballot",
+            "boundary_changes": [
+                {
+                    "change_scenario": "NAME_CHANGED",
+                    "related_ballots": ["ballot1"],
+                },
+                {
+                    "change_scenario": "BOUNDARY_CHANGED",
+                    "related_ballots": ["ballot2"],
+                },
+            ],
+        }
+
+        assert view_obj.review_has_ballots(review_no_changes) is True
+
 
 class TestPostcodeiCalView:
     def test_invalid_postcode_redirects(self, mocker, client):
