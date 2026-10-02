@@ -137,11 +137,9 @@ class PostcodeView(
         context["num_ballots"] = self.num_ballots()
         context["requires_voter_id"] = self.get_voter_id_status()
         context["show_parish_text"] = self.show_parish_text(context["council"])
-        if ballot_dict.get("boundary_reviews"):
-            for review in ballot_dict.get("boundary_reviews"):
-                self.match_boundary_changes_to_postelections(
-                    review, context["postelections"]
-                )
+        boundary_reviews = ballot_dict.get("boundary_reviews")
+        if boundary_reviews:
+            self.process_boundary_reviews(context, boundary_reviews)
 
         return context
 
@@ -314,33 +312,60 @@ class PostcodeView(
             for pe in postelections:
                 if pe.ballot_paper_id in change["related_ballots"]:
                     pe.boundary_change = change
-                    review_org_gss = review["organisation_gss"]
-                    pe.boundary_change_url = self.set_boundary_change_url(
-                        review_org_gss
-                    )
+                    pe.boundary_change_url = review["boundary_change_url"]
 
-    def set_boundary_change_url(self, org_gss):
+    def process_boundary_reviews(self, context, boundary_reviews):
         """
-        Set the boundary change URL for a given postelection based on whether
-        the user has provided a UPRN or not.
+        Add reviews to context with org boundary change url and
+        match boundary reviews with ballots to postelections.
         """
-        if self.uprn:
-            return reverse(
-                "uprn_boundary_review_view",
-                kwargs={
-                    "postcode": self.postcode,
-                    "uprn": self.uprn,
-                    "organisation_gss": org_gss,
-                },
+
+        for r in boundary_reviews:
+            r["boundary_change_url"] = self.make_boundary_change_url(
+                r["organisation_gss"]
+            )
+            if not r["effective_date"]:
+                continue
+            r["effective_date"] = timezone.datetime.strptime(
+                r["effective_date"], "%Y-%m-%d"
             )
 
-        return reverse(
-            "postcode_boundary_review_view",
-            kwargs={
-                "postcode": self.postcode,
-                "organisation_gss": org_gss,
-            },
-        )
+        context["boundary_reviews"] = boundary_reviews
+
+        mappable_boundary_reviews = [
+            r for r in boundary_reviews if self.review_has_ballots(r)
+        ]
+
+        for r in mappable_boundary_reviews:
+            self.match_boundary_changes_to_postelections(
+                r, context["postelections"]
+            )
+
+    def review_has_ballots(self, review):
+        """
+        Returns True if the given boundary review has any related ballots.
+        """
+        for change in review.get("boundary_changes", []):
+            if change.get("related_ballots"):
+                return True
+        return False
+
+    def make_boundary_change_url(self, org_gss):
+        """
+        Make the boundary change URL for a given org based on whether
+        the user has provided a UPRN or not.
+        """
+        url = "postcode_boundary_review_view"
+        url_kwargs = {
+            "postcode": self.postcode,
+            "organisation_gss": org_gss,
+        }
+
+        if self.uprn:
+            url = "uprn_boundary_review_view"
+            url_kwargs["uprn"] = self.uprn
+
+        return reverse(url, kwargs=url_kwargs)
 
 
 class PostcodeiCalView(
@@ -544,7 +569,7 @@ class DummyPostcodeView(PostcodeView):
 
 class PostcodeBoundaryReviewView(PostcodeToPostsMixin, TemplateView):
     """
-    This view is used to show the boundary review information for a given postcode in an organisation.
+    This view is used to show mappable boundary review information for a given postcode in an organisation.
     """
 
     template_name = "elections/boundary_reviews_view.html"
@@ -585,6 +610,7 @@ class PostcodeBoundaryReviewView(PostcodeToPostsMixin, TemplateView):
             br
             for br in ballot_dict.get("boundary_reviews")
             if br["organisation_gss"] == self.org_gss
+            and br["dc_stage"] == "MAP"
         ]
 
         if not org_boundary_reviews:
