@@ -486,12 +486,15 @@
                             const featContainer = document.createElement('div');
                             featContainer.style.color = feat.layerColor;
 
-                            const label = document.createTextNode(feat.isNew ? "New: " : "Old: ");
                             const strong = document.createElement('strong');
                             strong.style.color = feat.layerColor;
                             strong.textContent = feat.name;
 
-                            featContainer.appendChild(label);
+                            if (showOldBoundary) {
+                                const label = document.createTextNode(feat.isNew ? "New: " : "Old: ");
+                                featContainer.appendChild(label);
+                            }
+
                             featContainer.appendChild(strong);
                             popupContent.appendChild(featContainer);
                         });
