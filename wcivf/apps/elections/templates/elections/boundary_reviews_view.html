@@ -278,13 +278,12 @@
             review.boundary_changes.forEach(change => {
                 let mapElementID = `${review.id}-${change.division_type}-${change.change_scenario}-map`
                 let mapLegendDivClass = `${review.id}-${change.division_type}-${change.change_scenario}-map-legend`
-
                 if (document.getElementById(mapElementID) != null) {
                     const map = new maplibregl.Map({
                         container: mapElementID,
                         style: style,
-                        center: [-4.3, 55],
-                        zoom: 4.4
+                        center: postcodeCoords,
+                        zoom: 7
                     });
 
                     let OLD_PMTILES_URL, oldDivisionsetID, showOldBoundary;
