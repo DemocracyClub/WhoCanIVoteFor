@@ -252,10 +252,18 @@
         }
 
         const getFeatureData = (feature) => {
+            const isNew = feature.source.startsWith("new")
+
+            let layerColor = "#5d5c5c"
+
+            if (isNew) {
+                layerColor = "#E6007C"
+            }
+
             return {
                 name: feature.properties.division__name || "Name Missing",
-                layerColor: feature.layer.paint['fill-color'] || feature.layer.paint['line-color'],
-                isNew: feature.source.startsWith("new")
+                layerColor: layerColor,
+                isNew: isNew
             }
         }
 
