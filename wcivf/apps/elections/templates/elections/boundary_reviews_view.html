@@ -163,7 +163,7 @@
 
     {{ boundary_reviews|json_script:"boundaryReviewsData" }}
     {{ postcode|json_script:"postcode" }}
-    {{ postcode_location|json_script:"postcodeLocation" }}
+    {{ postcode_coords|json_script:"postcodeCoords" }}
 
     <script src="{% static 'maplibre-gl/dist/maplibre-gl.js' %}"></script>
     {% javascript 'pmtiles' %}
@@ -172,8 +172,7 @@
     <script>
         const boundaryReviewsData = JSON.parse(document.getElementById('boundaryReviewsData').textContent);
         const postcode = JSON.parse(document.getElementById('postcode').textContent);
-        const postcodeLocation = JSON.parse(document.getElementById('postcodeLocation').textContent);
-
+        const postcodeCoords = JSON.parse(document.getElementById('postcodeCoords').textContent);
         let protocol = new pmtiles.Protocol();
         maplibregl.addProtocol("pmtiles",protocol.tile);
 
@@ -421,44 +420,55 @@
                     });
 
                     map.once('idle', () => {
-                        const layers = ["new_division_set_layer_line"]
+                        const lineLayers = ["new_division_set_layer_line"]
+                        const fillLayers = ["new_division_set_layer_fill"]
                         if ( showOldBoundary ) {
-                            layers.push("old_division_set_layer_line")
+                            lineLayers.push("old_division_set_layer_line")
+                            fillLayers.push("old_division_set_layer_fill")
                         }
 
-                        const features = map.queryRenderedFeatures({layers: layers});
+                        const features = map.queryRenderedFeatures({layers: lineLayers});
                         bounds = getBounds(features)
 
                         if (bounds) {
                             map.fitBounds(bounds, {padding: 20, duration: 0, });
                         };
-                        const markerPopupContent = document.createElement('p');
-                        markerPopupContent.textContent = `Centre of ${postcode}`;
-                        markerPopupContent.style.paddingTop = "5px";
 
-                        const markerPopup = new maplibregl.Popup({
-                            closeButton: true,
-                            closeOnClick: true,
-                            offset: 25,
-                        })
-                            .setLngLat(postcodeLocation.geometry.coordinates)
-                            .setDOMContent(markerPopupContent);
+                        const point = map.project(postcodeCoords);
+                        const outsideOfFillLayers = map.queryRenderedFeatures(point, {
+                            layers: fillLayers
+                        }).length === 0;
+                        // sometimes postcode centroids can be outside of a division boundary and that looks confusing
+                        // so don't render a centroid marker in that case
+                        if (!outsideOfFillLayers) {
+                            const markerPopupContent = document.createElement('p');
+                            markerPopupContent.textContent = `Centre of ${postcode}`;
+                            markerPopupContent.style.paddingTop = "5px";
 
-                        let marker = new maplibregl.Marker().setLngLat(postcodeLocation.geometry.coordinates).addTo(map)
-                        const markerElement = marker.getElement();
-                        markerElement.style.cursor = "pointer";
-                        markerElement.addEventListener("click", (event) => {
-                            event.stopPropagation();
-                            showPopup(markerPopup);
-                        });
+                            const markerPopup = new maplibregl.Popup({
+                                closeButton: true,
+                                closeOnClick: true,
+                                offset: 25,
+                            })
+                                .setLngLat(postcodeCoords)
+                                .setDOMContent(markerPopupContent);
+
+                            let marker = new maplibregl.Marker().setLngLat(postcodeCoords).addTo(map)
+                            const markerElement = marker.getElement();
+                            markerElement.style.cursor = "pointer";
+                            markerElement.addEventListener("click", (event) => {
+                                event.stopPropagation();
+                                showPopup(markerPopup);
+                            });
+                        }
 
                         let nav = new maplibregl.NavigationControl();
                         map.addControl(nav, 'top-right');
                         // Only show the legend if there are multiple layers to show
-                        if (layers.length > 1) {
+                        if (lineLayers.length > 1) {
                             mapLegendDiv = document.getElementsByClassName(mapLegendDivClass)[0]
                             mapLegendDiv.style.display = "grid";
-                            layers.forEach(layer => {
+                            lineLayers.forEach(layer => {
                                 if (layer.startsWith("new")) {
                                     var fillColour = null
                                     var borderColour = "#E6007C"

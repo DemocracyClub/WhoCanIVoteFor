@@ -640,6 +640,8 @@ class PostcodeBoundaryReviewView(PostcodeToPostsMixin, TemplateView):
 
         context["boundary_reviews"] = org_boundary_reviews
         postcode_location = ballot_dict.get("postcode_location", None)
-        context["postcode_location"] = json.loads(postcode_location)
+        context["postcode_coords"] = json.loads(postcode_location)["geometry"][
+            "coordinates"
+        ]
         context["nation"] = ballot_dict.get("electoral_services")["nation"]
         return context
