@@ -319,6 +319,12 @@ class PostcodeView(
         Add reviews to context with org boundary change url and
         match boundary reviews with ballots to postelections.
         """
+        # Exclude boundary reviews at stages we haven't planned for yet
+        boundary_reviews = [
+            r
+            for r in boundary_reviews
+            if r.get("dc_stage") in ["MAP", "CONSULTATION"]
+        ]
 
         for r in boundary_reviews:
             r["boundary_change_url"] = self.make_boundary_change_url(
