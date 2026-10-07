@@ -93,6 +93,19 @@
                     {% endif %}
                 </ul>
             {% endif %}
+
+            {% if boundary_reviews %}
+                <div class="ds-stack-smaller">
+                    {% if boundary_reviews|length > 1 %}
+                        <h2>{% trans "Boundary reviews in your area "%}</h2>
+                        {% include "elections/includes/_review_list.html" with boundary_reviews=boundary_reviews only %}
+                    {% else %}
+                        <h2>{% trans "Boundary review in your area "%}</h2>
+                        {% include "elections/includes/_review_text.html" with r=boundary_reviews.0 only %}
+                    {% endif %}
+                </div>
+            {% endif %}
+
             {% if postelections %}
                 {% include "feedback/feedback_form.html" %}
             {% else %}

@@ -77,3 +77,39 @@ UPDATED_SLUGS = {
     "parl.stoke-on-trent-central.2017-02-23": "parl.2017-02-23",
     "sp-2016-05-05-c": "sp.c.2016-05-05",
 }
+
+DIVISION_TYPE_TO_UNIT = {
+    "CED": "division",
+    "COP": "parish",
+    "DIW": "ward",
+    "LAC": "constituency",
+    "LBW": "ward",
+    "LGE": "electoral area",
+    "MTW": "ward",
+    "NIE": "constituency",
+    "SPC": "constituency",
+    "SPE": "region",
+    "UTE": "division",
+    "UTW": "ward",
+    "WAC": "constituency",
+    "WAE": "region",
+    "WMC": "constituency",
+}
+
+DIVISION_TYPE_TO_ELECTION_ADJECTIVE = {
+    "CED": "local",
+    "COP": "local",
+    "DIW": "local",
+    "LAC": "assembly",
+    "LBW": "local",
+    "LGE": "local",
+    "MTW": "local",
+    "NIE": "assembly",
+    "SPC": "Scottish parliament",
+    "SPE": "Scottish parliament",
+    "UTE": "local",
+    "UTW": "local",
+    "WAC": "Senedd",
+    "WAE": "Senedd",
+    "WMC": "parliamentary",
+}
