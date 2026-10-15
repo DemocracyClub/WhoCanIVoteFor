@@ -434,9 +434,13 @@
                         };
 
                         const point = map.project(postcodeCoords);
-                        const outsideOfFillLayers = map.queryRenderedFeatures(point, {
-                            layers: fillLayers
-                        }).length === 0;
+                        let outsideOfFillLayers = false
+                        for (const layer of fillLayers) {
+                            if (map.queryRenderedFeatures(point, { layers: [layer] }).length === 0) {
+                                outsideOfFillLayers = true;
+                                break;
+                            }
+                        }
                         // sometimes postcode centroids can be outside of a division boundary and that looks confusing
                         // so don't render a centroid marker in that case
                         if (!outsideOfFillLayers) {
