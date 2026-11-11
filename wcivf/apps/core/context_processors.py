@@ -1,7 +1,9 @@
-from urllib.parse import unquote_plus
+from urllib.parse import unquote_plus, urlparse
 
-from core.helpers import clean_postcode
+from core.helpers import validate_postcode
 from django.conf import settings
+from django.forms import ValidationError
+from django.urls import Resolver404, resolve
 
 from .forms import PostcodeLookupForm
 
@@ -21,12 +23,27 @@ def postcode_form(request):
 
 
 def referer_postcode(request):
-    referer_parts = request.META.get("HTTP_REFERER", "")
-    referer_parts = referer_parts.strip("/").split("/")
-    if len(referer_parts) >= 2 and referer_parts[-2] == "elections":
-        postcode_url_part = referer_parts[-1]
-        possible_postcode = unquote_plus(postcode_url_part)
-        cleaned_postcode = clean_postcode(possible_postcode)
-        if len(cleaned_postcode) <= 8:
-            return {"referer_postcode": cleaned_postcode}
-    return {}
+    referer = request.META.get("HTTP_REFERER", "")
+
+    if not referer:
+        return {}
+
+    referer_path = urlparse(referer).path
+    if not referer_path.startswith("/elections"):
+        return {}
+
+    try:
+        match = resolve(referer_path)
+    except Resolver404:
+        return {}
+
+    if "postcode" not in match.kwargs:
+        return {}
+
+    postcode_kwarg = match.kwargs["postcode"]
+    referer_postcode = unquote_plus(postcode_kwarg)
+    try:
+        referer_postcode = validate_postcode(referer_postcode)
+    except ValidationError:
+        return {}
+    return {"referer_postcode": referer_postcode}
