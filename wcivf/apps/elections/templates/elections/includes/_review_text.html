@@ -3,15 +3,17 @@
 {% if r.dc_stage == "MAP" %}
     {% blocktrans trimmed with url=r.boundary_change_url org_name=r.organisation_official_name date=r.effective_date|date:"j M Y" %}
         <p>
-            {{ org_name }} has undergone an independent boundary review to take account of recent changes in population. This will modify {{ org_name }}'s electoral boundaries for elections held on and after {{ date }}.
+            {{ org_name }} has undergone an independent boundary review to take account of changes in the number and distribution of people eligible to vote since the boundaries were last reviewed, as well as to reflect wider statutory criteria. It will modify {{ org_name }}'s electoral boundaries for elections held on and after {{ date }}.
         </p>
         <a href="{{ url }}" class="ds-cta"> Find out more </a>
     {% endblocktrans %}
 {% else %}
     {% blocktrans trimmed with url=r.consultation_url org_name=r.organisation_official_name %}
         <p>
-            {{ org_name }} is undergoing an independent boundary review to take account of recent changes in population. This will modify {{ org_name }}'s electoral boundaries for future elections.
+            {{ org_name }} is undergoing an independent boundary review to take account of changes in the number and distribution of people eligible to vote since the boundaries were last reviewed, as well as to reflect wider statutory criteria. It will modify {{ org_name }}'s electoral boundaries for future elections.
         </p>
-        <a href="{{ url }}" class="ds-cta"> Find out more </a>
+        <p>
+            Find out more on the <a href="{{ url }}">review website</a>.
+        </p>
     {% endblocktrans %}
 {% endif %}
