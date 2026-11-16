@@ -5,9 +5,15 @@
         <li>
             <a href="{% url 'home_view' %}">{% trans "Home" %}</a>
         </li>
-        <li>
-            <a href="{% url 'postcode_view' referer_postcode %}">{% trans "Elections in" %} {{ referer_postcode }}</a>
-        </li>
+        {% if referer_uprn %}
+            <li>
+                <a href="{% url 'uprn_view' referer_postcode referer_uprn %}">{% trans "Elections in" %} {{ referer_postcode }}</a>
+            </li>
+        {% else %}
+            <li>
+                <a href="{% url 'postcode_view' referer_postcode %}">{% trans "Elections in" %} {{ referer_postcode }}</a>
+            </li>
+        {% endif %}
         {% block extra_crumbs %}
         {% endblock %}
         {% block post_crumbs %}
