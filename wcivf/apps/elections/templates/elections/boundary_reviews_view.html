@@ -42,7 +42,7 @@
 {% endblock extra_site_css%}
 
 {% block content %}
-    {% include 'elections/includes/_review_breadcrumbs.html' with referer_postcode=postcode %}
+    {% include 'elections/includes/_review_breadcrumbs.html' with referer_postcode=postcode referer_uprn=uprn %}
     <h2>{% trans "Boundary changes in your area" %}</h2>
     <div class="ds-stack">
         <p>{% trans "There's been a boundary review in your area." %}</p>
@@ -146,7 +146,11 @@
         {% endfor %}
         <div class="back">
             <p>
-                <a href="{% url 'postcode_view' postcode %}">&laquo; {% trans "Back to elections in"%} {{ postcode }}</a>
+                {% if uprn %}
+                    <a href="{% url 'uprn_view' postcode uprn %}">&laquo; {% trans "Back to elections in"%} {{ postcode }}</a>
+                {% else %}
+                    <a href="{% url 'postcode_view' postcode %}">&laquo; {% trans "Back to elections in"%} {{ postcode }}</a>
+                {% endif %}
             </p>
         </div>
 
