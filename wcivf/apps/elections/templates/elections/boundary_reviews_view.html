@@ -42,7 +42,7 @@
 {% endblock extra_site_css%}
 
 {% block content %}
-    {% include 'elections/includes/_review_breadcrumbs.html' with referer_postcode=postcode referer_uprn=uprn %}
+    {% include 'elections/includes/_review_breadcrumbs.html' %}
     <h2>{% trans "Boundary changes in your area" %}</h2>
     <div class="ds-stack">
         <p>{% trans "There's been a boundary review in your area." %}</p>
