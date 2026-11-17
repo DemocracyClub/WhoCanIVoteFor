@@ -1,16 +1,8 @@
+{% extends "elections/includes/_base_breadcrumbs.html" %}
 {% load i18n %}
 
-<nav class="ds-breadcrumbs" aria-label="{% trans 'You are here'%}:{{ request.path }}">
-    <ol>
-        <li>
-            <a href="{% url 'home_view' %}">{% trans "Home" %}</a>
-        </li>
-        <li>
-            <a href="{% url 'elections_view' %}">{% trans "Elections" %}</a>
-        </li>
-        {% block extra_crumbs %}
-        {% endblock %}
-        {% block post_crumbs %}
-        {% endblock %}
-    </ol>
-</nav>
+{% block extra_crumbs %}
+    <li>
+        <a href="{% url 'elections_view' %}">{% trans "Elections" %}</a>
+    </li>
+{% endblock %}
