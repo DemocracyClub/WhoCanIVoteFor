@@ -167,6 +167,7 @@ TEMPLATES = [
                 "core.context_processors.use_compress_css",
                 "core.context_processors.postcode_form",
                 "core.context_processors.referer_postcode",
+                "core.context_processors.referer_uprn",
                 "core.context_processors.use_i18n",
                 "hustings.context_processors.show_hustings_cta",
                 "feedback.context_processors.feedback_form",

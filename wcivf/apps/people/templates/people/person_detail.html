@@ -20,7 +20,7 @@
 {% endblock %}
 
 {% block content %}
-    {% include 'elections/includes/_person_breadcrumbs.html' with postcode=referer_postcode %}
+    {% include 'elections/includes/_person_breadcrumbs.html' with postcode=referer_postcode uprn=referer_uprn %}
 
     {% include "elections/includes/_ld_candidate.html" with person=object.featured_candidacy.person party=object.featured_candidacy.party %}
 

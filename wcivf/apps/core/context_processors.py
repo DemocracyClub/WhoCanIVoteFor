@@ -47,3 +47,30 @@ def referer_postcode(request):
     except ValidationError:
         return {}
     return {"referer_postcode": referer_postcode}
+
+
+def referer_uprn(request):
+    referer = request.META.get("HTTP_REFERER", "")
+
+    if not referer:
+        return {}
+
+    referer_path = urlparse(referer).path
+    if not referer_path.startswith("/elections"):
+        return {}
+
+    try:
+        match = resolve(referer_path)
+    except Resolver404:
+        return {}
+
+    if "uprn" not in match.kwargs:
+        return {}
+
+    uprn_kwarg = match.kwargs["uprn"]
+    referer_uprn = uprn_kwarg
+
+    if not referer_uprn.isdigit():
+        return {}
+
+    return {"referer_uprn": referer_uprn}
