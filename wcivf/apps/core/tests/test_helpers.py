@@ -27,7 +27,7 @@ class TestCleanPostcode:
 
 class TestValidatePostcode:
     def test_valid(self):
-        assert validate_postcode("WC1E 6BT")
+        assert validate_postcode("WC1E 6BT") == "WC1E 6BT"
 
     @pytest.mark.parametrize(
         "input",
