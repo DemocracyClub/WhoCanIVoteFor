@@ -152,6 +152,16 @@ class PostcodeToPostsMixin(object):
         ret["ballots"] = pes
         return ret
 
+    def _ensure_consistent_postcode(self, postcode_location: dict):
+        """
+        This function compares the postcode from the API response to the one stored
+        and raises 404 if they differ. This could arrive if the user edits the postcode manually
+        in a URL for a UPRN.
+        """
+        resp_postcode = postcode_location["properties"]["postcode"]
+        if resp_postcode != self.postcode:
+            raise Http404()
+
 
 class PostelectionsToPeopleMixin(object):
     def people_for_ballot(self, postelection, compact=False):

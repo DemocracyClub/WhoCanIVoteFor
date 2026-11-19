@@ -1,8 +1,10 @@
 import json
-import re
 from contextlib import contextmanager
 from datetime import datetime, timedelta
 from urllib.parse import urlparse
+
+from django.forms import ValidationError
+from localflavor.gb.forms import GBPostcodeField
 
 
 @contextmanager
@@ -44,9 +46,15 @@ def may_election_day_this_year():
 
 def clean_postcode(postcode):
     postcode = postcode.replace("+", "")
-    incode_pattern = "[0-9][ABD-HJLNP-UW-Z]{2}"
-    space_regex = re.compile(r" *(%s)$" % incode_pattern)
-    return space_regex.sub(r" \1", postcode.upper())
+    return GBPostcodeField.space_regex.sub(r" \1", postcode.upper())
+
+
+def validate_postcode(value):
+    # Check if a value is a valid UK postcode using GBPostcodeField's handy regex.
+    postcode = clean_postcode(value)
+    if not GBPostcodeField.postcode_regex.search(postcode):
+        raise ValidationError("Invalid postcode")
+    return postcode
 
 
 def twitter_username(url):

@@ -14,6 +14,7 @@
 {% endblock page_meta %}
 
 {% block content %}
+    {% include 'elections/includes/_person_breadcrumbs.html' with postcode=referer_postcode uprn=referer_uprn %}
     <div class="ds-page">
         <div class="ds-stack">
             <section class="ds-candidate">

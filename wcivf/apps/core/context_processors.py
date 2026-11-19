@@ -1,7 +1,9 @@
-from urllib.parse import unquote_plus
+from urllib.parse import unquote_plus, urlparse
 
-from core.helpers import clean_postcode
+from core.helpers import validate_postcode
 from django.conf import settings
+from django.forms import ValidationError
+from django.urls import Resolver404, resolve
 
 from .forms import PostcodeLookupForm
 
@@ -21,12 +23,48 @@ def postcode_form(request):
 
 
 def referer_postcode(request):
-    referer_parts = request.META.get("HTTP_REFERER", "")
-    referer_parts = referer_parts.strip("/").split("/")
-    if len(referer_parts) >= 2 and referer_parts[-2] == "elections":
-        postcode_url_part = referer_parts[-1]
-        possible_postcode = unquote_plus(postcode_url_part)
-        cleaned_postcode = clean_postcode(possible_postcode)
-        if len(cleaned_postcode) <= 8:
-            return {"referer_postcode": cleaned_postcode}
-    return {}
+    resolved_referer = _resolve_referer(request)
+
+    if resolved_referer is None or "postcode" not in resolved_referer.kwargs:
+        return {}
+
+    postcode_kwarg = resolved_referer.kwargs["postcode"]
+    referer_postcode = unquote_plus(postcode_kwarg)
+    try:
+        referer_postcode = validate_postcode(referer_postcode)
+    except ValidationError:
+        return {}
+    return {"referer_postcode": referer_postcode}
+
+
+def referer_uprn(request):
+    resolved_referer = _resolve_referer(request)
+
+    if resolved_referer is None or "uprn" not in resolved_referer.kwargs:
+        return {}
+
+    uprn_kwarg = resolved_referer.kwargs["uprn"]
+    referer_uprn = uprn_kwarg
+
+    if not referer_uprn.isdigit():
+        return {}
+
+    return {"referer_uprn": referer_uprn}
+
+
+def _resolve_referer(request):
+    referer = request.META.get("HTTP_REFERER", "")
+    if not referer:
+        return None
+
+    referer = urlparse(referer)
+    if referer.hostname not in settings.ALLOWED_HOSTS:
+        return None
+
+    referer_path = referer.path
+    if referer_path.startswith("/elections/"):
+        try:
+            return resolve(referer_path)
+        except Resolver404:
+            return None
+    return None

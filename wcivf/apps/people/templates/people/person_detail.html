@@ -20,20 +20,7 @@
 {% endblock %}
 
 {% block content %}
-    {% if referer_postcode %}
-        {# We've come from the postcode page #}
-        {% include 'elections/includes/_person_breadcrumbs.html' %}
-    {% elif object.featured_candidacy %}
-        {# There's a current post #}
-        <nav class="ds-breadcrumbs ds-stack" aria-label="{% trans 'You are here:'%}{{ request.path }}">
-            <ol>
-                <li>
-                    <a href="{% url 'home_view' %}">{% trans "Home" %}</a>
-                </li>
-                <li>{{ object.name }}</li>
-            </ol>
-        </nav>
-    {% endif %}
+    {% include 'elections/includes/_person_breadcrumbs.html' with postcode=referer_postcode uprn=referer_uprn %}
 
     {% include "elections/includes/_ld_candidate.html" with person=object.featured_candidacy.person party=object.featured_candidacy.party %}
 

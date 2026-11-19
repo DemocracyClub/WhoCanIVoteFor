@@ -93,6 +93,13 @@ class PostcodeView(
         if context["address_picker"]:
             return context
 
+        context["postcode_location"] = self.ballot_dict.get(
+            "postcode_location", None
+        )
+        if self.uprn:
+            postcode_location_obj = json.loads(context["postcode_location"])
+            self._ensure_consistent_postcode(postcode_location_obj)
+
         context["postelections"] = ballot_dict.get("ballots")
 
         had_election = False
@@ -118,9 +125,6 @@ class PostcodeView(
         )
         context["council"] = self.ballot_dict.get("electoral_services")
         context["registration"] = self.ballot_dict.get("registration")
-        context["postcode_location"] = self.ballot_dict.get(
-            "postcode_location", None
-        )
         context["global_postal_vote_card"] = self.get_global_postal_vote_card(
             context["postelections"], context["council"]
         )
@@ -624,6 +628,11 @@ class PostcodeBoundaryReviewView(PostcodeToPostsMixin, TemplateView):
                 f"No boundary reviews found for this postcode in {self.org_gss}"
             )
 
+        postcode_location_obj = json.loads(
+            ballot_dict.get("postcode_location", None)
+        )
+        if self.uprn:
+            self._ensure_consistent_postcode(postcode_location_obj)
         for review in org_boundary_reviews:
             review["effective_date"] = timezone.datetime.strptime(
                 review["effective_date"], "%Y-%m-%d"
@@ -639,8 +648,7 @@ class PostcodeBoundaryReviewView(PostcodeToPostsMixin, TemplateView):
                 )
 
         context["boundary_reviews"] = org_boundary_reviews
-        postcode_location = ballot_dict.get("postcode_location", None)
-        context["postcode_coords"] = json.loads(postcode_location)["geometry"][
+        context["postcode_coords"] = postcode_location_obj["geometry"][
             "coordinates"
         ]
         context["nation"] = ballot_dict.get("electoral_services")["nation"]
