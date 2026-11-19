@@ -68,6 +68,13 @@ class PostcodeViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "elections/postcode_view.html")
 
+    @vcr.use_cassette("fixtures/vcr_cassettes/test_uprn_view.yaml")
+    def test_uprn_view_wrong_postcode(self):
+        response = self.client.get(
+            "/elections/WV10 7AY/10003417754/", follow=True
+        )
+        self.assertEqual(response.status_code, 404)
+
     @vcr.use_cassette("fixtures/vcr_cassettes/test_uprn_invalid_view.yaml")
     def test_uprn_invalid_view(self):
         response = self.client.get(
