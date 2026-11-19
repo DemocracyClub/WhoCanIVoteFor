@@ -1,0 +1,58 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.33.0
+    method: GET
+    uri: https://developers.democracyclub.org.uk/api/v1/address/10008881276/?include_boundary_reviews=1&include_current=1
+  response:
+    body:
+      string: '{"address_picker":false,"addresses":[],"dates":[],"electoral_services":{"council_id":"CHE","name":"Cheshire
+        East Council","email":"electoral.information@cheshireeast.gov.uk","phone":"0300
+        123 5016","website":"http://www.cheshireeast.gov.uk/","postcode":"CW1 2LL","address":"Electoral
+        Services\r\nGround Floor, Macclesfield Town Hall\r\nc/o Delamere House\r\nDelamere
+        Street\r\nCrewe","identifiers":["E06000049"],"nation":"England"},"registration":{"email":"electoral.information@cheshireeast.gov.uk","phone":"0300
+        123 5016","website":"http://www.cheshireeast.gov.uk/","postcode":"CW1 2LL","address":"Electoral
+        Services\r\nGround Floor, Macclesfield Town Hall\r\nc/o Delamere House\r\nDelamere
+        Street\r\nCrewe"},"postcode_location":{"type":"Feature","properties":{"postcode":"SK11
+        0BQ"},"geometry":{"type":"Point","coordinates":[-1.9975060571428573,53.20641818571429]}},"boundary_reviews":[{"id":"935","dc_stage":"MAP","consultation_url":"http://www.lgbce.org.uk/all-reviews/cheshire-east","effective_date":"2027-05-06","legislation_title":"The
+        Cheshire East (Electoral Changes) Order 2026","organisation_name":"Cheshire
+        East","organisation_official_name":"Cheshire East Council","organisation_gss":"E06000049","boundary_changes":[{"change_scenario":"BOUNDARY_CHANGED","division_type":"UTW","new_division_official_identifier":"CHE:sutton","new_division_slug":"sutton","new_division_name":"Sutton","new_divisionset_pmtiles_url":"https://s3.eu-west-2.amazonaws.com/ee.public.data/pmtiles-store/cheshire-east_844_4f091d2ebaf766d4ff8617cae423ea90.pmtiles","old_division_official_identifier":"gss:E05008653","old_division_slug":"sutton","old_division_name":"Sutton","old_divisionset_pmtiles_url":"https://s3.eu-west-2.amazonaws.com/ee.public.data/pmtiles-store/cheshire-east_92_dff59318ea2ee3b7583c5fc434b6edfb.pmtiles","related_ballots":[]}]}]}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1839'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 18 Nov 2026 21:07:35 GMT
+      Via:
+      - 1.1 f96e72cfd61c675b75ea8547da63de24.cloudfront.net (CloudFront), 1.1 1a183b7dba47591b8419d005ced387a6.cloudfront.net
+        (CloudFront)
+      X-Amz-Cf-Id:
+      - ZWadVu0M_cUzKwNsbUzc2ZadMAb3TyMarTJua7fNP6ziEvKR7xKqWw==
+      X-Amz-Cf-Pop:
+      - IAD55-P8
+      - YUL62-P4
+      X-Amzn-Trace-Id:
+      - Root=1-6afe1397-7724240d18da659b596edff8;Parent=6c265c9692629269;Sampled=0;Lineage=1:b30bce40:0
+      X-Cache:
+      - Miss from cloudfront
+      x-amz-apigw-id:
+      - HDf_rGuMrPEEc3w=
+      x-amzn-Remapped-content-length:
+      - '1839'
+      x-amzn-RequestId:
+      - 0efbe6e9-80e9-4297-898c-f9efc93462ed
+    status:
+      code: 200
+      message: OK
+version: 1

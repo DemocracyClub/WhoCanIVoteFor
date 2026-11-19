@@ -1121,3 +1121,49 @@ class TestPostcodeiCalView:
             "END:VCALENDAR\n"
         )
         assert content_without_ephemeral_datestamp == expected
+
+
+@override_settings(SHOW_BOUNDARY_CHANGES=True)
+class TestPostcodeBoundaryReviewView(TestCase):
+    @vcr.use_cassette("fixtures/vcr_cassettes/test_br_postcode_view.yaml")
+    def test_postcode_view(self):
+        response = self.client.get(
+            "/elections/E06000002/TS2%201YE/boundary_changes/", follow=True
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "elections/boundary_reviews_view.html"
+        )
+
+    @vcr.use_cassette(
+        "fixtures/vcr_cassettes/test_br_postcode_view_with_invalid_postcode.yaml"
+    )
+    def test_postcode_view_with_invalid_postcode(self):
+        # TE1 2ST passes postcode format validation but doesn't exist so DevsDcAPI returns a 400
+        response = self.client.get("/elections/TE1 2ST", follow=True)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "home.html")
+        self.assertContains(
+            response,
+            "Sorry, we don't know the postcode TE1 2ST. Is there another one you can try?",
+        )
+
+    @vcr.use_cassette("fixtures/vcr_cassettes/test_br_uprn_view.yaml")
+    def test_uprn_view(self):
+        response = self.client.get(
+            "/elections/E06000049/SK11%200BQ/10008881276/boundary_changes/",
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "elections/boundary_reviews_view.html"
+        )
+
+    @vcr.use_cassette("fixtures/vcr_cassettes/test_br_uprn_view.yaml")
+    def test_uprn_view_wrong_postcode(self):
+        response = self.client.get(
+            "/elections/E06000049/SK140BZ/10008881276/boundary_changes/",
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 404)
