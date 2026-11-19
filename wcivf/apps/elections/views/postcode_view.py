@@ -93,6 +93,13 @@ class PostcodeView(
         if context["address_picker"]:
             return context
 
+        context["postcode_location"] = self.ballot_dict.get(
+            "postcode_location", None
+        )
+        if self.uprn:
+            postcode_location_obj = json.loads(context["postcode_location"])
+            self._ensure_consistent_postcode(postcode_location_obj)
+
         context["postelections"] = ballot_dict.get("ballots")
 
         had_election = False
@@ -118,9 +125,6 @@ class PostcodeView(
         )
         context["council"] = self.ballot_dict.get("electoral_services")
         context["registration"] = self.ballot_dict.get("registration")
-        context["postcode_location"] = self.ballot_dict.get(
-            "postcode_location", None
-        )
         context["global_postal_vote_card"] = self.get_global_postal_vote_card(
             context["postelections"], context["council"]
         )
