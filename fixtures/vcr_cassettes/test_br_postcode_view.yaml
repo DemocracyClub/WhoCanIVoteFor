@@ -1,0 +1,56 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.33.0
+    method: GET
+    uri: https://developers.democracyclub.org.uk/api/v1/postcode/TS2%201YE/?include_boundary_reviews=1&include_current=1
+  response:
+    body:
+      string: '{"address_picker":false,"addresses":[],"dates":[],"electoral_services":{"council_id":"MDB","name":"Middlesbrough
+        Borough Council","email":"elections@middlesbrough.gov.uk","phone":"01642 729771","website":"https://www.middlesbrough.gov.uk/","postcode":"TS1
+        9FX","address":"Electoral Registration Officer\r\nP.O. Box 503\r\nTown Hall","identifiers":["E06000002"],"nation":"England"},"registration":{"email":"elections@middlesbrough.gov.uk","phone":"01642
+        729771","website":"https://www.middlesbrough.gov.uk/","postcode":"TS1 9FX","address":"Electoral
+        Registration Officer\r\nP.O. Box 503\r\nTown Hall"},"postcode_location":{"type":"Feature","properties":{"postcode":"TS2
+        1YE"},"geometry":{"type":"Point","coordinates":[-1.2449562,54.5758651]}},"boundary_reviews":[{"id":"844","dc_stage":"MAP","consultation_url":"http://www.lgbce.org.uk/all-reviews/middlesbrough","effective_date":"2027-05-06","legislation_title":"The
+        Middlesbrough (Electoral Changes) Order 2025","organisation_name":"Middlesbrough
+        Borough Council","organisation_official_name":"Middlesbrough Borough Council","organisation_gss":"E06000002","boundary_changes":[{"change_scenario":"NAME_CHANGED","division_type":"UTW","new_division_official_identifier":"MDB:ayresome-and-newport","new_division_slug":"ayresome-newport","new_division_name":"Ayresome
+        & Newport","new_divisionset_pmtiles_url":"https://s3.eu-west-2.amazonaws.com/ee.public.data/pmtiles-store/middlesbrough_846_536ef76835ffe488202a14bf517907f8.pmtiles","old_division_official_identifier":"gss:E05009866","old_division_slug":"newport","old_division_name":"Newport","old_divisionset_pmtiles_url":"https://s3.eu-west-2.amazonaws.com/ee.public.data/pmtiles-store/middlesbrough_834_83d42e6b66600808c0b9e1a65348e8c8.pmtiles","related_ballots":[]}]}]}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1771'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 18 Nov 2026 21:07:33 GMT
+      Via:
+      - 1.1 46ac2c9f87eca5473c2cb27cfe0168a4.cloudfront.net (CloudFront), 1.1 1a183b7dba47591b8419d005ced387a6.cloudfront.net
+        (CloudFront)
+      X-Amz-Cf-Id:
+      - kT9Vg1lw73v6p_89xavlgGTQCo5RQkbLeiAlSK4vTkWuUO85lT_BdQ==
+      X-Amz-Cf-Pop:
+      - IAD55-P8
+      - YUL62-P4
+      X-Amzn-Trace-Id:
+      - Root=1-6afe1394-0c6fc70a3844d05a3660fe65;Parent=045cc6648d77f105;Sampled=0;Lineage=2:b30bce40:0
+      X-Cache:
+      - Miss from cloudfront
+      x-amz-apigw-id:
+      - HDf_UFZwrPEEHbQ=
+      x-amzn-Remapped-content-length:
+      - '1771'
+      x-amzn-RequestId:
+      - feb68006-bb3c-4530-93b1-1aac6fc7cf14
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -628,6 +628,11 @@ class PostcodeBoundaryReviewView(PostcodeToPostsMixin, TemplateView):
                 f"No boundary reviews found for this postcode in {self.org_gss}"
             )
 
+        postcode_location_obj = json.loads(
+            ballot_dict.get("postcode_location", None)
+        )
+        if self.uprn:
+            self._ensure_consistent_postcode(postcode_location_obj)
         for review in org_boundary_reviews:
             review["effective_date"] = timezone.datetime.strptime(
                 review["effective_date"], "%Y-%m-%d"
@@ -643,8 +648,7 @@ class PostcodeBoundaryReviewView(PostcodeToPostsMixin, TemplateView):
                 )
 
         context["boundary_reviews"] = org_boundary_reviews
-        postcode_location = ballot_dict.get("postcode_location", None)
-        context["postcode_coords"] = json.loads(postcode_location)["geometry"][
+        context["postcode_coords"] = postcode_location_obj["geometry"][
             "coordinates"
         ]
         context["nation"] = ballot_dict.get("electoral_services")["nation"]
