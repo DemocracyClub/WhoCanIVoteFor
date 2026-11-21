@@ -53,3 +53,13 @@ class PartyImporterTests(TmpMediaRootMixin, TestCase):
             party.emblem_url,
             "https://static-candidates.democracyclub.org.uk/media/cache/bf/63/bf63d47b577cfe1c8cf69a469830a847.jpg",
         )
+
+    @vcr.use_cassette("fixtures/vcr_cassettes/test_party_import.yaml")
+    def test_emblem_cleared_when_party_drops_it_upstream(self):
+        party_data = json.loads(SINGLE_PARTY_JSON)
+        Party.objects.update_or_create_from_ynr(party_data)
+        self.assertTrue(Party.objects.first().emblem_url)
+
+        party_data["default_emblem"] = None
+        Party.objects.update_or_create_from_ynr(party_data)
+        self.assertIsNone(Party.objects.first().emblem_url)
