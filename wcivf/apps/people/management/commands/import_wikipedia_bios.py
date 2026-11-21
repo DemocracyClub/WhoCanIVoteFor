@@ -36,6 +36,14 @@ class Command(BaseCommand):
             except RequestException:
                 pass
 
+        # Clear bios that were imported from a Wikipedia URL that's since been
+        # removed on YNR. New saves already trigger Person.save's url-aware
+        # clear, but rows that haven't been resynced since the URL was dropped
+        # still have stale text hanging around (see #2319).
+        Person.objects.filter(
+            wikipedia_url__isnull=True, wikipedia_bio__isnull=False
+        ).update(wikipedia_bio=None)
+
     def update_ballots(self, current):
         parl_ballots = PostElection.objects.filter(
             ballot_paper_id__startswith="parl."
