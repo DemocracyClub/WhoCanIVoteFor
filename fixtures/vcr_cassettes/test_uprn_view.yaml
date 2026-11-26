@@ -21,7 +21,7 @@ interactions:
         Council","email":"elections@shropshire.gov.uk","phone":"0345 678 9015","website":"http://www.shropshire.gov.uk/","postcode":"SY2
         6ND","address":"Electoral Registration Officer\nShirehall\nAbbey Foregate\nShrewsbury","identifiers":["E06000051"],"nation":"England"},"registration":{"council_id":"SHR","name":"Shropshire
         Council","email":"elections@shropshire.gov.uk","phone":"0345 678 9015","website":"http://www.shropshire.gov.uk/","postcode":"SY2
-        6ND","address":"Electoral Registration Officer\nShirehall\nAbbey Foregate\nShrewsbury","identifiers":["E06000051"],"nation":"England"},"postcode_location":{"type":"Feature","properties":null,"geometry":{"type":"Point","coordinates":[-2.326615276923077,52.49552346923076]}}}'
+        6ND","address":"Electoral Registration Officer\nShirehall\nAbbey Foregate\nShrewsbury","identifiers":["E06000051"],"nation":"England"},"postcode_location":{"type":"Feature","properties":{"postcode":"WV15 6EG"},"geometry":{"type":"Point","coordinates":[-2.326615276923077,52.49552346923076]}}}'
     headers:
       Connection:
       - keep-alive
@@ -74,7 +74,7 @@ interactions:
         Council","email":"elections@shropshire.gov.uk","phone":"0345 678 9015","website":"http://www.shropshire.gov.uk/","postcode":"SY2
         6ND","address":"Electoral Registration Officer\nShirehall\nAbbey Foregate\nShrewsbury","identifiers":["E06000051"],"nation":"England"},"registration":{"council_id":"SHR","name":"Shropshire
         Council","email":"elections@shropshire.gov.uk","phone":"0345 678 9015","website":"http://www.shropshire.gov.uk/","postcode":"SY2
-        6ND","address":"Electoral Registration Officer\nShirehall\nAbbey Foregate\nShrewsbury","identifiers":["E06000051"],"nation":"England"},"postcode_location":{"type":"Feature","properties":null,"geometry":{"type":"Point","coordinates":[-2.326615276923077,52.49552346923076]}}}'
+        6ND","address":"Electoral Registration Officer\nShirehall\nAbbey Foregate\nShrewsbury","identifiers":["E06000051"],"nation":"England"},"postcode_location":{"type":"Feature","properties":{"postcode":"WV15 6EG"},"geometry":{"type":"Point","coordinates":[-2.326615276923077,52.49552346923076]}}}'
     headers:
       Age:
       - '25'
